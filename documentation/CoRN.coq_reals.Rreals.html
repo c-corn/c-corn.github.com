@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.coq_reals.Rreals</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab574"></a><h1 class="section">Coq Real Numbers</h1>
+
+
+<br/><br/>
+ Warning: The Coq real numbers depend on classical logic.  Importing this
+ module will give you classical logic, the axioms of Coq's real number
+ structure, plus all the logical consquences of these axioms.  To avoid
+ these consequences, use CoRN's real number structure <span class="inlinecode"><span class="id" type="var">IR</span></span> instead.
+
+<br/><br/>
+ Here we show that the real numbers from the Coq standard library form
+ a real number structure.  This is done in the usual way by building up
+ the algebraic heirarchy. 
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab575"></a><h2 class="section">Coq real numbers form a setoid</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_CSetoid">R_is_CSetoid</a></span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span> (@<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span> =&gt; <span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RCSetoid">RCSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span> (@<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> =&gt; <span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span>) <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_CSetoid">R_is_CSetoid</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="var">RSetoid</span> := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_crr">cs_crr</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab576"></a><h2 class="section">Coq real numbers form a semigroup</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+addition 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RPlus_is_setoid_bin_fun">RPlus_is_setoid_bin_fun</a></span>: <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rplus">Rplus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RPlus_sbinfun">RPlus_sbinfun</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rplus">Rplus</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#RPlus_is_setoid_bin_fun">RPlus_is_setoid_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_CSemiGroup">R_is_CSemiGroup</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_CSemiGroup">is_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RPlus_sbinfun">RPlus_sbinfun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RSemiGroup">RSemiGroup</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSemiGroups.html#CSemiGroup">CSemiGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RPlus_sbinfun">RPlus_sbinfun</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_CSemiGroup">R_is_CSemiGroup</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RSemiGroup">RSemiGroup</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab577"></a><h2 class="section">Coq real numbers form a monoid</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_CMonoid">R_is_CMonoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#is_CMonoid">is_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RSemiGroup">RSemiGroup</a></span> (0%R).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RMonoid">RMonoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_CMonoid">R_is_CMonoid</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMonoid">RMonoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab578"></a><h2 class="section">Coq real numbers form a group</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+negation 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RNeg_sunop">RNeg_sunop</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> (<span class="id" type="var">S1</span>:=RCSetoid) (<span class="id" type="var">S2</span>:=RCSetoid) <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Ropp">Ropp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RNeg_op">RNeg_op</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMonoid">RMonoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Ropp">Ropp</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#RNeg_sunop">RNeg_sunop</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_Group">R_is_Group</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMonoid">RMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RNeg_op">RNeg_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RGroup">RGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_Group">R_is_Group</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RGroup">RGroup</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab579"></a><h2 class="section">Coq real numbers form an abelian group</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_AbGroup">R_is_AbGroup</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CAbGroups.html#is_CAbGroup">is_CAbGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RGroup">RGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RAbGroup">RAbGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CAbGroups.html#Build_CAbGroup">Build_CAbGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_AbGroup">R_is_AbGroup</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RAbGroup">RAbGroup</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab580"></a><h2 class="section">Coq real numbers form a ring</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+multiplication 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RMul_is_csbinop">RMul_is_csbinop</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rmult">Rmult</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RMul_op">RMul_op</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMonoid">RMonoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RCSetoid">RCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rmult">Rmult</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMul_is_csbinop">RMul_is_csbinop</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RMul_assoc">RMul_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> (<span class="id" type="var">S</span>:=RAbGroup) <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMul_op">RMul_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_Ring">R_is_Ring</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#is_CRing">is_CRing</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RAbGroup">RAbGroup</a></span> (1%R) <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RMul_op">RMul_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RRing">RRing</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CRings.html#Build_CRing">Build_CRing</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_Ring">R_is_Ring</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RRing">RRing</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab581"></a><h2 class="section">Coq real numbers form a field</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+reciprocal 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rrecip">Rrecip</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RRing">RRing</a></span>, <span class="id" type="var">x</span> [#] 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RRing">RRing</a></span> := <span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rinv">Rinv</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_Field">R_is_Field</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CFields.html#is_CField">is_CField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RRing">RRing</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rrecip">Rrecip</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_Field2">R_is_Field2</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RRing">RRing</a></span>) (<span class="id" type="var">x_</span> : <span class="id" type="var">x</span>[#]0) (<span class="id" type="var">y_</span> : <span class="id" type="var">y</span>[#]0),<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rrecip">Rrecip</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span>[#]<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rrecip">Rrecip</a></span> <span class="id" type="var">y</span> <span class="id" type="var">y_</span> -&gt; <span class="id" type="var">x</span>[#]<span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RField">RField</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CFields.html#CField">CField</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CFields.html#Build_CField">Build_CField</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_Field">R_is_Field</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_Field2">R_is_Field2</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab582"></a><h2 class="section">Coq real numbers form an ordered field</h2>
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+less-than 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rlt_strext">Rlt_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rlt">Rlt</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rless_rel">Rless_rel</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CCSetoid_relation">CCSetoid_relation</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CCSetoid_relation">Build_CCSetoid_relation</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rlt">Rlt</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rlt_strext">Rlt_strext</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+greater-than 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rgt_strext">Rgt_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rgt">Rgt</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rgt_rel">Rgt_rel</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CCSetoid_relation">CCSetoid_relation</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CCSetoid_relation">Build_CCSetoid_relation</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rgt">Rgt</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rgt_strext">Rgt_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_OrdField">R_is_OrdField</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#is_COrdField">is_COrdField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RField">RField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rless_rel">Rless_rel</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rle">Rle</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#Rgt_rel">Rgt_rel</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#Rge">Rge</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ROrdField">ROrdField</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.COrdFields.html#Build_COrdField">Build_COrdField</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#R_is_OrdField">R_is_OrdField</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab583"></a><h2 class="section">Coq real numbers form a real number structure</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cauchy_prop_cauchy_crit">cauchy_prop_cauchy_crit</a></span> : (<span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdCauchy.html#CauchySeq">CauchySeq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span>) -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">s</span> : (<b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span>), (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="var">R</span>:=ROrdField) <span class="id" type="var">s</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rseries.html#Cauchy_crit">Rseries.Cauchy_crit</a></span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+limit 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RLim">RLim</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdCauchy.html#CauchySeq">CauchySeq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+INR is isomorphic to nring 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_INR_as_IR">R_INR_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Raxioms.html#INR">INR</a></span> <span class="id" type="var">n</span> = <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="var">R</span>:=RRing) <span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RisReals">RisReals</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CReals.html#is_CReals">is_CReals</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RLim">RLim</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RReals">RReals</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CReals.html#CReals">CReals</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.reals.CReals.html#Build_CReals">Build_CReals</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#ROrdField">ROrdField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RLim">RLim</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals.html#RisReals">RisReals</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RReals">RReals</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

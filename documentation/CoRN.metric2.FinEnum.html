@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.FinEnum</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Finite">Finite</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Finite.X">X</a></span>:MetricSpace.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab629"></a><h1 class="section">Finite Enumerations</h1>
+
+Here we define a classical in predicate for lists.  Being classically
+in a list doesn't tell you which element in the list you are.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="InFinEnumC">InFinEnumC</a></span> (<span class="id" type="var">x</span>:X) (<span class="id" type="var">l</span>:list <span class="id" type="var">X</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span> <br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; &perp;<br/>
+| <span class="id" type="var">y</span>::ys =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">ys</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_weaken">InFinEnumC_weaken</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>, (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_wd1">InFinEnumC_wd1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">l</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_stable">InFinEnumC_stable</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>, ~~(InFinEnumC <span class="id" type="var">x</span> <span class="id" type="var">l</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_app_l">InFinEnumC_app_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> (<span class="id" type="var">l1</span> ++ <span class="id" type="var">l2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_app_r">InFinEnumC_app_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> (<span class="id" type="var">l1</span> ++ <span class="id" type="var">l2</span>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_app_orC">InFinEnumC_app_orC</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> (<span class="id" type="var">l1</span> ++ <span class="id" type="var">l2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span>)  (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l2</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab630"></a><h2 class="section">Equivalence</h2>
+
+Two finite enumerations, represented as lists, are equivalent
+if they (classically) have the same elements.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnum_eq">FinEnum_eq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:list <span class="id" type="var">X</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_eq_refl">FinEnum_eq_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_eq_sym">FinEnum_eq_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_eq_trans">FinEnum_eq_trans</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_is_Setoid">FinEnum_is_Setoid</a></span> : <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Setoids.Setoid.html#Setoid_Theory">Setoid_Theory</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnumS">FinEnumS</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.RSetoid.html#Build_Setoid">Build_Setoid</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_is_Setoid">FinEnum_is_Setoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab631"></a><h2 class="section">Metric Space</h2>
+
+Finite enumerations form a metric space under the Hausdorff metric for
+any stable metric space X.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnum_ball">FinEnum_ball</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:list <span class="id" type="var">X</span>) := <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">x</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_ball_wd">FinEnum_ball_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), (<span class="id" type="var">e1</span>==e2) -&gt; <br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">a1</span> <span class="id" type="var">a2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnumS">FinEnumS</a></span>), <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">a1</span> <span class="id" type="var">a2</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">b1</span> <span class="id" type="var">b2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnumS">FinEnumS</a></span>), <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span> -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">a1</span> <span class="id" type="var">b1</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">a2</span> <span class="id" type="var">b2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Finite.Xstable">Xstable</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_closed">hemiMetric_closed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">b</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">X</span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)) -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_ball_closed">FinEnum_ball_closed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_ball_eq">FinEnum_ball_eq</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : Q<SUP>+</SUP>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_eq">FinEnum_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_is_MetricSpace">FinEnum_is_MetricSpace</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#is_MetricSpace">is_MetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnumS">FinEnumS</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball">FinEnum_ball</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnum">FinEnum</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span> :=<br/>
+<span class="id" type="var">Build_MetricSpace</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_ball_wd">FinEnum_ball_wd</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_is_MetricSpace">FinEnum_is_MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Our definition preserves stability 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_stable">FinEnum_stable</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEum_map_ball">FinEum_map_ball</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>:X -&gt; <span class="id" type="var">X</span>) <span class="id" type="var">e</span> (<span class="id" type="var">s</span>:FinEnum), <br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>)) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">s</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Finite.Strong">Strong</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab632"></a><h2 class="section">Strong Hausdroff Metric</h2>
+
+This section shows that the strong version of the Hausdroff metric
+is equivalen to the weak version when X is a located metric.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Finite.Strong.almostDecideX">almostDecideX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="HemiMetricHemiMetricStrong">HemiMetricHemiMetricStrong</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) <span class="id" type="var">A</span> <span class="id" type="var">b</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="HausdorffBallHausdorffBallStrong">HausdorffBallHausdorffBallStrong</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:FinEnum),<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="HemiMetricStrongAlmostDecidableBody">HemiMetricStrongAlmostDecidableBody</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d</span>:Qpos) <span class="id" type="var">a</span> (<span class="id" type="var">b</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span>),<br/>
+&nbsp;<span class="id" type="var">e</span> &lt; <span class="id" type="var">d</span> -&gt; <br/>
+&nbsp;{<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">X</span> <span class="id" type="var">d</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>)} + <br/>
+&nbsp;{~hemiMetric <span class="id" type="var">X</span> <span class="id" type="var">e</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="HemiMetricStrongAlmostDecidable">HemiMetricStrongAlmostDecidable</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d</span>:Qpos) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span>),<br/>
+&nbsp;<span class="id" type="var">e</span> &lt; <span class="id" type="var">d</span> -&gt; <br/>
+&nbsp;{<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">X</span> <span class="id" type="var">d</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>)} + <br/>
+&nbsp;{~hemiMetric <span class="id" type="var">X</span> <span class="id" type="var">e</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">b</span>)}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finite Enumerations preserve the locatedness property. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_located">FinEnum_located</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finite Enumerations preserve the prelength property assuming X
+is a located metric space.
+
+<br/><br/>
+If we change the definition of prelenght space to use a classical
+existential, then we could drop the located assumption of X.  I
+believe there would be no harm in changing the definition this way,
+but it has not been done yet. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Finite.Strong.preLengthX">preLengthX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_prelength">FinEnum_prelength</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.FinEnum.html#Finite.Strong">Strong</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.FinEnum.html#Finite">Finite</a></span>.<br/>
+</div>
+
+<div class="doc">
+A list is equivalent to it's reverse as finite enumerations 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_eq_rev">FinEnum_eq_rev</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> (<span class="id" type="var">stable</span>: <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>) (<span class="id" type="var">f</span>:FinEnum <span class="id" type="var">stable</span>),<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#rev">rev</a></span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">map</span></span> is compatable with classical in 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InFinEnumC_map">InFinEnumC_map</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:MetricSpace) (<span class="id" type="var">f</span>:X --&gt; <span class="id" type="var">Y</span>) <span class="id" type="var">a</span> <span class="id" type="var">l</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">a</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The map function for finite enumerations is uniformly continuous 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnum_map_modulus">FinEnum_map_modulus</a></span> (<span class="id" type="var">z</span>:Qpos) (<span class="id" type="var">muf</span> : Q<SUP>+</SUP> -&gt; Q<SUP>+</SUP><SUB>&infin;</SUB>) (<span class="id" type="var">e</span>:Qpos) :=<br/>
+<span class="id" type="keyword">match</span> (<span class="id" type="var">muf</span> <span class="id" type="var">e</span>) <span class="id" type="keyword">with</span><br/>
+| &infin; =&gt; <span class="id" type="var">z</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> <span class="id" type="var">d</span> =&gt; <span class="id" type="var">d</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_map_uc">FinEnum_map_uc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">SX</span>:stableMetric <span class="id" type="var">X</span>) (<span class="id" type="var">SY</span>:stableMetric <span class="id" type="var">Y</span>) (<span class="id" type="var">f</span>:X --&gt; <span class="id" type="var">Y</span>), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="var">f</span>:FinEnum <span class="id" type="var">SX</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">SY</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_map_modulus">FinEnum_map_modulus</a></span> <span class="id" type="var">z</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span>)).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinEnum_map">FinEnum_map</a></span> <span class="id" type="var">z</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">SX</span>:stableMetric <span class="id" type="var">X</span>) (<span class="id" type="var">SY</span>:stableMetric <span class="id" type="var">Y</span>) (<span class="id" type="var">f</span>:X --&gt; <span class="id" type="var">Y</span>) :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.UniformContinuity.html#Build_UniformlyContinuousFunction">Build_UniformlyContinuousFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_map_uc">FinEnum_map_uc</a></span> <span class="id" type="var">z</span> <span class="id" type="var">SX</span> <span class="id" type="var">SY</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+maping <span class="inlinecode"><span class="id" type="var">Cunit</span></span> is an injection from FinEnum X to FinEnum Complete X that
+preserves the metric 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinEnum_map_Cunit">FinEnum_map_Cunit</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> (<span class="id" type="var">SX</span>:stableMetric <span class="id" type="var">X</span>) <span class="id" type="var">SCX</span> (<span class="id" type="var">s1</span> <span class="id" type="var">s2</span>:FinEnum <span class="id" type="var">SX</span>) <span class="id" type="var">e</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span> &lt;-&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> <span class="id" type="var">s1</span>:FinEnum <span class="id" type="var">SCX</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> <span class="id" type="var">s2</span>).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

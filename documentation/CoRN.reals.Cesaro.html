@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.Cesaro</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="AlgebraBits">AlgebraBits</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="algebraic_transform1">algebraic_transform1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">l</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">x</span> : <b>N</b>-&gt;IR) (<span class="id" type="var">y</span> : <b>N</b>-&gt;IR)<br/>
+(<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos">seq_pos</a></span> <span class="id" type="var">y</span>) (<span class="id" type="var">m</span> : <b>N</b>),<br/>
+(&sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span> [*] (<span class="id" type="var">x</span> <span class="id" type="var">k</span> [-] <span class="id" type="var">l</span>)) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>) [=]<br/>
+((&sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">x</span> <span class="id" type="var">k</span>[*]<span class="id" type="var">y</span> <span class="id" type="var">k</span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>)[-]<span class="id" type="var">l</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="algebraic_transform2">algebraic_transform2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">l</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">x</span> : <b>N</b>-&gt;IR) (<span class="id" type="var">y</span> : <b>N</b>-&gt;IR)<br/>
+(<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos">seq_pos</a></span> <span class="id" type="var">y</span>) (<span class="id" type="var">m</span> <span class="id" type="var">N1</span>: <b>N</b>),<br/>
+(( &sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span> [*] (<span class="id" type="var">x</span> <span class="id" type="var">k</span> [-] <span class="id" type="var">l</span>)) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>)[+]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>) <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span> [*] (<span class="id" type="var">x</span> <span class="id" type="var">k</span> [-] <span class="id" type="var">l</span>)) )[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>) [=]<br/>
+(&sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span> [*] (<span class="id" type="var">x</span> <span class="id" type="var">k</span> [-] <span class="id" type="var">l</span>)) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="algebraic_transform3">algebraic_transform3</a></span>:  <span class="id" type="keyword">forall</span> (&epsilon;: <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">y</span> : <b>N</b>-&gt;IR)<br/>
+(<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos">seq_pos</a></span> <span class="id" type="var">y</span>) (<span class="id" type="var">m</span> <span class="id" type="var">N1</span>: <b>N</b>),<br/>
+(&epsilon;[/]2 [*] (&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>) <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span>: <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span>)[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>)) [=]<br/>
+(&sum; (<span class="id" type="var">G</span>:=IR) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>) <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span>[*]&epsilon; [/]2)[/]<br/>
+&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="algebraic_estimate1">algebraic_estimate1</a></span> : <br/>
+<span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">l</span>: <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">H1</span> : 0 [&lt;] <span class="id" type="var">e</span>) (<span class="id" type="var">x</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">y</span> : <b>N</b>-&gt;IR)<br/>
+(<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos">seq_pos</a></span> <span class="id" type="var">y</span>) (<span class="id" type="var">m</span> <span class="id" type="var">N1</span>: <b>N</b>) (<span class="id" type="var">H3</span> : <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span> &lt;= <span class="id" type="var">m</span>)<br/>
+(<span class="id" type="var">H4</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span> <span class="id" type="var">i</span>[-]<span class="id" type="var">l</span>)), <br/>
+<span class="id" type="var">AbsSmall</span> <br/>
+&nbsp;&nbsp;&nbsp;(&sum; (<span class="id" type="var">G</span>:=IR) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>) <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span>[*]<span class="id" type="var">e</span>)[/]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>)<br/>
+&nbsp;(&sum; (<span class="id" type="var">G</span>:=IR) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">N1</span>) <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">y</span> <span class="id" type="var">k</span>[*](<span class="id" type="var">x</span> <span class="id" type="var">k</span>[-]<span class="id" type="var">l</span>))[/]<br/>
+&nbsp;&nbsp;&nbsp;&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Cesaro.html#AlgebraBits">AlgebraBits</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Cesaro">Cesaro</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="cesaro_transform">cesaro_transform</a></span> :<br/>
+<span class="id" type="keyword">forall</span> (<span class="id" type="var">l</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">x</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">y</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) <br/>
+(<span class="id" type="var">H1</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.CauchySeq.html#Cauchy_Lim_prop2">Cauchy_Lim_prop2</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>)<br/>
+(<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos">seq_pos</a></span> <span class="id" type="var">y</span>) (<span class="id" type="var">H3</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.PosSeq.html#seq_inf_sum">seq_inf_sum</a></span> <span class="id" type="var">y</span>),<br/>
+<span class="id" type="var">Cauchy_Lim_prop2</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> : <b>N</b> =&gt; &sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">k</span> : <b>N</b> =&gt; <span class="id" type="var">x</span> <span class="id" type="var">k</span> [*] <span class="id" type="var">y</span> <span class="id" type="var">k</span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[/](&sum;<sup>n</sup> <span class="id" type="var">y</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)) [//] (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.PosSeq.html#seq_pos_imp_ap_zero">seq_pos_imp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">H2</span> <span class="id" type="var">n</span>)) <span class="id" type="var">l</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="cesaro_sum">cesaro_sum</a></span> :<br/>
+<span class="id" type="keyword">forall</span> (<span class="id" type="var">l</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">x</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">H1</span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.CauchySeq.html#Cauchy_Lim_prop2">Cauchy_Lim_prop2</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>),<br/>
+<span class="id" type="var">Cauchy_Lim_prop2</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> : <b>N</b> =&gt; &sum;<sup>n</sup> <span class="id" type="var">x</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[/]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)[//](<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nringS_ap_zero">nringS_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span>)) <span class="id" type="var">l</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Cesaro.html#Cesaro">Cesaro</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

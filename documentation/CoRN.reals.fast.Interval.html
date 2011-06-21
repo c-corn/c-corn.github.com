@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.Interval</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Interval">Interval</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab725"></a><h1 class="section">Intervals as a Compact Set.</h1>
+
+We want to make an efficent implementation of intervals as compact sets.
+We want to minimize the number of sample points in the approximations of
+a compact interval.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> (<span class="id" type="variable"><a name="Interval.l">l</a></span> <span class="id" type="variable"><a name="Interval.r">r</a></span>:Q).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval.Hlr">Hlr</a></span> : <span class="id" type="var">l</span> &lt;= <span class="id" type="var">r</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="f">f</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">i</span>:Z) := <span class="id" type="var">l</span> + ((<span class="id" type="var">r</span>-l)*(2*i+1#1))/(2*Z_of_nat <span class="id" type="var">n</span>#1).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">UniformPartition</span></span> produces a set of n points uniformly distributed
+inside the interval <span class="inlinecode">[<span class="id" type="var">l</span>, <span class="id" type="var">r</span>]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="UniformPartition">UniformPartition</a></span> (<span class="id" type="var">n</span>:nat) := <br/>
+<span class="id" type="var">map</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#iterateN">iterateN</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsucc">Zsucc</a></span> 0%Z <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="UniformPartitionZ">UniformPartitionZ</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">z</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">z</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#iterateN">iterateN</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsucc">Zsucc</a></span> 0%Z <span class="id" type="var">n</span>) &lt;-&gt; (0 &lt;= <span class="id" type="var">z</span> &lt; <span class="id" type="var">n</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="UniformPartition_inside">UniformPartition_inside</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#UniformPartition">UniformPartition</a></span> <span class="id" type="var">n</span>) -&gt; <span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> &lt;= <span class="id" type="var">r</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given a point <span class="inlinecode"><span class="id" type="var">x</span></span> in the interval <span class="inlinecode">[<span class="id" type="var">l</span>, <span class="id" type="var">r</span>]</span>, one can find a
+nearby point in our <span class="inlinecode"><span class="id" type="var">UniformPartition</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rasterize1">rasterize1</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">x</span>:Q) := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qround.html#Qfloor">Qfloor</a></span> ((<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Z_of_nat">Z_of_nat</a></span> <span class="id" type="var">n</span>)*(x-l)/(r-l)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rasterize1_close">rasterize1_close</a></span> : <span class="id" type="var">l</span> &lt; <span class="id" type="var">r</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">x</span>:Q), <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qabs.html#Qabs">Qabs</a></span> (<span class="id" type="var">x</span> - <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#rasterize1">rasterize1</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span>)) &lt;= ((<span class="id" type="var">r</span>-l)/(2*(S <span class="id" type="var">n</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rasterize1_boundL">rasterize1_boundL</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">x</span>:Q), <span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> -&gt; (0 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#rasterize1">rasterize1</a></span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>)%Z.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rasterize1_boundR">rasterize1_boundR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">x</span>:Q), <span class="id" type="var">x</span> &lt; <span class="id" type="var">r</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#rasterize1">rasterize1</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span> &lt; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))%Z.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="UniformPartition_fine">UniformPartition_fine</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>, <br/>
+&nbsp;<span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> &lt;= <span class="id" type="var">r</span> -&gt; {<span class="id" type="var">y</span> | <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#UniformPartition">UniformPartition</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)) /\ <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qabs.html#Qabs">Qabs</a></span> (<span class="id" type="var">x</span> - <span class="id" type="var">y</span>) &lt;= ((<span class="id" type="var">r</span>-l)/(2*(S <span class="id" type="var">n</span>)))}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Construct the compact set. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactIntervalQ_nat">CompactIntervalQ_nat</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos), (0 &lt;= <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qround.html#Qceiling">Qceiling</a></span> ((<span class="id" type="var">r</span>-l)/(2*e)))%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactIntervalQ_raw">CompactIntervalQ_raw</a></span> (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#stableQ">stableQ</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span><br/>
+| &infin; =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> <span class="id" type="var">e'</span> =&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#UniformPartition">UniformPartition</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Max.html#max">max</a></span> 1 (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#Z_to_nat">Z_to_nat</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ_nat">CompactIntervalQ_nat</a></span> <span class="id" type="var">e'</span>)))<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactIntervalQ_prf">CompactIntervalQ_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ_raw">CompactIntervalQ_raw</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactIntervalQ">CompactIntervalQ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#stableQ">stableQ</a></span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ_prf">CompactIntervalQ_prf</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The compact set indeed represents the interval <span class="inlinecode">[<span class="id" type="var">l</span>, <span class="id" type="var">r</span>]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactIntervalQ_correct1">CompactIntervalQ_correct1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:CR),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ">CompactIntervalQ</a></span> -&gt; ('<span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> /\ <span class="id" type="var">x</span> &lt;= '<span class="id" type="var">r</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactIntervalQ_correct2">CompactIntervalQ_correct2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:CR),<br/>
+&nbsp;('<span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> /\ <span class="id" type="var">x</span> &lt;= '<span class="id" type="var">r</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ">CompactIntervalQ</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactIntervalQ_bonus_correct">CompactIntervalQ_bonus_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#CompactIntervalQ">CompactIntervalQ</a></span> <span class="id" type="var">e</span>) -&gt; (<span class="id" type="var">l</span> &lt;= <span class="id" type="var">x</span> &lt;= <span class="id" type="var">r</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.Interval.html#Interval">Interval</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

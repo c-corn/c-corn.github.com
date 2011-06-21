@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.monoids.Nmonoid</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab166"></a><h2 class="section">Example of a monoid: &lang;<span class="inlinecode"><b>N</b></span>,<span class="inlinecode">+</span>&rang;</h2>
+
+Zero is an unit for the addition.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="O_as_rht_unit">O_as_rht_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_rht_unit">is_rht_unit</a></span> (<span class="id" type="var">S</span>:=nat_as_CSetoid) <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Nsetoid.html#plus_is_bin_fun">plus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="O_as_lft_unit">O_as_lft_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> (<span class="id" type="var">S</span>:=nat_as_CSetoid) <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Nsetoid.html#plus_is_bin_fun">plus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_is_CMonoid">nat_is_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_is_CMonoid">Build_is_CMonoid</a></span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.semigroups.Nsemigroup.html#nat_as_CSemiGroup">nat_as_CSemiGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#O_as_rht_unit">O_as_rht_unit</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#O_as_lft_unit">O_as_lft_unit</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Whence we can define <i>the monoid of natural numbers</i>:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_as_CMonoid">nat_as_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.semigroups.Nsemigroup.html#nat_as_CSemiGroup">nat_as_CSemiGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#nat_is_CMonoid">nat_is_CMonoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#nat_as_CMonoid">nat_as_CMonoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SO_as_rht_unit">SO_as_rht_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_rht_unit">is_rht_unit</a></span> (<span class="id" type="var">S</span>:=nat_as_CSetoid) <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Nsetoid.html#mult_as_bin_fun">mult_as_bin_fun</a></span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SO_as_lft_unit">SO_as_lft_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> (<span class="id" type="var">S</span>:=nat_as_CSetoid) <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Nsetoid.html#mult_as_bin_fun">mult_as_bin_fun</a></span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Nmult_is_CMonoid">Nmult_is_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_is_CMonoid">Build_is_CMonoid</a></span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.semigroups.Nsemigroup.html#Nmult_as_CSemiGroup">Nmult_as_CSemiGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#SO_as_rht_unit">SO_as_rht_unit</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#SO_as_lft_unit">SO_as_lft_unit</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Nmult_as_CMonoid">Nmult_as_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.semigroups.Nsemigroup.html#Nmult_as_CSemiGroup">Nmult_as_CSemiGroup</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.monoids.Nmonoid.html#Nmult_is_CMonoid">Nmult_is_CMonoid</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

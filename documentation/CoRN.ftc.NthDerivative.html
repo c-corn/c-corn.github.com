@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.NthDerivative</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Nth_Derivative">Nth_Derivative</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab469"></a><h1 class="section">Nth Derivative</h1>
+
+
+<br/><br/>
+We now study higher order differentiability.
+
+<br/><br/>
+ Throughout this section:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">a</span>, <span class="id" type="var">b</span></span> will be real numbers with <span class="inlinecode"><span class="id" type="var">a</span> &lt; <span class="id" type="var">b</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">I</span></span> will denote the compact interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">F</span>, <span class="id" type="var">G</span>, <span class="id" type="var">H</span></span> will denote partial functions.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+<br/><br/>
+<a name="lab470"></a><h2 class="section">Definitions</h2>
+
+
+<br/><br/>
+We first define what we mean by the derivative of order <span class="inlinecode"><span class="id" type="var">n</span></span> of a function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Nth_Derivative.a">a</a></span> <span class="id" type="variable"><a name="Nth_Derivative.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nth_Derivative.Hab'">Hab'</a></span> : <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Derivative_I_n">Derivative_I_n</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">F</span> <span class="id" type="var">Fn</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">Fn</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> =&gt; {<span class="id" type="var">f'</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>)) <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> |<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> <span class="id" type="var">f'</span>) | <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> <span class="id" type="var">f'</span>) <span class="id" type="var">Fn</span>}<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Unlike first order differentiability, for our definition to be
+workable it is better to define directly what it means for a function
+to be <span class="inlinecode"><span class="id" type="var">n</span></span> times differentiable instead of quantifying over the
+<span class="inlinecode"><span class="id" type="var">Derivative_I_n</span></span> relation.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Diffble_I_n">Diffble_I_n</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> =&gt; {<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> | <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">H</span>))}<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#Nth_Derivative">Nth_Derivative</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Trivia">Trivia</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab471"></a><h2 class="section">Trivia</h2>
+
+
+<br/><br/>
+These are the expected extensionality and uniqueness results.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Trivia.a">a</a></span> <span class="id" type="variable"><a name="Trivia.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Trivia.Hab'">Hab'</a></span> : <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_n_wd">Diffble_I_n_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>,<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_wdr">Derivative_I_n_wdr</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_wdl">Derivative_I_n_wdl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_unique">Derivative_I_n_unique</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#Trivia">Trivia</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Results">Basic_Results</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab472"></a><h2 class="section">Basic Results</h2>
+
+
+<br/><br/>
+We now explore the concept of <span class="inlinecode"><span class="id" type="var">n</span></span> times differentiability.  Notice
+that, unlike the first order case, we do not pay so much attention to
+the relation of <span class="inlinecode"><span class="id" type="var">n</span></span> times derivative, but focus rather on the
+definition of <span class="inlinecode"><span class="id" type="var">Diffble_I_n</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Results.a">a</a></span> <span class="id" type="variable"><a name="Basic_Results.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Results.Hab'">Hab'</a></span> : <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We begin by showing that having a higher order derivative implies being differentiable.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_n_imp_diffble">Diffble_I_n_imp_diffble</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="deriv_n_imp_diffble">deriv_n_imp_diffble</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, 0 &lt; <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If a function is <span class="inlinecode"><span class="id" type="var">n</span></span> times differentiable then it is also <span class="inlinecode"><span class="id" type="var">m</span></span> times differentiable for every <span class="inlinecode"><span class="id" type="var">m</span></span> less or equal than <span class="inlinecode"><span class="id" type="var">n</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="le_imp_Diffble_I">le_imp_Diffble_I</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">F</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">m</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The next result consolidates our intuition that a function is <span class="inlinecode"><span class="id" type="var">n</span></span>
+times differentiable if we can build from it a chain of <span class="inlinecode"><span class="id" type="var">n</span></span>
+derivatives.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_imp_le">Diffble_I_imp_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As expected, an <span class="inlinecode"><span class="id" type="var">n</span></span> times differentiable in <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> function must be
+defined in that interval.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_n_imp_inc">Diffble_I_n_imp_inc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Also, the notions of derivative and differentiability are related as expected.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_n_imp_deriv_n">Diffble_I_n_imp_deriv_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">f'</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>)) <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> <span class="id" type="var">f'</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="deriv_n_imp_Diffble_I_n">deriv_n_imp_Diffble_I_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+From this we can prove that if <span class="inlinecode"><span class="id" type="var">F</span></span> has an nth order derivative in
+<span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> then both <span class="inlinecode"><span class="id" type="var">F</span></span> and its derivative are defined in that interval.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_imp_inc">Derivative_I_n_imp_inc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_imp_inc'">Derivative_I_n_imp_inc'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Results.aux">aux</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+First order differentiability is just a special case.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Results.aux.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Results.aux.diffF">diffF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Results.aux.diffFn">diffFn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> 1 <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="deriv_1_deriv">deriv_1_deriv</a></span> : &asymp; <span class="id" type="var">I</span><br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">diffF</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n_imp_deriv_n">Diffble_I_n_imp_deriv_n</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">diffFn</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="deriv_1_deriv'">deriv_1_deriv'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> <span class="id" type="var">I</span>),<br/>
+&nbsp;<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">diffF</span> <span class="id" type="var">x</span> [=] <span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n_imp_deriv_n">Diffble_I_n_imp_deriv_n</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">diffFn</span>) <span class="id" type="var">x</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#Basic_Results.aux">aux</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As usual, nth order derivability is preserved by shrinking the interval.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_imp_deriv_n">included_imp_deriv_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>,<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>)) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab'</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hcd</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_imp_diffble_n">included_imp_diffble_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">F</span>,<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>)) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab'</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hcd</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And finally we have an addition rule for the order of the derivative.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_n_plus">Derivative_I_n_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">k</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">m</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span> -&gt; <span class="id" type="var">k</span> = <span class="id" type="var">m</span> + <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">k</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#Basic_Results">Basic_Results</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Results">More_Results</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_Results.a">a</a></span> <span class="id" type="variable"><a name="More_Results.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Results.Hab'">Hab'</a></span> : <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab473"></a><h2 class="section">The Nth Derivative</h2>
+
+
+<br/><br/>
+We now define an operator that returns an nth order derivative of an
+n-times differentiable function.  This is analogous to the quantifier
+elimination which we would get if we had defined nth differentiability
+as an existential quantification of the nth derivative relation.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>) : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This operator is well defined and works as expected.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_I_wd">n_deriv_I_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">Hf</span> <span class="id" type="var">Hg</span>,<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">Hf</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">G</span> <span class="id" type="var">Hg</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_lemma">n_deriv_lemma</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_inc">n_deriv_inc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>, &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_inc'">n_deriv_inc'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>, &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some basic properties of this operation.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_Sn_deriv">n_Sn_deriv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">HS</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">F</span> <span class="id" type="var">HS</span>).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_plus">n_deriv_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>) <span class="id" type="var">F</span> <span class="id" type="var">H'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#More_Results">More_Results</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_on_n_deriv">More_on_n_deriv</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some not so basic properties of this operation (needed in rather specific situations).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_I_wd'">n_deriv_I_wd'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>) <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_less_Max">Min_less_Max</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H'</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_I_wd''">n_deriv_I_wd''</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H'</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="n_deriv_I_strext'">n_deriv_I_strext'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>,<br/>
+&nbsp;<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>) <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_less_Max">Min_less_Max</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">n</span> <span class="id" type="var">F</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#n_deriv_I">n_deriv_I</a></span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">H'</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.NthDerivative.html#More_on_n_deriv">More_on_n_deriv</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.CompleteProduct</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CompleteProduct">CompleteProduct</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab624"></a><h3 class="section">Completion of product spaces.</h3>
+
+This section develops the strong monad properties of the Completion
+operation with respect to the product operation.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompleteProduct.X">X</a></span> <span class="id" type="variable"><a name="CompleteProduct.Y">Y</a></span>:MetricSpace.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="XY">XY</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The projection operations are uniformly continuous 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fst_uc">fst_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">p</span>:XY =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">p</span>) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pi1">pi1</a></span> : <span class="id" type="var">XY</span> --&gt; <span class="id" type="var">X</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#fst_uc">fst_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="snd_uc">snd_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">p</span>:XY =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">p</span>) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pi2">pi2</a></span> : <span class="id" type="var">XY</span> --&gt; <span class="id" type="var">Y</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#snd_uc">snd_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cfst_raw">Cfst_raw</a></span> (<span class="id" type="var">p</span>:Complete <span class="id" type="var">XY</span>) (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="var">X</span> :=<br/>
+(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">p</span> <span class="id" type="var">e</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Csnd_raw">Csnd_raw</a></span> (<span class="id" type="var">p</span>:Complete <span class="id" type="var">XY</span>) (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="var">Y</span> :=<br/>
+(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">p</span> <span class="id" type="var">e</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cfst_prf">Cfst_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst_raw">Cfst_raw</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Csnd_prf">Csnd_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd_raw">Csnd_raw</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cfst_fun">Cfst_fun</a></span> (<span class="id" type="var">p</span>:Complete <span class="id" type="var">XY</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst_prf">Cfst_prf</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Csnd_fun">Csnd_fun</a></span> (<span class="id" type="var">p</span>:Complete <span class="id" type="var">XY</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd_prf">Csnd_prf</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cfst_uc">Cfst_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst_fun">Cfst_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Csnd_uc">Csnd_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd_fun">Csnd_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cfst">Cfst</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">XY</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst_uc">Cfst_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Csnd">Csnd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">XY</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd_uc">Csnd_uc</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The pairing function is uniformly continuous 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="pair_uc_l">pair_uc_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>:Y, @<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="var">X</span> <span class="id" type="var">XY</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (<span class="id" type="var">x</span>,y)) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="pair_uc_r">pair_uc_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:X, @<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">XY</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> =&gt; (<span class="id" type="var">x</span>,y)) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+C(X*Y) is isomorphic to (C X)*(C Y) 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Couple_raw">Couple_raw</a></span> (<span class="id" type="var">p</span>: <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>)) (<span class="id" type="var">e</span>:QposInf): <span class="id" type="var">XY</span> :=<br/>
+(<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">p</span>) <span class="id" type="var">e</span>,approximate (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">p</span>) <span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Couple_prf">Couple_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple_raw">Couple_raw</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Couple_fun">Couple_fun</a></span> (<span class="id" type="var">p</span>: <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>)) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">XY</span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple_prf">Couple_prf</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Couple_uc">Couple_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple_fun">Couple_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Couple">Couple</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>)) --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>)) :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple_uc">Couple_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CoupleCorrect1">CoupleCorrect1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span>,<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> ((<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> <span class="id" type="var">p</span>), (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd">Csnd</a></span> <span class="id" type="var">p</span>))) <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CoupleCorrect2">CoupleCorrect2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span>,<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q))) <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CoupleCorrect3">CoupleCorrect3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span>,<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd">Csnd</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q))) <span class="id" type="var">q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.CompleteProduct.html#CompleteProduct">CompleteProduct</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

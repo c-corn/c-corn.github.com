@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.fta.CPoly_Rev</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab438"></a><h1 class="section">Reverse of polynomials</h1>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Monomials">Monomials</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring, and let <span class="inlinecode">R[x]</span> be the
+polynomials over this ring.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Monomials.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="monom">monom</a></span> (<span class="id" type="var">a</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">n</span> : <b>N</b>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <span class="id" type="var">R</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="var">_</span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">_</span> 0 (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_coeff">monom_coeff</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">c</span> <span class="id" type="var">n</span>) [=] <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_coeff'">monom_coeff'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;&gt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">c</span> <span class="id" type="var">m</span>) [=] 0.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_degree">monom_degree</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> <span class="id" type="var">n</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_S">monom_S</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> <span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_wd_lft">monom_wd_lft</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="var">a</span> [=] <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> <span class="id" type="var">n</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">b</span> <span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_mult'">monom_mult'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">a</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">b</span> <span class="id" type="var">n</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> (<span class="id" type="var">a</span>[*]<span class="id" type="var">b</span>) <span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_mult">monom_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">b</span> <span class="id" type="var">n</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> (<span class="id" type="var">a</span>[*]<span class="id" type="var">b</span>) (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monom_sum">monom_sum</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> -&gt; <span class="id" type="var">p</span> [=] &sum; 0 <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span>) <span class="id" type="var">i</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Monomials">Monomials</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Poly_Reverse">Poly_Reverse</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Poly_Reverse.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rev">Rev</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">p</span> : R[x]) :=<br/>
+&nbsp;&nbsp;&sum; 0 <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span>) (<span class="id" type="var">n</span> - <span class="id" type="var">i</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_coeff">Rev_coeff</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="var">n</span> - <span class="id" type="var">i</span>) <span class="id" type="var">p</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_coeff'">Rev_coeff'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">i</span>, <span class="id" type="var">n</span> &lt; <span class="id" type="var">i</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>) [=] 0.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_wd">Rev_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">p'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> -&gt; <span class="id" type="var">p</span> [=] <span class="id" type="var">p'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_rev">Rev_rev</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>) [=] <span class="id" type="var">p</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_degree_le">Rev_degree_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_degree">Rev_degree</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>, <span class="id" type="var">p</span> ! 0 [#] 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_monom">Rev_monom</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">c</span> <span class="id" type="var">m</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#monom">monom</a></span> <span class="id" type="var">c</span> (<span class="id" type="var">n</span> - <span class="id" type="var">m</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_zero">Rev_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> 0 [=] (0:RX).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_plus">Rev_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p1</span> <span class="id" type="var">p2</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">p1</span>[+]<span class="id" type="var">p2</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p1</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p2</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_minus">Rev_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p1</span> <span class="id" type="var">p2</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">p1</span>[-]<span class="id" type="var">p2</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p1</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p2</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_sum0">Rev_sum0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a_</span> <span class="id" type="var">l</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (&sum;<sub>0</sub> <span class="id" type="var">l</span> <span class="id" type="var">a_</span>) [=] &sum;<sub>0</sub> <span class="id" type="var">l</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">a_</span> <span class="id" type="var">i</span>)).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_sum">Rev_sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a_</span> <span class="id" type="var">k</span> <span class="id" type="var">l</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (&sum; <span class="id" type="var">k</span> <span class="id" type="var">l</span> <span class="id" type="var">a_</span>) [=] &sum; <span class="id" type="var">k</span> <span class="id" type="var">l</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">a_</span> <span class="id" type="var">i</span>)).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rev_mult">Rev_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n1</span> <span class="id" type="var">n2</span> <span class="id" type="var">p1</span> <span class="id" type="var">p2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n1</span> <span class="id" type="var">p1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n2</span> <span class="id" type="var">p2</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> (<span class="id" type="var">n1</span> + <span class="id" type="var">n2</span>) (<span class="id" type="var">p1</span>[*]<span class="id" type="var">p2</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n1</span> <span class="id" type="var">p1</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> <span class="id" type="var">n2</span> <span class="id" type="var">p2</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Poly_Reverse">Poly_Reverse</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.Composition</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Maps_into_Compacts">Maps_into_Compacts</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Maps_into_Compacts.Part_Funct">Part_Funct</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab513"></a><h1 class="section">Composition</h1>
+
+
+<br/><br/>
+Preservation results for functional composition are treated in this
+separate file.  We start by defining some auxiliary predicates, and
+then prove the preservation of continuity through composition and the
+chain rule for differentiation, both for compact and arbitrary
+intervals.
+
+<br/><br/>
+ Throughout this section:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">a</span>, <span class="id" type="var">b</span> : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">I</span></span> will denote <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">c</span>, <span class="id" type="var">d</span> : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">J</span></span> will denote <span class="inlinecode">[<span class="id" type="var">c</span>,d]</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">F</span>, <span class="id" type="var">F'</span>, <span class="id" type="var">G</span>, <span class="id" type="var">G'</span></span> will be partial functions.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+<br/><br/>
+<a name="lab514"></a><h2 class="section">Maps into Compacts</h2>
+
+
+<br/><br/>
+Both continuity and differentiability proofs require extra hypothesis
+on the functions involved---namely, that every compact interval is
+mapped into another compact interval.  We define this concept for
+partial functions, and prove some trivial results.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.F">F</a></span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.a">a</a></span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.c">c</a></span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.Hcd">Hcd</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.Hf">Hf</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="maps_into_compacts">maps_into_compacts</a></span> := &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Maps_into_Compacts.Part_Funct.maps">maps</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maps_lemma'">maps_lemma'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maps_lemma">maps_lemma</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maps_lemma_inc">maps_lemma_inc</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Maps_into_Compacts.Part_Funct">Part_Funct</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Maps_into_Compacts">Maps_into_Compacts</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Mapping">Mapping</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As was the case for division of partial functions, this condition
+completely characterizes the domain of the composite function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Mapping.F">F</a></span> <span class="id" type="variable"><a name="Mapping.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Mapping.a">a</a></span> <span class="id" type="variable"><a name="Mapping.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Mapping.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Mapping.c">c</a></span> <span class="id" type="variable"><a name="Mapping.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Mapping.Hcd">Hcd</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Mapping.Hf">Hf</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Mapping.Hg">Hg</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Mapping.maps">maps</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_comp">included_comp</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Mapping">Mapping</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Interval_Continuity">Interval_Continuity</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab515"></a><h2 class="section">Continuity</h2>
+
+
+<br/><br/>
+We now prove that the composition of two continuous partial functions is continuous.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Interval_Continuity.a">a</a></span> <span class="id" type="variable"><a name="Interval_Continuity.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval_Continuity.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Interval_Continuity.c">c</a></span> <span class="id" type="variable"><a name="Interval_Continuity.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval_Continuity.Hcd">Hcd</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Interval_Continuity.F">F</a></span> <span class="id" type="variable"><a name="Interval_Continuity.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval_Continuity.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval_Continuity.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hcd</span> <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Interval_Continuity.Hmap">Hmap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_I_comp">Continuous_I_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Interval_Continuity">Interval_Continuity</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Derivative">Derivative</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab516"></a><h2 class="section">Derivative</h2>
+
+
+<br/><br/>
+We now work with the derivative relation and prove the chain rule for partial functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Derivative.F">F</a></span> <span class="id" type="variable"><a name="Derivative.F'">F'</a></span> <span class="id" type="variable"><a name="Derivative.G">G</a></span> <span class="id" type="variable"><a name="Derivative.G'">G'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Derivative.a">a</a></span> <span class="id" type="variable"><a name="Derivative.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Derivative.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Derivative.c">c</a></span> <span class="id" type="variable"><a name="Derivative.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Derivative.Hcd'">Hcd'</a></span> : <span class="id" type="var">c</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Derivative.derF">derF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Derivative.derG">derG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hcd'</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Derivative.Hmap">Hmap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_comp'">included_comp'</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">G'</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maps'">maps'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G'</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_I_comp">Derivative_I_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) ((<span class="id" type="var">G'</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) {*}F').<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The next lemma will be useful when we move on to differentiability.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_comp_aux">Diffble_I_comp_aux</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Derivative">Derivative</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Differentiability">Differentiability</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab517"></a><h2 class="section">Differentiability</h2>
+
+
+<br/><br/>
+Finally, we move on to differentiability.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Differentiability.F">F</a></span> <span class="id" type="variable"><a name="Differentiability.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Differentiability.a">a</a></span> <span class="id" type="variable"><a name="Differentiability.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Differentiability.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Differentiability.c">c</a></span> <span class="id" type="variable"><a name="Differentiability.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Differentiability.Hcd'">Hcd'</a></span> : <span class="id" type="var">c</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Differentiability.diffF">diffF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Differentiability.diffG">diffG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hcd'</span> <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Differentiability.Hmap">Hmap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_into_compacts">maps_into_compacts</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_I_comp">Diffble_I_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Differentiability">Differentiability</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Sequences">Sequences</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+**Sequences
+
+<br/><br/>
+Here we show that the limit of sequences of compositions is the composition of the limits.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Sequences.a">a</a></span> <span class="id" type="variable"><a name="Sequences.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Sequences.c">c</a></span> <span class="id" type="variable"><a name="Sequences.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.Hcd">Hcd</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Sequences.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Sequences.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.contg">contg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.rangef">rangef</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span>), <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Sequences.ExplicitLimit">ExplicitLimit</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.F">F</a></span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hcd</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.convF">convF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq'">conv_fun_seq'</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span> <span class="id" type="var">f</span> <span class="id" type="var">F</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.convG">convG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq'">conv_fun_seq'</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">g</span> <span class="id" type="var">G</span> <span class="id" type="var">contg</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="incF">incF</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Continuity.html#contin_imp_inc">contin_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contF</span>.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="incG">incG</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Continuity.html#contin_imp_inc">contin_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Sequences.ExplicitLimit.rangeF">rangeF</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">x</span>), <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_comp'">fun_Lim_seq_comp'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq'">conv_fun_seq'</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Sequences.ExplicitLimit">ExplicitLimit</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The same is true if we don't make the limits explicit.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_comp">fun_Lim_seq_comp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq'">conv_fun_seq'</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">f</span> <span class="id" type="var">n</span>)<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#Cauchy_fun_seq_Lim">Cauchy_fun_seq_Lim</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hg</span>[<span class="id" type="var">o</span>]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#Cauchy_fun_seq_Lim">Cauchy_fun_seq_Lim</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Sequences">Sequences</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Series">Series</a></span>.<br/>
+</div>
+
+<div class="doc">
+**Series
+
+<br/><br/>
+Here we show that the limit of series of composition by a constant function (on the right) is the composition with the limit.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Series.a">a</a></span> <span class="id" type="variable"><a name="Series.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Series.c">c</a></span> <span class="id" type="variable"><a name="Series.d">d</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series.Hcd">Hcd</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Series.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Series.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series.convG">convG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSeries.html#fun_series_convergent">fun_series_convergent</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">g</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series.rangeF">rangeF</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">x</span>), <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_series_comp">conv_fun_series_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSeries.html#fun_series_convergent">fun_series_convergent</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Fun_Series_Sum_comp">Fun_Series_Sum_comp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSeries.html#fun_series_convergent">fun_series_convergent</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>),<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> (&sum;<sub>0</sub><sup>&infin;</sup> <span class="id" type="var">H'</span>) (&sum;<sub>0</sub><sup>&infin;</sup> <span class="id" type="var">convG</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Series">Series</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Generalized_Intervals">Generalized_Intervals</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab518"></a><h2 class="section">Generalizations</h2>
+
+
+<br/><br/>
+We now generalize this results to arbitrary intervals.  We begin by generalizing the notion of mapping compacts into compacts.
+
+<br/><br/>
+ We assume <span class="inlinecode"><span class="id" type="var">I</span>,J</span> to be proper intervals.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Generalized_Intervals.I">I</a></span> <span class="id" type="variable"><a name="Generalized_Intervals.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.pI">pI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.pJ">pJ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">J</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="maps_compacts_into_weak">maps_compacts_into_weak</a></span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) :=  <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">d</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">Hcd</span> : <span class="id" type="var">_</span> | &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) <span class="id" type="var">J</span> <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))}}}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now everything comes naturally:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comp_inc_lemma">comp_inc_lemma</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into_weak">maps_compacts_into_weak</a></span> <span class="id" type="var">F</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">J</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Generalized_Intervals.F">F</a></span> <span class="id" type="variable"><a name="Generalized_Intervals.F'">F'</a></span> <span class="id" type="variable"><a name="Generalized_Intervals.G">G</a></span> <span class="id" type="variable"><a name="Generalized_Intervals.G'">G'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.Hmap">Hmap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into_weak">maps_compacts_into_weak</a></span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_comp">Continuous_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="maps_compacts_into">maps_compacts_into</a></span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) :=  <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">d</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">Hcd</span> : <span class="id" type="var">_</span> | &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcd</span>)) <span class="id" type="var">J</span> <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcd</span>) (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))}}}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maps_compacts_into_strict_imp_weak">maps_compacts_into_strict_imp_weak</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span>,<br/>
+<span class="id" type="var">maps_compacts_into</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into_weak">maps_compacts_into_weak</a></span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.Hmap'">Hmap'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_comp">Derivative_comp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">J</span> <span class="id" type="var">pJ</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) ((<span class="id" type="var">G'</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) {*}F').<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Generalized_Intervals.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.convG">convG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_comp_conv">FSeries_Sum_comp_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">I</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_comp">FSeries_Sum_comp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">I</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>),<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">H'</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">convG</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Generalized_Intervals.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.contg">contg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.Hmapf">Hmapf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span> -&gt;<br/>
+{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">d</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">Hcd</span> : <span class="id" type="var">_</span> | &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hcd</span>) <span class="id" type="var">J</span> <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))}}}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_comp'_IR">fun_Lim_seq_comp'_IR</a></span> : <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span>) -&gt;<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span> <span class="id" type="var">contG</span>) -&gt;<br/>
+<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">I</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalized_Intervals.Hg">Hg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_comp_IR">fun_Lim_seq_comp_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">I</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>]<span class="id" type="var">f</span> <span class="id" type="var">n</span>)<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hg</span>[<span class="id" type="var">o</span>]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Generalized_Intervals">Generalized_Intervals</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, some criteria to prove that a function with a specific domain maps compacts into compacts:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="positive_fun">positive_fun</a></span> <span class="id" type="var">P</span> <span class="id" type="var">F</span> := &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span><br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0 [&lt;] <span class="id" type="var">c</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">P</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="negative_fun">negative_fun</a></span> <span class="id" type="var">P</span> <span class="id" type="var">F</span> := &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span><br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">c</span> [&lt;] 0 | <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">P</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span> [&lt;=] <span class="id" type="var">c</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="positive_imp_maps_compacts_into">positive_imp_maps_compacts_into</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">J</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">F</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#positive_fun">positive_fun</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="var">J</span> ((&sdot;,+&infin;) 0) <span class="id" type="var">F</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="negative_imp_maps_compacts_into">negative_imp_maps_compacts_into</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">J</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">F</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#negative_fun">negative_fun</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="var">J</span> ((-&infin;,&sdot;) 0) <span class="id" type="var">F</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_imp_maps_compacts_into">Continuous_imp_maps_compacts_into</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="var">J</span> (-&infin;,+&infin;) <span class="id" type="var">F</span>.<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As a corollary, we get the generalization of differentiability property.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_comp">Diffble_comp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">J</span> <span class="id" type="var">pI</span> <span class="id" type="var">pJ</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="var">I</span> <span class="id" type="var">J</span> <span class="id" type="var">F</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Diffble">Diffble</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Diffble">Diffble</a></span> <span class="id" type="var">J</span> <span class="id" type="var">pJ</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Diffble">Diffble</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Composition.html#Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

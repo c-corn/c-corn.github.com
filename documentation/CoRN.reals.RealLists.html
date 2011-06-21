@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.RealLists</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Lists">Lists</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab395"></a><h1 class="section">Lists of Real Numbers</h1>
+
+
+<br/><br/>
+In some contexts we will need to work with nested existential quantified formulas of the form exists n exists x1,...,xn P(x1,..,xn).  One way of formalizing this kind of statement is through quantifying over lists.  In this file we provide some tools for manipulating lists.
+
+<br/><br/>
+Notice that some of the properties listed below only make sense in the context within which we are working.  Unlike in the other lemma files, no care has been taken here to state the lemmas in their most general form, as that would make them very unpractical to use.
+
+<br/><br/>
+
+
+<br/><br/>
+We start by defining maximum and minimum of lists of reals and two membership predicates. The value of these functions for the empty list is arbitrarily set to 0, but it will be irrelevant, as we will never work with empty lists.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="maxlist">maxlist</a></span> (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span>        =&gt; 0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">x</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">x</span> <span class="id" type="var">m</span>   =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#maxlist">maxlist</a></span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="minlist">minlist</a></span> (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span>        =&gt; 0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">x</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">x</span> <span class="id" type="var">m</span>   =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#minlist">minlist</a></span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="member">member</a></span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">l</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span>      =&gt; &perp;<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">y</span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">m</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sometimes the length of the list has to be restricted; the next definition provides an easy way to do that. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="length_leEq">length_leEq</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span>) (<span class="id" type="var">n</span> : <b>N</b>) := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> &lt;= <span class="id" type="var">n</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Length is preserved by mapping. 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="map_pres_length">map_pres_length</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="keyword">Set</span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span>) (<span class="id" type="var">f</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> = <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+Often we want to map partial functions through a list; this next operator provides a way to do that, and is proved to be correct. 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="map2">map2</a></span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) :<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">y</span>) -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="map2_wd">map2_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">l</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#map2">map2</a></span> <span class="id" type="var">F</span> <span class="id" type="var">l</span> <span class="id" type="var">H</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#map2">map2</a></span> <span class="id" type="var">F</span> <span class="id" type="var">l</span> <span class="id" type="var">H'</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="map2_pres_member">map2_pres_member</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">l</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#map2">map2</a></span> <span class="id" type="var">F</span> <span class="id" type="var">l</span> <span class="id" type="var">H</span>).<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As <span class="inlinecode"><span class="id" type="var">maxlist</span></span> and <span class="inlinecode"><span class="id" type="var">minlist</span></span> are generalizations of <span class="inlinecode"><span class="id" type="var">Max</span></span> and <span class="inlinecode"><span class="id" type="var">Min</span></span> to finite sets of real numbers, they have the expected properties: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maxlist_greater">maxlist_greater</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#maxlist">maxlist</a></span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maxlist_leEq_eps">maxlist_leEq_eps</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>} -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#maxlist">maxlist</a></span> <span class="id" type="var">l</span>[-]<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">x</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maxlist_less">maxlist_less</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>,<br/>
+&nbsp;0 &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">x</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#maxlist">maxlist</a></span> <span class="id" type="var">l</span> [&lt;] <span class="id" type="var">x</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maxlist_leEq">maxlist_leEq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> <span class="id" type="var">l</span>,<br/>
+&nbsp;0 &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#maxlist">maxlist</a></span> <span class="id" type="var">l</span> [&lt;=] <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minlist_smaller">minlist_smaller</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#minlist">minlist</a></span> <span class="id" type="var">l</span> [&lt;=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minlist_leEq_eps">minlist_leEq_eps</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>} -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> | <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#minlist">minlist</a></span> <span class="id" type="var">l</span>[+]<span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="less_minlist">less_minlist</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>,<br/>
+&nbsp;0 &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#minlist">minlist</a></span> <span class="id" type="var">l</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_minlist">leEq_minlist</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>,<br/>
+&nbsp;0 &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">l</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#minlist">minlist</a></span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.RealLists.html#Lists">Lists</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

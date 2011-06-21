@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.setoids.twoelemsetoid</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="p68E1b1">p68E1b1</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab127"></a><h2 class="section">Example of a setoid: setoids with two elements</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="M1">M1</a></span>:Set :=<br/>
+<span class="id" type="var">e1</span>:M1 | <span class="id" type="constructor"><a name="u">u</a></span>:M1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_eq">M1_eq</a></span> :(Relation <span class="id" type="inductive"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1">M1</a></span>):= <span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">b</span> =&gt; (<span class="id" type="var">a</span>=b).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_ap">M1_ap</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="inductive"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1">M1</a></span>):= <span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">b</span> =&gt; ~ (<span class="id" type="var">a</span>=b).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_ap_irreflexive">M1_ap_irreflexive</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_ap_symmetric">M1_ap_symmetric</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_ap_cotransitive">M1_ap_cotransitive</a></span>:  (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_eq_dec">M1_eq_dec</a></span>: <span class="id" type="keyword">forall</span>(<span class="id" type="var">x</span>:M1),(M1<span class="id" type="var">_eq</span> <span class="id" type="var">x</span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span>) <span class="id" type="var">or</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#u">u</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span>  <span class="id" type="definition"><a name="is_e1">is_e1</a></span> (<span class="id" type="var">x</span>:M1):Prop :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">x</span> <span class="id" type="keyword">with</span><br/>
+|e1 =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span><br/>
+|u =&gt; &perp;<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_M1_eq_e1_u">not_M1_eq_e1_u</a></span>:Not (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#u">u</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_ap_tight">M1_ap_tight</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span>  <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_is_CSetoid">M1_is_CSetoid</a></span>:(is_CSetoid <span class="id" type="inductive"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1">M1</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span>) :=<br/>
+(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_is_CSetoid">Build_is_CSetoid</a></span> <span class="id" type="inductive"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1">M1</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap_irreflexive">M1_ap_irreflexive</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap_symmetric">M1_ap_symmetric</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap_cotransitive">M1_ap_cotransitive</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap_tight">M1_ap_tight</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_as_CSetoid">M1_as_CSetoid</a></span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> :=<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="inductive"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1">M1</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_eq">M1_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_ap">M1_ap</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_is_CSetoid">M1_is_CSetoid</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_mult">M1_mult</a></span> (<span class="id" type="var">x</span>:M1)(<span class="id" type="var">y</span>:M1):M1:=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">x</span> <span class="id" type="keyword">with</span><br/>
+|e1 =&gt; <span class="id" type="var">y</span><br/>
+|u =&gt; <span class="id" type="keyword">match</span> <span class="id" type="var">y</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|e1 =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#u">u</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|u =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_CS_mult">M1_CS_mult</a></span>: <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_CS_mult_strext">M1_CS_mult_strext</a></span>:(bin_fun_strext <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_CS_mult">M1_CS_mult</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_mult_as_bin_fun">M1_mult_as_bin_fun</a></span>:=<br/>
+(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_CS_mult">M1_CS_mult</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_CS_mult_strext">M1_CS_mult_strext</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M2_mult">M2_mult</a></span> (<span class="id" type="var">x</span>:M1)(<span class="id" type="var">y</span>:M1):M1:=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">x</span> <span class="id" type="keyword">with</span><br/>
+|e1 =&gt; <span class="id" type="var">y</span><br/>
+|u =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#u">u</a></span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M2_CS_mult">M2_CS_mult</a></span>: <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M2_CS_mult_strext">M2_CS_mult_strext</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_CS_mult">M2_CS_mult</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M2_mult_as_bin_fun">M2_mult_as_bin_fun</a></span>:= <br/>
+&nbsp;&nbsp;(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_CS_mult">M2_CS_mult</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_CS_mult_strext">M2_CS_mult_strext</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#p68E1b1">p68E1b1</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

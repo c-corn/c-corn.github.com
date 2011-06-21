@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.IVT</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Nested_Intervals">Nested_Intervals</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab399"></a><h1 class="section">Intermediate Value Theorem</h1>
+
+
+<br/><br/>
+<a name="lab400"></a><h2 class="section">Nested intervals</h2>
+
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b:nat-&gt;IR</span> be sequences such that:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">a</span></span> is increasing;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">b</span></span> is decreasing;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="keyword">forall</span> (<span class="id" type="var">i</span>:nat), (<span class="id" type="var">a</span> <span class="id" type="var">i</span>) &lt; (<span class="id" type="var">b</span> <span class="id" type="var">i</span>)</span>;
+
+</li>
+<li> for every positive real number <span class="inlinecode">&epsilon;</span>, there is an <span class="inlinecode"><span class="id" type="var">i</span></span> such that <span class="inlinecode">(<span class="id" type="var">b</span> <span class="id" type="var">i</span>) &lt; (<span class="id" type="var">a</span> <span class="id" type="var">i</span>) +&epsilon;</span>.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Nested_Intervals.a">a</a></span> <span class="id" type="variable"><a name="Nested_Intervals.b">b</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.a_mon">a_mon</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">a</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.b_mon">b_mon</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">b</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) [&lt;=] <span class="id" type="var">b</span> <span class="id" type="var">i</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.a_b">a_b</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">a</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">b</span> <span class="id" type="var">i</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.b_a">b_a</a></span> : <span class="id" type="keyword">forall</span> &epsilon; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] &epsilon; -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">b</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">a</span> <span class="id" type="var">i</span>[+]&epsilon;}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_mon'">a_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">a</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">a</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="b_mon'">b_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">b</span> <span class="id" type="var">j</span> [&lt;=] <span class="id" type="var">b</span> <span class="id" type="var">i</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_b'">a_b'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">a</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">b</span> <span class="id" type="var">j</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="intervals_cauchy">intervals_cauchy</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="var">a</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cnested_intervals_limit">Cnested_intervals_limit</a></span> : {<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">a</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">z</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">b</span> <span class="id" type="var">i</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">f</span></span> be a continuous real function.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Nested_Intervals.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.f_contin">f_contin</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealFuncts.html#contin">contin</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="f_contin_pos">f_contin_pos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">z</span> -&gt;<br/>
+&nbsp;{&epsilon; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0 [&lt;] &epsilon; | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">z</span>[+]&epsilon; -&gt; <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">x</span>[+]&epsilon; -&gt; 0 [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">x</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="f_contin_neg">f_contin_neg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">f</span> <span class="id" type="var">z</span> [&lt;] 0 -&gt;<br/>
+&nbsp;{&epsilon; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0 [&lt;] &epsilon; | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">z</span>[+]&epsilon; -&gt; <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">x</span>[+]&epsilon; -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [&lt;] 0}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Assume also that <span class="inlinecode"><span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> (<span class="id" type="var">a</span> <span class="id" type="var">i</span>) &le; 0 &le; <span class="id" type="var">f</span> (<span class="id" type="var">b</span> <span class="id" type="var">i</span>)</span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.f_a">f_a</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> (<span class="id" type="var">a</span> <span class="id" type="var">i</span>) [&lt;=] 0.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nested_Intervals.f_b">f_b</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, 0 [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="var">b</span> <span class="id" type="var">i</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cnested_intervals_zero">Cnested_intervals_zero</a></span> : {<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> 0 [&lt;=] <span class="id" type="var">z</span> /\ <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">b</span> 0 /\ <span class="id" type="var">f</span> <span class="id" type="var">z</span> [=] 0}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.IVT.html#Nested_Intervals">Nested_Intervals</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Bisection">Bisection</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab401"></a><h2 class="section">Bissections</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Bisection.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Bisection.f_apzero_interval">f_apzero_interval</a></span> :<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">c</span> /\ <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">b</span> | <span class="id" type="var">f</span> <span class="id" type="var">c</span> [#] 0}.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Bisection.a">a</a></span> <span class="id" type="variable"><a name="Bisection.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Bisection.a_b">a_b</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Bisection.f_a">f_a</a></span> : <span class="id" type="var">f</span> <span class="id" type="var">a</span> [&lt;=] 0.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Bisection.f_b">f_b</a></span> : 0 [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">Small</span></span> denote <span class="inlinecode">2/3</span>, <span class="inlinecode"><span class="id" type="var">lft</span></span> be <span class="inlinecode">(2&times;<span class="id" type="var">a</span>+<span class="id" type="var">b</span>) /3</span> and <span class="inlinecode"><span class="id" type="var">rht</span></span> be <span class="inlinecode">(<span class="id" type="var">a</span>+2&times;<span class="id" type="var">b</span>) /3</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_lft">a_lft</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">lft</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rht_b">rht_b</a></span> : <span class="id" type="var">rht</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lft_rht">lft_rht</a></span> : <span class="id" type="var">lft</span> [&lt;] <span class="id" type="var">rht</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="smaller_lft">smaller_lft</a></span> : <span class="id" type="var">rht</span>[-]<span class="id" type="var">a</span> [=] <span class="id" type="var">Small</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="smaller_rht">smaller_rht</a></span> : <span class="id" type="var">b</span>[-]<span class="id" type="var">lft</span> [=] <span class="id" type="var">Small</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cbisect'">Cbisect'</a></span> : {<span class="id" type="var">a'</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">b'</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> |<br/>
+&nbsp;<span class="id" type="var">a'</span> [&lt;] <span class="id" type="var">b'</span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">a'</span> /\ <span class="id" type="var">b'</span> [&lt;=] <span class="id" type="var">b</span> /\ <span class="id" type="var">b'</span>[-]<span class="id" type="var">a'</span> [&lt;=] <span class="id" type="var">Small</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) /\ <span class="id" type="var">f</span> <span class="id" type="var">a'</span> [&lt;=] 0 /\ 0 [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">b'</span>}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.IVT.html#Bisection">Bisection</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Bisect_Interval">Bisect_Interval</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Bisect_Interval.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Bisect_Interval.C_f_apzero_interval">C_f_apzero_interval</a></span> :<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">c</span> /\ <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">b</span> | <span class="id" type="var">f</span> <span class="id" type="var">c</span> [#] 0}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="bisect_interval">bisect_interval</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="interval_lft">interval_lft</a></span>     : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="interval_rht">interval_rht</a></span>     : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="interval_lft_rht">interval_lft_rht</a></span> : <span class="id" type="method"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> [&lt;] <span class="id" type="method"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="interval_f_lft">interval_f_lft</a></span>   : <span class="id" type="var">f</span> <span class="id" type="method"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> [&lt;=] 0;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="interval_f_rht">interval_f_rht</a></span>   : 0 [&lt;=] <span class="id" type="var">f</span> <span class="id" type="method"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cbisect_exists">Cbisect_exists</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.IVT.html#bisect_interval">bisect_interval</a></span>, {<span class="id" type="var">I'</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.IVT.html#bisect_interval">bisect_interval</a></span> | <br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I'</span>[-]<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I'</span> [&lt;=] <span class="id" type="var">Small</span>[*] (<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I</span>[-]<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I</span>) /\<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I</span> [&lt;=] <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I'</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I'</span> [&lt;=] <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bisect">bisect</a></span> <span class="id" type="var">I</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.IVT.html#bisect_interval">bisect_interval</a></span> := <span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.IVT.html#Cbisect_exists">Cbisect_exists</a></span> <span class="id" type="var">I</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bisect_prop">bisect_prop</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.IVT.html#bisect_interval">bisect_interval</a></span>,<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#bisect">bisect</a></span> <span class="id" type="var">I</span>) [-]<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#bisect">bisect</a></span> <span class="id" type="var">I</span>) [&lt;=] <span class="id" type="var">Small</span>[*] (<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I</span>[-]<span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I</span>)<br/>
+&nbsp;/\ <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">I</span> [&lt;=] <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#bisect">bisect</a></span> <span class="id" type="var">I</span>) /\ <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#bisect">bisect</a></span> <span class="id" type="var">I</span>) [&lt;=] <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.IVT.html#Bisect_Interval">Bisect_Interval</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="IVT_Op">IVT_Op</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab402"></a><h2 class="section">IVT for operations</h2>
+
+Same conventions as before.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="IVT_Op.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT_Op.f_contin">f_contin</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealFuncts.html#contin">contin</a></span> <span class="id" type="var">f</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT_Op.f_apzero_interval">f_apzero_interval</a></span> :<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">c</span> /\ <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">b</span> | <span class="id" type="var">f</span> <span class="id" type="var">c</span> [#] 0}.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="IVT_Op.a">a</a></span> <span class="id" type="variable"><a name="IVT_Op.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT_Op.a_b">a_b</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT_Op.f_a">f_a</a></span> : <span class="id" type="var">f</span> <span class="id" type="var">a</span> [&lt;=] 0.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT_Op.f_b">f_b</a></span> : 0 [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="interval_sequence">interval_sequence</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="record"><a class="idref" href="CoRN.reals.IVT.html#bisect_interval">bisect_interval</a></span> <span class="id" type="var">f</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.IVT.html#Build_bisect_interval">Build_bisect_interval</a></span> <span class="id" type="var">f</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">a_b</span> <span class="id" type="var">f_a</span> <span class="id" type="var">f_b</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#bisect">bisect</a></span> <span class="id" type="var">f</span> <span class="id" type="var">f_apzero_interval</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#interval_sequence">interval_sequence</a></span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="a_">a_</a></span> (<span class="id" type="var">i</span> : <b>N</b>) := <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_lft">interval_lft</a></span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#interval_sequence">interval_sequence</a></span> <span class="id" type="var">i</span>).<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="b_">b_</a></span> (<span class="id" type="var">i</span> : <b>N</b>) := <span class="id" type="projection"><a class="idref" href="CoRN.reals.IVT.html#interval_rht">interval_rht</a></span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.IVT.html#interval_sequence">interval_sequence</a></span> <span class="id" type="var">i</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="intervals_smaller">intervals_smaller</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">b_</span> <span class="id" type="var">i</span>[-]<span class="id" type="var">a_</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">Small</span>[^]<span class="id" type="var">i</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="intervals_small''">intervals_small''</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">Small</span>[^]<span class="id" type="var">i</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">i</span> [&lt;=] 1.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="intervals_small'">intervals_small'</a></span> : <span class="id" type="keyword">forall</span> &epsilon;, 0 [&lt;] &epsilon; -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">Small</span>[^]<span class="id" type="var">i</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [&lt;=] &epsilon;}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="intervals_small">intervals_small</a></span> : <span class="id" type="keyword">forall</span> &epsilon;, 0 [&lt;] &epsilon; -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">b_</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">a_</span> <span class="id" type="var">i</span>[+]&epsilon;}.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Civt_op">Civt_op</a></span> : {<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">z</span> /\ <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">b</span> /\ <span class="id" type="var">f</span> <span class="id" type="var">z</span> [=] 0}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.IVT.html#IVT_Op">IVT_Op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="IVT_Poly">IVT_Poly</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab403"></a><h2 class="section">IVT for polynomials</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Civt_poly">Civt_poly</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">f</span> [#] 0 -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; <span class="id" type="var">f</span> ! <span class="id" type="var">a</span> [&lt;=] 0 -&gt; 0 [&lt;=] <span class="id" type="var">f</span> ! <span class="id" type="var">b</span> -&gt; {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">x</span> /\ <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">b</span> /\ <span class="id" type="var">f</span> ! <span class="id" type="var">x</span> [=] 0}.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.IVT.html#IVT_Poly">IVT_Poly</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

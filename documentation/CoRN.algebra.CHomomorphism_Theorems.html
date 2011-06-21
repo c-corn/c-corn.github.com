@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CHomomorphism_Theorems</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab256"></a><h1 class="section">Homomorphism Theorems</h1>
+
+<a name="lab257"></a><h2 class="section">The homomorphism theorem for modules</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring, <span class="inlinecode"><span class="id" type="var">A</span></span> and <span class="inlinecode"><span class="id" type="var">B</span></span> <span class="inlinecode"><span class="id" type="var">R</span></span>-Modules, and <span class="inlinecode"><span class="id" type="var">sigma</span></span> a module homomorphism
+from <span class="inlinecode"><span class="id" type="var">A</span></span> to <span class="inlinecode"><span class="id" type="var">B</span></span>.
+<a name="lab258"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">Cs</span></span> is a comodule</h3>
+
+We define <span class="inlinecode"><span class="id" type="var">Cs</span></span>, a comodule and prove that it really is a comodule.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Theorem_on_Modules">Theorem_on_Modules</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Theorem_on_Modules.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Theorem_on_Modules.Cs_CoModule">Cs_CoModule</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Theorem_on_Modules.Cs_CoModule.A">A</a></span> <span class="id" type="variable"><a name="Theorem_on_Modules.Cs_CoModule.B">B</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Theorem_on_Modules.Cs_CoModule.sigma">sigma</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModule_Homomorphisms.html#ModHom">ModHom</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cspred">cspred</a></span> (<span class="id" type="var">x</span>:A) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := (<span class="id" type="var">sigma</span> <span class="id" type="var">x</span>) [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cswdpred">cswdpred</a></span> : (<span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">A</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cs_is_comod">cs_is_comod</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_comod">is_comod</a></span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cswdpred">cswdpred</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_as_comod">cs_as_comod</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CModules.html#Build_comod">Build_comod</a></span> <span class="id" type="var">R</span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cswdpred">cswdpred</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cs_is_comod">cs_is_comod</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Theorem_on_Modules.Cs_CoModule">Cs_CoModule</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Theorem_on_Modules.A">A</a></span> <span class="id" type="variable"><a name="Theorem_on_Modules.B">B</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Theorem_on_Modules.sigma">sigma</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModule_Homomorphisms.html#ModHom">ModHom</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now we can `divide' <span class="inlinecode"><span class="id" type="var">A</span></span> by ~<span class="inlinecode"><span class="id" type="var">Cs</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cs">Cs</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cs_as_comod">cs_as_comod</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">sigma</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="AdivCs">AdivCs</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_RModule">quotmod_as_RModule</a></span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Cs">Cs</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now define the functions of which we want to prove the existence.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="tau">tau</a></span> (<span class="id" type="var">x</span>:A) := (<span class="id" type="var">x</span>:AdivCs).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="tau_is_fun">tau_is_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#AdivCs">AdivCs</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#tau">tau</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#tau_strext">tau_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="tau_surj">tau_surj</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#surjective">surjective</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#tau_is_fun">tau_is_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sigst">sigst</a></span> (<span class="id" type="var">x</span>:AdivCs) := (<span class="id" type="var">sigma</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sigst_is_fun">sigst_is_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#AdivCs">AdivCs</a></span> <span class="id" type="var">B</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#sigst">sigst</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#sigst_strext">sigst_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sigst_inj">sigst_inj</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#injective">injective</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#sigst_is_fun">sigst_is_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And now we have reached a goal: we can easily formulate and prove
+the homomorphism theorem for modules.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ModHomTheorem">ModHomTheorem</a></span> : {<span class="id" type="var">tau</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#AdivCs">AdivCs</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#surjective">surjective</a></span> <span class="id" type="var">tau</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">and</span> {<span class="id" type="var">sigst</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#AdivCs">AdivCs</a></span> <span class="id" type="var">B</span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#injective">injective</a></span> <span class="id" type="var">sigst</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Theorem_on_Modules">Theorem_on_Modules</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab259"></a><h2 class="section">The homomorphism theorem for rings</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> and <span class="inlinecode"><span class="id" type="var">S</span></span> be rings and <span class="inlinecode"><span class="id" type="var">sigma</span></span> a ring homomorphism from <span class="inlinecode"><span class="id" type="var">R</span></span> to <span class="inlinecode"><span class="id" type="var">S</span></span>.
+<a name="lab260"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">CsR</span></span> is a coideal</h3>
+
+We define <span class="inlinecode"><span class="id" type="var">CsR</span></span>, a coideal and prove that it really is a coideal.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Theorem_on_Rings">Theorem_on_Rings</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Theorem_on_Rings.Cs_CoIdeal">Cs_CoIdeal</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Theorem_on_Rings.Cs_CoIdeal.R">R</a></span> <span class="id" type="variable"><a name="Theorem_on_Rings.Cs_CoIdeal.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Theorem_on_Rings.Cs_CoIdeal.sigma">sigma</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRing_Homomorphisms.html#RingHom">RingHom</a></span> <span class="id" type="var">R</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cspredR">cspredR</a></span> (<span class="id" type="var">x</span>:R) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := (<span class="id" type="var">sigma</span> <span class="id" type="var">x</span>) [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cswdpredR">cswdpredR</a></span> : (<span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">R</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cs_is_coideal">cs_is_coideal</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#is_coideal">is_coideal</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cswdpredR">cswdpredR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_as_coideal">cs_as_coideal</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CIdeals.html#Build_coideal">Build_coideal</a></span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cswdpredR">cswdpredR</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cs_is_coideal">cs_is_coideal</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Theorem_on_Rings.Cs_CoIdeal">Cs_CoIdeal</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Theorem_on_Rings.R">R</a></span> <span class="id" type="variable"><a name="Theorem_on_Rings.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Theorem_on_Rings.sigma">sigma</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRing_Homomorphisms.html#RingHom">RingHom</a></span> <span class="id" type="var">R</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now we can `divide' <span class="inlinecode"><span class="id" type="var">R</span></span> by ~<span class="inlinecode"><span class="id" type="var">CsR</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CsR">CsR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#cs_as_coideal">cs_as_coideal</a></span> <span class="id" type="var">R</span> <span class="id" type="var">S</span> <span class="id" type="var">sigma</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RdivCsR">RdivCsR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CRing">quotring_as_CRing</a></span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#CsR">CsR</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now define the functions of which we want to prove the existence.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rtau">Rtau</a></span> (<span class="id" type="var">x</span>:R) := (<span class="id" type="var">x</span>:RdivCsR).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rtau_strext">Rtau_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rtau">Rtau</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rtau_is_fun">Rtau_is_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#RdivCsR">RdivCsR</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rtau">Rtau</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rtau_strext">Rtau_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rtau_surj">Rtau_surj</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#surjective">surjective</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rtau_is_fun">Rtau_is_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rsigst">Rsigst</a></span> (<span class="id" type="var">x</span>:RdivCsR) := (<span class="id" type="var">sigma</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rsigst_strext">Rsigst_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rsigst">Rsigst</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rsigst_is_fun">Rsigst_is_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#RdivCsR">RdivCsR</a></span> <span class="id" type="var">S</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rsigst">Rsigst</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rsigst_strext">Rsigst_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Rsigst_inj">Rsigst_inj</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#injective">injective</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Rsigst_is_fun">Rsigst_is_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And now we have reached a goal: we can easily formulate and prove
+the homomorphism theorem for rings.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RingHomTheorem">RingHomTheorem</a></span> : {<span class="id" type="var">Rtau</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#RdivCsR">RdivCsR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#surjective">surjective</a></span> <span class="id" type="var">Rtau</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">and</span> {<span class="id" type="var">Rsigst</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#RdivCsR">RdivCsR</a></span> <span class="id" type="var">S</span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#injective">injective</a></span> <span class="id" type="var">Rsigst</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CHomomorphism_Theorems.html#Theorem_on_Rings">Theorem_on_Rings</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

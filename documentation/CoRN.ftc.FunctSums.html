@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.FunctSums</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab456"></a><h1 class="section">Sums of Functions</h1>
+
+
+<br/><br/>
+In this file we define sums are defined of arbitrary families of
+partial functions.
+
+<br/><br/>
+Given a countable family of functions, their sum is defined on the
+intersection of all the domains.  As is the case for groups, we will
+define three different kinds of sums.
+
+<br/><br/>
+We will first consider the case of a family
+{f<sub>i</sub>} of functions; we can both define
+the sum of the first n functions ( <span class="inlinecode">&sum;<sub>0</sub></span>) or
+the sum of f<sub>m</sub> through f<sub>n</sub>
+( <span class="inlinecode">&sum;</span>).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum;<sub>0</sub> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum; (<span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Although <span class="inlinecode">&sum;</span> is here defined directly, it has the same relationship
+to the <span class="inlinecode">&sum;<sub>0</sub></span> operator as <span class="inlinecode">&sum;</span> has to <span class="inlinecode">&sum;<sub>0</sub></span>.  Also, all the results
+for <span class="inlinecode">&sum;</span> and <span class="inlinecode">&sum;<sub>0</sub></span> hold when these operators are replaced by their
+functional equivalents.  This is an immediate consequence of the fact
+that the partial functions form a group; however, as we already
+mentioned, their forming too big a type makes it impossible to use
+those results.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_FSum0">FSum_FSum0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum;<sub>0</sub> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>[-]&sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum0_wd">FSum0_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxF</span> <span class="id" type="var">i</span>) [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxG</span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [=] &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_one">FSum_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">n</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_FSum">FSum_FSum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">l</span> <span class="id" type="var">m</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[+]&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span> [=] &sum; <span class="id" type="var">l</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_first">FSum_first</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>[+]&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_last">FSum_last</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>[+]<span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_last'">FSum_last'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>,<br/>
+&nbsp;0 &lt; <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum; <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>[+]<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_wd">FSum_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxF</span> <span class="id" type="var">i</span>) [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxG</span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_plus_FSum">FSum_plus_FSum</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>{+}g <span class="id" type="var">i</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span>[+]&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_FSum">inv_FSum</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; {--} (<span class="id" type="var">f</span> <span class="id" type="var">i</span>)) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] [--] (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_minus_FSum">FSum_minus_FSum</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>{-}g <span class="id" type="var">i</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span>[-]&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_wd'">FSum_wd'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxF</span> <span class="id" type="var">i</span>) [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxG</span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_resp_less">FSum_resp_less</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxF</span> <span class="id" type="var">i</span>) [&lt;] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxG</span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [&lt;] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_resp_leEq">FSum_resp_leEq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxF</span> <span class="id" type="var">i</span>) [&lt;=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> (<span class="id" type="var">HxG</span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [&lt;=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_comm_scal">FSum_comm_scal</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">c</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>{*} [-C-]<span class="id" type="var">c</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>{*} [-C-]<span class="id" type="var">c</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_comm_scal'">FSum_comm_scal'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">c</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>,<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; [-C-]<span class="id" type="var">c</span>{*}f <span class="id" type="var">i</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] ( [-C-]<span class="id" type="var">c</span>{*}FSum <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Also important is the case when we have a finite family
+ of exactly n functions; in this case we need
+to use the <span class="inlinecode"><span class="id" type="var">FSumx</span></span> operator.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="FSumx">FSumx</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">return</span> ((<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; [-C-]0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">f</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">p</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">l</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_S">lt_S</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span> <span class="id" type="var">l</span>)) {+} <span class="id" type="var">f</span> <span class="id" type="var">p</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_n_Sn">lt_n_Sn</a></span> <span class="id" type="var">p</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This operator is well defined, as expected.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_wd">FSumx_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> <span class="id" type="var">HxG</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">HxF</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> <span class="id" type="var">x</span> <span class="id" type="var">HxG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_wd'">FSumx_wd'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) <span class="id" type="var">n</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, &asymp; <span class="id" type="var">P</span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>) (<span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">H'</span>)) -&gt; &asymp; <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As was already the case for <span class="inlinecode"><span class="id" type="var">Sumx</span></span>, in many cases we will need to
+explicitly assume that f<sub>1</sub> is independent of the proof that
+<span class="inlinecode"><span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span></span>.  This holds both for the value and the domain of the partial
+function f<sub>i</sub>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ext_fun_seq">ext_fun_seq</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) := <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ext_fun_seq'">ext_fun_seq'</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) := <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>) <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Under these assumptions, we can characterize the domain and the value of the sum function from the domains and values of the summands:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_pred">FSumx_pred</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq'">ext_fun_seq'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_pred'">FSumx_pred'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq'">ext_fun_seq'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>) <span class="id" type="var">x</span>) -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_char">FSumx_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hf</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx_pred">FSumx_pred</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">Hf</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As we did for arbitrary groups, it is often useful to rewrite this sums as ordinary sums.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FSumx_to_FSum">FSumx_to_FSum</a></span> <span class="id" type="var">n</span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) -&gt; <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_lt">FSumx_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq">ext_fun_seq</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx_to_FSum">FSumx_to_FSum</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSumx_le">FSumx_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq">ext_fun_seq</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">n</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx_to_FSum">FSumx_to_FSum</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_FSumx_to_FSum">FSum_FSumx_to_FSum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq">ext_fun_seq</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq'">ext_fun_seq'</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, &sum; 0 <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx_to_FSum">FSumx_to_FSum</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some useful lemmas follow.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum0_0">FSum0_0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">f</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>))) -&gt; &asymp; <span class="id" type="var">P</span> [-C-]0 (&sum;<sub>0</sub> 0 <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum0_S">FSum0_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">f</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">m</span>))) -&gt;<br/>
+&nbsp;&asymp; <span class="id" type="var">P</span> (&sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span>{+}f <span class="id" type="var">n</span>) (&sum;<sub>0</sub> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_0">FSum_0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">f</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span>))) -&gt; &asymp; <span class="id" type="var">P</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (&sum; <span class="id" type="var">n</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_S">FSum_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span>))) -&gt;<br/>
+&nbsp;&asymp; <span class="id" type="var">P</span> (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>{+}f (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)) (&sum; <span class="id" type="var">m</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSum_FSum0'">FSum_FSum0'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span>))) -&gt;<br/>
+&nbsp;&asymp; <span class="id" type="var">P</span> (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) (&sum;<sub>0</sub> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>{-}FSum0 <span class="id" type="var">m</span> <span class="id" type="var">f</span>).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

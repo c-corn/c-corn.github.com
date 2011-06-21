@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.COrdCauchy</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="OrdField_Cauchy">OrdField_Cauchy</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab301"></a><h2 class="section">Cauchy sequences</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="OrdField_Cauchy.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">g</span> <span class="id" type="var">m</span>[-]<span class="id" type="var">g</span> <span class="id" type="var">N</span>)}.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Implicit arguments turned off, because Coq makes a mess of it in combination
+with the coercions
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CauchySeq">CauchySeq</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="CS_seq">CS_seq</a></span>   :&gt; <b>N</b> -&gt; <span class="id" type="var">R</span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="CS_proof">CS_proof</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.COrdCauchy.html#CS_seq">CS_seq</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SeqLimit">SeqLimit</a></span> (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>) (<span class="id" type="var">lim</span> : <span class="id" type="var">R</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">seq</span> <span class="id" type="var">m</span>[-]<span class="id" type="var">lim</span>)}.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now prove that the property of being a Cauchy sequence is preserved
+through the usual algebraic operations (addition, subtraction and
+multiplication -- and division, provided some additional conditions
+hold).
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="CS_seq_bounded">CS_seq_bounded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="var">g</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">K</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">K</span> | {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">K</span> (<span class="id" type="var">g</span> <span class="id" type="var">m</span>)}}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_const">CS_seq_const</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">c</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Assume <span class="inlinecode"><span class="id" type="var">f</span></span> and <span class="inlinecode"><span class="id" type="var">g</span></span> are Cauchy sequences on <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="OrdField_Cauchy.f">f</a></span> <span class="id" type="variable"><a name="OrdField_Cauchy.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="OrdField_Cauchy.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="var">f</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="OrdField_Cauchy.Hg">Hg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_plus">CS_seq_plus</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">m</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">m</span>[+]<span class="id" type="var">g</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_inv">CS_seq_inv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; [--] (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_mult">CS_seq_mult</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>[*]<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now assume that <span class="inlinecode"><span class="id" type="var">f</span></span> is, from some point onwards, greater than
+some positive number.  The sequence of reciprocals is defined as
+being constantly one up to that point, and the sequence of
+reciprocals from then onwards.
+
+<br/><br/>
+
+Let <span class="inlinecode"><span class="id" type="var">e</span></span> be a postive element of <span class="inlinecode"><span class="id" type="var">R</span></span> and let <span class="inlinecode"><span class="id" type="var">N</span>:nat</span> be such that from
+<span class="inlinecode"><span class="id" type="var">N</span></span> onwards, <span class="inlinecode">(<span class="id" type="var">f</span> <span class="id" type="var">n</span>) [#] 0</span>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="OrdField_Cauchy.e">e</a></span> : <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="OrdField_Cauchy.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="OrdField_Cauchy.N">N</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="OrdField_Cauchy.f_bnd">f_bnd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_recip_def">CS_seq_recip_def</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CS_seq_recip_seq">CS_seq_recip_seq</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CS_seq_recip">CS_seq_recip</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#CS_seq_recip_seq">CS_seq_recip_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.COrdCauchy.html#OrdField_Cauchy">OrdField_Cauchy</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following lemma does not require the sequence to be Cauchy, but it fits
+well here anyway.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="maj_upto_eps">maj_upto_eps</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">F</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">a</span> : <b>N</b> -&gt; <span class="id" type="var">F</span>) (<span class="id" type="var">n</span> : <b>N</b>) (&epsilon; : <span class="id" type="var">F</span>),<br/>
+&nbsp;0 &lt; <span class="id" type="var">n</span> -&gt; 0 [&lt;] &epsilon; -&gt; {<span class="id" type="var">k</span> : <b>N</b> | 1 &lt;= <span class="id" type="var">k</span> /\ <span class="id" type="var">k</span> &lt;= <span class="id" type="var">n</span> /\ (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, 1 &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">a</span> <span class="id" type="var">i</span>[-]&epsilon; [&lt;=] <span class="id" type="var">a</span> <span class="id" type="var">k</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Mult_Continuous">Mult_Continuous</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Mult_Continuous.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab302"></a><h2 class="section">Multiplication is continuous</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="smaller">smaller</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">x</span> -&gt; 0 [&lt;] <span class="id" type="var">y</span> -&gt; {<span class="id" type="var">z</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">z</span> | <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">x</span> /\ <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">y</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="estimate_abs">estimate_abs</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, {<span class="id" type="var">X</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">X</span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">X</span> <span class="id" type="var">x</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_contin">mult_contin</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">c</span> | {<span class="id" type="var">d</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">d</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x'</span> <span class="id" type="var">y'</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">c</span> (<span class="id" type="var">x</span>[-]<span class="id" type="var">x'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">d</span> (<span class="id" type="var">y</span>[-]<span class="id" type="var">y'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>[-]<span class="id" type="var">x'</span>[*]<span class="id" type="var">y'</span>)}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Addition is also continuous. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_contin">plus_contin</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>), 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">c</span> | {<span class="id" type="var">d</span> : <span class="id" type="var">R</span> | 0 [&lt;] <span class="id" type="var">d</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x'</span> <span class="id" type="var">y'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">c</span> (<span class="id" type="var">x</span>[-]<span class="id" type="var">x'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">d</span> (<span class="id" type="var">y</span>[-]<span class="id" type="var">y'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>[-] (<span class="id" type="var">x'</span>[+]<span class="id" type="var">y'</span>))}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Mult_Continuous">Mult_Continuous</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Monotonous_functions">Monotonous_functions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab303"></a><h2 class="section">Monotonous Functions</h2>
+
+
+<br/><br/>
+Finally, we study several properties of monotonous functions and
+characterize them in some way.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Monotonous_functions.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We begin by characterizing the preservation of less (less or equal)
+in terms of preservation of less or equal (less).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="resp_less_char'">resp_less_char'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="var">R</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">R</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt; (<span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt;<br/>
+&nbsp;<span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="resp_less_char">resp_less_char</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <span class="id" type="var">R</span> -&gt; <span class="id" type="var">R</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">f</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="resp_leEq_char'">resp_leEq_char'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="var">R</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">R</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt; (<span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt;<br/>
+&nbsp;<span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="resp_leEq_char">resp_leEq_char</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <span class="id" type="var">R</span> -&gt; <span class="id" type="var">R</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Next, we see different characterizations of monotonous functions from
+some subset of the natural numbers into <span class="inlinecode"><span class="id" type="var">R</span></span>.  Mainly, these
+amount (for different types of functions) to proving that a function
+is monotonous iff <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">i</span>) &lt; <span class="id" type="var">f</span>(<span class="id" type="var">i</span>+1)</span> for every <span class="inlinecode"><span class="id" type="var">i</span></span>.
+
+<br/><br/>
+Also, strictly monotonous functions are injective.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon">local_mon_imp_mon</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon'">local_mon_imp_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon'_imp_mon'">local_mon'_imp_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_mon'">mon_imp_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_inj">mon_imp_inj</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> -&gt; <span class="id" type="var">i</span> = <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon_lt">local_mon_imp_mon_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon'_lt">local_mon_imp_mon'_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon'_imp_mon'_lt">local_mon'_imp_mon'_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon'_imp_mon'2_lt">local_mon'_imp_mon'2_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_mon'_lt">mon_imp_mon'_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>), <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_inj_lt">mon_imp_inj_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span> -&gt; <span class="id" type="var">i</span> = <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon_le">local_mon_imp_mon_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon_imp_mon'_le">local_mon_imp_mon'_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun'">nat_less_n_fun'</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon'_imp_mon'_le">local_mon'_imp_mon'_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun'">nat_less_n_fun'</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="local_mon'_imp_mon'2_le">local_mon'_imp_mon'2_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [&lt;=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H'</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_mon'_le">mon_imp_mon'_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>), <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun'">nat_less_n_fun'</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_imp_inj_le">mon_imp_inj_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">R</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [&lt;] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span> -&gt; <span class="id" type="var">i</span> = <span class="id" type="var">j</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A similar result for partial functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_mon_imp_mon'">part_mon_imp_mon'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> (<span class="id" type="var">I</span> : <span class="id" type="var">R</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">x</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;] <span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Monotonous_functions">Monotonous_functions</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.Zmod.IrrCrit</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab350"></a><h1 class="section">An irreducibility criterion</h1>
+
+Let <span class="inlinecode"><span class="id" type="var">p</span></span> be a (positive) prime number. Our goal is to prove that if an integer 
+polynomial is irreducible over the prime field Fp, then it is irreducible over 
+Z.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="p">p</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Hprime">Hprime</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Prime">Prime</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#p">p</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fp">fp</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.Zm.html#Fp">Fp</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#p">p</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#Hprime">Hprime</a></span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab351"></a><h2 class="section">Integers modulo <span class="inlinecode"><span class="id" type="var">p</span></span></h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="zfp">zfp</a></span> (<span class="id" type="var">a</span>:Z) := (<span class="id" type="var">a</span>:fp).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpeq_wd">fpeq_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>:Z, <span class="id" type="var">a</span>=b -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zfp">zfp</a></span> <span class="id" type="var">a</span>)[=](<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zfp">zfp</a></span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab352"></a><h2 class="section">Integer polynomials over Fp</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="zx">zx</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.rings.Zring.html#Z_as_CRing">Z_as_CRing</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fpx">fpx</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="zxfpx">zxfpx</a></span> (<span class="id" type="var">p</span>:zx) : <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fpx">fpx</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">p</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> =&gt; (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fpx">fpx</a></span>)<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">c</span> <span class="id" type="var">p1</span> =&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zfp">zfp</a></span> <span class="id" type="var">c</span>)[+X*](<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">p1</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="P">P</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span>:zx):= <span class="id" type="var">f</span>[=]<span class="id" type="var">g</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>)[=](<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpxeq_wd">fpxeq_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>:zx, <span class="id" type="var">f</span>[=]<span class="id" type="var">g</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>)[=](<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab353"></a><h2 class="section">Lemmas</h2>
+
+In this section we prove the lemmas we will need, about integer polynomials,
+viewed over a prime field.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_zero">mult_zero</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">R</span>:CRing)(f:cpoly_cring <span class="id" type="var">R</span>),<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_op">cpoly_mult_op</a></span> <span class="id" type="var">R</span> <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="var">R</span>))[=](<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="var">R</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fp_resp_zero">fp_resp_zero</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span>(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.rings.Zring.html#Z_as_CRing">Z_as_CRing</a></span>)[=](<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_mult_cr">fpx_resp_mult_cr</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Z_as_CRing)(f:zx),<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_cr_cs">cpoly_mult_cr_cs</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zfp">zfp</a></span> <span class="id" type="var">c</span>)) [=]<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_cr_cs">cpoly_mult_cr_cs</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_plus">fpx_resp_plus</a></span> :  <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>:zx,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_plus_op">cpoly_plus_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">g</span>))[=]<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_plus_op">cpoly_plus_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_mult">fpx_resp_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>:zx,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_op">cpoly_mult_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">g</span>)) [=] <br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_op">cpoly_mult_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_coef">fpx_resp_coef</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>:zx)(n:nat), (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zfp">zfp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>))<br/>
+&nbsp;&nbsp;[=] (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>)).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab354"></a><h2 class="section">Working towards the criterion</h2>
+
+<a name="lab355"></a><h3 class="section">Definitions</h3>
+
+We prove the criterion for monic integers of degree greater than 1.
+This property is first defined, so that reducibility can be defined next.
+We then prove that a reducible integer polynomial is reducible over 
+Fp. Finally irreducibility is defined.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="degree_ge_monic">degree_ge_monic</a></span> (<span class="id" type="var">R</span>:CRing)(n:nat)(f:(cpoly_cring <span class="id" type="var">R</span>)) :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span>:nat | (<span class="id" type="var">n</span> &gt;= <span class="id" type="var">m</span>)%nat | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#monic">monic</a></span> <span class="id" type="var">m</span> <span class="id" type="var">f</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_deggemonic">fpx_resp_deggemonic</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>:zx)(n:nat),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#degree_ge_monic">degree_ge_monic</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#degree_ge_monic">degree_ge_monic</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="reducible">reducible</a></span> (<span class="id" type="var">R</span>:CRing)(f:(cpoly_cring <span class="id" type="var">R</span>)) :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#degree_ge_monic">degree_ge_monic</a></span> <span class="id" type="var">R</span> 2%nat <span class="id" type="var">f</span> <span class="id" type="var">and</span><br/>
+&nbsp;&nbsp;{<span class="id" type="var">g</span>:(cpoly_cring <span class="id" type="var">R</span>) | <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#degree_ge_monic">degree_ge_monic</a></span> <span class="id" type="var">R</span> 1%nat <span class="id" type="var">g</span> |<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{<span class="id" type="var">h</span>:(cpoly_cring <span class="id" type="var">R</span>) | <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#degree_ge_monic">degree_ge_monic</a></span> <span class="id" type="var">R</span> 1%nat <span class="id" type="var">h</span> |<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">f</span>[=](<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_mult_op">cpoly_mult_op</a></span> <span class="id" type="var">R</span> <span class="id" type="var">g</span> <span class="id" type="var">h</span>) }}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fpx_resp_red">fpx_resp_red</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:zx, (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#reducible">reducible</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span>)-&gt;(reducible <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="irreducible">irreducible</a></span> (<span class="id" type="var">R</span>:CRing)(f:(cpoly_cring <span class="id" type="var">R</span>)) := <br/>
+&nbsp;&nbsp;~ (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#reducible">reducible</a></span> <span class="id" type="var">R</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+<a name="lab356"></a><h3 class="section">The criterion</h3>
+
+And now we can state and prove the irreducibility criterion.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="irrcrit">irrcrit</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:zx, (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#irreducible">irreducible</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#fp">fp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#zxfpx">zxfpx</a></span> <span class="id" type="var">f</span>)) -&gt;<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.IrrCrit.html#irreducible">irreducible</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

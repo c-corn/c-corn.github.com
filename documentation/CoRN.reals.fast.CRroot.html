@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRroot</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab694"></a><h2 class="section">Square Root</h2>
+
+Square root is implement using Newton's method.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SquareRoot">SquareRoot</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SquareRoot.a">a</a></span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="SquareRoot.Ha">Ha</a></span> : 1 &lt;= <span class="id" type="var">a</span> &lt;= 4.<br/>
+</div>
+
+<div class="doc">
+Square root is first defined on <span class="inlinecode">[1,4]</span>.  Iterating this formula will
+converge to the square root of <span class="inlinecode"><span class="id" type="var">a</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="root_step">root_step</a></span> (<span class="id" type="var">b</span>:Q) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> := <span class="id" type="var">b</span>/2 + <span class="id" type="var">a</span>/(2*b).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="root_has_error">root_has_error</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">b</span>:Q) := <span class="id" type="var">a</span> &lt;= (<span class="id" type="var">b</span>+e)^2 /\ (<span class="id" type="var">b</span>-e)^2 &lt;= <span class="id" type="var">a</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_has_error_le">root_has_error_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos) (<span class="id" type="var">b</span>:Q), <span class="id" type="var">e2</span> &lt;= <span class="id" type="var">b</span> -&gt; <span class="id" type="var">e1</span> &lt;= <span class="id" type="var">e2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_error_bnd">root_error_bnd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) <span class="id" type="var">b</span>, <span class="id" type="var">e</span> &lt;= 1 -&gt; 1 &lt;= <span class="id" type="var">b</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="var">b</span> &lt;= 2 + <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_has_error_ball">root_has_error_ball</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos) (<span class="id" type="var">b1</span> <span class="id" type="var">b2</span>:Q), (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>&lt;=1) -&gt;  (1 &lt;= <span class="id" type="var">b1</span>) -&gt; (1 &lt;= <span class="id" type="var">b2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">b1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qball">Qball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">b1</span> <span class="id" type="var">b2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> (<span class="id" type="var">e1</span>+e2) <span class="id" type="var">b2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_root_has_error">ball_root_has_error</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos) (<span class="id" type="var">b1</span> <span class="id" type="var">b2</span>:Q), ((<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>)&lt;=1) -&gt; (1&lt;=b1) -&gt; (1&lt;=b2) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">b1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">b2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qball">Qball</a></span> (<span class="id" type="var">e1</span>+e2) <span class="id" type="var">b1</span> <span class="id" type="var">b2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_step_error">root_step_error</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">b</span> (<span class="id" type="var">e</span>:Qpos), (1 &lt;= <span class="id" type="var">b</span>) -&gt;  (<span class="id" type="var">e</span> &lt;= 1) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> ((1#2)*(e*e)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_step">root_step</a></span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Our initial estimate is (a+1)/2 with an error of 1/2 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="initial_root">initial_root</a></span> :Q := ((1#2)*(a+1)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="initial_root_error">initial_root_error</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> (1#2) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#initial_root">initial_root</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_step_one_le">root_step_one_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">b</span>,  (1 &lt;= <span class="id" type="var">b</span>)-&gt; (1 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_step">root_step</a></span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="initial_root_one_le">initial_root_one_le</a></span> : (1 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#initial_root">initial_root</a></span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Each step squares the error 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="root_loop">root_loop</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">b</span>:Q) (<span class="id" type="var">err</span>:positive) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span> <br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; <span class="id" type="var">b</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n'</span> =&gt; <span class="id" type="keyword">if</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qlt_le_dec_fast">Qlt_le_dec_fast</a></span> <span class="id" type="var">e</span> (1#err)) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">then</span> <span class="id" type="keyword">let</span> <span class="id" type="var">err'</span>:= (<span class="id" type="var">err</span>*err)%positive <span class="id" type="keyword">in</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_loop">root_loop</a></span> <span class="id" type="var">e</span> <span class="id" type="var">n'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Compress.html#approximateQ">approximateQ</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_step">root_step</a></span> <span class="id" type="var">b</span>) (2*err')) <span class="id" type="var">err'</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">else</span> <span class="id" type="var">b</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_loop_one_le">root_loop_one_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">n</span> <span class="id" type="var">b</span> <span class="id" type="var">err</span>,  (1 &lt;= <span class="id" type="var">b</span>)-&gt; (1 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_loop">root_loop</a></span> <span class="id" type="var">e</span> <span class="id" type="var">n</span> <span class="id" type="var">b</span> <span class="id" type="var">err</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_loop_error">root_loop_error</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) <span class="id" type="var">n</span> <span class="id" type="var">b</span> <span class="id" type="var">err</span>, (1 &lt;= <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> (1#err) <span class="id" type="var">b</span> -&gt; (1#(iter_nat <span class="id" type="var">n</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (<span class="id" type="var">x</span> * <span class="id" type="var">x</span>)%positive) <span class="id" type="var">err</span>))&lt;=e -&gt; <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QposMinMax.html#Qpos_min">Qpos_min</a></span> (1 # <span class="id" type="var">err</span>) <span class="id" type="var">e</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_loop">root_loop</a></span> <span class="id" type="var">e</span> <span class="id" type="var">n</span> <span class="id" type="var">b</span> <span class="id" type="var">err</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Find a bound on the number of iterations we need to take. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_max_steps">root_max_steps</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> <span class="id" type="var">d</span>:positive), (1#(iter_nat (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psize">Psize</a></span> <span class="id" type="var">d</span>)) <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (<span class="id" type="var">x</span> * <span class="id" type="var">x</span>)%positive) 2%positive))&lt;=(n#d)%Qpos.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Square root on <span class="inlinecode">[1,4]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sqrt_raw">sqrt_raw</a></span> (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span><br/>
+| &infin; =&gt; 1<br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> <span class="id" type="var">e'</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_loop">root_loop</a></span> <span class="id" type="var">e'</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psize">Psize</a></span> (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qden">Qden</a></span> <span class="id" type="var">e'</span>))) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#initial_root">initial_root</a></span> 2<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sqrt_regular">sqrt_regular</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#sqrt_raw">sqrt_raw</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sqrt_mid">rational_sqrt_mid</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Complete.html#Build_RegularFunction">Build_RegularFunction</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRroot.html#sqrt_regular">sqrt_regular</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_err">rational_sqrt_mid_err</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos), (<span class="id" type="var">e</span> &lt;= 1) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#root_has_error">root_has_error</a></span> <span class="id" type="var">e</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span> <span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_one_le">rational_sqrt_mid_one_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:QposInf), 1 &lt;= (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span> <span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_le_3">rational_sqrt_mid_le_3</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:QposInf), (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span> <span class="id" type="var">e</span>) &lt;= 3.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_correct0">rational_sqrt_mid_correct0</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive">CRpower_positive</a></span> 2 <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span> == ' <span class="id" type="var">a</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_correct1">rational_sqrt_mid_correct1</a></span> : ('0 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_mid_correct">rational_sqrt_mid_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_mid">rational_sqrt_mid</a></span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRroot.html#SquareRoot">SquareRoot</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+By scaling the input the range of square root can be extened upto 4^n.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sqrt_big_bounded">rational_sqrt_big_bounded</a></span> (<span class="id" type="var">n</span>:nat) <span class="id" type="var">a</span> (<span class="id" type="var">Ha</span>:1 &lt;= <span class="id" type="var">a</span> &lt;= (4^n)%Z) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_big_bounded_correct">rational_sqrt_big_bounded_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_big_bounded">rational_sqrt_big_bounded</a></span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+By scaling the other direction we can extend the range down to 4^(-n).
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sqrt_small_bounded">rational_sqrt_small_bounded</a></span> (<span class="id" type="var">n</span>:nat) <span class="id" type="var">a</span> (<span class="id" type="var">Ha</span>:/(4^n)%Z &lt;= <span class="id" type="var">a</span> &lt;= 4) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_small_bounded_correct">rational_sqrt_small_bounded_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_small_bounded">rational_sqrt_small_bounded</a></span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And hence it is defined for all postive numbers. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sqrt_pos">rational_sqrt_pos</a></span> <span class="id" type="var">a</span> (<span class="id" type="var">Ha</span>:0&lt;a) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_pos_correct">rational_sqrt_pos_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_pos">rational_sqrt_pos</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We define the square root for all nonpositive numbers. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sqrt">rational_sqrt</a></span> <span class="id" type="var">a</span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <br/>
+<span class="id" type="keyword">match</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qlt_le_dec_fast">Qlt_le_dec_fast</a></span> 0 <span class="id" type="var">a</span>) <span class="id" type="keyword">with</span><br/>
+|left <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt_pos">rational_sqrt_pos</a></span> <span class="id" type="var">a</span> <span class="id" type="var">H</span><br/>
+|right <span class="id" type="var">_</span> =&gt; (' 0)%CR<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sqrt_correct">rational_sqrt_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt">rational_sqrt</a></span> <span class="id" type="var">a</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Square root is uniformly continuous everywhere. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sqrt_modulus">sqrt_modulus</a></span> (<span class="id" type="var">e</span>:Qpos) : Q<SUP>+</SUP><SUB>&infin;</SUB> := <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> (<span class="id" type="var">e</span>*e).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sqrt_uc_prf">sqrt_uc_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#rational_sqrt">rational_sqrt</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#sqrt_modulus">sqrt_modulus</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sqrt_uc">sqrt_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRroot.html#sqrt_uc_prf">sqrt_uc_prf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRsqrt">CRsqrt</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#sqrt_uc">sqrt_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRsqrt_correct">CRsqrt_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> <span class="id" type="var">x</span> <span class="id" type="var">H</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRroot.html#CRsqrt">CRsqrt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

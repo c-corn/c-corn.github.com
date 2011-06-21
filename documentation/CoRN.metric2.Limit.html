@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.Limit</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab625"></a><h2 class="section">Limits</h2>
+
+A predicate saying there exists a point in the stream where a predicate
+is satsified.
+
+<br/><br/>
+We take the unusual step of puting this inductive type in Prop even
+though it contains constructive information.  This is because we expect
+this proof to only be used in proofs of termination. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="LazyExists">LazyExists</a></span> <span class="id" type="var">A</span> (<span class="id" type="var">P</span>:Stream <span class="id" type="var">A</span> -&gt; <span class="id" type="keyword">Prop</span>) (<span class="id" type="var">x</span>: <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">A</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="LazyHere">LazyHere</a></span> : <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> <span class="id" type="var">P</span> <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="LazyFurther">LazyFurther</a></span> : (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#unit">unit</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">x</span>)) -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> <span class="id" type="var">P</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="TakeUntil">TakeUntil</a></span>.<br/>
+</div>
+
+<div class="doc">
+takeUntil creates a list of of elements upto a the point where the predicate
+P is satisfied.  For efficency reasons it doesn't actually build a list, but
+takes continuations for cons and nil instead.  To build an actual list pass in
+the const and nil constructors. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="takeUntil">takeUntil</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span>:Type) (<span class="id" type="var">P</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>)(<span class="id" type="var">s</span>:Stream <span class="id" type="var">A</span>) (<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">s</span>) (<span class="id" type="var">cons</span>: <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">nil</span> : <span class="id" type="var">B</span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">ex</span>} : <span class="id" type="var">B</span> :=<br/>
+(<span class="id" type="keyword">if</span> <span class="id" type="var">P</span> <span class="id" type="var">s</span> <span class="id" type="keyword">as</span> <span class="id" type="var">b</span> <span class="id" type="keyword">return</span> ((<span class="id" type="var">P</span> <span class="id" type="var">s</span> -&gt; <span class="id" type="var">b</span>) -&gt; <span class="id" type="var">B</span>)<br/>
+<span class="id" type="keyword">then</span> <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">nil</span><br/>
+<span class="id" type="keyword">else</span> <span class="id" type="keyword">fun</span> (<span class="id" type="var">n</span> : <span class="id" type="var">P</span> <span class="id" type="var">s</span> -&gt; &perp;) =&gt; <span class="id" type="var">cons</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">s</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">ex</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Limit.html#LazyHere">LazyHere</a></span> <span class="id" type="var">H</span> =&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#False_ind">False_ind</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">n</span> <span class="id" type="var">H</span>))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Limit.html#LazyFurther">LazyFurther</a></span> <span class="id" type="var">ex0</span> =&gt; <span class="id" type="var">ex0</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#tt">tt</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span>))<br/>
+(<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="takeUntil_wd">takeUntil_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span>:Type) (<span class="id" type="var">P</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>)(<span class="id" type="var">s</span>:Stream <span class="id" type="var">A</span>)(<span class="id" type="var">ex1</span> <span class="id" type="var">ex2</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">s</span>) (<span class="id" type="var">cons</span>: <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">nil</span>:B),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex1</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span> = <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex2</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="takeUntil_end">takeUntil_end</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span>:Type) (<span class="id" type="var">P</span>:Stream <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>) <span class="id" type="var">seq</span> (<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">seq</span>) (<span class="id" type="var">cons</span>:A -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">nil</span> : <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">seq</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span> = <span class="id" type="var">nil</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="takeUntil_step">takeUntil_step</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span>:Type) (<span class="id" type="var">P</span>:Stream <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>) <span class="id" type="var">seq</span> (<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">seq</span>) (<span class="id" type="var">cons</span>: <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">nil</span>: <span class="id" type="var">B</span>),<br/>
+&nbsp;~P <span class="id" type="var">seq</span> -&gt; <span class="id" type="var">exists</span> <span class="id" type="var">ex'</span>:(LazyExists <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">seq</span>)), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span> = <span class="id" type="var">cons</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">seq</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex'</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="takeUntil_elim">takeUntil_elim</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span>:Type) (<span class="id" type="var">P</span>:Stream <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>) (<span class="id" type="var">cons</span>: <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">nil</span>: <span class="id" type="var">B</span>)<br/>
+&nbsp;(<span class="id" type="var">Q</span>: <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span>, <span class="id" type="var">P</span> <span class="id" type="var">seq</span> -&gt; <span class="id" type="var">Q</span> <span class="id" type="var">seq</span> <span class="id" type="var">nil</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> <span class="id" type="var">x</span>, <span class="id" type="var">Q</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">seq</span>) <span class="id" type="var">x</span> -&gt; ~P <span class="id" type="var">seq</span> -&gt; <span class="id" type="var">Q</span> <span class="id" type="var">seq</span> (<span class="id" type="var">cons</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">seq</span>) <span class="id" type="var">x</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> (<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">seq</span>), <span class="id" type="var">Q</span> <span class="id" type="var">seq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex</span> <span class="id" type="var">cons</span> <span class="id" type="var">nil</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Limit.html#TakeUntil">TakeUntil</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Limit">Limit</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Limit.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This proposition says that the entire stream is within e of l 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="NearBy">NearBy</a></span> (<span class="id" type="var">l</span>:X)(e:QposInf) := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">s</span>:Stream <span class="id" type="var">X</span>) =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#ball_ex">ball_ex</a></span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>) <span class="id" type="var">l</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="NearBy_comp">NearBy_comp</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>, <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> <span class="id" type="var">l1</span> <span class="id" type="var">e1</span> <span class="id" type="var">s</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> <span class="id" type="var">l2</span> <span class="id" type="var">e2</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="NearBy_weak">NearBy_weak</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), <span class="id" type="var">e1</span> &lt;= <span class="id" type="var">e2</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> <span class="id" type="var">l</span> <span class="id" type="var">e1</span> <span class="id" type="var">s</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> <span class="id" type="var">l</span> <span class="id" type="var">e2</span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+l is the limit if for every e there exists a point where the stream is
+always within e of l. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Limit">Limit</a></span> (<span class="id" type="var">s</span>:Stream <span class="id" type="var">X</span>)(<span class="id" type="var">l</span>:X) := <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> <span class="id" type="var">l</span> <span class="id" type="var">e</span>) <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Limit_tl">Limit_tl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span> <span class="id" type="var">l</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">s</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">s</span>) <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Limit_Str_nth_tl">Limit_Str_nth_tl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">s</span> <span class="id" type="var">l</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">s</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth_tl">Str_nth_tl</a></span> <span class="id" type="var">n</span> <span class="id" type="var">s</span>) <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

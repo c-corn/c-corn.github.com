@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.Graph</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Graph">Graph</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab641"></a><h1 class="section">Graphing</h1>
+
+Uniformly continuous functions over compact sets can be graph.  A graph of a
+funciton f : X --&gt; Y is the the subset of X*Y {(x,f x) | x in S} where S is
+the domain under consideration.  This graph is compact when S is a compact
+subset of X.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Graph.X">X</a></span> <span class="id" type="variable"><a name="Graph.Y">Y</a></span>:MetricSpace.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="XY">XY</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">graphPoint</span></span> is the fundamental function of graphing.  It will be lifted in
+various ways to produce a graph 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="graphPoint_raw">graphPoint_raw</a></span> (<span class="id" type="var">f</span>:X -&gt; <span class="id" type="var">Y</span>) (<span class="id" type="var">x</span>:X) : <span class="id" type="var">XY</span> := (<span class="id" type="var">x</span>,f <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Graph.f">f</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="graphPoint_modulus">graphPoint_modulus</a></span> (<span class="id" type="var">e</span>:Qpos) : Q<SUP>+</SUP> := <br/>
+<span class="id" type="keyword">match</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span> <span class="id" type="var">e</span>) <span class="id" type="keyword">with</span><br/>
+| &infin; =&gt; <span class="id" type="var">e</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> <span class="id" type="var">d</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QposMinMax.html#Qpos_min">Qpos_min</a></span> <span class="id" type="var">e</span> <span class="id" type="var">d</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="graphPoint_uc">graphPoint_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_raw">graphPoint_raw</a></span> <span class="id" type="var">f</span>) <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_modulus">graphPoint_modulus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="graphPoint">graphPoint</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="var">XY</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_uc">graphPoint_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Graph.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Graph.stableXY">stableXY</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">XY</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The compact image of graphFunction is the graph of <span class="inlinecode"><span class="id" type="var">Cmap</span> <span class="id" type="var">f</span></span> over any
+compact set S 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactGraph">CompactGraph</a></span> (<span class="id" type="var">plFEX</span>:PrelengthSpace (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>)) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableXY</span> :=<br/>
+<span class="id" type="var">CompactImage</span> (1#1) <span class="id" type="var">_</span> <span class="id" type="var">plFEX</span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint">graphPoint</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_correct1">CompactGraph_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>) -&gt;<br/>
+<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">x</span>,(Cmap <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>))) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_correct2">CompactGraph_correct2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> <span class="id" type="var">p</span>) <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_correct3">CompactGraph_correct3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> <span class="id" type="var">p</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd">Csnd</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_graph">CompactGraph_graph</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">plX</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">q1</span> <span class="id" type="var">q2</span> <span class="id" type="var">s</span>, <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q1)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q2)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">q1</span> <span class="id" type="var">q2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_correct">CompactGraph_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">s</span>, <br/>
+<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">x</span>,y)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph">CompactGraph</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) &lt;-&gt;<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Graph.html#Graph">Graph</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="GraphBind">GraphBind</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab642"></a><h2 class="section">Graph and Bind</h2>
+
+The previous section used <span class="inlinecode"><span class="id" type="var">graphPoint</span></span> to produce the graph of <span class="inlinecode"><span class="id" type="var">Cmap</span> <span class="id" type="var">f</span></span> over
+any compact set S.  In this section we use <span class="inlinecode"><span class="id" type="var">graphPoint_b</span></span> to produce the
+graph of <span class="inlinecode"><span class="id" type="var">Cbind</span> <span class="id" type="var">f</span></span> over any compact set S.  It proceeds in largely the same
+way. 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="GraphBind.X">X</a></span> <span class="id" type="variable"><a name="GraphBind.Y">Y</a></span>:MetricSpace.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="XY">XY</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="graphPoint_b_raw">graphPoint_b_raw</a></span> (<span class="id" type="var">f</span>:X -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>) (<span class="id" type="var">x</span>:X) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">XY</span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> <span class="id" type="var">x</span>,f <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="GraphBind.f">f</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="graphPoint_b_uc">graphPoint_b_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_b_raw">graphPoint_b_raw</a></span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_modulus">graphPoint_modulus</a></span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="graphPoint_b">graphPoint_b</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">XY</span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_b_uc">graphPoint_b_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="GraphBind.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="GraphBind.stableXY">stableXY</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">XY</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactGraph_b">CompactGraph_b</a></span> (<span class="id" type="var">plFEX</span>:PrelengthSpace (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>)) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableXY</span> :=<br/>
+<span class="id" type="var">CompactImage_b</span> (1#1) <span class="id" type="var">_</span> <span class="id" type="var">plFEX</span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#graphPoint_b">graphPoint_b</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_b_correct1">CompactGraph_b_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>) -&gt;<br/>
+<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">x</span>,(Cbind <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>))) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_b_correct2">CompactGraph_b_correct2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> <span class="id" type="var">p</span>) <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_b_correct3">CompactGraph_b_correct3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">p</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Cfst">Cfst</a></span> <span class="id" type="var">p</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Csnd">Csnd</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_b_graph">CompactGraph_b_graph</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">plX</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">plFEX</span> <span class="id" type="var">p</span> <span class="id" type="var">q1</span> <span class="id" type="var">q2</span> <span class="id" type="var">s</span>, <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q1)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">p</span>,q2)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) -&gt;<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">q1</span> <span class="id" type="var">q2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactGraph_b_correct">CompactGraph_b_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">plX</span> <span class="id" type="var">plFEX</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">s</span>, <br/>
+<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.CompleteProduct.html#Couple">Couple</a></span> (<span class="id" type="var">x</span>,y)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Graph.html#CompactGraph_b">CompactGraph_b</a></span> <span class="id" type="var">plFEX</span> <span class="id" type="var">s</span>) &lt;-&gt;<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Graph.html#GraphBind">GraphBind</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

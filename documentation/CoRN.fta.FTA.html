@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.fta.FTA</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab443"></a><h1 class="section">Fundamental Theorem of Algebra</h1>
+
+ Let <span class="inlinecode"><span class="id" type="var">n</span>:nat</span> and <span class="inlinecode"><span class="id" type="var">f</span></span> be a complex polynomial of
+degree <span class="inlinecode">(<span class="id" type="var">S</span> <span class="id" type="var">n</span>)</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="FTA_reg'">FTA_reg'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="FTA_reg'.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <b>C</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="FTA_reg'.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="FTA_reg'.f_degree">f_degree</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_reg'">FTA_reg'</a></span> : {<span class="id" type="var">f1</span> : <b>C</b>[X] | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> 1 <span class="id" type="var">f1</span> | {<span class="id" type="var">f2</span> : <b>C</b>[X] | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f2</span> | <span class="id" type="var">f</span> [=] <span class="id" type="var">f1</span>[*]<span class="id" type="var">f2</span>}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.fta.FTA.html#FTA_reg'">FTA_reg'</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">n</span>:nat</span>, <span class="inlinecode"><span class="id" type="var">f</span></span> be a complex polynomial of degree
+less than or equal to <span class="inlinecode">(<span class="id" type="var">S</span> <span class="id" type="var">n</span>)</span> and <span class="inlinecode"><span class="id" type="var">c</span></span> be a complex number such that
+<span class="inlinecode"><span class="id" type="var">f</span>!c  [#]  0</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="FTA_1">FTA_1</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="FTA_1.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_cring">cpoly_cring</a></span> <b>C</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="FTA_1.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="FTA_1.f_degree">f_degree</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="FTA_1.c">c</a></span> : <b>C</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="FTA_1.f_c">f_c</a></span> : <span class="id" type="var">f</span> ! <span class="id" type="var">c</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_1a">FTA_1a</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Shift.html#Shift">Shift</a></span> <span class="id" type="var">c</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="g">g</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Rev.html#Rev">Rev</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.fta.CPoly_Shift.html#Shift">Shift</a></span> <span class="id" type="var">c</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_1b">FTA_1b</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">g</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_1">FTA_1</a></span> : {<span class="id" type="var">f1</span> : <b>C</b>[X] | {<span class="id" type="var">f2</span> : <b>C</b>[X] | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> 1 <span class="id" type="var">f1</span> /\ <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f2</span> /\ <span class="id" type="var">f</span> [=] <span class="id" type="var">f1</span>[*]<span class="id" type="var">f2</span>}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_1'">FTA_1'</a></span> : {<span class="id" type="var">a</span> : <b>C</b> | {<span class="id" type="var">b</span> : <b>C</b> | {<span class="id" type="var">g</span> : <b>C</b>[X] | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> | <span class="id" type="var">f</span> [=] (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">a</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">b</span>) [*]<span class="id" type="var">g</span>}}}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.fta.FTA.html#FTA_1">FTA_1</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Fund_Thm_Alg">Fund_Thm_Alg</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA'">FTA'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>C</b>[X]), <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nonConst">nonConst</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">f</span> ! <span class="id" type="var">z</span> [=] 0}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA">FTA</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>C</b>[X], <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nonConst">nonConst</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">f</span> ! <span class="id" type="var">z</span> [=] 0}.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FTA_a_la_Henk">FTA_a_la_Henk</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>C</b>[X],<br/>
+&nbsp;{<span class="id" type="var">x</span> : <b>C</b> | {<span class="id" type="var">y</span> : <b>C</b> | <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#AbsCC">AbsCC</a></span> (<span class="id" type="var">f</span> ! <span class="id" type="var">x</span>[-]<span class="id" type="var">f</span> ! <span class="id" type="var">y</span>) [&gt;]0}} -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">f</span> ! <span class="id" type="var">z</span> [=] 0}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.fta.FTA.html#Fund_Thm_Alg">Fund_Thm_Alg</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

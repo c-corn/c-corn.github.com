@@ -1,0 +1,612 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.Compact</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab633"></a><h1 class="section">Compact sets</h1>
+
+This module formalizes compact sets as the completion of a finitely
+enumerables sets.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="BishopCompact">BishopCompact</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab634"></a><h2 class="section">Bishop Compactness</h2>
+
+This section formalizes Bishops definition of compactness to serve as a
+reference specification for our definition of compactness.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="BishopCompact.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="BishopCompact.P">P</a></span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompleteSubset">CompleteSubset</a></span> :=<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>:Complete <span class="id" type="var">X</span>), (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="var">P</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">f</span> <span class="id" type="var">e</span>)) -&gt;<br/>
+&nbsp;{<span class="id" type="var">y</span>:X | <span class="id" type="var">P</span> <span class="id" type="var">y</span> &amp; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> <span class="id" type="var">y</span>) <span class="id" type="var">f</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ExtSubset">ExtSubset</a></span> :=<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="var">P</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="TotallyBoundedSubset">TotallyBoundedSubset</a></span> :=<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, {<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span> &amp; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">exists</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> }.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A Bishop compact set is an (extensional) predicate that is complete
+ and totally bounded. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CompactSubset">CompactSubset</a></span> :=<br/>
+&nbsp;{<span class="id" type="projection"><a name="completeSubset">completeSubset</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompleteSubset">CompleteSubset</a></span><br/>
+&nbsp;;<span class="id" type="projection"><a name="totallyBoundedSubset">totallyBoundedSubset</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#TotallyBoundedSubset">TotallyBoundedSubset</a></span><br/>
+&nbsp;;<span class="id" type="projection"><a name="extSubset">extSubset</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#ExtSubset">ExtSubset</a></span><br/>
+&nbsp;}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompact">BishopCompact</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="AlmostIn">AlmostIn</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="AlmostIn.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="AlmostIn.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">almostIn</span></span> is a useful predicate that says when a point is within e
+of (classically) some member of a finite enumeration. We won't know which
+point it is close to. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="almostIn">almostIn</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">x</span>:X) (<span class="id" type="var">l</span>:FinEnum <span class="id" type="var">stableX</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span> <br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; &perp;<br/>
+| <span class="id" type="var">y</span>::ys =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">ys</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_stable">almostIn_stable</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>, ~~almostIn <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_weak_le">almostIn_weak_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos) <span class="id" type="var">x</span> <span class="id" type="var">l</span>, (<span class="id" type="var">e1</span> &lt;= <span class="id" type="var">e2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If you are almost in for every e, then you are infact in the finite
+enumeration 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InAlmostIn">InAlmostIn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>)&lt;-&gt;(InFinEnumC <span class="id" type="var">x</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_closed">almostIn_closed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">x</span> <span class="id" type="var">l</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Left and right triangle laws for balls and <span class="inlinecode"><span class="id" type="var">almostIn</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_triangle_l">almostIn_triangle_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">l</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x2</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>) <span class="id" type="var">x1</span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_triangle_r">almostIn_triangle_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x</span> <span class="id" type="var">l1</span> -&gt; (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">l1</span> <span class="id" type="var">l2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>) <span class="id" type="var">x</span> <span class="id" type="var">l2</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If you are almost in a finite enumeration then you are close to 
+(classically) some point that is in the enumeration. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostInExistsC">almostInExistsC</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> /\ <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">y</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#AlmostIn">AlmostIn</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab635"></a><h2 class="section">Definition of Compact</h2>
+
+A compact set is defined as the completion of finite enumerations as
+a metric space 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Compact">Compact</a></span> <span class="id" type="var">X</span> (<span class="id" type="var">stableX</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>) := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A point is in a compact set if all the approximations are almost in
+the approximations of the compact set. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="inCompact">inCompact</a></span> <span class="id" type="var">X</span> <span class="id" type="var">stableX</span> (<span class="id" type="var">x</span>:Complete <span class="id" type="var">X</span>) (<span class="id" type="var">s</span>:Compact <span class="id" type="var">stableX</span>) :=<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> <span class="id" type="var">e1</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">s</span> <span class="id" type="var">e2</span>).<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact">Compact</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Compact.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Compact.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="Compact">Compact</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span>.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="inCompact">inCompact</a></span> := @<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">X</span> <span class="id" type="var">stableX</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inCompact_stable">inCompact_stable</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, ~~inCompact <span class="id" type="var">x</span> <span class="id" type="var">s</span> -&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab636"></a><h2 class="section">Compact is Bishop Compact.</h2>
+
+Here we show that our definiton of compactness satifies Bishop's compactness.
+
+<br/><br/>
+First we show that our compact sets are complete.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactCompleteSubset">CompactCompleteSubset</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompleteSubset">CompleteSubset</a></span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">z</span> =&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">z</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact.CompactTotallyBounded">CompactTotallyBounded</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In order to show that compact sets are totally bounded we need to assume
+that the underlying metric space is located.  According to Bishop's
+definition, every metric space is located.  Therefore this is a fair
+assumption to make. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Compact.CompactTotallyBounded.locatedX">locatedX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If a point is almost in an enumeration, then there it is close to
+a point in the enumeration in a constructive sense. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AlmostInExists">AlmostInExists</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d</span>:Qpos) <span class="id" type="var">x</span> (<span class="id" type="var">s</span>:FinEnum <span class="id" type="var">stableX</span>), <span class="id" type="var">e</span> &lt; <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> -&gt; {<span class="id" type="var">y</span> | <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> <span class="id" type="var">s</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">d</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The limit of this stream is going to be used to construct a point
+inside the compact set close to a suitable starting point. 
+</div>
+<div class="code">
+<span class="id" type="keyword">CoFixpoint</span> <span class="id" type="definition"><a name="CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">X</span> :=<br/>
+<span class="id" type="var">Cons</span> <span class="id" type="var">pt</span> <br/>
+&nbsp;(<span class="id" type="keyword">let</span> (<span class="id" type="var">f</span>,_) := <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.FinEnum.html#HausdorffBallHausdorffBallStrong">HausdorffBallHausdorffBallStrong</a></span> <span class="id" type="var">locatedX</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#regFun_prf">regFun_prf</a></span> <span class="id" type="var">s</span> <span class="id" type="var">d1</span> (<span class="id" type="var">k</span>*d1)%Qpos) <span class="id" type="keyword">in</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">pt'</span>,HptX) := <span class="id" type="var">f</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span> <span class="id" type="var">d2</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">Hpt'</span>,_) := <span class="id" type="var">HptX</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> (<span class="id" type="var">k</span>*d1) (<span class="id" type="var">k</span>*d2) <span class="id" type="var">pt'</span> <span class="id" type="var">Hpt'</span>)).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This stream is Cauchy 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedStreamCauchyLemma">CompactTotallyBoundedStreamCauchyLemma</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">k</span> <span class="id" type="var">d</span>:Qpos),<br/>
+<span class="id" type="var">k</span> &lt; 1 -&gt;<br/>
+0 &lt; (<span class="id" type="var">d</span>*(1-k^(S <span class="id" type="var">n</span>))/(1-k)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedStreamCauchy1">CompactTotallyBoundedStreamCauchy1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">s</span> (<span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span><br/>
+&nbsp;(<span class="id" type="var">Hd</span>:0 &lt; ((((1#1)+k)*d1+d2)%Qpos*(1-k^(S <span class="id" type="var">n</span>))/(1-k))), <span class="id" type="var">k</span> &lt; 1 -&gt;<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#mkQpos">mkQpos</a></span> <span class="id" type="var">Hd</span>) <span class="id" type="var">pt</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedStreamCauchy2">CompactTotallyBoundedStreamCauchy2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">m</span> <span class="id" type="var">n</span>:nat) <span class="id" type="var">s</span> (<span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span><br/>
+&nbsp;(<span class="id" type="var">Hd</span>:0 &lt; ((((1#1)+k)*d1+d2)%Qpos*(1-k^(S <span class="id" type="var">n</span>))/(1-k))), <span class="id" type="var">k</span> &lt; 1 -&gt;<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="var">k</span>^m*(mkQpos <span class="id" type="var">Hd</span>))<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>))<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StreamInCompactApprox">StreamInCompactApprox</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>,<br/>
+&nbsp;&nbsp;{<span class="id" type="var">q</span>:Qpos | <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> <span class="id" type="var">k</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>)) (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">s</span> <span class="id" type="var">q</span>) &amp; <span class="id" type="var">q</span>==k^n*d1}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactTotallyBoundedIndex">CompactTotallyBoundedIndex</a></span> (<span class="id" type="var">e</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) : <b>N</b> :=<br/>
+<span class="id" type="keyword">let</span> (<span class="id" type="var">n</span>,d):=((1+(1#4))*d1 + <span class="id" type="var">d2</span>)/e/(1-(1#4)) <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsucc">Zsucc</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.Zdiv.html#Zdiv">Zdiv</a></span> <span class="id" type="var">n</span> <span class="id" type="var">d</span>) <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Div2.html#div2">div2</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#Z_to_nat">Z_to_nat</a></span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.Zlogarithm.html#log_sup_correct1">log_sup_correct1</a></span> <span class="id" type="var">p</span>)))<br/>
+| <span class="id" type="var">_</span> =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedIndexLemma">CompactTotallyBoundedIndexLemma</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos),<br/>
+((1+(1#4))*d1 + <span class="id" type="var">d2</span>)*(1#4)^(CompactTotallyBoundedIndex <span class="id" type="var">e</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>)/(1-(1#4)) &lt;= <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactTotallyBounded_raw">CompactTotallyBounded_raw</a></span>  (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span> (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="var">X</span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span> <br/>
+|QposInfinity =&gt; <span class="id" type="var">pt</span><br/>
+|Qpos2Q<SUP>+</SUP><SUB>&infin;</SUB> <span class="id" type="var">e'</span> =&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedIndex">CompactTotallyBoundedIndex</a></span> <span class="id" type="var">e'</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBoundedStream">CompactTotallyBoundedStream</a></span> <span class="id" type="var">s</span> (1#4) <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>))<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This stream forms a regular function 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBounded_prf">CompactTotallyBounded_prf</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBounded_raw">CompactTotallyBounded_raw</a></span> <span class="id" type="var">s</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactTotallyBounded_fun">CompactTotallyBounded_fun</a></span>  (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span> :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Complete.html#Build_RegularFunction">Build_RegularFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBounded_prf">CompactTotallyBounded_prf</a></span> <span class="id" type="var">s</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The limit is inside the compact set 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedInCompact">CompactTotallyBoundedInCompact</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span>,<br/>
+&nbsp;<span class="id" type="var">inCompact</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBounded_fun">CompactTotallyBounded_fun</a></span> <span class="id" type="var">s</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>) <span class="id" type="var">s</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The limit is close to the initial starting point 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedNotFar">CompactTotallyBoundedNotFar</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos) (<span class="id" type="var">pt</span>:X) <span class="id" type="var">Hpt</span>,<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> ((5#3)*d1 + (4#3)*d2) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> <span class="id" type="var">pt</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotallyBounded_fun">CompactTotallyBounded_fun</a></span> <span class="id" type="var">s</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span> <span class="id" type="var">pt</span> <span class="id" type="var">Hpt</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Using CompactTotallyBounded_fun we can map the approximation of
+a compact set to a new enumeration that contains only points inside
+the compact sets, without moving the points too much 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactTotalBound">CompactTotalBound</a></span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">e</span>:Qpos) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotalBoundNotFar">CompactTotalBoundNotFar</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">SCX</span> (<span class="id" type="var">s</span>:Compact) (<span class="id" type="var">e</span>:Qpos),<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> ((3#5)*e) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cunit">Cunit</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">s</span> ((1#5)*e)%Qpos):FinEnum <span class="id" type="var">SCX</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotalBound">CompactTotalBound</a></span> <span class="id" type="var">s</span> <span class="id" type="var">e</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This means that our compact sets are totally bounded. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedA">CompactTotallyBoundedA</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span> <span class="id" type="var">e</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotalBound">CompactTotalBound</a></span> <span class="id" type="var">s</span> <span class="id" type="var">e</span>) -&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">y</span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBoundedB">CompactTotallyBoundedB</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>, (<span class="id" type="var">inCompact</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>) -&gt; <span class="id" type="var">exists</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactTotalBound">CompactTotalBound</a></span> <span class="id" type="var">s</span> <span class="id" type="var">e</span>) /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactTotallyBounded">CompactTotallyBounded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#TotallyBoundedSubset">TotallyBoundedSubset</a></span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">z</span> =&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">z</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And hence our compact sets are Bishop compact. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactAsBishopCompact">CompactAsBishopCompact</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="record"><a class="idref" href="CoRN.metric2.Compact.html#CompactSubset">CompactSubset</a></span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">z</span> =&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">z</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#Compact.CompactTotallyBounded">CompactTotallyBounded</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab637"></a><h2 class="section">Bishop Compact is Compact.</h2>
+
+Next we must show that Bishop compact sets are compact according to our
+definition.
+
+<br/><br/>
+Given a Bishop compact set we construct finite enumerations that approximate
+that set. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="BishopCompactAsCompact_raw">BishopCompactAsCompact_raw</a></span> <br/>
+&nbsp;(<span class="id" type="var">P</span>:Complete <span class="id" type="var">X</span>-&gt;Prop) (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>) (<span class="id" type="var">e</span>:QposInf) : (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>) :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span><br/>
+|QposInfinity =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span><br/>
+|Qpos2Q<SUP>+</SUP><SUB>&infin;</SUB> <span class="id" type="var">e'</span> =&gt;<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">let</span> (<span class="id" type="var">l</span>,_,_) := (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Compact.html#totallyBoundedSubset">totallyBoundedSubset</a></span> <span class="id" type="var">HP</span> ((1#2)*e')) <span class="id" type="keyword">in</span><br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> ((1#2)*e')) <span class="id" type="var">l</span>)%Qpos<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These approximations are coherent 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BishopCompactAsCompact_prf">BishopCompactAsCompact_prf</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact_raw">BishopCompactAsCompact_raw</a></span> <span class="id" type="var">HP</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Hence Bishop compact sets are compact in our sense. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="BishopCompactAsCompact">BishopCompactAsCompact</a></span> <br/>
+&nbsp;(<span class="id" type="var">P</span>:Complete <span class="id" type="var">X</span>-&gt;Prop) (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>) : <span class="id" type="var">Compact</span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact_prf">BishopCompactAsCompact_prf</a></span> <span class="id" type="var">HP</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact.Isomorphism">Isomorphism</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab638"></a><h2 class="section">Isomorphism</h2>
+
+We claim that Bishop compact sets correspond to our compact sets, but
+to be sure we need to show that the definitions are isomoprhic.  We
+need to show that the conversions back and forth are equivalent to the
+identity. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Compact.Isomorphism.locatedX">locatedX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BishopCompact_Compact_BishopCompact1">BishopCompact_Compact_BishopCompact1</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span>:Complete <span class="id" type="var">X</span>-&gt;Prop) (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>) <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact">BishopCompactAsCompact</a></span> <span class="id" type="var">HP</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BishopCompact_Compact_BishopCompact2">BishopCompact_Compact_BishopCompact2</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span>:Complete <span class="id" type="var">X</span>-&gt;Prop) (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>) <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">inCompact</span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact">BishopCompactAsCompact</a></span> <span class="id" type="var">HP</span>) -&gt; <span class="id" type="var">P</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BishopCompact_Compact_BishopCompact">BishopCompact_Compact_BishopCompact</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span>:Complete <span class="id" type="var">X</span>-&gt;Prop) (<span class="id" type="var">HP</span>:CompactSubset <span class="id" type="var">_</span> <span class="id" type="var">P</span>) <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">inCompact</span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact">BishopCompactAsCompact</a></span> <span class="id" type="var">HP</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Compact_BishopCompact_Compact">Compact_BishopCompact_Compact</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>,<br/>
+&nbsp;<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">s</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#BishopCompactAsCompact">BishopCompactAsCompact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#CompactAsBishopCompact">CompactAsBishopCompact</a></span> <span class="id" type="var">locatedX</span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#Compact.Isomorphism">Isomorphism</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CompactDistr">CompactDistr</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactDistr.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactDistr.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactDistr.stableCX">stableCX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+<a name="lab639"></a><h2 class="section">FinEnum distributes over Complete</h2>
+
+The FiniteEnumeration monad distributes over the Completion monad.
+This corresponds to a function from FinEnum (Complete X) to 
+Complete (FinEnum X).
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinCompact_raw">FinCompact_raw</a></span> (<span class="id" type="var">x</span>: <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableCX</span>) (<span class="id" type="var">e</span>:QposInf) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span> :=<br/>
+<span class="id" type="var">map</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> <span class="id" type="var">e</span>) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinCompact_prf">FinCompact_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact_raw">FinCompact_raw</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinCompact_fun">FinCompact_fun</a></span> (<span class="id" type="var">x</span>: <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableCX</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Complete.html#Build_RegularFunction">Build_RegularFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact_prf">FinCompact_prf</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinCompact_uc">FinCompact_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact_fun">FinCompact_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FinCompact">FinCompact</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableCX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.UniformContinuity.html#Build_UniformlyContinuousFunction">Build_UniformlyContinuousFunction</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact_uc">FinCompact_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FinCompact_correct">FinCompact_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> (<span class="id" type="var">s</span>:FinEnum <span class="id" type="var">stableCX</span>), <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#InFinEnumC">InFinEnumC</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact">FinCompact</a></span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactCompleteCompact_prf">CompactCompleteCompact_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap_raw">Cmap_raw</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#FinCompact">FinCompact</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactCompleteCompact_fun">CompactCompleteCompact_fun</a></span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span>) :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Complete.html#Build_RegularFunction">Build_RegularFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#CompactCompleteCompact_prf">CompactCompleteCompact_prf</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactCompleteCompact_uc">CompactCompleteCompact_uc</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactCompleteCompact_fun">CompactCompleteCompact_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactCompleteCompact">CompactCompleteCompact</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableCX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cjoin">Cjoin</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.UniformContinuity.html#Build_UniformlyContinuousFunction">Build_UniformlyContinuousFunction</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Compact.html#CompactCompleteCompact_uc">CompactCompleteCompact_uc</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactCompleteCompact_correct">CompactCompleteCompact_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Cjoin">Cjoin</a></span> <span class="id" type="var">x</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactCompleteCompact">CompactCompleteCompact</a></span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#CompactDistr">CompactDistr</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CompactImage">CompactImage</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab640"></a><h2 class="section">Compact Image</h2>
+
+If x is in a compact set S, then f x is in the compact image of S under f.
+(My definiton of compact image is really the closure of the image under f.)
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImage.z">z</a></span> : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImage.X">X</a></span> <span class="id" type="variable"><a name="CompactImage.Y">Y</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImage.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImage.stableY">stableY</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">Y</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImage.plX">plX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImage.plFEX">plFEX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImage.f">f</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_map">almostIn_map</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d</span>:Qpos) <span class="id" type="var">a</span> (<span class="id" type="var">b</span>:FinEnum <span class="id" type="var">stableX</span>), (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.QposInf.html#QposInf_le">QposInf_le</a></span> <span class="id" type="var">d</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span> <span class="id" type="var">e</span>)) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">d</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_map">FinEnum_map</a></span> <span class="id" type="var">z</span> <span class="id" type="var">stableX</span> <span class="id" type="var">stableY</span> <span class="id" type="var">f</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="almostIn_map2">almostIn_map2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">d</span>:Qpos) <span class="id" type="var">a</span> (<span class="id" type="var">b</span>:FinEnum <span class="id" type="var">stableX</span>), (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.QposInf.html#QposInf_le">QposInf_le</a></span> <span class="id" type="var">d</span> ((<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span> <span class="id" type="var">e1</span>) + (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span> <span class="id" type="var">e2</span>))) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> <span class="id" type="var">d</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#almostIn">almostIn</a></span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>) (<span class="id" type="var">f</span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_map">FinEnum_map</a></span> <span class="id" type="var">z</span> <span class="id" type="var">stableX</span> <span class="id" type="var">stableY</span> <span class="id" type="var">f</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactImage">CompactImage</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableY</span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="var">plFEX</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum_map">FinEnum_map</a></span> <span class="id" type="var">z</span> <span class="id" type="var">stableX</span> <span class="id" type="var">stableY</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactImage_correct1">CompactImage_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactImage">CompactImage</a></span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#CompactImage">CompactImage</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CompactImageBind">CompactImageBind</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImageBind.z">z</a></span> : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImageBind.X">X</a></span> <span class="id" type="variable"><a name="CompactImageBind.Y">Y</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImageBind.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImageBind.stableY">stableY</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">Y</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImageBind.plX">plX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="CompactImageBind.plFEX">plFEX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="var">stableX</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CompactImageBind.f">f</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#Complete">Complete</a></span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CompactImage_b">CompactImage_b</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableX</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#Compact">Compact</a></span> <span class="id" type="var">stableY</span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactCompleteCompact">CompactCompleteCompact</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactImage">CompactImage</a></span> <span class="id" type="var">z</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Complete.html#Complete_stable">Complete_stable</a></span> <span class="id" type="var">stableY</span>) <span class="id" type="var">plFEX</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CompactImage_b_correct1">CompactImage_b_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>, <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> <span class="id" type="var">x</span> <span class="id" type="var">s</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#inCompact">inCompact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="var">plX</span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Compact.html#CompactImage_b">CompactImage_b</a></span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Compact.html#CompactImageBind">CompactImageBind</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

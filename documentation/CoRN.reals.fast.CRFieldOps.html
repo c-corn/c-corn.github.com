@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRFieldOps</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab653"></a><h2 class="section">Strict Inequality</h2>
+
+First we defined positivity.  We define positivity to contain a 
+positive rational witness of a lower bound on x.  This seems the best
+way because this witness contains exactly the information needed
+for functions (such as inverse and logorithm) that have domains
+restricted to the positive reals.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRpos">CRpos</a></span> (<span class="id" type="var">x</span>:CR) := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#sig">sig</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">e</span>:Qpos =&gt; ' <span class="id" type="var">e</span> &lt;= <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpos_wd">CRpos_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span>==y)%CR -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRpos">CRpos</a></span> <span class="id" type="var">x</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRpos">CRpos</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is a characterization closer to Bishop's definiton.  If we
+replace <span class="inlinecode">2*e</span> with <span class="inlinecode"><span class="id" type="var">e</span></span>, the theorem still holds, but it could be
+very expensive to call.  We prefer to avoid that. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpos_char">CRpos_char</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">x</span>:CR), 2*e &lt;= (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> <span class="id" type="var">e</span>) -&gt; <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRpos">CRpos</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Negative reals are defined similarly. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRneg">CRneg</a></span> (<span class="id" type="var">x</span>:CR) := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#sig">sig</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">e</span>:Qpos =&gt; <span class="id" type="var">x</span> &lt;= ' (-e)%Q)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRneg_wd">CRneg_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span>==y)%CR -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRneg">CRneg</a></span> <span class="id" type="var">x</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRneg">CRneg</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRneg_char">CRneg_char</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">x</span>:CR), (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> <span class="id" type="var">e</span>) &lt;= -(2)*e -&gt; <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRneg">CRneg</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Strict inequality is defined in terms of positivity. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRlt">CRlt</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:CR) := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRpos">CRpos</a></span> (<span class="id" type="var">y</span>-x)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "&lt;" := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRlt">CRlt</a></span> : <span class="id" type="var">CR_scope</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRlt_wd">CRlt_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>, (<span class="id" type="var">x1</span>==x2 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>, <span class="id" type="var">y1</span>==y2 -&gt; <span class="id" type="var">x1</span> &lt; <span class="id" type="var">y1</span> -&gt; <span class="id" type="var">x2</span> &lt; <span class="id" type="var">y2</span>)%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab654"></a><h2 class="section">Apartness</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRapart">CRapart</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:CR) := (<span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> &lt; <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "x &gt;&lt; y" := (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRapart">CRapart</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">CR_scope</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRapart_wd">CRapart_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>, (<span class="id" type="var">x1</span>==x2 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>, <span class="id" type="var">y1</span>==y2 -&gt; <span class="id" type="var">x1</span>&gt;&lt;y1 -&gt; <span class="id" type="var">x2</span>&gt;&lt;y2)%CR.<br/>
+</div>
+
+<div class="doc">
+<a name="lab655"></a><h2 class="section">Multiplication</h2>
+
+The modulus of continuity for multiplication by a constant.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qscale_modulus">Qscale_modulus</a></span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">e</span>:Qpos) : Q<SUP>+</SUP><SUB>&infin;</SUB> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">a</span> <span class="id" type="keyword">with</span><br/>
+| 0 # <span class="id" type="var">_</span> =&gt; &infin;<br/>
+| (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">an</span>) # <span class="id" type="var">ad</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> ((<span class="id" type="var">ad</span> # <span class="id" type="var">an</span>) * <span class="id" type="var">e</span>)<br/>
+| (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zneg">Zneg</a></span> <span class="id" type="var">an</span>) # <span class="id" type="var">ad</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> ((<span class="id" type="var">ad</span> # <span class="id" type="var">an</span>) * <span class="id" type="var">e</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qscale_modulus_elim">Qscale_modulus_elim</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span>:QposInf -&gt; <span class="id" type="keyword">Type</span>) (<span class="id" type="var">x</span>:Q) (<span class="id" type="var">e</span>:Qpos),<br/>
+(<span class="id" type="var">x</span>==0 -&gt; <span class="id" type="var">P</span> &infin;)%Q -&gt;<br/>
+(<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>:Qpos, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span>/y)%Q (<span class="id" type="var">x</span>)%Q -&gt; (<span class="id" type="var">P</span> <span class="id" type="var">y</span>)) -&gt;<br/>
+<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_modulus">Qscale_modulus</a></span> <span class="id" type="var">x</span> <span class="id" type="var">e</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qscale_uc_prf">Qscale_uc_prf</a></span> (<span class="id" type="var">a</span>:Q) :  <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">b</span>:Q =&gt; <span class="id" type="var">a</span>*b) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_modulus">Qscale_modulus</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Scaling by a constant is <span class="inlinecode"><span class="id" type="var">Qmult</span></span> lifted on one parameter. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qscale_uc">Qscale_uc</a></span> (<span class="id" type="var">a</span>:Q_as_MetricSpace) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_uc_prf">Qscale_uc_prf</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="scale">scale</a></span> (<span class="id" type="var">a</span>:Q) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_uc">Qscale_uc</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">CRboundAbs</span></span> clamps a real number between -c and c where c is
+rational. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QboundAbs">QboundAbs</a></span> (<span class="id" type="var">c</span>:Qpos) := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundBelow_uc">QboundBelow_uc</a></span> (-c)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundAbove_uc">QboundAbove_uc</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRboundAbs">CRboundAbs</a></span> (<span class="id" type="var">c</span>:Qpos) := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QboundAbs_absorb">QboundAbs_absorb</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Qpos) (<span class="id" type="var">c</span>:Q),<br/>
+&nbsp;<span class="id" type="var">a</span> &lt;= <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">b</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">a</span> <span class="id" type="var">c</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">a</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Properties of CRboundAbs. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRboundAbs_Eq">CRboundAbs_Eq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Qpos) (<span class="id" type="var">x</span>:CR),<br/>
+&nbsp;('(-a)%Q &lt;= <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> &lt;= ' <span class="id" type="var">a</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRboundAbs">CRboundAbs</a></span> <span class="id" type="var">a</span> <span class="id" type="var">x</span> == <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QboundAbs_elim">QboundAbs_elim</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">z</span>:Qpos) (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">P</span>:Q-&gt;Prop),<br/>
+((<span class="id" type="var">z</span> &lt;= <span class="id" type="var">a</span>)%Q -&gt; <span class="id" type="var">P</span> <span class="id" type="var">z</span>) -&gt;<br/>
+((<span class="id" type="var">a</span> &lt;= -z)%Q -&gt; <span class="id" type="var">P</span> (- <span class="id" type="var">z</span>)%Q) -&gt;<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">z</span>:Q) <span class="id" type="var">a</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">a</span>)) -&gt;<br/>
+<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">z</span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The modulus of continuity for multiplication depends on the
+bound, c, on the second argument. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qmult_modulus">Qmult_modulus</a></span> (<span class="id" type="var">c</span>:Qpos)(e:Qpos) : Q<SUP>+</SUP><SUB>&infin;</SUB> := (<span class="id" type="var">e</span> / <span class="id" type="var">c</span>)%Qpos.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qmult_uc_prf">Qmult_uc_prf</a></span> (<span class="id" type="var">c</span>:Qpos) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_uc">Qscale_uc</a></span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">c</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qmult_modulus">Qmult_modulus</a></span> <span class="id" type="var">c</span>).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qmult_uc">Qmult_uc</a></span> (<span class="id" type="var">c</span>:Qpos) :  <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>:=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qmult_uc_prf">Qmult_uc_prf</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This multiply should be used when a bound on the absolute value of
+the second argument is known. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRmult_bounded">CRmult_bounded</a></span> (<span class="id" type="var">c</span>:Qpos) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="var">Cmap2</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qmult_uc">Qmult_uc</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+CR_b computes a rational bound on the absolute value of x 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CR_b">CR_b</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">x</span>:CR) : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CR_b_lowerBound">CR_b_lowerBound</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>, (' (-CR_b <span class="id" type="var">e</span> <span class="id" type="var">x</span>)%Q &lt;= <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CR_b_upperBound">CR_b_upperBound</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>, (<span class="id" type="var">x</span> &lt;= '<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CR_b">CR_b</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This version of multiply computes a bound on the second argument
+just in time.  It should be avoided in favour of the bounded version
+whenever possible. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRmult">CRmult</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#ucFun2">ucFun2</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRmult_bounded">CRmult_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CR_b">CR_b</a></span> (1#1) <span class="id" type="var">y</span>)) <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "*" := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRmult">CRmult</a></span> : <span class="id" type="var">CR_scope</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRmult_bounded_weaken">CRmult_bounded_weaken</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span>:Qpos) <span class="id" type="var">x</span> <span class="id" type="var">y</span>,<br/>
+((' (-c1)%Q &lt;= <span class="id" type="var">y</span>) -&gt; (<span class="id" type="var">y</span> &lt;= ' <span class="id" type="var">c1</span>) -&gt; (<span class="id" type="var">c1</span> &lt;= <span class="id" type="var">c2</span>)%Q -&gt;<br/>
+<span class="id" type="var">CRmult_bounded</span> <span class="id" type="var">c1</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRmult_bounded">CRmult_bounded</a></span> <span class="id" type="var">c2</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRmult_bounded_mult">CRmult_bounded_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Qpos) (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:CR),<br/>
+&nbsp;(' (-c)%Q &lt;= <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> &lt;= ' <span class="id" type="var">c</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRmult_bounded">CRmult_bounded</a></span> <span class="id" type="var">c</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="var">x</span>*y)%CR.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRmult_scale">CRmult_scale</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">y</span>:CR), ((' <span class="id" type="var">a</span>)*y==scale <span class="id" type="var">a</span> <span class="id" type="var">y</span>)%CR.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="scale_Qmult">scale_Qmult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>:Q, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> <span class="id" type="var">a</span> ('<span class="id" type="var">b</span>)=='(<span class="id" type="var">a</span>*b)%Q)%CR.<br/>
+</div>
+
+<div class="doc">
+<a name="lab656"></a><h2 class="section">Inverse</h2>
+
+The modulus of continuity for inverse depends on a rational bound
+away from 0 of x. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qinv_modulus">Qinv_modulus</a></span> (<span class="id" type="var">c</span>:Qpos) (<span class="id" type="var">e</span>:Qpos) : Q<SUP>+</SUP> := (<span class="id" type="var">c</span>*c*e)%Qpos.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_Qmax">Qpos_Qmax</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Qpos) (<span class="id" type="var">b</span>:Q), 0&lt;Qmax <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qinv_pos_uc_prf">Qinv_pos_uc_prf</a></span> (<span class="id" type="var">c</span>:Qpos) :  <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span>:Q =&gt; /(Qmax <span class="id" type="var">c</span> <span class="id" type="var">a</span>) ) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qinv_modulus">Qinv_modulus</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qinv_pos_uc">Qinv_pos_uc</a></span> (<span class="id" type="var">c</span>:Qpos) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qinv_pos_uc_prf">Qinv_pos_uc_prf</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qinv_pos_uc_wd">Qinv_pos_uc_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span>:Qpos), (<span class="id" type="var">c1</span> &lt;= <span class="id" type="var">c2</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="var">c2</span> &lt;= <span class="id" type="var">x</span>) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qinv_pos_uc">Qinv_pos_uc</a></span> <span class="id" type="var">c1</span> <span class="id" type="var">x</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qinv_pos_uc">Qinv_pos_uc</a></span> <span class="id" type="var">c2</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">CRinv_pos</span></span> works for inputs greater than c 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRinv_pos">CRinv_pos</a></span> (<span class="id" type="var">c</span>:Qpos) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qinv_pos_uc">Qinv_pos_uc</a></span> <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRinv_pos_weaken">CRinv_pos_weaken</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span>:Qpos), <span class="id" type="var">c1</span> &lt;= <span class="id" type="var">c2</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:CR), (' <span class="id" type="var">c2</span> &lt;= <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv_pos">CRinv_pos</a></span> <span class="id" type="var">c1</span> <span class="id" type="var">x</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv_pos">CRinv_pos</a></span> <span class="id" type="var">c2</span> <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRinv_pos_Qinv">CRinv_pos_Qinv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Qpos) <span class="id" type="var">x</span>, (<span class="id" type="var">c</span> &lt;= <span class="id" type="var">x</span>)%Q -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv_pos">CRinv_pos</a></span> <span class="id" type="var">c</span> (' <span class="id" type="var">x</span>) == (' (/x)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">CRinv</span></span> works for inputs apart from 0 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRinv">CRinv</a></span> (<span class="id" type="var">x</span>:CR)(x_: (<span class="id" type="var">x</span> &gt;&lt; ' 0)%CR) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRinv_pos_inv">CRinv_pos_inv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Qpos) (<span class="id" type="var">x</span>:CR) <span class="id" type="var">x_</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#inject_Q">inject_Q</a></span> <span class="id" type="var">c</span> &lt;= <span class="id" type="var">x</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv_pos">CRinv_pos</a></span> <span class="id" type="var">c</span> <span class="id" type="var">x</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv">CRinv</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRinv_wd">CRinv_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:CR) <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, (<span class="id" type="var">x</span> == <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv">CRinv</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv">CRinv</a></span> <span class="id" type="var">y</span> <span class="id" type="var">y_</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRinv_irrelvent">CRinv_irrelvent</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span> <span class="id" type="var">x__</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv">CRinv</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRinv">CRinv</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x__</span>)%CR.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

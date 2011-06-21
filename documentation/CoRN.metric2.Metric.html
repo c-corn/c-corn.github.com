@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.Metric</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab609"></a><h1 class="section">Metric Space</h1>
+
+In this version, a metric space over a setoid X is characterized by a
+ball relation B where B e x y is intended to mean that the two points
+x and y are within e of each other ( d(x,y)&lt;=e ).  This is characterized
+by the axioms given in the record structure below.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_MetricSpace">is_MetricSpace</a></span> (<span class="id" type="var">X</span>:Setoid) (<span class="id" type="var">B</span>: Q<SUP>+</SUP> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Relations.Relation_Definitions.html#relation">relation</a></span> <span class="id" type="var">X</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+{ <span class="id" type="projection"><a name="msp_refl">msp_refl</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Relations.Relation_Definitions.html#reflexive">reflexive</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">B</span> <span class="id" type="var">e</span>)<br/>
+; <span class="id" type="projection"><a name="msp_sym">msp_sym</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Relations.Relation_Definitions.html#symmetric">symmetric</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">B</span> <span class="id" type="var">e</span>)<br/>
+; <span class="id" type="projection"><a name="msp_triangle">msp_triangle</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>, <span class="id" type="var">B</span> <span class="id" type="var">e1</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="var">B</span> <span class="id" type="var">e2</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> -&gt; <span class="id" type="var">B</span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>)%Qpos <span class="id" type="var">a</span> <span class="id" type="var">c</span><br/>
+; <span class="id" type="projection"><a name="msp_closed">msp_closed</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="var">B</span> (<span class="id" type="var">e</span>+d)%Qpos <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="var">B</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span><br/>
+; <span class="id" type="projection"><a name="msp_eq">msp_eq</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="var">B</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span><br/>
+}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="MetricSpace">MetricSpace</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+{ <span class="id" type="projection"><a name="msp_is_setoid">msp_is_setoid</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span><br/>
+; <span class="id" type="projection"><a name="ball">ball</a></span> : Q<SUP>+</SUP> -&gt; <span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#msp_is_setoid">msp_is_setoid</a></span> -&gt; <span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#msp_is_setoid">msp_is_setoid</a></span> -&gt; <span class="id" type="keyword">Prop</span><br/>
+; <span class="id" type="projection"><a name="ball_wd">ball_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span>) -&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>) -&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>) -&gt; <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> &lt;-&gt; <span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>)<br/>
+; <span class="id" type="projection"><a name="msp">msp</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#is_MetricSpace">is_MetricSpace</a></span> <span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#msp_is_setoid">msp_is_setoid</a></span> <span class="id" type="method"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span><br/>
+}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Metric_Space">Metric_Space</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Metric_Space.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These lemmas give direct access to the ball axioms of a metric space 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_refl">ball_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">a</span>:X), <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_sym">ball_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">b</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_triangle">ball_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>:X), <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="var">e1</span>+e2) <span class="id" type="var">a</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_closed">ball_closed</a></span> :  <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_eq">ball_eq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_eq_iff">ball_eq_iff</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) &lt;-&gt; <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The ball constraint on a and b can always be weakened.  Here are
+two forms of the weakening lemma.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_weak">ball_weak</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">d</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_weak_le">ball_weak_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d</span>:Qpos) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X), <span class="id" type="var">e</span>&lt;=d -&gt;  <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">d</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Metric.html#Metric_Space">Metric_Space</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

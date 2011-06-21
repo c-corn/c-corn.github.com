@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CIdeals</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab226"></a><h1 class="section">Ideals and coideals</h1>
+
+<a name="lab227"></a><h2 class="section">Definition of ideals and coideals</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring. At this moment all CRings are commutative and
+non-trivial. So our ideals are automatically two-sided. As soon 
+as non-commutative rings are represented in CoRN left and 
+right ideals should be defined.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Ideals">Ideals</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Ideals.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_ideal">is_ideal</a></span> (<span class="id" type="var">idP</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">R</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{ <span class="id" type="projection"><a name="idax">idax</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span>:R, <span class="id" type="var">idP</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">idP</span> (<span class="id" type="var">a</span>[*]<span class="id" type="var">x</span>);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="idprpl">idprpl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>, <span class="id" type="var">idP</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">idP</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">idP</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="ideal">ideal</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;{ <span class="id" type="projection"><a name="idpred">idpred</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">R</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="idproof">idproof</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#is_ideal">is_ideal</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CIdeals.html#idpred">idpred</a></span>}.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+We actually define strongly non-trivival co-ideals. 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_coideal">is_coideal</a></span> (<span class="id" type="var">ciP</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">R</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{ <span class="id" type="projection"><a name="ciapzero">ciapzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:R, <span class="id" type="var">ciP</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[#]0;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ciplus">ciplus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:R, <span class="id" type="var">ciP</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">ciP</span> <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">ciP</span> <span class="id" type="var">y</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cimult">cimult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:R, <span class="id" type="var">ciP</span> (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">ciP</span> <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">ciP</span> <span class="id" type="var">y</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cinontriv">cinontriv</a></span> : <span class="id" type="var">ciP</span> 1}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="coideal">coideal</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;{ <span class="id" type="projection"><a name="cipred">cipred</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">R</span>;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ciproof">ciproof</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#is_coideal">is_coideal</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CIdeals.html#cipred">cipred</a></span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CIdeals.html#Ideals">Ideals</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab228"></a><h2 class="section">Axioms of ideals and coideals</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring, <span class="inlinecode"><span class="id" type="var">I</span></span> and ideal of <span class="inlinecode"><span class="id" type="var">R</span></span> and <span class="inlinecode"><span class="id" type="var">C</span></span> a coideal of <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Ideal_Axioms">Ideal_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Ideal_Axioms.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Ideal_Axioms.I">I</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#ideal">ideal</a></span> <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Ideal_Axioms.C">C</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#coideal">coideal</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ideal_is_ideal">ideal_is_ideal</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#is_ideal">is_ideal</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_is_coideal">coideal_is_coideal</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#is_coideal">is_coideal</a></span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_apzero">coideal_apzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:R, <span class="id" type="var">C</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[#]0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_nonzero">coideal_nonzero</a></span> : ~ (<span class="id" type="var">C</span> 0).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_plus">coideal_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:R, <span class="id" type="var">C</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">C</span> <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">C</span> <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_mult">coideal_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:R, <span class="id" type="var">C</span> (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">C</span> <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">C</span> <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_nontriv">coideal_nontriv</a></span> : <span class="id" type="var">C</span> 1.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coideal_wd">coideal_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:R, <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span> -&gt; <span class="id" type="var">C</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">C</span> <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CIdeals.html#Ideal_Axioms">Ideal_Axioms</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

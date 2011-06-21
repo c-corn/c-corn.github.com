@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRabs</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab674"></a><h2 class="section">Absolute Value</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qabs_uc_prf">Qabs_uc_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span><br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qabs.html#Qabs">Qabs</a></span>:Q_as_MetricSpace -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qabs_uc">Qabs_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> := <br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRabs.html#Qabs_uc_prf">Qabs_uc_prf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRabs">CRabs</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRabs.html#Qabs_uc">Qabs_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRabs_correct">CRabs_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRabs.html#CRabs">CRabs</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRabs_AbsSmall">CRabs_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRabs.html#CRabs">CRabs</a></span> <span class="id" type="var">b</span>[&lt;=]<span class="id" type="var">a</span>) &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRabs_pos">CRabs_pos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:CR, ('0 &lt;= <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRabs.html#CRabs">CRabs</a></span> <span class="id" type="var">x</span> == <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRabs_neg">CRabs_neg</a></span>: <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="var">x</span> &lt;= '0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRabs.html#CRabs">CRabs</a></span> <span class="id" type="var">x</span> == - <span class="id" type="var">x</span>)%CR.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

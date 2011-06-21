@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.order.Lattice</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab69"></a><h1 class="section">Lattice</h1>
+
+A lattice is a semilattice with a join operation such that it forms
+a semilattice with in the dual partial order.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="Lattice">Lattice</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+{ <span class="id" type="projection"><a name="sl">sl</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.order.SemiLattice.html#SemiLattice">SemiLattice</a></span><br/>
+; <span class="id" type="projection"><a name="join">join</a></span> : <span class="id" type="method"><a class="idref" href="CoRN.order.Lattice.html#sl">sl</a></span> -&gt; <span class="id" type="method"><a class="idref" href="CoRN.order.Lattice.html#sl">sl</a></span> -&gt; <span class="id" type="method"><a class="idref" href="CoRN.order.Lattice.html#sl">sl</a></span><br/>
+; <span class="id" type="projection"><a name="l_proof">l_proof</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.order.SemiLattice.html#is_SemiLattice">is_SemiLattice</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.order.PartialOrder.html#Dual">Dual</a></span> <span class="id" type="method"><a class="idref" href="CoRN.order.Lattice.html#sl">sl</a></span>) <span class="id" type="method"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span><br/>
+}.<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Join">Join</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Join.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.order.Lattice.html#Lattice">Lattice</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="makeLattice">makeLattice</a></span> (<span class="id" type="var">po</span>:PartialOrder) (<span class="id" type="var">meet</span> <span class="id" type="var">join</span> :  <span class="id" type="var">po</span> -&gt; <span class="id" type="var">po</span> -&gt; <span class="id" type="var">po</span>) <span class="id" type="var">p1</span> <span class="id" type="var">p2</span> <span class="id" type="var">p3</span> <span class="id" type="var">p4</span> <span class="id" type="var">p5</span> <span class="id" type="var">p6</span> :=<br/>
+@<span class="id" type="constructor"><a class="idref" href="CoRN.order.Lattice.html#Build_Lattice">Build_Lattice</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.order.SemiLattice.html#makeSemiLattice">makeSemiLattice</a></span> <span class="id" type="var">po</span> <span class="id" type="var">meet</span> <span class="id" type="var">p1</span> <span class="id" type="var">p2</span> <span class="id" type="var">p3</span>) <span class="id" type="var">join</span><br/>
+(@<span class="id" type="constructor"><a class="idref" href="CoRN.order.SemiLattice.html#Build_is_SemiLattice">Build_is_SemiLattice</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.order.PartialOrder.html#Dual">Dual</a></span> <span class="id" type="var">po</span>) <span class="id" type="var">join</span> <span class="id" type="var">p4</span> <span class="id" type="var">p5</span> <span class="id" type="var">p6</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The axioms of a join lattice. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_ub_l">join_ub_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">x</span> &lt;= <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_ub_r">join_ub_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">y</span> &lt;= <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_lub">join_lub</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">X</span>, <span class="id" type="var">x</span> &lt;= <span class="id" type="var">z</span> -&gt; <span class="id" type="var">y</span> &lt;= <span class="id" type="var">z</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> &lt;= <span class="id" type="var">z</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab70"></a><h2 class="section">Dual Latice</h2>
+
+The dual of a lattice is a lattice. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Dual">Dual</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.order.Lattice.html#Lattice">Lattice</a></span> :=<br/>
+@<span class="id" type="definition"><a class="idref" href="CoRN.order.Lattice.html#makeLattice">makeLattice</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.order.PartialOrder.html#Dual">Dual</a></span> <span class="id" type="var">X</span>) (@<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">X</span>) (@<span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">X</span>)<br/>
+&nbsp;<span class="id" type="lemma"><a class="idref" href="CoRN.order.Lattice.html#join_ub_l">join_ub_l</a></span><br/>
+&nbsp;<span class="id" type="lemma"><a class="idref" href="CoRN.order.Lattice.html#join_ub_r">join_ub_r</a></span><br/>
+&nbsp;<span class="id" type="lemma"><a class="idref" href="CoRN.order.Lattice.html#join_lub">join_lub</a></span><br/>
+&nbsp;(@<span class="id" type="lemma"><a class="idref" href="CoRN.order.SemiLattice.html#meet_lb_l">meet_lb_l</a></span> <span class="id" type="var">X</span>)<br/>
+&nbsp;(@<span class="id" type="lemma"><a class="idref" href="CoRN.order.SemiLattice.html#meet_lb_r">meet_lb_r</a></span> <span class="id" type="var">X</span>)<br/>
+&nbsp;(@<span class="id" type="lemma"><a class="idref" href="CoRN.order.SemiLattice.html#meet_glb">meet_glb</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+All the lemmas about meet semilattices hold for join. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_comm">join_comm</a></span> :  <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_assoc">join_assoc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>) == <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_idem">join_idem</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="le_join_l">le_join_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">y</span> &lt;= <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="le_join_r">le_join_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">x</span> &lt;= <span class="id" type="var">y</span> &lt;-&gt; <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_monotone_r">join_monotone_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <span class="id" type="var">X</span>, <span class="id" type="projection"><a class="idref" href="CoRN.order.PartialOrder.html#monotone">monotone</a></span> <span class="id" type="var">X</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_monotone_l">join_monotone_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <span class="id" type="var">X</span>, <span class="id" type="projection"><a class="idref" href="CoRN.order.PartialOrder.html#monotone">monotone</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_le_compat">join_le_compat</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">w</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">X</span>, <span class="id" type="var">w</span>&lt;=y -&gt; <span class="id" type="var">x</span>&lt;=z -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">w</span> <span class="id" type="var">x</span> &lt;= <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.order.Lattice.html#Join">Join</a></span>.<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="MeetJoin">MeetJoin</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="MeetJoin.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.order.Lattice.html#Lattice">Lattice</a></span>.<br/>
+</div>
+
+<div class="doc">
+Lemma about how meet and join interact. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="meet_join_absorb_l_l">meet_join_absorb_l_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="meet_join_absorb_l_r">meet_join_absorb_l_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>) == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="meet_join_absorb_r_l">meet_join_absorb_r_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">x</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="meet_join_absorb_r_r">meet_join_absorb_r_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>) <span class="id" type="var">x</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="meet_join_eq">meet_join_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> == <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> == <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.order.Lattice.html#MeetJoin">MeetJoin</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="JoinMeet">JoinMeet</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="JoinMeet.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.order.Lattice.html#Lattice">Lattice</a></span>.<br/>
+</div>
+
+<div class="doc">
+The dual of the previous laws holds. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_meet_absorb_l_l">join_meet_absorb_l_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_meet_absorb_l_r">join_meet_absorb_l_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> <span class="id" type="var">x</span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>) == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_meet_absorb_r_l">join_meet_absorb_r_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">x</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="join_meet_absorb_r_r">join_meet_absorb_r_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:X, <span class="id" type="projection"><a class="idref" href="CoRN.order.Lattice.html#join">join</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.order.SemiLattice.html#meet">meet</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>) <span class="id" type="var">x</span> == <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.order.Lattice.html#JoinMeet">JoinMeet</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

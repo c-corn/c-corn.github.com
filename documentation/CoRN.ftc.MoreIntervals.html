@@ -1,0 +1,727 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.MoreIntervals</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Intervals">Intervals</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab474"></a><h1 class="section">Generalized Intervals</h1>
+
+
+<br/><br/>
+At this stage we have enough material to begin generalizing our
+concepts in preparation for the fundamental theorem of calculus and
+the definition of the main (non-polynomial) functions of analysis.
+
+<br/><br/>
+In order to define functions via power series (or any other kind of
+series) we need to formalize a notion of convergence more general than
+the one we already have on compact intervals.  This is necessary for
+practical reasons: we want to define a single exponential function
+with domain <span class="inlinecode"><span class="id" type="var">IR</span></span>, not several exponential functions defined on compact
+intervals which we prove to be the same wherever their domains
+overlap.  In a similar way, we want to define indefinite integrals on
+infinite domains and not only on compact intervals.
+
+<br/><br/>
+Unfortunately, proceeding in a way analogous to how we defined the
+concept of global continuity will lead us nowhere; the concept turns
+out to be to general, and the behaviour on too small domains
+(typically intervals <span class="inlinecode">[<span class="id" type="var">a</span>,a']</span> where <span class="inlinecode"><span class="id" type="var">a</span> = <span class="id" type="var">a'</span></span> is neither
+provably true nor provably false) will be unsatisfactory.
+
+<br/><br/>
+There is a special family of sets, however, where this problems can be
+avoided: intervals.  Intervals have some nice properties that allow us
+to prove good results, namely the facts that if <span class="inlinecode"><span class="id" type="var">a</span></span> and <span class="inlinecode"><span class="id" type="var">b</span></span> are
+elements of an interval <span class="inlinecode"><span class="id" type="var">I</span></span> then so are <span class="inlinecode"><span class="id" type="var">Min</span>(<span class="id" type="var">a</span>,b)</span> and
+<span class="inlinecode"><span class="id" type="var">Max</span>(<span class="id" type="var">a</span>,b)</span> (which is in general not true) and also the
+compact interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> is included in <span class="inlinecode"><span class="id" type="var">I</span></span>.  Furthermore, all
+intervals are characterized by simple, well defined predicates, and
+the nonempty and proper concepts become very easy to define.
+
+<br/><br/>
+<a name="lab475"></a><h2 class="section">Definitions and Basic Results</h2>
+
+
+<br/><br/>
+We define an inductive type of intervals with nine constructors,
+corresponding to the nine basic types of intervals.  The reason why so
+many constructors are needed is that we do not have a notion of real
+line, for many reasons which we will not discuss here.  Also it seems
+simple to directly define finite intervals than to define then later
+as intersections of infinite intervals, as it would only mess things
+up.
+
+<br/><br/>
+The compact interval which we will define here is obviously the same
+that we have been working with all the way through; why, then, the
+different formulation?  The reason is simple: if we had worked with
+intervals from the beginning we would have had case definitions at
+every spot, and our lemmas and proofs would have been very awkward.
+Also, it seems more natural to characterize a compact interval by two
+real numbers (and a proof) than as a particular case of a more general
+concept which doesn't have an intuitive interpretation.  Finally, the
+definitions we will make here will have the elegant consequence that
+from this point on we can work with any kind of intervals in exactly
+the same way.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="interval">interval</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;)         : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;)      : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;)      : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;)     : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;]     : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+To each interval a predicate (set) is assigned by the following map:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="iprop">iprop</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">I</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;) =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;) <span class="id" type="var">b</span>  =&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;) <span class="id" type="var">a</span>  =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;] <span class="id" type="var">b</span> =&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;) <span class="id" type="var">a</span> =&gt; <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This map is made into a coercion, so that intervals
+<i>are</i> really subsets of reals.
+
+<br/><br/>
+We now define what it means for an interval to be nonvoid, proper,
+finite and compact in the obvious way.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nonvoid">nonvoid</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">I</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;) =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;) <span class="id" type="var">b</span>  =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;) <span class="id" type="var">a</span>  =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;] <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;) <span class="id" type="var">a</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proper">proper</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">I</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;) =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;) <span class="id" type="var">b</span>  =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;) <span class="id" type="var">a</span>  =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;] <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;) <span class="id" type="var">a</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="finite">finite</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">I</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;) =&gt; &perp;<br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;) <span class="id" type="var">b</span>  =&gt; &perp;<br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;) <span class="id" type="var">a</span>  =&gt; &perp;<br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;] <span class="id" type="var">b</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;) <span class="id" type="var">a</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compact_">compact_</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">I</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| (-&infin;,+&infin;) =&gt; &perp;<br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;) <span class="id" type="var">b</span>  =&gt; &perp;<br/>
+&nbsp;&nbsp;| (&sdot;,+&infin;) <span class="id" type="var">a</span>  =&gt; &perp;<br/>
+&nbsp;&nbsp;| (-&infin;,&sdot;] <span class="id" type="var">b</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| [&sdot;,+&infin;) <span class="id" type="var">a</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| (&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;) <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| [&sdot;,&sdot;] <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finite intervals have a left end and a right end. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="left_end">left_end</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#finite">finite</a></span> <span class="id" type="var">I</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="right_end">right_end</a></span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#finite">finite</a></span> <span class="id" type="var">I</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some trivia: compact intervals are finite; proper intervals are nonvoid; an interval is nonvoid iff it contains some point.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_finite">compact_finite</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#finite">finite</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_nonvoid">proper_nonvoid</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#nonvoid">nonvoid</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nonvoid_point">nonvoid_point</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#nonvoid">nonvoid</a></span> <span class="id" type="var">I</span> -&gt; {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">I</span> <span class="id" type="var">x</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nonvoid_char">nonvoid_char</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>), <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#nonvoid">nonvoid</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For practical reasons it helps to define left end and right end of compact intervals.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Lend">Lend</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#left_end">left_end</a></span> <span class="id" type="var">I</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_finite">compact_finite</a></span> <span class="id" type="var">I</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Rend">Rend</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#right_end">right_end</a></span> <span class="id" type="var">I</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_finite">compact_finite</a></span> <span class="id" type="var">I</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In a compact interval, the left end is always less than or equal
+to the right end.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Lend_leEq_Rend">Lend_leEq_Rend</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">cI</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">I</span> <span class="id" type="var">cI</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">I</span> <span class="id" type="var">cI</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some nice characterizations of inclusion:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_included">compact_included</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>),<br/>
+&nbsp;<span class="id" type="var">I</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">b</span> -&gt; &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_interval'">included_interval'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> <span class="id" type="var">w</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">z</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">w</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">y</span> <span class="id" type="var">w</span>) <span class="id" type="var">H</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_interval">included_interval</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">H</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A weirder inclusion result.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included3_interval">included3_interval</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> <span class="id" type="var">Hxyz</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">z</span> -&gt;<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">z</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">z</span>) <span class="id" type="var">Hxyz</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, all intervals are characterized by well defined predicates.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_wd">iprop_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Intervals">Intervals</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact_Constructions">Compact_Constructions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact_Constructions.Single_Compact_Interval">Single_Compact_Interval</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab476"></a><h2 class="section">Constructions with Compact Intervals</h2>
+
+
+<br/><br/>
+Several important constructions are now discussed.
+
+<br/><br/>
+We begin by defining the compact interval <span class="inlinecode">[<span class="id" type="var">x</span>,x]</span>.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">P</span>:IR-&gt;CProp</span> be well defined, and <span class="inlinecode"><span class="id" type="var">x</span>:IR</span>
+such that <span class="inlinecode"><span class="id" type="var">P</span>(<span class="id" type="var">x</span>)</span> holds.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Compact_Constructions.Single_Compact_Interval.P">P</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Compact_Constructions.Single_Compact_Interval.wdP">wdP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Compact_Constructions.Single_Compact_Interval.x">x</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Compact_Constructions.Single_Compact_Interval.Hx">Hx</a></span> : <span class="id" type="var">P</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compact_single">compact_single</a></span> := <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#leEq_reflexive">leEq_reflexive</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This interval contains <span class="inlinecode"><span class="id" type="var">x</span></span> and only (elements equal to) <span class="inlinecode"><span class="id" type="var">x</span></span>; furthermore, for every (well-defined) <span class="inlinecode"><span class="id" type="var">P</span></span>, if x&isin;P then [x,x]&sube;P.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_single_prop">compact_single_prop</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_single">compact_single</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_single_pt">compact_single_pt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_single">compact_single</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_single_inc">compact_single_inc</a></span> : &sube; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_single">compact_single</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Compact_Constructions.Single_Compact_Interval">Single_Compact_Interval</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The special case of intervals is worth singling out, as one of the hypothesis becomes a theorem.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compact_single_iprop">compact_single_iprop</a></span> <span class="id" type="var">I</span> := <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_single_inc">compact_single_inc</a></span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreIntervals.html#iprop_wd">iprop_wd</a></span> <span class="id" type="var">I</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now for more interesting and important results.
+
+<br/><br/>
+Let <span class="inlinecode"><span class="id" type="var">I</span></span> be a proper interval and <span class="inlinecode"><span class="id" type="var">x</span></span> be a point of <span class="inlinecode"><span class="id" type="var">I</span></span>.  Then there is
+a proper compact interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> such that x&isin;[a,b]&sube;I.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Compact_Constructions.Proper_Compact_with_One_or_Two_Points">Proper_Compact_with_One_or_Two_Points</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">x</span> (<span class="id" type="var">Hx</span> : <span class="id" type="var">I</span> <span class="id" type="var">x</span>) : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_compact_in_interval">compact_compact_in_interval</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_compact_in_interval">proper_compact_in_interval</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_compact_in_interval'">proper_compact_in_interval'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)), <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_compact_in_interval">included_compact_in_interval</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval">iprop_compact_in_interval</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval'">iprop_compact_in_interval'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval_inc1">iprop_compact_in_interval_inc1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval_inc2">iprop_compact_in_interval_inc2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If <span class="inlinecode"><span class="id" type="var">x</span> = <span class="id" type="var">y</span></span> then the construction yields the same interval whether we
+use <span class="inlinecode"><span class="id" type="var">x</span></span> or <span class="inlinecode"><span class="id" type="var">y</span></span> in its definition.  This property is required at some
+stage, which is why we formalized this result as a functional
+definition rather than as an existential formula.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_wd1">compact_in_interval_wd1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))<br/>
+&nbsp;(<span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>)),<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_wd2">compact_in_interval_wd2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))<br/>
+&nbsp;(<span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval">compact_in_interval</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>)),<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can make an analogous construction for two points.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_compact_in_interval2">compact_compact_in_interval2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_compact_in_interval2">proper_compact_in_interval2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_compact_in_interval2'">proper_compact_in_interval2'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H</span> [&lt;] <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_compact_in_interval2">included_compact_in_interval2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2x">iprop_compact_in_interval2x</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2y">iprop_compact_in_interval2y</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2x'">iprop_compact_in_interval2x'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2y'">iprop_compact_in_interval2y'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2_inc1">iprop_compact_in_interval2_inc1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="iprop_compact_in_interval2_inc2">iprop_compact_in_interval2_inc2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span><br/>
+&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>)) <span class="id" type="var">H'</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_in_interval2">compact_in_interval2</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_x_lft">compact_in_interval_x_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H</span> [&lt;=] <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_y_lft">compact_in_interval_y_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H</span> [&lt;=] <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_x_rht">compact_in_interval_x_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) <span class="id" type="var">H</span> [&lt;=] <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_in_interval_y_rht">compact_in_interval_y_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H</span> [&lt;=] <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> (<span class="id" type="var">I</span>:=compact_in_interval2 <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>) <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Compact_Constructions.Proper_Compact_with_One_or_Two_Points">Proper_Compact_with_One_or_Two_Points</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Compact intervals are exactly compact intervals(!).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="interval_compact_inc">interval_compact_inc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span>,<br/>
+&nbsp;&sube; <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">cI</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">cI</span>) <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_interval_inc">compact_interval_inc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lend">Lend</a></span> <span class="id" type="var">cI</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Rend">Rend</a></span> <span class="id" type="var">cI</span>) <span class="id" type="var">H</span>) <span class="id" type="var">I</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A generalization of the previous results: if [a,b]&sube;J
+and <span class="inlinecode"><span class="id" type="var">J</span></span> is proper, then we can find a proper interval <span class="inlinecode">[<span class="id" type="var">a'</span>,b']</span> such that
+[a,b]&sube;[a',b']&sube;J.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="compact_proper_in_interval">compact_proper_in_interval</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">J</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">J</span> -&gt; {<span class="id" type="var">a'</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">b'</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">Hab'</span> : <span class="id" type="var">_</span> |<br/>
+&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>)) <span class="id" type="var">J</span> |<br/>
+&nbsp;&nbsp;&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>))}}}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Compact_Constructions">Compact_Constructions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Functions">Functions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab477"></a><h2 class="section">Properties of Functions in Intervals</h2>
+
+
+<br/><br/>
+We now define notions of continuity, differentiability and so on on
+arbitrary intervals.  As expected, a function <span class="inlinecode"><span class="id" type="var">F</span></span> has property <span class="inlinecode"><span class="id" type="var">P</span></span> in
+the (proper) interval <span class="inlinecode"><span class="id" type="var">I</span></span> iff it has property <span class="inlinecode"><span class="id" type="var">P</span></span> in every compact
+interval included in <span class="inlinecode"><span class="id" type="var">I</span></span>.  We can formalize this in a nice way using
+previously defined concepts.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">n</span>:nat</span> and <span class="inlinecode"><span class="id" type="var">I</span>:interval</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Functions.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Functions.I">I</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Continuous">Continuous</a></span> <span class="id" type="var">F</span> := &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">Hab</span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>),<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Derivative">Derivative</a></span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span> := &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)) <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Diffble">Diffble</a></span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">F</span> := &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)) <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Derivative_n">Derivative_n</a></span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span> := &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)) <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Derivative_I_n">Derivative_I_n</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Diffble_n">Diffble_n</a></span> (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">F</span> := &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)) <span class="id" type="var">I</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.NthDerivative.html#Diffble_I_n">Diffble_I_n</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Functions">Functions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Reflexivity_Properties">Reflexivity_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In the case of compact intervals, this definitions collapse to the old ones.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_Int">Continuous_Int</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Int_Continuous">Int_Continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_Int">Derivative_Int</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> <span class="id" type="var">F'</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Int_Derivative">Int_Derivative</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> <span class="id" type="var">F'</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Diffble_Int">Diffble_Int</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Diffble">Diffble</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Int_Diffble">Int_Diffble</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) (<span class="id" type="var">cI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#compact_">compact_</a></span> <span class="id" type="var">I</span>) (<span class="id" type="var">pI</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>) <span class="id" type="var">H</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Diffble">Diffble</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> (<span class="id" type="var">a</span>:=Lend <span class="id" type="var">cI</span>) (<span class="id" type="var">b</span>:=Rend <span class="id" type="var">cI</span>) <span class="id" type="var">H</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Reflexivity_Properties">Reflexivity_Properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Lemmas">Lemmas</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Interestingly, inclusion and equality in an interval are also characterizable in a similar way:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_imp_inc">included_imp_inc</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">J</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">P</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span> -&gt; &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">P</span>) -&gt; &sube; <span class="id" type="var">J</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Feq''">included_Feq''</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hab'</span>:=(less_leEq <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)),<br/>
+&nbsp;&sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab'</span>) <span class="id" type="var">I</span> -&gt; &asymp; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab'</span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span>) -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Feq'">included_Feq'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">I</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>, &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">I</span> -&gt; &asymp; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span>) -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Lemmas">Lemmas</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

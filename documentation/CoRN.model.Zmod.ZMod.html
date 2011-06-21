@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.Zmod.ZMod</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab48"></a><h1 class="section">Working modulo a positive number over Z</h1>
+
+<a name="lab49"></a><h2 class="section">Facts on `mod'</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="zmod">zmod</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zmod_same">Zmod_same</a></span> := <span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.Zdiv.html#Z_mod_same">Z_mod_same</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_zero_lft">Zmod_zero_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>Z</b>, (0 <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_zero_rht">Zmod_zero_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> 0)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_Zmod">Zmod_Zmod</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_cancel_multiple">Zmod_cancel_multiple</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">b</span> * <span class="id" type="var">m</span> + <span class="id" type="var">a</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_multiple">Zmod_multiple</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_minus_intro">Zmod_minus_intro</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> - <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_plus_compat">Zmod_plus_compat</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> + <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span> + <span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_plus_compat_rht">Zmod_plus_compat_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> + <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> + <span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_plus_compat_lft">Zmod_plus_compat_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> + <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span> + <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_opp_elim">Zmod_opp_elim</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (- <span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">m</span> - <span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_minus_elim">Zmod_minus_elim</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z -&gt; ((<span class="id" type="var">a</span> - <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_mult_compat">Zmod_mult_compat</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span> * (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_mult_compat_rht">Zmod_mult_compat_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> * (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_mult_compat_lft">Zmod_mult_compat_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span> * <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_mult_elim_lft">Zmod_mult_elim_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zrelprime">Zrelprime</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> -&gt;<br/>
+&nbsp;((<span class="id" type="var">a</span> * <span class="id" type="var">b</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">a</span> * <span class="id" type="var">c</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z -&gt; (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">c</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_mult_elim_rht">Zmod_mult_elim_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zrelprime">Zrelprime</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> -&gt;<br/>
+&nbsp;((<span class="id" type="var">b</span> * <span class="id" type="var">a</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = ((<span class="id" type="var">c</span> * <span class="id" type="var">a</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z -&gt; (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">c</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_opp_zero">Zmod_opp_zero</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z -&gt; (- <span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_small">Zmod_small</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (0 &lt;= <span class="id" type="var">a</span> &lt; <span class="id" type="var">m</span>)%Z -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_opp_nonzero">Zmod_opp_nonzero</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z &lt;&gt; 0%Z -&gt; (- <span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">m</span> - <span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_one_lft">Zmod_one_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>Z</b>, (<span class="id" type="var">m</span> &gt; 1)%Z -&gt; (1 <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 1%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_one_rht">Zmod_one_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> 1)%Z = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_lin_comb">Zmod_lin_comb</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 0)%Z -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> &lt; <span class="id" type="var">m</span>)%Z -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd_coeff_a">Zgcd_coeff_a</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmod_relprime_inv">Zmod_relprime_inv</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &gt; 1)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zrelprime">Zrelprime</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> -&gt; ((<span class="id" type="var">a</span> * <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd_coeff_a">Zgcd_coeff_a</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>) <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = 1%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.Zmod.ZMod.html#zmod">zmod</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="zmodeq">zmodeq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="zmodeq.m">m</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>) := <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZDivides.html#Zdivides">Zdivides</a></span> <span class="id" type="var">m</span> (<span class="id" type="var">a</span> - <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_dec">Zmodeq_dec</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, {<span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>} + {~ <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_modeq">Zmodeq_modeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_eqmod">Zmodeq_eqmod</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z = (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_refl">Zmodeq_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_symm">Zmodeq_symm</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_trans">Zmodeq_trans</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">c</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_zero">Zmodeq_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> 0 &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZDivides.html#Zdivides">Zdivides</a></span> <span class="id" type="var">m</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_rem">Zmodeq_rem</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_plus_compat">Zmodeq_plus_compat</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> + <span class="id" type="var">c</span>) (<span class="id" type="var">b</span> + <span class="id" type="var">d</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zmodeq_plus_elim">Zmodeq_plus_elim</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq_plus_compat">Zmodeq_plus_compat</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_plus_elim_lft">Zmodeq_plus_elim_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">c</span> + <span class="id" type="var">a</span>) (<span class="id" type="var">c</span> + <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_plus_elim_rht">Zmodeq_plus_elim_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> + <span class="id" type="var">c</span>) (<span class="id" type="var">b</span> + <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mult_elim_lft">Zmodeq_mult_elim_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">c</span> * <span class="id" type="var">a</span>) (<span class="id" type="var">c</span> * <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mult_elim_rht">Zmodeq_mult_elim_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> * <span class="id" type="var">c</span>) (<span class="id" type="var">b</span> * <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mult_compat">Zmodeq_mult_compat</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> * <span class="id" type="var">c</span>) (<span class="id" type="var">b</span> * <span class="id" type="var">d</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zmodeq_mult_elim">Zmodeq_mult_elim</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq_mult_compat">Zmodeq_mult_compat</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_opp_elim">Zmodeq_opp_elim</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (- <span class="id" type="var">a</span>) (- <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_opp_intro">Zmodeq_opp_intro</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (- <span class="id" type="var">a</span>) (- <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_gcd_compat_lft">Zmodeq_gcd_compat_lft</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">m</span> <span class="id" type="var">a</span> = <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">m</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_gcd_compat_rht">Zmodeq_gcd_compat_rht</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> = <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zgcd">Zgcd</a></span> <span class="id" type="var">b</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_relprime">Zmodeq_relprime</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zrelprime">Zrelprime</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZGcd.html#Zrelprime">Zrelprime</a></span> <span class="id" type="var">b</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_elim">Zmodeq_mod_elim</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_elim_lft">Zmodeq_mod_elim_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_elim_rht">Zmodeq_mod_elim_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_intro">Zmodeq_mod_intro</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_intro_lft">Zmodeq_mod_intro_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmodeq_mod_intro_rht">Zmodeq_mod_intro_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> (<span class="id" type="var">b</span> <span class="id" type="var">mod</span> <span class="id" type="var">m</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.Zmod.ZMod.html#Zmodeq">Zmodeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.Zmod.ZMod.html#zmodeq">zmodeq</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

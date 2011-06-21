@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.Expon</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab305"></a><h1 class="section">Exponentiation</h1>
+
+<a name="lab306"></a><h2 class="section">More properties about <span class="inlinecode"><span class="id" type="var">nexp</span></span></h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Nexp">More_Nexp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Nexp.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_ap_zero">nexp_resp_ap_zero</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span>, <span class="id" type="var">x</span> [#] 0 -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [#] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_distr_div">nexp_distr_div</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span> <span class="id" type="var">y_</span> <span class="id" type="var">yn_</span>, (<span class="id" type="var">x</span>[/] <span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^]<span class="id" type="var">n</span> [=] (<span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>[/] <span class="id" type="var">y</span>[^]<span class="id" type="var">n</span>[//]<span class="id" type="var">yn_</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_distr_div'">nexp_distr_div'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span> <span class="id" type="var">y_</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span>[/] <span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^]<span class="id" type="var">n</span> [=] (<span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>[/] <span class="id" type="var">y</span>[^]<span class="id" type="var">n</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.Expon.html#nexp_resp_ap_zero">nexp_resp_ap_zero</a></span> <span class="id" type="var">y</span> <span class="id" type="var">n</span> <span class="id" type="var">y_</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_nexp_resp_lt">small_nexp_resp_lt</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;] 1 -&gt; <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [&lt;] <span class="id" type="var">x</span>[^]<span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="great_nexp_resp_lt">great_nexp_resp_lt</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, 1 [&lt;] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">m</span> [&lt;] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_nexp_resp_le">small_nexp_resp_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;0 [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] 1 -&gt; <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [&lt;=] <span class="id" type="var">x</span>[^]<span class="id" type="var">m</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="great_nexp_resp_le">great_nexp_resp_le</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, 1 [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">m</span> [&lt;=] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_leEq">nexp_resp_leEq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">k</span>, 0 [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">k</span> [&lt;=] <span class="id" type="var">y</span>[^]<span class="id" type="var">k</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_leEq_one">nexp_resp_leEq_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">c</span> -&gt; <span class="id" type="var">c</span> [&lt;=] 1 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">c</span>[^]<span class="id" type="var">n</span> [&lt;=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_leEq_neg_even">nexp_resp_leEq_neg_even</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>, <span class="id" type="var">y</span> [&lt;=] 0 -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span>[^]<span class="id" type="var">n</span> [&lt;=] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_leEq_neg_odd">nexp_resp_leEq_neg_odd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>, <span class="id" type="var">y</span> [&lt;=] 0 -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [&lt;=] <span class="id" type="var">y</span>[^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_distr_recip">nexp_distr_recip</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">n</span> <span class="id" type="var">x_</span> <span class="id" type="var">xn_</span>, (1[/] <span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^]<span class="id" type="var">n</span> [=] (1[/] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>[//]<span class="id" type="var">xn_</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_even_nonneg">nexp_even_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_le'">nexp_resp_le'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">c</span> -&gt; <span class="id" type="var">c</span> [&lt;=] 1 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">c</span>[^]<span class="id" type="var">n</span> [&lt;=] <span class="id" type="var">c</span>[^]<span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nexp_resp_le">nexp_resp_le</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">R</span>, 1 [&lt;=] <span class="id" type="var">c</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">c</span>[^]<span class="id" type="var">m</span> [&lt;=] <span class="id" type="var">c</span>[^]<span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_less_un">bin_less_un</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">H</span> <span class="id" type="var">H1</span>, (1[/] (2:R) [^]<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>[//]<span class="id" type="var">H</span>) [&lt;] (1[/] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [//]<span class="id" type="var">H1</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.Expon.html#More_Nexp">More_Nexp</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab307"></a><h2 class="section">Definition of <span class="inlinecode"><span class="id" type="var">zexp</span></span>: integer exponentiation</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Zexp_def">Zexp_def</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Zexp_def.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CFields.html#CField">CField</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It would be nicer to define <span class="inlinecode"><span class="id" type="var">zexp</span></span> using <span class="inlinecode"><span class="id" type="var">caseZdiff</span></span>, but we already
+have most properties now.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="zexp">zexp</a></span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> (<span class="id" type="var">n</span> : <b>Z</b>) : <span class="id" type="var">R</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Z0">Z0</a></span>     =&gt; 1:R<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="var">x</span>[^]<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">p</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zneg">Zneg</a></span> <span class="id" type="var">p</span> =&gt; (1[/] <span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^]<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">p</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.Expon.html#Zexp_def">Zexp_def</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "( x &Dagger; Hx ) ^ n" := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Expon.html#zexp">zexp</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">n</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab308"></a><h2 class="section">Properties of <span class="inlinecode"><span class="id" type="var">zexp</span></span></h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Zexp_properties">Zexp_properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Zexp_properties.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_zero">zexp_zero</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (0) [=] 1.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_nexp">zexp_nexp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> (<span class="id" type="var">n</span> : <b>N</b>), (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">n</span>) [=] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_inv_nexp">zexp_inv_nexp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> (<span class="id" type="var">n</span> : <b>N</b>), (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (- <span class="id" type="var">n</span>) [=] (1[/] <span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_inv_nexp'">zexp_inv_nexp'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">n</span> : <b>N</b>) <span class="id" type="var">x_</span> <span class="id" type="var">xn_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (- <span class="id" type="var">n</span>) [=] (1[/] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>[//]<span class="id" type="var">xn_</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_strext">zexp_strext</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [#] (<span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^^] (<span class="id" type="var">m</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_wd">zexp_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [=] (<span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^^] (<span class="id" type="var">m</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_plus1">zexp_plus1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">m</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span> + 1) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [*]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_resp_ap_zero">zexp_resp_ap_zero</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">x_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [#] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_inv">zexp_inv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">m</span> <span class="id" type="var">xm_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (- <span class="id" type="var">m</span>) [=] (1[/] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [//]<span class="id" type="var">xm_</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_inv1">zexp_inv1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">m</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span> - 1) [=] ((<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [/] <span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_plus">zexp_plus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [*] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">n</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_minus">zexp_minus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">xn_</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span> - <span class="id" type="var">n</span>) [=] ((<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [/] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">n</span>) [//]<span class="id" type="var">xn_</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="one_zexp">one_zexp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span>, (1[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CRings.html#ring_non_triv">ring_non_triv</a></span> <span class="id" type="var">_</span>) [^^] (<span class="id" type="var">z</span>) [=] (1:R).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_zexp">mult_zexp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">z</span> <span class="id" type="var">x_</span> <span class="id" type="var">y_</span> <span class="id" type="var">xy_</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>[//]<span class="id" type="var">xy_</span>) [^^] (<span class="id" type="var">z</span>) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">z</span>) [*] (<span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^^] (<span class="id" type="var">z</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_mult">zexp_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x_</span> <span class="id" type="var">xm_</span>,<br/>
+&nbsp;(<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span> * <span class="id" type="var">n</span>) [=] ((<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>) [//]<span class="id" type="var">xm_</span>) [^^] (<span class="id" type="var">n</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_two">zexp_two</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (2) [=] <span class="id" type="var">x</span>[*]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_zexp_even">inv_zexp_even</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.Zeven.html#Zeven">Zeven</a></span> <span class="id" type="var">m</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x_</span> <span class="id" type="var">x__</span>,<br/>
+&nbsp;([--]<span class="id" type="var">x</span>[//]<span class="id" type="var">x__</span>) [^^] (<span class="id" type="var">m</span>) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_zexp_two">inv_zexp_two</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">x__</span>, ([--]<span class="id" type="var">x</span>[//]<span class="id" type="var">x__</span>) [^^] (2) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (2).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_zexp_odd">inv_zexp_odd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.Zeven.html#Zodd">Zodd</a></span> <span class="id" type="var">m</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x_</span> <span class="id" type="var">x__</span>,<br/>
+&nbsp;([--]<span class="id" type="var">x</span>[//]<span class="id" type="var">x__</span>) [^^] (<span class="id" type="var">m</span>) [=] [--] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_one">zexp_one</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span>, (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (1) [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_funny">zexp_funny</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [*] (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (2) [-] (<span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^^] (2).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_funny'">zexp_funny'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>) [*] (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (2) [-] (<span class="id" type="var">y</span>[//]<span class="id" type="var">y_</span>) [^^] (2).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zexp_pos">zexp_pos</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">R</span>) <span class="id" type="var">x_</span> <span class="id" type="var">z</span>, 0 [&lt;] <span class="id" type="var">x</span> -&gt; 0 [&lt;] (<span class="id" type="var">x</span>[//]<span class="id" type="var">x_</span>) [^^] (<span class="id" type="var">z</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.Expon.html#Zexp_properties">Zexp_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Root_Unique">Root_Unique</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Root_Unique.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_unique">root_unique</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;=] <span class="id" type="var">x</span> -&gt; 0 [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">y</span>[^]<span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="root_one">root_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [=] 1 -&gt; <span class="id" type="var">x</span> [=] 1.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.Expon.html#Root_Unique">Root_Unique</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

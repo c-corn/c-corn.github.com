@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.WeakIVT</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab529"></a><h1 class="section">IVT for Partial Functions</h1>
+
+
+<br/><br/>
+In general, we cannot prove the classically valid Intermediate Value
+Theorem for arbitrary partial functions, which states that in any
+interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>, for any value <span class="inlinecode"><span class="id" type="var">z</span></span> between <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">a</span>)</span> and <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">b</span>)</span>
+there exists x&isin;[a,b] such that <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">x</span>) = <span class="id" type="var">z</span></span>.
+
+<br/><br/>
+However, as is usually the case, there are some good aproximation results.  We
+will prove them here.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Lemma1">Lemma1</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Lemma1.a">a</a></span> <span class="id" type="variable"><a name="Lemma1.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Lemma1.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Lemma1.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Lemma1.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab530"></a><h2 class="section">First Lemmas</h2>
+
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">a</span>, <span class="id" type="var">b</span> : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">Hab</span> : <span class="id" type="var">a</span> &le; <span class="id" type="var">b</span></span> and denote by <span class="inlinecode"><span class="id" type="var">I</span></span>
+the interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>.  Let <span class="inlinecode"><span class="id" type="var">F</span></span> be a continuous function on <span class="inlinecode"><span class="id" type="var">I</span></span>.
+
+
+<br/><br/>
+We begin by proving that, if <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">a</span>) &lt; <span class="id" type="var">f</span>(<span class="id" type="var">b</span>)</span>, then for every <span class="inlinecode"><span class="id" type="var">y</span></span> in 
+<span class="inlinecode">[<span class="id" type="var">f</span>(<span class="id" type="var">a</span>),f(b)]</span> there is an x&isin;[a,b] such that <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">x</span>)</span> is close
+enough to <span class="inlinecode"><span class="id" type="var">z</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Weak_IVT_ap_lft">Weak_IVT_ap_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span> (<span class="id" type="var">HFab</span> : <span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> [&lt;] <span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>) <span class="id" type="var">e</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">HFab</span>) <span class="id" type="var">z</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[-]<span class="id" type="var">z</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.WeakIVT.html#Lemma1">Lemma1</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Lemma2">Lemma2</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Lemma2.a">a</a></span> <span class="id" type="variable"><a name="Lemma2.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Lemma2.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Lemma2.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Lemma2.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">b</span>) &lt; <span class="id" type="var">f</span>(<span class="id" type="var">a</span>)</span>, a similar result holds:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Weak_IVT_ap_rht">Weak_IVT_ap_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span> (<span class="id" type="var">HFab</span> : <span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span> [&lt;] <span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>) <span class="id" type="var">e</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">HFab</span>) <span class="id" type="var">z</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[-]<span class="id" type="var">z</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.WeakIVT.html#Lemma2">Lemma2</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="IVT">IVT</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab531"></a><h2 class="section">The IVT</h2>
+
+
+<br/><br/>
+We will now assume that <span class="inlinecode"><span class="id" type="var">a</span> &lt; <span class="id" type="var">b</span></span> and that <span class="inlinecode"><span class="id" type="var">F</span></span> is not only
+continuous, but also strictly increasing in <span class="inlinecode"><span class="id" type="var">I</span></span>.  Under
+these assumptions, we can build two sequences of values which
+converge to <span class="inlinecode"><span class="id" type="var">x0</span></span> such that <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">x0</span>) = <span class="id" type="var">z</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="IVT.a">a</a></span> <span class="id" type="variable"><a name="IVT.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="IVT.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.incrF">incrF</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;] <span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="IVT.z">z</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.Haz">Haz</a></span> : <span class="id" type="var">F</span> <span class="id" type="var">a</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Ha</span>) [&lt;=] <span class="id" type="var">z</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="IVT.Hzb">Hzb</a></span> : <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">b</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Hb</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Given any two points <span class="inlinecode"><span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span></span> in <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> such that <span class="inlinecode"><span class="id" type="var">x</span> &le; <span class="id" type="var">z</span> &le; <span class="id" type="var">y</span></span>,
+we can find <span class="inlinecode"><span class="id" type="var">x'</span> &lt; <span class="id" type="var">y'</span></span> such that |x'-y'|=2/3|x-y|
+and <span class="inlinecode"><span class="id" type="var">x'</span> &le; <span class="id" type="var">z</span> &le; <span class="id" type="var">y'</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IVT_seq_lemma">IVT_seq_lemma</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">xy</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> &times; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">x</span>:=fstT <span class="id" type="var">xy</span>) (<span class="id" type="var">y</span>:=sndT <span class="id" type="var">xy</span>)<br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">Hxy</span> : (<span class="id" type="var">I</span> <span class="id" type="var">x</span>) &times; (<span class="id" type="var">I</span> <span class="id" type="var">y</span>)) (<span class="id" type="var">Hx</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fstT">fstT</a></span> <span class="id" type="var">Hxy</span>) (<span class="id" type="var">Hy</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#sndT">sndT</a></span> <span class="id" type="var">Hxy</span>), <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt;<br/>
+&nbsp;<span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">z</span> /\ <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">y</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Hy</span>) -&gt;<br/>
+&nbsp;{<span class="id" type="var">xy0</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> &times; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="keyword">let</span> <span class="id" type="var">x0</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fstT">fstT</a></span> <span class="id" type="var">xy0</span> <span class="id" type="keyword">in</span> <span class="id" type="keyword">let</span> <span class="id" type="var">y0</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#sndT">sndT</a></span> <span class="id" type="var">xy0</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;{<span class="id" type="var">Hxy0</span> : (<span class="id" type="var">I</span> <span class="id" type="var">x0</span>) &times; (<span class="id" type="var">I</span> <span class="id" type="var">y0</span>) | <span class="id" type="var">x0</span> [&lt;] <span class="id" type="var">y0</span> | <span class="id" type="keyword">let</span> <span class="id" type="var">Hx0</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fstT">fstT</a></span> <span class="id" type="var">Hxy0</span> <span class="id" type="keyword">in</span> <span class="id" type="keyword">let</span> <span class="id" type="var">Hy0</span> := <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#sndT">sndT</a></span> <span class="id" type="var">Hxy0</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="var">F</span> <span class="id" type="var">x0</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Hx0</span>) [&lt;=] <span class="id" type="var">z</span> /\ <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">y0</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="var">Hy0</span>) /\<br/>
+&nbsp;<span class="id" type="var">y0</span>[-]<span class="id" type="var">x0</span> [=] 2 [/]3[*] (<span class="id" type="var">y</span>[-]<span class="id" type="var">x</span>) /\ <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">x0</span> /\ <span class="id" type="var">y0</span> [&lt;=] <span class="id" type="var">y</span>}}.<br/>
+</div>
+
+<div class="doc">
+We now iterate this construction.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="IVT_aux_seq_type">IVT_aux_seq_type</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="IVTseq1">IVTseq1</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTseq2">IVTseq2</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTH1">IVTH1</a></span>   : <span class="id" type="var">I</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq1">IVTseq1</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTH2">IVTH2</a></span>   : <span class="id" type="var">I</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq2">IVTseq2</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTprf">IVTprf</a></span>  : <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq1">IVTseq1</a></span> [&lt;] <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq2">IVTseq2</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTz1">IVTz1</a></span>   : <span class="id" type="var">F</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq1">IVTseq1</a></span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTH1">IVTH1</a></span>) [&lt;=] <span class="id" type="var">z</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="IVTz2">IVTz2</a></span>   : <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq2">IVTseq2</a></span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> <span class="id" type="method"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTH2">IVTH2</a></span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="IVT_iter">IVT_iter</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_aux_seq_type">IVT_aux_seq_type</a></span> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_aux_seq_type">IVT_aux_seq_type</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="IVT_seq">IVT_seq</a></span> : <b>N</b> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_aux_seq_type">IVT_aux_seq_type</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now define the sequences built from this iteration, starting with <span class="inlinecode"><span class="id" type="var">a</span></span> and <span class="inlinecode"><span class="id" type="var">b</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="a_seq">a_seq</a></span> (<span class="id" type="var">n</span> : <b>N</b>) := <span class="id" type="projection"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq1">IVTseq1</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_seq">IVT_seq</a></span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="b_seq">b_seq</a></span> (<span class="id" type="var">n</span> : <b>N</b>) := <span class="id" type="projection"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTseq2">IVTseq2</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_seq">IVT_seq</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="a_seq_I">a_seq_I</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> <span class="id" type="var">n</span>) := <span class="id" type="projection"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTH1">IVTH1</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_seq">IVT_seq</a></span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="b_seq_I">b_seq_I</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> <span class="id" type="var">n</span>) := <span class="id" type="projection"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVTH2">IVTH2</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT_seq">IVT_seq</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_less_b_seq">a_seq_less_b_seq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> <span class="id" type="var">n</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_leEq_z">a_seq_leEq_z</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">F</span> <span class="id" type="var">_</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq_I">a_seq_I</a></span> <span class="id" type="var">n</span>)) [&lt;=] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="z_leEq_b_seq">z_leEq_b_seq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">_</span> (<span class="id" type="var">incF</span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq_I">b_seq_I</a></span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_mon">a_seq_mon</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> <span class="id" type="var">i</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="b_seq_mon">b_seq_mon</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> <span class="id" type="var">i</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_b_seq_dist_n">a_seq_b_seq_dist_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [-]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [=] 2 [/]3[*] (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> <span class="id" type="var">n</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_b_seq_dist">a_seq_b_seq_dist</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span> <span class="id" type="var">n</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span> <span class="id" type="var">n</span> [=] (2 [/]3) [^]<span class="id" type="var">n</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_Cauchy">a_seq_Cauchy</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq">a_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="b_seq_Cauchy">b_seq_Cauchy</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq">b_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="xa">xa</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.CReals.html#Lim">Lim</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Build_CauchySeq">Build_CauchySeq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.WeakIVT.html#a_seq_Cauchy">a_seq_Cauchy</a></span>).<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="xb">xb</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.CReals.html#Lim">Lim</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Build_CauchySeq">Build_CauchySeq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.WeakIVT.html#b_seq_Cauchy">b_seq_Cauchy</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_seq_b_seq_lim">a_seq_b_seq_lim</a></span> : <span class="id" type="var">xa</span> [=] <span class="id" type="var">xb</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="xa_in_interval">xa_in_interval</a></span> : <span class="id" type="var">I</span> <span class="id" type="var">xa</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IVT_I">IVT_I</a></span> : {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">I</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">z</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.WeakIVT.html#IVT">IVT</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

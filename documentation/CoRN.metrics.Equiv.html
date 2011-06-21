@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metrics.Equiv</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="equivalent">equivalent</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab599"></a><h2 class="section">Equivalent Pseudo Metric Spaces</h2>
+
+
+</div>
+<div class="code">
+</div>
+
+<div class="doc">
+We say that two pseudo metric spaces are equivalent, when there exists a 
+bijective, structure-preserving function between them.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="equivalent_psmetric">equivalent_psmetric</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">d0</span> <span class="id" type="var">d1</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">X</span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>)<br/>
+&nbsp;&nbsp;: <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;(<span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#is_CPsMetricSpace">is_CPsMetricSpace</a></span> <span class="id" type="var">X</span> <span class="id" type="var">d0</span> <span class="id" type="var">and</span> <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#is_CPsMetricSpace">is_CPsMetricSpace</a></span> <span class="id" type="var">X</span> <span class="id" type="var">d1</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="var">and</span> {<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">d0</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)[*]<span class="id" type="var">d1</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">and</span> {<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">d1</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)[*]<span class="id" type="var">d0</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="isopsmetry">isopsmetry</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#bijective">bijective</a></span> <span class="id" type="var">f</span><br/>
+&nbsp;&nbsp;<span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#equivalent_psmetric">equivalent_psmetric</a></span> <span class="id" type="var">X</span> (<span class="id" type="projection"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#cms_d">cms_d</a></span> (<span class="id" type="var">c</span>:=X))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#compose_CSetoid_bin_un_fun">compose_CSetoid_bin_un_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#cms_d">cms_d</a></span> (<span class="id" type="var">c</span>:=Y)) <span class="id" type="var">f</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="isopsmetry_imp_bij">isopsmetry_imp_bij</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#bijective">bijective</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="isopsmetry_imp_lipschitz">isopsmetry_imp_lipschitz</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz'">lipschitz'</a></span> <span class="id" type="var">f</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_is_isopsmetry">id_is_isopsmetry</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#id_un_op">id_un_op</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comp_resp_isopsmetry">comp_resp_isopsmetry</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">g</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">Y</span> <b>Z</b>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">g</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#compose_CSetoid_fun">compose_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> <span class="id" type="var">f</span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_isopsmetry">inv_isopsmetry</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">f</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Inv">Inv</a></span> <span class="id" type="var">f</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry_imp_bij">isopsmetry_imp_bij</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <span class="id" type="var">f</span> <span class="id" type="var">H</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSequivalent">MSequivalent</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> | <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#isopsmetry">isopsmetry</a></span> <span class="id" type="var">f</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Not all pseudo metric spaces are equivalent:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MSequivalent_discr">MSequivalent_discr</a></span> :<br/>
+&nbsp;~ (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Equiv.html#MSequivalent">MSequivalent</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#zf_as_CPsMetricSpace">zf_as_CPsMetricSpace</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.Equiv.html#equivalent">equivalent</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.RefLemma</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma">Refinement_Lemma</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab534"></a><h1 class="section">The Refinement Lemmas</h1>
+
+
+<br/><br/>
+Here we resume the results proved in four different files.  The aim is to prove the following result (last part of Theorem 2.9 of Bishop 1967):
+
+<br/><br/>
+<b>Theorem</b> Let <span class="inlinecode"><span class="id" type="var">f</span></span> be a continuous function on a
+compact interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> with modulus of continuity (From our
+point of view, the modulus of continuity is simply the proof that <span class="inlinecode"><span class="id" type="var">f</span></span> is
+continuous.) <span class="inlinecode">&omega;</span>.
+Let <span class="inlinecode"><span class="id" type="var">P</span></span> be a partition of <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> and <span class="inlinecode">&epsilon; &gt; 0</span> be such that
+<span class="inlinecode"><span class="id" type="var">mesh</span>(<span class="id" type="var">P</span>)  &lt;  &omega;(&epsilon;)</span>.
+Then
+|S(f,P)-&int;f(x)dx|&le;&epsilon;(b-a)
+where <span class="inlinecode"><span class="id" type="var">S</span>(<span class="id" type="var">f</span>,P)</span> denotes any sum of the function <span class="inlinecode"><span class="id" type="var">f</span></span> respecting the partition
+<span class="inlinecode"><span class="id" type="var">P</span></span> (as previously defined).
+
+<br/><br/>
+The proof of this theorem relies on the fact that for any two partitions <span class="inlinecode"><span class="id" type="var">P</span></span>
+and <span class="inlinecode"><span class="id" type="var">R</span></span> of <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> it is possible to define a partition <span class="inlinecode"><span class="id" type="var">Q</span></span> which is
+``almost'' a common refinement of <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span>---that is, given <span class="inlinecode">&epsilon; &gt; 0</span>
+it is possible to define <span class="inlinecode"><span class="id" type="var">Q</span></span> such that for every point <span class="inlinecode"><span class="id" type="var">x</span></span> of either <span class="inlinecode"><span class="id" type="var">P</span></span> or
+<span class="inlinecode"><span class="id" type="var">R</span></span> there is a point <span class="inlinecode"><span class="id" type="var">y</span></span> of <span class="inlinecode"><span class="id" type="var">Q</span></span> such that <span class="inlinecode">|x[-]<span class="id" type="var">y</span>|  &lt;  &epsilon;</span>.
+This requires three separate constructions (done in three separate files)
+which are then properly combined to give the final result.  We recommend the
+reader to ignore this technical constructions.
+
+<br/><br/>
+First we prove that if <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span> are both
+separated (though not necessarily separated from each other) then we can
+define a partition <span class="inlinecode"><span class="id" type="var">P'</span></span> arbitrarily close to <span class="inlinecode"><span class="id" type="var">P</span></span> (that is, such that given
+<span class="inlinecode">&alpha; &gt; 0</span> and <span class="inlinecode"><span class="id" type="var">xi</span> &gt; 0</span> <span class="inlinecode"><span class="id" type="var">P'</span></span> satisfies both
+<span class="inlinecode"><span class="id" type="var">mesh</span>(<span class="id" type="var">P'</span>)  &lt;  <span class="id" type="var">mesh</span>(<span class="id" type="var">P</span>) + <span class="id" type="var">xi</span></span> and for every choice of points <span class="inlinecode"><span class="id" type="var">x_i</span></span> respecting
+<span class="inlinecode"><span class="id" type="var">P</span></span> there is a choice of points <span class="inlinecode"><span class="id" type="var">x'_i</span></span> respecting <span class="inlinecode"><span class="id" type="var">P'</span></span> such that
+<span class="inlinecode">|S(f,P)-S(f,P')|  &lt;  &alpha;</span>) that is separated from <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+<br/><br/>
+Then we prove that given any partition <span class="inlinecode"><span class="id" type="var">P</span></span>
+and assuming <span class="inlinecode"><span class="id" type="var">a</span>  [#]  <span class="id" type="var">b</span></span> we can define a partition <span class="inlinecode"><span class="id" type="var">P'</span></span> arbitrarily close to
+<span class="inlinecode"><span class="id" type="var">P</span></span> (in the same sense as above) which is separated.
+
+<br/><br/>
+Finally we prove that every two separated
+partitions <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span> have a common refinement---as every two points in <span class="inlinecode"><span class="id" type="var">P</span></span>
+and <span class="inlinecode"><span class="id" type="var">R</span></span> are apart, we can decide which one is smaller.  We use here the
+technical results about ordering that we proved in the file <span class="inlinecode"><span class="id" type="var">IntegralLemmas.v</span></span>.
+
+<br/><br/>
+Using the results from these files, we prove our main lemma in several steps
+(and versions).
+
+<br/><br/>
+ Throughout this section:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">a</span>,b:IR</span> and <span class="inlinecode"><span class="id" type="var">I</span></span> denotes <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">F</span></span> is a partial function continuous in <span class="inlinecode"><span class="id" type="var">I</span></span>.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.a">a</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.incF">incF</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma.First_Refinement_Lemma">First_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is the first part of the proof of Theorem 2.9.
+
+<br/><br/>
+
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">P</span>, <span class="id" type="var">Q</span></span> are partitions of <span class="inlinecode"><span class="id" type="var">I</span></span> with, respectively, <span class="inlinecode"><span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">m</span></span> points;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">Q</span></span> is a refinement of <span class="inlinecode"><span class="id" type="var">P</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">e</span></span> is a positive real number;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">d</span></span> is the modulus of continuity of <span class="inlinecode"><span class="id" type="var">F</span></span> for <span class="inlinecode"><span class="id" type="var">e</span></span>;
+
+</li>
+<li> the mesh of <span class="inlinecode"><span class="id" type="var">P</span></span> is less or equal to <span class="inlinecode"><span class="id" type="var">d</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">fP</span></span> and <span class="inlinecode"><span class="id" type="var">fQ</span></span> are choices of points respecting the partitions <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">Q</span></span>,
+respectively.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.e">e</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.m">m</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.HMesh">HMesh</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.Q">Q</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">m</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.Href">Href</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Refinement">Refinement</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.fQ">fQ</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.HfQ">HfQ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">Q</span> <span class="id" type="var">fQ</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.First_Refinement_Lemma.HfQ'">HfQ'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fQ</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="first_refinement_lemma">first_refinement_lemma</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&sum;<sub>P</sub> <span class="id" type="var">HfQ</span> <span class="id" type="var">incF</span>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma.First_Refinement_Lemma">First_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma.Second_Refinement_Lemma">Second_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is inequality (2.6.7).
+
+<br/><br/>
+
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">P</span>, <span class="id" type="var">Q</span>, <span class="id" type="var">R</span></span> are partitions of <span class="inlinecode"><span class="id" type="var">I</span></span> with, respectively, <span class="inlinecode"><span class="id" type="var">j</span>, <span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">k</span></span> points;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">Q</span></span> is a common refinement of <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">e</span>, <span class="id" type="var">e'</span></span> are positive real numbers;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">d</span>, <span class="id" type="var">d'</span></span> are the moduli of continuity of <span class="inlinecode"><span class="id" type="var">F</span></span> for <span class="inlinecode"><span class="id" type="var">e</span>, <span class="id" type="var">e'</span></span>;
+
+</li>
+<li> the Mesh of <span class="inlinecode"><span class="id" type="var">P</span></span> is less or equal to <span class="inlinecode"><span class="id" type="var">d</span></span>;
+
+</li>
+<li> the Mesh of <span class="inlinecode"><span class="id" type="var">R</span></span> is less or equal to <span class="inlinecode"><span class="id" type="var">d'</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">fP</span>, <span class="id" type="var">fQ</span></span> and <span class="inlinecode"><span class="id" type="var">fR</span></span> are choices of points respecting the partitions <span class="inlinecode"><span class="id" type="var">P</span>, <span class="id" type="var">Q</span></span>
+and <span class="inlinecode"><span class="id" type="var">R</span></span>, respectively.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.n">n</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.j">j</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.k">k</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">j</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.Q">Q</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">k</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HrefP">HrefP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Refinement">Refinement</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HrefR">HrefR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Refinement">Refinement</a></span> <span class="id" type="var">R</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.e">e</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.e'">e'</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.He'">He'</a></span> : 0 [&lt;] <span class="id" type="var">e'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HMeshP">HMeshP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;=] <span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HMeshR">HMeshR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">R</span> [&lt;=] <span class="id" type="var">d'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.fR">fR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">k</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HfR">HfR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">R</span> <span class="id" type="var">fR</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Second_Refinement_Lemma.HfR'">HfR'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fR</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="second_refinement_lemma">second_refinement_lemma</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&sum;<sub>P</sub> <span class="id" type="var">HfR</span> <span class="id" type="var">incF</span>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [+]<span class="id" type="var">e'</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma.Second_Refinement_Lemma">Second_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma.Third_Refinement_Lemma">Third_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is an approximation of inequality (2.6.7), but without assuming the existence of a common refinement of <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+<br/><br/>
+
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">P</span>, <span class="id" type="var">R</span></span> are partitions of <span class="inlinecode"><span class="id" type="var">I</span></span> with, respectively, <span class="inlinecode"><span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">m</span></span> points;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">e</span>, <span class="id" type="var">e'</span></span> are positive real numbers;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">d</span>, <span class="id" type="var">d'</span></span> are the moduli of continuity of <span class="inlinecode"><span class="id" type="var">F</span></span> for <span class="inlinecode"><span class="id" type="var">e</span>, <span class="id" type="var">e'</span></span>;
+
+</li>
+<li> the Mesh of <span class="inlinecode"><span class="id" type="var">P</span></span> is less than <span class="inlinecode"><span class="id" type="var">d</span></span>;
+
+</li>
+<li> the Mesh of <span class="inlinecode"><span class="id" type="var">R</span></span> is less than <span class="inlinecode"><span class="id" type="var">d'</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">fP</span></span> and <span class="inlinecode"><span class="id" type="var">fR</span></span> are choices of points respecting the partitions <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">R</span></span>,
+respectively;
+
+</li>
+<li> <span class="inlinecode">&beta;</span> is a positive real number.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.n">n</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.m">m</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.e">e</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.e'">e'</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.He'">He'</a></span> : 0 [&lt;] <span class="id" type="var">e'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HMeshP">HMeshP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HMeshR">HMeshR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">R</span> [&lt;] <span class="id" type="var">d'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.fR">fR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HfR">HfR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">R</span> <span class="id" type="var">fR</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.HfR'">HfR'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fR</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> &beta; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Third_Refinement_Lemma.Hbeta">Hbeta</a></span> : 0 [&lt;] &beta;.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="third_refinement_lemma">third_refinement_lemma</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&sum;<sub>P</sub> <span class="id" type="var">HfR</span> <span class="id" type="var">incF</span>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [+]<span class="id" type="var">e'</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [+]&beta;.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma.Third_Refinement_Lemma">Third_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma.Fourth_Refinement_Lemma">Fourth_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, this is inequality (2.6.7) exactly as stated (same conventions as
+above)
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.n">n</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.m">m</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.e">e</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.e'">e'</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.He'">He'</a></span> : 0 [&lt;] <span class="id" type="var">e'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HMeshP">HMeshP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HMeshR">HMeshR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">R</span> [&lt;] <span class="id" type="var">d'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.fR">fR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HfR">HfR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">R</span> <span class="id" type="var">fR</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.HfR'">HfR'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fR</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Fourth_Refinement_Lemma.Hab'">Hab'</a></span> : <span class="id" type="var">b</span>[-]<span class="id" type="var">a</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">d</span> <span class="id" type="var">d'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fourth_refinement_lemma">fourth_refinement_lemma</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&sum;<sub>P</sub> <span class="id" type="var">HfR</span> <span class="id" type="var">incF</span>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [+]<span class="id" type="var">e'</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma.Fourth_Refinement_Lemma">Fourth_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Refinement_Lemma.Main_Refinement_Lemma">Main_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We finish by presenting Theorem 9. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.n">n</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.m">m</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.e">e</a></span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.e'">e'</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.He'">He'</a></span> : 0 [&lt;] <span class="id" type="var">e'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HMeshP">HMeshP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HMeshR">HMeshR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">R</span> [&lt;] <span class="id" type="var">d'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.fR">fR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HfR">HfR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">R</span> <span class="id" type="var">fR</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Refinement_Lemma.Main_Refinement_Lemma.HfR'">HfR'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fR</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="refinement_lemma">refinement_lemma</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&sum;<sub>P</sub> <span class="id" type="var">HfR</span> <span class="id" type="var">incF</span>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [+]<span class="id" type="var">e'</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma.Main_Refinement_Lemma">Main_Refinement_Lemma</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.RefLemma.html#Refinement_Lemma">Refinement_Lemma</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CQuotient_Modules</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab244"></a><h1 class="section">Quotient Modules</h1>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring, <span class="inlinecode"><span class="id" type="var">A</span></span> an <span class="inlinecode"><span class="id" type="var">R</span></span>-Module and <span class="inlinecode"><span class="id" type="var">cm</span></span> a comodule of <span class="inlinecode"><span class="id" type="var">A</span></span>. 
+We will prove that  A / ~cm is a module, called QuotMod.
+<a name="lab245"></a><h2 class="section">QuotMod is a setoid</h2>
+
+To achieve this we define a new apartness on the elements of <span class="inlinecode"><span class="id" type="var">A</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="QuotMod">QuotMod</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="QuotMod.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="QuotMod.A">A</a></span> :RModule <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="QuotMod.cm">cm</a></span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#comod">comod</a></span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_quotmod">ap_quotmod</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:A) := <span class="id" type="var">cm</span>(<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotmod_irreflexive">ap_quotmod_irreflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#ap_quotmod">ap_quotmod</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotmod_symmetric">ap_quotmod_symmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#ap_quotmod">ap_quotmod</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotmod_cotransitive">ap_quotmod_cotransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#ap_quotmod">ap_quotmod</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We take `not apart' as the new equality.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="eq_quotmod">eq_quotmod</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:A) := ~ (<span class="id" type="var">cm</span>(<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_quotmod_wd">eq_quotmod_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:A), <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#eq_quotmod">eq_quotmod</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotmod_tight">ap_quotmod_tight</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#eq_quotmod">eq_quotmod</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#ap_quotmod">ap_quotmod</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_quotmod_is_apartness">ap_quotmod_is_apartness</a></span> :=<br/>
+<span class="id" type="var">Build_is_CSetoid</span> <span class="id" type="var">A</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#eq_quotmod">eq_quotmod</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#ap_quotmod">ap_quotmod</a></span> <br/>
+<span class="id" type="var">ap_quotmod_irreflexive</span><br/>
+<span class="id" type="var">ap_quotmod_symmetric</span><br/>
+<span class="id" type="var">ap_quotmod_cotransitive</span><br/>
+<span class="id" type="var">ap_quotmod_tight</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <br/>
+<span class="id" type="var">ap_quotmod_is_apartness</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab246"></a><h2 class="section">QuotMod is a semigroup</h2>
+
+We use <span class="inlinecode">+</span> as the operation for this.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dmplus_is_ext">dmplus_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> <br/>
+<span class="id" type="var">quotmod_as_CSetoid</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=A)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="dmplus_is_bin_fun">dmplus_is_bin_fun</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_bin_fun</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span><br/>
+<span class="id" type="var">quotmod_as_CSetoid</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=A)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_ext">dmplus_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dmplus_is_assoc">dmplus_is_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_bin_fun">dmplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_CSemiGroup">quotmod_as_CSemiGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span><br/>
+<span class="id" type="var">dmplus_is_bin_fun</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_assoc">dmplus_is_assoc</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab247"></a><h2 class="section">QuotMod ia a monoid</h2>
+
+<span class="inlinecode">0:A</span> will work as unit.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_as_rht_unit">zero_as_rht_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_rht_unit">is_rht_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_bin_fun">dmplus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_as_lft_unit">zero_as_lft_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_bin_fun">dmplus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_is_CMonoid">quotmod_is_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_is_CMonoid">Build_is_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSemiGroup">quotmod_as_CSemiGroup</a></span><br/>
+0 <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#zero_as_rht_unit">zero_as_rht_unit</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#zero_as_lft_unit">zero_as_lft_unit</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_CMonoid">quotmod_as_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSemiGroup">quotmod_as_CSemiGroup</a></span><br/>
+0 <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_is_CMonoid">quotmod_is_CMonoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+<a name="lab248"></a><h2 class="section">QuotMod is a group</h2>
+
+The same function still works as inverse (i.e. minus).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dminv_is_ext">dminv_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span> (<span class="id" type="var">c</span>:=A)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="dminv_is_un_op">dminv_is_un_op</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_un_op</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CSetoid">quotmod_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span> (<span class="id" type="var">c</span>:=A)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dminv_is_ext">dminv_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dminv_is_inv">dminv_is_inv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CMonoid">quotmod_as_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dminv_is_un_op">dminv_is_un_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_CGroup">quotmod_as_CGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CMonoid">quotmod_as_CMonoid</a></span><br/>
+<span class="id" type="var">dminv_is_un_op</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dminv_is_inv">dminv_is_inv</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab249"></a><h2 class="section">QuotMod is an Abelian group</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dmplus_is_commutative">dmplus_is_commutative</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmplus_is_bin_fun">dmplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_CAbGroup">quotmod_as_CAbGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CAbGroups.html#Build_CAbGroup">Build_CAbGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CGroup">quotmod_as_CGroup</a></span><br/>
+<span class="id" type="var">dmplus_is_commutative</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab250"></a><h2 class="section">QuotMod is an <span class="inlinecode"><span class="id" type="var">R</span></span>-module</h2>
+
+<span class="inlinecode"><span class="id" type="var">rm_mu</span> <span class="id" type="var">A</span></span> does the job.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dmmu_is_ext">dmmu_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="var">R</span> <br/>
+<span class="id" type="var">quotmod_as_CAbGroup</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CAbGroup">quotmod_as_CAbGroup</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CModules.html#rm_mu">rm_mu</a></span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="dmmu_is_bin_fun">dmmu_is_bin_fun</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_bin_fun</span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CAbGroup">quotmod_as_CAbGroup</a></span><br/>
+<span class="id" type="var">quotmod_as_CAbGroup</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CModules.html#rm_mu">rm_mu</a></span> <span class="id" type="var">A</span>) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#dmmu_is_ext">dmmu_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="quotmod_is_RModule">quotmod_is_RModule</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_RModule">is_RModule</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CAbGroup">quotmod_as_CAbGroup</a></span> <br/>
+<span class="id" type="var">dmmu_is_bin_fun</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotmod_as_RModule">quotmod_as_RModule</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CModules.html#Build_RModule">Build_RModule</a></span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_as_CAbGroup">quotmod_as_CAbGroup</a></span><br/>
+<span class="id" type="var">dmmu_is_bin_fun</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#quotmod_is_RModule">quotmod_is_RModule</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CQuotient_Modules.html#QuotMod">QuotMod</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metrics.ContFunctions</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Continuous_functions">Continuous_functions</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab592"></a><h2 class="section">Continuous functions, uniformly continuous functions and Lipschitz functions</h2>
+
+
+Let <span class="inlinecode"><span class="id" type="var">A</span></span> and <span class="inlinecode"><span class="id" type="var">B</span></span> be pseudo metric spaces.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Continuous_functions.A">A</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Continuous_functions.B">B</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We will look at some notions of continuous functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="continuous">continuous</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">H</span> : 2[#]0),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;](1[/] 2[//]<span class="id" type="var">H</span>)[^]<span class="id" type="var">m</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;](1[/] 2[//]<span class="id" type="var">H</span>)[^]<span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="continuous'">continuous'</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">n</span> : <b>N</b>),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="uni_continuous">uni_continuous</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">H</span> : 2[#]0),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;](1[/] 2:IR[//]<span class="id" type="var">H</span>)[^]<span class="id" type="var">m</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;](1[/] 2:IR[//]<span class="id" type="var">H</span>)[^]<span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="uni_continuous'">uni_continuous'</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="uni_continuous''">uni_continuous''</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">mds</span> : <b>N</b> -&gt; <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> (<span class="id" type="var">mds</span> <span class="id" type="var">n</span>) -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="lipschitz">lipschitz</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;=]2[^]<span class="id" type="var">n</span>[*](<span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="lipschitz'">lipschitz'</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">f</span> <span class="id" type="var">x</span>[-d]<span class="id" type="var">f</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>[*](<span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="lipschitz_c">lipschitz_c</a></span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="var">C</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">A</span>, <span class="id" type="var">f</span> <span class="id" type="var">x1</span> [-d] <span class="id" type="var">f</span> <span class="id" type="var">x2</span> [&lt;=] <span class="id" type="var">C</span> [*] (<span class="id" type="var">x1</span> [-d] <span class="id" type="var">x2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Continuous_functions">Continuous_functions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Lemmas">Lemmas</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="continuous_imp_continuous'">continuous_imp_continuous'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous'">continuous'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="continuous'_imp_continuous">continuous'_imp_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous'">continuous'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="uni_continuous_imp_uni_continuous'">uni_continuous_imp_uni_continuous'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous'">uni_continuous'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="uni_continuous'_imp_uni_continuous">uni_continuous'_imp_uni_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous'">uni_continuous'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="uni_continuous'_imp_uni_continuous''">uni_continuous'_imp_uni_continuous''</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous'">uni_continuous'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous''">uni_continuous''</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lipschitz_imp_lipschitz'">lipschitz_imp_lipschitz'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz'">lipschitz'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lipschitz'_imp_lipschitz">lipschitz'_imp_lipschitz</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz'">lipschitz'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lip_c_imp_lip">lip_c_imp_lip</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="var">C</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>), <br/>
+<span class="id" type="var">lipschitz_c</span> <span class="id" type="var">f</span> <span class="id" type="var">C</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz'">lipschitz'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Every uniformly continuous function is continuous and 
+every Lipschitz function is uniformly continuous.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="uni_continuous_imp_continuous">uni_continuous_imp_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">C</span> <span class="id" type="var">D</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">C</span> <span class="id" type="var">D</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lipschitz_imp_uni_continuous">lipschitz_imp_uni_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">C</span> <span class="id" type="var">D</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">C</span> <span class="id" type="var">D</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Lemmas">Lemmas</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Identity">Identity</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab593"></a><h2 class="section">Identity</h2>
+
+
+</div>
+<div class="code">
+</div>
+
+<div class="doc">
+The identity function is Lipschitz. 
+Hence it is uniformly continuous and continuous.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_is_lipschitz">id_is_lipschitz</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#id_un_op">id_un_op</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_is_uni_continuous">id_is_uni_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#id_un_op">id_un_op</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_is_continuous">id_is_continuous</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#id_un_op">id_un_op</a></span> <span class="id" type="var">X</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Identity">Identity</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Constant">Constant</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab594"></a><h2 class="section">Constant functions</h2>
+
+
+Let <span class="inlinecode"><span class="id" type="var">B</span></span> and <span class="inlinecode"><span class="id" type="var">X</span></span> be pseudo metric spaces.
+
+
+</div>
+<div class="code">
+</div>
+
+<div class="doc">
+Any constant function is Lipschitz. 
+Hence it is uniformly continuous and continuous.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Constant.B">B</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Constant.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="const_fun_is_lipschitz">const_fun_is_lipschitz</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">b</span> : <span class="id" type="var">B</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Const_CSetoid_fun">Const_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="const_fun_is_uni_continuous">const_fun_is_uni_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">b</span> : <span class="id" type="var">B</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Const_CSetoid_fun">Const_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="const_fun_is_continuous">const_fun_is_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">b</span> : <span class="id" type="var">B</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Const_CSetoid_fun">Const_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Constant">Constant</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Composition">Composition</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab595"></a><h2 class="section">Composition</h2>
+
+
+Let <span class="inlinecode"><span class="id" type="var">B</span></span>,<span class="inlinecode"><span class="id" type="var">C</span></span> and <span class="inlinecode"><span class="id" type="var">X</span></span> be pseudo metric spaces.
+Let <span class="inlinecode"><span class="id" type="var">f</span> : (<span class="id" type="var">CSetoid_fun</span> <span class="id" type="var">X</span> <span class="id" type="var">B</span>)</span> and
+<span class="inlinecode"><span class="id" type="var">g</span> : (<span class="id" type="var">CSetoid_fun</span>  <span class="id" type="var">B</span> <span class="id" type="var">C</span>)</span>.
+
+
+</div>
+<div class="code">
+</div>
+
+<div class="doc">
+The composition of two Lipschitz/uniformly continous/continuous functions is 
+again Lipschitz/uniformly continuous/continuous.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Composition.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Composition.B">B</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Composition.f">f</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Composition.C">C</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Composition.g">g</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comp_resp_lipschitz">comp_resp_lipschitz</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> <span class="id" type="var">g</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#lipschitz">lipschitz</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#compose_CSetoid_fun">compose_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comp_resp_uni_continuous">comp_resp_uni_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> <span class="id" type="var">g</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous">uni_continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#compose_CSetoid_fun">compose_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comp_resp_continuous">comp_resp_continuous</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> <span class="id" type="var">g</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous">continuous</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#compose_CSetoid_fun">compose_CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Composition">Composition</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Limit">Limit</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab596"></a><h2 class="section">Limit</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSseqLimit">MSseqLimit</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">lim</span> : <span class="id" type="var">X</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">H</span> : 2[#]0),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">N</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="var">seq</span> <span class="id" type="var">m</span>[-d]<span class="id" type="var">lim</span>[&lt;](1[/] 2:IR[//]<span class="id" type="var">H</span>)[^]<span class="id" type="var">n</span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSseqLimit'">MSseqLimit'</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">lim</span> : <span class="id" type="var">X</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;&nbsp;{<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="var">seq</span> <span class="id" type="var">m</span>[-d]<span class="id" type="var">lim</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MSseqLimit_imp_MSseqLimit'">MSseqLimit_imp_MSseqLimit'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>) (<span class="id" type="var">lim</span> : <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit">MSseqLimit</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit'">MSseqLimit'</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MSseqLimit'_imp_MSseqLimit">MSseqLimit'_imp_MSseqLimit</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>) (<span class="id" type="var">lim</span> : <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit'">MSseqLimit'</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit">MSseqLimit</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="seqcontinuous'">seqcontinuous'</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) :<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">A</span>) (<span class="id" type="var">lim</span> : <span class="id" type="var">A</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit'">MSseqLimit'</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit'">MSseqLimit'</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">m</span> : <b>N</b> =&gt; <span class="id" type="var">f</span> (<span class="id" type="var">seq</span> <span class="id" type="var">m</span>)) (<span class="id" type="var">f</span> <span class="id" type="var">lim</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="continuous'_imp_seqcontinuous'">continuous'_imp_seqcontinuous'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#continuous'">continuous'</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#seqcontinuous'">seqcontinuous'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.ContFunctions.html#Limit">Limit</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

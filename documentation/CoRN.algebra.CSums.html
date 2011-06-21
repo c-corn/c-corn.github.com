@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CSums</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab202"></a><h1 class="section">Sums</h1>
+
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be an abelian group.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Sums">Sums</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Sums.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbGroups.html#CAbGroup">CAbGroup</a></span>. <br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Sumlist">Sumlist</a></span> (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">G</span>) : <span class="id" type="var">G</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span>      =&gt; 0:G<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">x</span> <span class="id" type="var">k</span> =&gt; <span class="id" type="var">x</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumlist">Sumlist</a></span> <span class="id" type="var">k</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Sumx">Sumx</a></span> <span class="id" type="var">n</span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) -&gt; <span class="id" type="var">G</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">return</span> ((<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) -&gt; <span class="id" type="var">G</span>) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; 0:G<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">f</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">l</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_S">lt_S</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">l</span>)) [+]<span class="id" type="var">f</span> <span class="id" type="var">m</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_n_Sn">lt_n_Sn</a></span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It is sometimes useful to view a function defined on 
+{0, ... i-1} as a function on the natural numbers which evaluates to
+<span class="inlinecode">0</span> when the input is greater than or equal to <span class="inlinecode"><span class="id" type="var">i</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="part_tot_nat_fun">part_tot_nat_fun</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) : <b>N</b> -&gt; <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_tot_nat_fun_ch1">part_tot_nat_fun_ch1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#part_tot_nat_fun">part_tot_nat_fun</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_tot_nat_fun_ch2">part_tot_nat_fun_ch2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) <span class="id" type="var">i</span>,<br/>
+&nbsp;<span class="id" type="var">n</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#part_tot_nat_fun">part_tot_nat_fun</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode">&sum;<sub>0</sub></span> defines the sum for <span class="inlinecode"><span class="id" type="var">i</span>=0..(<span class="id" type="var">n</span>-1)</span> 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> &sum;<sub>0</sub> (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">f</span> : <b>N</b> -&gt; <span class="id" type="var">G</span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="var">G</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; 0:G<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span>[+]<span class="id" type="var">f</span> <span class="id" type="var">m</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode">&sum;<sub>1</sub></span> defines the sum for <span class="inlinecode"><span class="id" type="var">i</span>=m..(<span class="id" type="var">n</span>-1)</span> 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum;<sub>1</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> := &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[-]&sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> : (<b>N</b> -&gt; <span class="id" type="var">G</span>) -&gt; <span class="id" type="var">G</span> := &sum;<sub>1</sub> <span class="id" type="var">m</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode">&sum;<sub>2</sub></span> is similar to <span class="inlinecode">&sum;<sub>1</sub></span>, but does not require the summand to be
+defined outside where it is being added. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="var">h</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) : <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_one">Sum_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, &sum; <span class="id" type="var">n</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_empty">Sum_empty</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> [=] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_Sum">Sum_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, &sum; <span class="id" type="var">l</span> <span class="id" type="var">m</span> <span class="id" type="var">f</span>[+]&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; <span class="id" type="var">l</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_first">Sum_first</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">m</span>[+]&sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) <span class="id" type="var">n</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_last">Sum_last</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, &sum; <span class="id" type="var">m</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[+]<span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_last'">Sum_last'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span>[+]<span class="id" type="var">f</span> <span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We add some extensionality results which will be quite useful
+when working with integration.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum0_strext">Sum0_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">n</span>, &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [#] &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">g</span> -&gt; {<span class="id" type="var">i</span>:nat | <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> | <span class="id" type="var">f</span> <span class="id" type="var">i</span> [#] <span class="id" type="var">g</span> <span class="id" type="var">i</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_strext">Sum_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [#] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> /\ <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> | <span class="id" type="var">f</span> <span class="id" type="var">i</span> [#] <span class="id" type="var">g</span> <span class="id" type="var">i</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_strext">Sumx_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">g</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">_</span> <span class="id" type="var">g</span> -&gt; {<span class="id" type="var">N</span> : <b>N</b> | {<span class="id" type="var">HN</span> : <span class="id" type="var">N</span> &lt; <span class="id" type="var">n</span> | <span class="id" type="var">f</span> <span class="id" type="var">N</span> <span class="id" type="var">HN</span> [#] <span class="id" type="var">g</span> <span class="id" type="var">N</span> <span class="id" type="var">HN</span>}}.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum0_strext'">Sum0_strext'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">n</span>, &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [#] &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">g</span> -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">f</span> <span class="id" type="var">i</span> [#] <span class="id" type="var">g</span> <span class="id" type="var">i</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_strext'">Sum_strext'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [#] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">f</span> <span class="id" type="var">i</span> [#] <span class="id" type="var">g</span> <span class="id" type="var">i</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum0_wd">Sum0_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">f</span> <span class="id" type="var">f'</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f'</span> <span class="id" type="var">i</span>) -&gt; &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span> [=] &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_wd">Sum_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">f'</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f'</span> <span class="id" type="var">i</span>) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_wd">Sumx_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_wd'">Sum_wd'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">f'</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f'</span> <span class="id" type="var">i</span>) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f'</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum2_wd">Sum2_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span> [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>) -&gt; &sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum0_plus_Sum0">Sum0_plus_Sum0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span>, &sum;<sub>0</sub> <span class="id" type="var">m</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>[+]<span class="id" type="var">g</span> <span class="id" type="var">i</span>) [=] &sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">f</span>[+]&sum;<sub>0</sub> <span class="id" type="var">m</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_plus_Sum">Sum_plus_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>[+]<span class="id" type="var">g</span> <span class="id" type="var">i</span>) [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[+]&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_plus_Sumx">Sumx_plus_Sumx</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>[+]<span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum2_plus_Sum2">Sum2_plus_Sum2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>,<br/>
+&nbsp;&sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[+]&sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] &sum;<sub>2</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>[+]<span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_Sum0">inv_Sum0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">n</span>, &sum;<sub>0</sub> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; [--] (<span class="id" type="var">f</span> <span class="id" type="var">i</span>)) [=] [--] (&sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_Sum">inv_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; [--] (<span class="id" type="var">f</span> <span class="id" type="var">i</span>)) [=] [--] (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_Sumx">inv_Sumx</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>, [--] (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> =&gt; [--] (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_Sum2">inv_Sum2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>,<br/>
+&nbsp;[--] (&sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) [=] &sum;<sub>2</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span> =&gt; [--] (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_minus_Sum">Sum_minus_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span>[-]<span class="id" type="var">g</span> <span class="id" type="var">i</span>) [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[-]&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_minus_Sumx">Sumx_minus_Sumx</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>[-]<span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum2_minus_Sum2">Sum2_minus_Sum2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>,<br/>
+&nbsp;&sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>[-]&sum;<sub>2</sub> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] &sum;<sub>2</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>[-]<span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">Hm</span> <span class="id" type="var">Hn</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_apzero">Sum_apzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [#] 0 -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> /\ <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> | <span class="id" type="var">f</span> <span class="id" type="var">i</span> [#] 0}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_zero">Sum_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] 0) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] 0.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_term">Sum_term</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">i</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">j</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">j</span> &lt;&gt; <span class="id" type="var">i</span> -&gt; <span class="id" type="var">j</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">j</span> [=] 0) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">i</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum0_shift">Sum0_shift</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">g</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt; <span class="id" type="var">g</span> 0[+]&sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum;<sub>0</sub> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">g</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_shift">Sum_shift</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">g</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">g</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sum_big_shift">Sum_big_shift</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">k</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">j</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">j</span> [=] <span class="id" type="var">g</span> (<span class="id" type="var">j</span> + <span class="id" type="var">k</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum; (<span class="id" type="var">m</span> + <span class="id" type="var">k</span>) (<span class="id" type="var">n</span> + <span class="id" type="var">k</span>) <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_Sum0">Sumx_Sum0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [=] <span class="id" type="var">g</span> <span class="id" type="var">i</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">n</span> <span class="id" type="var">f</span> [=] &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSums.html#Sums">Sums</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The next results are useful for calculating some special sums,
+often referred to as ``Mengolli Sums''.
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be an abelian group.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Sums">More_Sums</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Sums.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbGroups.html#CAbGroup">CAbGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Mengolli_Sum">Mengolli_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>) (<span class="id" type="var">g</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">G</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun'">nat_less_n_fun'</a></span> <span class="id" type="var">f</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">g</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) <span class="id" type="var">H</span>[-]<span class="id" type="var">f</span> <span class="id" type="var">i</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_le_weak">lt_le_weak</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">g</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">n</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#le_n">le_n</a></span> <span class="id" type="var">n</span>) [-]<span class="id" type="var">f</span> 0 (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Le.html#le_O_n">le_O_n</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Mengolli_Sum_gen">Mengolli_Sum_gen</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="var">G</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">g</span> <span class="id" type="var">n</span> [=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [-]<span class="id" type="var">f</span> <span class="id" type="var">n</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [-]<span class="id" type="var">f</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="str_Mengolli_Sum_gen">str_Mengolli_Sum_gen</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="var">G</span>) <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">g</span> <span class="id" type="var">i</span> [=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) [-]<span class="id" type="var">f</span> <span class="id" type="var">i</span>) -&gt; &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">g</span> [=] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) [-]<span class="id" type="var">f</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sumx_to_Sum">Sumx_to_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#Sumx">Sumx</a></span> <span class="id" type="var">f</span> [=] &sum; 0 (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSums.html#part_tot_nat_fun">part_tot_nat_fun</a></span> <span class="id" type="var">G</span> <span class="id" type="var">n</span> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSums.html#More_Sums">More_Sums</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

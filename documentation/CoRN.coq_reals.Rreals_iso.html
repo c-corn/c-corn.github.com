@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.coq_reals.Rreals_iso</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab584"></a><h1 class="section">Coq Real Numbers and IR isomorphisms</h1>
+
+
+<br/><br/>
+ Warning: The Coq real numbers depend on classical logic.  Importing this
+ module will give you classical logic, the axioms of Coq's real number
+ structure, plus all the logical consquences of these axioms.  To avoid
+ these consequences, use CoRN's real number structure <span class="inlinecode"><span class="id" type="var">IR</span></span> instead.
+
+<br/><br/>
+ All real number structures are isomorphic.  This module uses this
+ isomorphis to create a rewrite database <span class="inlinecode"><span class="id" type="var">RtoIR</span></span> for converting many 
+ problems over <span class="inlinecode"><span class="id" type="var">R</span></span> into problems over <span class="inlinecode"><span class="id" type="var">IR</span></span> where constructive methods
+ may be employed.
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab585"></a><h2 class="section">The isomorphism</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RIR_iso">RIR_iso</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.R_morphism.html#Isomorphism">Isomorphism</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals.html#RReals">RReals</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RasIR">RasIR</a></span> : <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.reals.R_morphism.html#iso_map_lft">iso_map_lft</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RIR_iso">RIR_iso</a></span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="IRasR">IRasR</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.reals.R_morphism.html#iso_map_rht">iso_map_rht</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RIR_iso">RIR_iso</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RasIRasR_id">RasIRasR_id</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:R), (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>)=x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IRasRasIR_id">IRasRasIR_id</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:IR), (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">x</span>)[=]<span class="id" type="var">x</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+equality 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_eq_as_IR">R_eq_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> = <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+apartness 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_eq_as_IR_back">R_eq_as_IR_back</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> = <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_ap_as_IR">R_ap_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_ap_as_IR_back">R_ap_as_IR_back</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_ap_as_R">IR_ap_as_R</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> &lt;&gt; <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+less-than 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_lt_as_IR">R_lt_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_lt_as_IR_back">R_lt_as_IR_back</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">x</span> &lt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_lt_as_R">IR_lt_as_R</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_lt_as_R_back">IR_lt_as_R_back</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">x</span> &lt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+le 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_le_as_IR">R_le_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> &lt;= <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_le_as_R">IR_le_as_R</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span> &lt;= <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_le_as_R_back">IR_le_as_R_back</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">x</span> &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+zero 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_Zero_as_IR">R_Zero_as_IR</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R0">R0</a></span> [=] 0).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_Zero_as_R">IR_Zero_as_R</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> 0 = 0).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+one 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_One_as_IR">R_One_as_IR</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R1">R1</a></span> [=] 1).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_One_as_R">IR_One_as_R</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> 1 = <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R1">R1</a></span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+addition 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_plus_as_IR">R_plus_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">x</span>+y) [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [+] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IR_plus_as_R">IR_plus_as_R</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">x</span> + <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#IRasR">IRasR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+negation 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_opp_as_IR">R_opp_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (- <span class="id" type="var">x</span>) [=] ([--] (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>))).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+subtraction 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_minus_as_IR">R_minus_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">x</span>-y) [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [-] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+multiplication 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_mult_as_IR">R_mult_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">x</span>*y) [=] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [*] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+reciprocal 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_recip_as_IR">R_recip_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (1 / <span class="id" type="var">y</span>) [=] (1 [/] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> [//] <span class="id" type="var">Hy</span>)).<br/>
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+division 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_div_as_IR">R_div_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">x</span>/y) [=] (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span> [/] <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> [//] <span class="id" type="var">Hy</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+absolute value 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_abs_as_IR">R_abs_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rbasic_fun.html#Rabs">Rabs</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+parital sum 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_sum_as_IR">R_sum_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rfunctions.html#sum_f_R0">sum_f_R0</a></span> <span class="id" type="var">a</span> <span class="id" type="var">m</span>) [=] (&sum;<sup>n</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> : <b>N</b> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">i</span>)) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+infinite sum 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_infsum_as_IR_convergent">R_infsum_as_IR_convergent</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">y</span>: <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span>) <span class="id" type="var">a</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rfunctions.html#infinit_sum">infinit_sum</a></span> <span class="id" type="var">a</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#convergent">convergent</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> : <b>N</b> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">i</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_infsum_as_IR">R_infsum_as_IR</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">y</span>: <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span>) <span class="id" type="var">a</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rfunctions.html#infinit_sum">Rfunctions.infinit_sum</a></span> <span class="id" type="var">a</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">prf</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> [=] &sum;<sub>0</sub><sup>&infin;</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> : <b>N</b> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">i</span>)) <span class="id" type="var">prf</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_infsum_f_as_IR">R_infsum_f_as_IR</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>: <span class="id" type="axiom"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rdefinitions.html#R">R</a></span>) <span class="id" type="var">f</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rfunctions.html#infinit_sum">Rfunctions.infinit_sum</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>) <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">prf</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">y</span> [=] &sum;<sub>0</sub><sup>&infin;</sup> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> : <b>N</b> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">i</span>)) <span class="id" type="var">prf</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+factorial 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fac_fact">fac_fact</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#fac">fac</a></span> <span class="id" type="var">i</span> = <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Factorial.html#fact">fact</a></span> <span class="id" type="var">i</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_nring_as_IR">R_nring_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">i</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">i</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+exponents 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_pow_as_IR">R_pow_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">i</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rpow_def.html#pow">Rpow_def.pow</a></span> <span class="id" type="var">x</span> <span class="id" type="var">i</span>)[=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nexp">nexp</a></span> <span class="id" type="var">_</span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_exp_as_IR">R_exp_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rtrigo_def.html#exp">exp</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+trigonometry 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_cos_as_IR">R_cos_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rtrigo_def.html#cos">cos</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_sin_as_IR">R_sin_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rtrigo_def.html#sin">sin</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_tan_as_IR">R_tan_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">dom</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rtrigo.html#tan">tan</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>) <span class="id" type="var">dom</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Morphism</span> <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">_</span>) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">_</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">R_as_IR_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+logarithm 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_ln_as_IR">R_ln_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">prf</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Rpower.html#ln">ln</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Log">Log</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> <span class="id" type="var">x</span>) <span class="id" type="var">prf</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+integers 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_pring_as_IR">R_pring_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#pring">pring</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#pring">pring</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_zring_as_IR">R_zring_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#zring">zring</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#zring">zring</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="INR_as_nring">INR_as_nring</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Raxioms.html#INR">INR</a></span> <span class="id" type="var">x</span> = <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="var">R</span>:=RRing) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IZR_as_zring">IZR_as_zring</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Raxioms.html#IZR">IZR</a></span> <span class="id" type="var">x</span> = <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#zring">zring</a></span> (<span class="id" type="var">R</span>:=RRing) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_IZR_as_IR">R_IZR_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.Raxioms.html#IZR">IZR</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#zring">zring</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+pi 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_pi_as_IR">R_pi_as_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.AltSeries.html#PI">PI</a></span>) [=] &pi;.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_pi_alt_as_IR">R_pi_alt_as_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Reals.AltSeries.html#PI">PI</a></span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#pi">pi</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+rationals 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_Q2R_as_IR">R_Q2R_as_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">q</span>, <span class="id" type="definition"><a class="idref" href="CoRN.coq_reals.Rreals_iso.html#RasIR">RasIR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qreals.html#Q2R">Q2R</a></span> <span class="id" type="var">q</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

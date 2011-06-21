@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.Hausdorff</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="HausdorffMetric">HausdorffMetric</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab627"></a><h1 class="section">Hausdorff Metric</h1>
+
+This module defines a Hausdorff metric for an arbitrary predicate over
+a metric space X.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="HausdorffMetric.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is the (weak) hemiMetric, which makes an asymmetric metric.
+We make use of the classical quantifer in this definition.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="hemiMetric">hemiMetric</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">A</span> <span class="id" type="var">B</span>: <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>) := <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:X, <span class="id" type="var">A</span> <span class="id" type="var">x</span> -&gt; <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> =&gt; <span class="id" type="var">B</span> <span class="id" type="var">y</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This (weak) metric, makes the full symmetric metric. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="hausdorffBall">hausdorffBall</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">A</span> <span class="id" type="var">B</span>: <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>) :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> /\ <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e</span> <span class="id" type="var">B</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_wd1">hemiMetric_wd1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e0</span> <span class="id" type="var">e1</span>:Qpos) <span class="id" type="var">A</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_wd1">hausdorffBall_wd1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e0</span> <span class="id" type="var">e1</span>:Qpos) <span class="id" type="var">A</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_refl">hemiMetric_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_refl">hausdorffBall_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_sym">hausdorffBall_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">B</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_triangle">hemiMetric_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> (<span class="id" type="var">e0</span> + <span class="id" type="var">e1</span>) <span class="id" type="var">A</span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_triangle">hausdorffBall_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> (<span class="id" type="var">e0</span> + <span class="id" type="var">e1</span>) <span class="id" type="var">A</span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Unfortunately this isn't a metric for an aribitrary predicate.  More
+assumptions are needed to show our definition of ball is closed.  See
+FinEnum for an example of an instance of the Hausdorff metric. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="HausdorffMetric.stableX">stableX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_stable">hemiMetric_stable</a></span> :forall <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, ~~(hemiMetric <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_stable">hausdorffBall_stable</a></span> :forall <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, ~~(hausdorffBall <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetric_wd">hemiMetric_wd</a></span> :forall (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), (<span class="id" type="var">e1</span>==e2) -&gt; <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">A1</span> <span class="id" type="var">A2</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">A1</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">A2</span> <span class="id" type="var">x</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">B1</span> <span class="id" type="var">B2</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">B1</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">B2</span> <span class="id" type="var">x</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A1</span> <span class="id" type="var">B1</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetric">hemiMetric</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">A2</span> <span class="id" type="var">B2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBall_wd">hausdorffBall_wd</a></span> :forall (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span>:Qpos), (<span class="id" type="var">e1</span>==e2) -&gt; <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">A1</span> <span class="id" type="var">A2</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">A1</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">A2</span> <span class="id" type="var">x</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">B1</span> <span class="id" type="var">B2</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">B1</span> <span class="id" type="var">x</span> &lt;-&gt; <span class="id" type="var">B2</span> <span class="id" type="var">x</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A1</span> <span class="id" type="var">B1</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBall">hausdorffBall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">A2</span> <span class="id" type="var">B2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Hausdorff.html#HausdorffMetric">HausdorffMetric</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="HausdorffMetricStrong">HausdorffMetricStrong</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="HausdorffMetricStrong.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab628"></a><h2 class="section">Strong Hausdorff Metric</h2>
+
+This section introduces an alternative stronger notition of Haudorff metric
+that uses a constructive existential.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="hemiMetricStrong">hemiMetricStrong</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">A</span> <span class="id" type="var">B</span>: <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>) := <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:X, <span class="id" type="var">A</span> <span class="id" type="var">x</span> -&gt; <br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>:Qpos, {<span class="id" type="var">y</span>:X | <span class="id" type="var">B</span> <span class="id" type="var">y</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">x</span> <span class="id" type="var">y</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="hausdorffBallStrong">hausdorffBallStrong</a></span> (<span class="id" type="var">e</span>:Qpos) (<span class="id" type="var">A</span> <span class="id" type="var">B</span>: <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>) :=<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> * <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">B</span> <span class="id" type="var">A</span>)%type.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetricStrong_wd1">hemiMetricStrong_wd1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e0</span> <span class="id" type="var">e1</span>:Qpos) <span class="id" type="var">A</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBallStrong_wd1">hausdorffBallStrong_wd1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e0</span> <span class="id" type="var">e1</span>:Qpos) <span class="id" type="var">A</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetricStrong_refl">hemiMetricStrong_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBallStrong_refl">hausdorffBallStrong_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBallStrong_sym">hausdorffBallStrong_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>, <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e</span> <span class="id" type="var">B</span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hemiMetricStrong_triangle">hemiMetricStrong_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hemiMetricStrong">hemiMetricStrong</a></span> (<span class="id" type="var">e0</span> + <span class="id" type="var">e1</span>) <span class="id" type="var">A</span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="hausdorffBallStrong_triangle">hausdorffBallStrong_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e0</span> <span class="id" type="var">e1</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e0</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Hausdorff.html#hausdorffBallStrong">hausdorffBallStrong</a></span> (<span class="id" type="var">e0</span> + <span class="id" type="var">e1</span>) <span class="id" type="var">A</span> <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="HausdorffMetricStrong.almostDecideX">almostDecideX</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.Hausdorff.html#HausdorffMetricStrong">HausdorffMetricStrong</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.transc.PowerSeries</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab544"></a><h1 class="section">More on Power Series</h1>
+
+
+<br/><br/>
+We will now formally define an operator that defines a function as the
+sum of some series given a number sequence.  Along with it, we will
+prove some important properties of these entities.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Power_Series">Power_Series</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab545"></a><h2 class="section">General results</h2>
+
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">J</span> : <span class="id" type="var">interval</span></span> and <span class="inlinecode"><span class="id" type="var">x0</span> : <span class="id" type="var">IR</span></span> be a point of <span class="inlinecode"><span class="id" type="var">J</span></span>.
+Let <span class="inlinecode"><span class="id" type="var">a</span> : <b>N</b> -&gt; <span class="id" type="var">IR</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Power_Series.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Power_Series.x0">x0</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Power_Series.Hx0">Hx0</a></span> : <span class="id" type="var">J</span> <span class="id" type="var">x0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Power_Series.a">a</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FPowerSeries">FPowerSeries</a></span> (<span class="id" type="var">n</span> : <b>N</b>) := <span class="id" type="var">a</span> <span class="id" type="var">n</span>{**} (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{-} [-C-]<span class="id" type="var">x0</span>) {^}n.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The most important convergence criterium specifically for power series
+is the Dirichlet criterium.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Power_Series.Ha">Ha</a></span> : {<span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | {<span class="id" type="var">H</span> : 0 [&lt;] <span class="id" type="var">r</span> | {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">n</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)) [&lt;=] (1[/] <span class="id" type="var">r</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#pos_ap_zero">pos_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>) [*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">n</span>)}}}.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="r">r</a></span> := <span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">Ha</span>.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="Hr">Hr</a></span> := <span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT2">ProjT2</a></span> <span class="id" type="var">Ha</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Dirichlet_crit">Dirichlet_crit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> ((&sdot;,&sdot;) (<span class="id" type="var">x0</span>[-]<span class="id" type="var">r</span>) (<span class="id" type="var">x0</span>[+]<span class="id" type="var">r</span>)) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries">FPowerSeries</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+When defining a function using its Taylor series as a motivation, the following operator can be of use.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FPowerSeries'">FPowerSeries'</a></span> <span class="id" type="var">n</span> := (<span class="id" type="var">a</span> <span class="id" type="var">n</span>[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nring_fac_ap_zero">nring_fac_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span>) {**} (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{-} [-C-]<span class="id" type="var">x0</span>) {^}n.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This function is also continuous and has a good convergence ratio.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FPowerSeries'_cont">FPowerSeries'_cont</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> (-&infin;,+&infin;) (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FPowerSeries'">included_FPowerSeries'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">P</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Power_Series.Ha'">Ha'</a></span> : {<span class="id" type="var">N</span> : <b>N</b> | {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0 [&lt;] <span class="id" type="var">c</span> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)) [&lt;=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">n</span>)}}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FPowerSeries'_conv'">FPowerSeries'_conv'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FPowerSeries'_conv">FPowerSeries'_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.transc.PowerSeries.html#Power_Series">Power_Series</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_on_PowerSeries">More_on_PowerSeries</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">F</span></span> and <span class="inlinecode"><span class="id" type="var">G</span></span> be the power series defined
+respectively by <span class="inlinecode"><span class="id" type="var">a</span></span> and by <span class="inlinecode"><span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; (<span class="id" type="var">a</span> (<span class="id" type="var">S</span> <span class="id" type="var">n</span>))</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_on_PowerSeries.x0">x0</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_on_PowerSeries.a">a</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_on_PowerSeries.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_on_PowerSeries.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_on_PowerSeries.Hf'">Hf'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_on_PowerSeries.Hg">Hg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We get a comparison test for power series. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FPowerSeries'_comp">FPowerSeries'_comp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">b</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">b</span> <span class="id" type="var">n</span>) [&lt;=] <span class="id" type="var">a</span> <span class="id" type="var">n</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> <span class="id" type="var">x0</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And a rule for differentiation. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_FPowerSeries1'">Derivative_FPowerSeries1'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">J</span> <span class="id" type="var">H</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">Hf</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">Hg</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.transc.PowerSeries.html#More_on_PowerSeries">More_on_PowerSeries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Definitions">Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab546"></a><h2 class="section">Function definitions through power series</h2>
+
+
+<br/><br/>
+We now define the exponential, sine and cosine functions as power
+series, and prove their convergence.  Tangent is defined as the
+quotient of sine over cosine.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Exp_ps">Exp_ps</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> 0 (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> : <b>N</b> =&gt; 1).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_seq">sin_seq</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_ps">sin_ps</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> 0 <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#sin_seq">sin_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cos_seq">cos_seq</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cos_ps">cos_ps</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries'">FPowerSeries'</a></span> 0 <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#cos_seq">cos_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Exp_conv'">Exp_conv'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp_ps">Exp_ps</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Exp_conv">Exp_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp_ps">Exp_ps</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_conv">sin_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#sin_ps">sin_ps</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cos_conv">cos_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> (-&infin;,+&infin;) <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#cos_ps">cos_ps</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Expon">Expon</a></span> := &sum;'<sub>&infin;</sub> <span class="id" type="lemma"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp_conv">Exp_conv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Sine">Sine</a></span> := &sum;'<sub>&infin;</sub> <span class="id" type="lemma"><a class="idref" href="CoRN.transc.PowerSeries.html#sin_conv">sin_conv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cosine">Cosine</a></span> := &sum;'<sub>&infin;</sub> <span class="id" type="lemma"><a class="idref" href="CoRN.transc.PowerSeries.html#cos_conv">cos_conv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Tang">Tang</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sine">Sine</a></span>{/}Cosine.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some auxiliary domain results.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Exp_domain">Exp_domain</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Expon">Expon</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_domain">sin_domain</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sine">Sine</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cos_domain">cos_domain</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cosine">Cosine</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Exp">included_Exp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Expon">Expon</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Sin">included_Sin</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sine">Sine</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Cos">included_Cos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span>, &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cosine">Cosine</a></span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition of the logarithm.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="log_defn_lemma">log_defn_lemma</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> ((&sdot;,+&infin;) 0) {1/}FId.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Logarithm">Logarithm</a></span> := ( [-S-]<span class="id" type="lemma"><a class="idref" href="CoRN.transc.PowerSeries.html#log_defn_lemma">log_defn_lemma</a></span>) 1 (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#pos_one">pos_one</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.transc.PowerSeries.html#Definitions">Definitions</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As most of these functions are total, it makes sense to treat them as setoid functions on the reals.  In the case of logarithm and tangent, this is not possible; however, we still define some abbreviations for aesthetical reasons.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Exp">Exp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Sin">Sin</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cos">Cos</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Log">Log</a></span> <span class="id" type="var">x</span> (<span class="id" type="var">Hx</span> : 0 [&lt;] <span class="id" type="var">x</span>) := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Logarithm">Logarithm</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tang">Tang</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

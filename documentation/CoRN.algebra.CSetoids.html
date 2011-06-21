@@ -1,0 +1,1274 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CSetoids</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab76"></a><h1 class="section">Setoids</h1>
+
+Definition of a constructive setoid with apartness,
+i.e. a set with an equivalence relation and an apartness relation compatible with it.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Relation">Relation</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Trelation">Trelation</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab77"></a><h2 class="section">Relations necessary for Setoids</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">A</span>:Type</span>.
+
+
+<br/><br/>
+Notice that their type depends on the main logical connective.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Properties_of_relations">Properties_of_relations</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Properties_of_relations.A">A</a></span> : <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="irreflexive">irreflexive</a></span> (<span class="id" type="var">R</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">A</span>) : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, ~ (<span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cotransitive">cotransitive</a></span> (<span class="id" type="var">R</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">A</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>,<br/>
+&nbsp;<span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span> <span class="id" type="var">or</span> <span class="id" type="var">R</span> <span class="id" type="var">z</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="tight_apart">tight_apart</a></span> (<span class="id" type="var">eq</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="var">A</span>) (<span class="id" type="var">ap</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">A</span>) : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>,<br/>
+&nbsp;~ (<span class="id" type="var">ap</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) &lt;-&gt; <span class="id" type="var">eq</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="antisymmetric">antisymmetric</a></span> (<span class="id" type="var">R</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">A</span>) : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>,<br/>
+&nbsp;<span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; ~ (<span class="id" type="var">R</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#Properties_of_relations">Properties_of_relations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab78"></a><h2 class="section">Definition of Setoid</h2>
+
+
+<br/><br/>
+Apartness, being the main relation, needs to be <span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued.  Equality,
+as it is characterized by a negative statement, lives in <span class="inlinecode"><span class="id" type="keyword">Prop</span></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_CSetoid">is_CSetoid</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">eq</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="var">A</span>) (<span class="id" type="var">ap</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">A</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="ax_ap_irreflexive">ax_ap_irreflexive</a></span>  : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> <span class="id" type="var">ap</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ax_ap_symmetric">ax_ap_symmetric</a></span>    : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> <span class="id" type="var">ap</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ax_ap_cotransitive">ax_ap_cotransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> <span class="id" type="var">ap</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ax_ap_tight">ax_ap_tight</a></span>        : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> <span class="id" type="var">eq</span> <span class="id" type="var">ap</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid">CSetoid</a></span> : <span class="id" type="keyword">Type</span> := <span class="id" type="constructor"><a name="makeCSetoid">makeCSetoid</a></span><br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="cs_crr">cs_crr</a></span>   :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cs_ap">cs_ap</a></span>    :  <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_crr">cs_crr</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cs_proof">cs_proof</a></span> :  <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_crr">cs_crr</a></span> (@<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_crr">cs_crr</a></span>) <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> <span class="id" type="abbreviation"><a name="cs_eq">cs_eq</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="var">only</span> <span class="id" type="var">parsing</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "&equiv;" := <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>).<br/>
+<span class="id" type="keyword">Infix</span> "[#]" := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_neq">cs_neq</a></span> (<span class="id" type="var">S</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="var">S</span> := <span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span> =&gt; ~ <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "&ne;" := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_neq">cs_neq</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+In the names of lemmas, we refer to <span class="inlinecode"> &equiv; </span> by <span class="inlinecode"><span class="id" type="var">eq</span></span>, <span class="inlinecode"> &ne; </span> by
+<span class="inlinecode"><span class="id" type="var">neq</span></span>, and <span class="inlinecode"> [#] </span> by <span class="inlinecode"><span class="id" type="var">ap</span></span>.
+
+
+<br/><br/>
+<a name="lab79"></a><h2 class="section">Setoid axioms</h2>
+
+We want concrete lemmas that state the axiomatic properties of a setoid.
+
+Let <span class="inlinecode"><span class="id" type="var">S</span></span> be a setoid.
+
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_axioms">CSetoid_axioms</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_axioms.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CSetoid_is_CSetoid">CSetoid_is_CSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="var">S</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)) (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_irreflexive">ap_irreflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_symmetric">ap_symmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_cotransitive">ap_cotransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_tight">ap_tight</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)) (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_axioms">CSetoid_axioms</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab80"></a><h2 class="section">Setoid basics</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">S</span></span> be a setoid.
+
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="is_CSetoid_Setoid">is_CSetoid_Setoid</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">S</span> <span class="id" type="var">eq</span> <span class="id" type="var">ap</span>, <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="var">S</span> <span class="id" type="var">eq</span> <span class="id" type="var">ap</span> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Setoids.Setoid.html#Setoid_Theory">Setoid_Theory</a></span> <span class="id" type="var">S</span> <span class="id" type="var">eq</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_CSetoid">Build_CSetoid</a></span> (<span class="id" type="var">X</span>:Type) (<span class="id" type="var">eq</span>:Relation <span class="id" type="var">X</span>) (<span class="id" type="var">ap</span>:Crelation <span class="id" type="var">X</span>) (<span class="id" type="var">p</span>:is_CSetoid <span class="id" type="var">X</span> <span class="id" type="var">eq</span> <span class="id" type="var">ap</span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_basics">CSetoid_basics</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_basics.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In `there exists a unique <span class="inlinecode"><span class="id" type="var">a</span>:S</span> such that ...', we now mean unique with respect to the setoid equality. We use <span class="inlinecode">&exist;<sup>1</sup></span> to denote unique existence.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> &exist;<sup>1</sup> (<span class="id" type="var">P</span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) := {<span class="id" type="var">x</span> : <span class="id" type="var">S</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> | <span class="id" type="var">P</span> <span class="id" type="var">x</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_reflexive">eq_reflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Treflexive">Treflexive</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_symmetric">eq_symmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Tsymmetric">Tsymmetric</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_transitive">eq_transitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Ttransitive">Ttransitive</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+The lemma <span class="inlinecode"><span class="id" type="var">eq_reflexive</span></span> above is convertible to
+<span class="inlinecode"><span class="id" type="var">eq_reflexive_unfolded</span></span> below. We need the second version too,
+because the first cannot be applied when an instance of reflexivity is needed.
+(``I have complained bitterly about this.'' RP)
+
+tes
+
+If lemma <span class="inlinecode"><span class="id" type="var">a</span></span> is just an unfolding of lemma <span class="inlinecode"><span class="id" type="var">b</span></span>, the name of <span class="inlinecode"><span class="id" type="var">a</span></span> is the name
+<span class="inlinecode"><span class="id" type="var">b</span></span> with the suffix ``<span class="inlinecode"><span class="id" type="var">_unfolded</span></span>''.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_reflexive_unfolded">eq_reflexive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_symmetric_unfolded">eq_symmetric_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_transitive_unfolded">eq_transitive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_wdl">eq_wdl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">z</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_irreflexive_unfolded">ap_irreflexive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span>, ~ (<span class="id" type="var">x</span> [#] <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_cotransitive_unfolded">ap_cotransitive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">S</span>, <span class="id" type="var">a</span> [#] <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">S</span>, <span class="id" type="var">a</span> [#] <span class="id" type="var">c</span> <span class="id" type="var">or</span> <span class="id" type="var">c</span> [#] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_symmetric_unfolded">ap_symmetric_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [#] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+We would like to write
+<br/>
+<span class="inlinecode"><span class="id" type="keyword">Lemma</span> <span class="id" type="var">eq_equiv_not_ap</span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:S), <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> &hArr; ~(x [#] <span class="id" type="var">y</span>).<br/>
+</span>]]
+In Coq, however, this lemma cannot be easily applied.
+Therefore we have to split the lemma into the following two lemmas <span class="inlinecode"><span class="id" type="var">eq_imp_not_ap</span></span> and <span class="inlinecode"><span class="id" type="var">not_ap_imp_eq</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_imp_not_ap">eq_imp_not_ap</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; ~ (<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_ap_imp_eq">not_ap_imp_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, ~ (<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="neq_imp_notnot_ap">neq_imp_notnot_ap</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [~=] <span class="id" type="var">y</span> -&gt; ~ ~ (<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="notnot_ap_imp_neq">notnot_ap_imp_neq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, ~ ~ (<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">x</span> [~=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_imp_neq">ap_imp_neq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [~=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_neq_imp_eq">not_neq_imp_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, ~ <span class="id" type="var">x</span> [~=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_imp_not_neq">eq_imp_not_neq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; ~ <span class="id" type="var">x</span> [~=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_basics">CSetoid_basics</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="product_csetoid">product_csetoid</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab81"></a><h2 class="section">The product of setoids</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="prod_ap">prod_ap</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">c</span> <span class="id" type="var">d</span> : <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#prodT">prodT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="prod_eq">prod_eq</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">c</span> <span class="id" type="var">d</span> : <span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#prodT">prodT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) : <span class="id" type="keyword">Prop</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prodcsetoid_is_CSetoid">prodcsetoid_is_CSetoid</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>,<br/>
+&nbsp;<span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> (<span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#prodT">prodT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#prod_eq">prod_eq</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#prod_ap">prod_ap</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ProdCSetoid">ProdCSetoid</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span><br/>
+&nbsp;(<span class="id" type="abbreviation"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#prodT">prodT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#prod_eq">prod_eq</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#prod_ap">prod_ap</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#prodcsetoid_is_CSetoid">prodcsetoid_is_CSetoid</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#product_csetoid">product_csetoid</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab82"></a><h2 class="section">Relations and predicates</h2>
+
+Here we define the notions of well-definedness and strong extensionality
+on predicates and relations.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">S</span></span> be a setoid.
+
+
+<br/><br/>
+
+
+<ul>
+<li> ``well-defined'' is abbreviated to <span class="inlinecode"><span class="id" type="var">well_def</span></span> (or <span class="inlinecode"><span class="id" type="var">wd</span></span>).
+
+</li>
+<li> ``strongly extensional'' is abbreviated to <span class="inlinecode"><span class="id" type="var">strong_ext</span></span> (or <span class="inlinecode"><span class="id" type="var">strext</span></span>).
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_relations_and_predicates">CSetoid_relations_and_predicates</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_relations_and_predicates.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab83"></a><h3 class="section">Predicates</h3>
+
+
+<br/><br/>
+At this stage, we consider <span class="inlinecode"><span class="id" type="var">CProp</span></span>- and <span class="inlinecode"><span class="id" type="keyword">Prop</span></span>-valued predicates on setoids.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">P</span></span> be a predicate on (the carrier of) <span class="inlinecode"><span class="id" type="var">S</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_relations_and_predicates.CSetoidPredicates">CSetoidPredicates</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_relations_and_predicates.CSetoidPredicates.P">P</a></span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pred_strong_ext">pred_strong_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pred_wd">pred_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_relations_and_predicates.CSetoidPredicates">CSetoidPredicates</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="wd_pred">wd_pred</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="wdp_pred">wdp_pred</a></span>     :&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="wdp_well_def">wdp_well_def</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#wdp_pred">wdp_pred</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid_predicate">CSetoid_predicate</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="csp_pred">csp_pred</a></span>   :&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="csp_strext">csp_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_strong_ext">pred_strong_ext</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csp_pred">csp_pred</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csp_wd">csp_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_predicate">CSetoid_predicate</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Similar, with <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> instead of <span class="inlinecode"><span class="id" type="var">CProp</span></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_relations_and_predicates.CSetoidPPredicates">CSetoidPPredicates</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_relations_and_predicates.CSetoidPPredicates.P">P</a></span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pred_strong_ext'">pred_strong_ext'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="pred_wd'">pred_wd'</a></span> : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_relations_and_predicates.CSetoidPPredicates">CSetoidPPredicates</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab84"></a><h3 class="section">Definition of a setoid predicate</h3>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid_predicate'">CSetoid_predicate'</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="csp'_pred">csp'_pred</a></span>   :&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="keyword">Prop</span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="csp'_strext">csp'_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_strong_ext'">pred_strong_ext'</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csp'_pred">csp'_pred</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csp'_wd">csp'_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_predicate'">CSetoid_predicate'</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd'">pred_wd'</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab85"></a><h3 class="section">Relations</h3>
+
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a relation on (the carrier of) <span class="inlinecode"><span class="id" type="var">S</span></span>.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_relations_and_predicates.CsetoidRelations">CsetoidRelations</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_relations_and_predicates.CsetoidRelations.R">R</a></span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rel_wdr">rel_wdr</a></span> : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rel_wdl">rel_wdl</a></span> : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">z</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rel_strext">rel_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>,<br/>
+&nbsp;<span class="id" type="var">R</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> -&gt; (<span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span> <span class="id" type="var">or</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span>) <span class="id" type="var">or</span> <span class="id" type="var">R</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rel_strext_lft">rel_strext_lft</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x1</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span> <span class="id" type="var">or</span> <span class="id" type="var">R</span> <span class="id" type="var">x2</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rel_strext_rht">rel_strext_rht</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y1</span> -&gt; <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span> <span class="id" type="var">or</span> <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rel_strext_imp_lftarg">rel_strext_imp_lftarg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext">rel_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext_lft">rel_strext_lft</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rel_strext_imp_rhtarg">rel_strext_imp_rhtarg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext">rel_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext_rht">rel_strext_rht</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rel_strextarg_imp_strext">rel_strextarg_imp_strext</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext_rht">rel_strext_rht</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext_lft">rel_strext_lft</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext">rel_strext</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_relations_and_predicates.CsetoidRelations">CsetoidRelations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab86"></a><h3 class="section">Definition of a setoid relation</h3>
+
+The type of relations over a setoid.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid_relation">CSetoid_relation</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="csr_rel">csr_rel</a></span>    :&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="keyword">Prop</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="csr_wdr">csr_wdr</a></span>    :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_wdr">rel_wdr</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csr_rel">csr_rel</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="csr_wdl">csr_wdl</a></span>    :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_wdl">rel_wdl</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csr_rel">csr_rel</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="csr_strext">csr_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_strext">rel_strext</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csr_rel">csr_rel</a></span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab87"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">CProp</span></span> Relations</h3>
+
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a relation on (the carrier of) <span class="inlinecode"><span class="id" type="var">S</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_relations_and_predicates.CCsetoidRelations">CCsetoidRelations</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_relations_and_predicates.CCsetoidRelations.R">R</a></span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crel_wdr">Crel_wdr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crel_wdl">Crel_wdl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">z</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crel_strext">Crel_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>,<br/>
+&nbsp;<span class="id" type="var">R</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span> <span class="id" type="var">or</span> <span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span> <span class="id" type="var">or</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crel_strext_lft">Crel_strext_lft</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x1</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x2</span> <span class="id" type="var">y</span> <span class="id" type="var">or</span> <span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crel_strext_rht">Crel_strext_rht</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y1</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y2</span> <span class="id" type="var">or</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Crel_strext_imp_lftarg">Crel_strext_imp_lftarg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext_lft">Crel_strext_lft</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Crel_strext_imp_rhtarg">Crel_strext_imp_rhtarg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext_rht">Crel_strext_rht</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Crel_strextarg_imp_strext">Crel_strextarg_imp_strext</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext_rht">Crel_strext_rht</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext_lft">Crel_strext_lft</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_relations_and_predicates.CCsetoidRelations">CCsetoidRelations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab88"></a><h3 class="section">Definition of a <span class="inlinecode"><span class="id" type="var">CProp</span></span> setoid relation</h3>
+
+
+<br/><br/>
+The type of relations over a setoid.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CCSetoid_relation">CCSetoid_relation</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="Ccsr_rel">Ccsr_rel</a></span>    :&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="Ccsr_strext">Ccsr_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#Ccsr_rel">Ccsr_rel</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ccsr_wdr">Ccsr_wdr</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">R</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CCSetoid_relation">CCSetoid_relation</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdr">Crel_wdr</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ccsr_wdl">Ccsr_wdl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">R</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CCSetoid_relation">CCSetoid_relation</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdl">Crel_wdl</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_wdr">ap_wdr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdr">Crel_wdr</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_wdl">ap_wdl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdl">Crel_wdl</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_wdr_unfolded">ap_wdr_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_wdl_unfolded">ap_wdl_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">z</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_strext">ap_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_strext">Crel_strext</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="predS_well_def">predS_well_def</a></span> (<span class="id" type="var">P</span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>,<br/>
+&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_relations_and_predicates">CSetoid_relations_and_predicates</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab89"></a><h2 class="section">Functions between setoids</h2>
+
+Such functions must preserve the setoid equality
+and be strongly extensional w.r.t. the apartness, i.e.
+if <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">x</span>,y) [#] <span class="id" type="var">f</span>(<span class="id" type="var">x1</span>,y1)</span>, then  <span class="inlinecode"><span class="id" type="var">x</span> [#] <span class="id" type="var">x1</span> + <span class="id" type="var">y</span> [#] <span class="id" type="var">y1</span></span>.
+For every arity this has to be defined separately.
+
+Let <span class="inlinecode"><span class="id" type="var">S1</span></span>, <span class="inlinecode"><span class="id" type="var">S2</span></span> and <span class="inlinecode"><span class="id" type="var">S3</span></span> be setoids.
+
+
+<br/><br/>
+First we consider unary functions.  
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_functions">CSetoid_functions</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="CSetoid_functions.S1">S1</a></span> <span class="id" type="variable"><a name="CSetoid_functions.S2">S2</a></span> <span class="id" type="variable"><a name="CSetoid_functions.S3">S3</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_functions.unary_functions">unary_functions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In the following two definitions,
+<span class="inlinecode"><span class="id" type="var">f</span></span> is a function from (the carrier of) <span class="inlinecode"><span class="id" type="var">S1</span></span> to
+(the carrier of) <span class="inlinecode"><span class="id" type="var">S2</span></span>.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_functions.unary_functions.f">f</a></span> : <span class="id" type="var">S1</span> -&gt; <span class="id" type="var">S2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fun_wd">fun_wd</a></span> : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S1</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fun_strext">fun_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S1</span>, <span class="id" type="var">f</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">f</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_strext_imp_wd">fun_strext_imp_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_functions.unary_functions">unary_functions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid_fun">CSetoid_fun</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="csf_fun">csf_fun</a></span>    :&gt; <span class="id" type="var">S1</span> -&gt; <span class="id" type="var">S2</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="csf_strext">csf_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csf_fun">csf_fun</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csf_wd">csf_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Const_CSetoid_fun">Const_CSetoid_fun</a></span> : <span class="id" type="var">S2</span> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CSetoid_functions.binary_functions">binary_functions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Now we consider binary functions.
+In the following two definitions,
+<span class="inlinecode"><span class="id" type="var">f</span></span> is a function from <span class="inlinecode"><span class="id" type="var">S1</span></span> and <span class="inlinecode"><span class="id" type="var">S2</span></span> to <span class="inlinecode"><span class="id" type="var">S3</span></span>.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CSetoid_functions.binary_functions.f">f</a></span> : <span class="id" type="var">S1</span> -&gt; <span class="id" type="var">S2</span> -&gt; <span class="id" type="var">S3</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_fun_wd">bin_fun_wd</a></span> : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>,<br/>
+&nbsp;<span class="id" type="var">x1</span> [=] <span class="id" type="var">x2</span> -&gt; <span class="id" type="var">y1</span> [=] <span class="id" type="var">y2</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_fun_strext">bin_fun_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>,<br/>
+&nbsp;<span class="id" type="var">f</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">f</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span> -&gt; <span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span> <span class="id" type="var">or</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_fun_strext_imp_wd">bin_fun_strext_imp_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_functions.binary_functions">binary_functions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CSetoid_bin_fun">CSetoid_bin_fun</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="csbf_fun">csbf_fun</a></span>    :&gt; <span class="id" type="var">S1</span> -&gt; <span class="id" type="var">S2</span> -&gt; <span class="id" type="var">S3</span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="csbf_strext">csbf_strext</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_fun">csbf_fun</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csbf_wd">csbf_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csf_wd_unfolded">csf_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">x'</span> : <span class="id" type="var">S1</span>), <span class="id" type="var">x</span> [=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">x'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csf_strext_unfolded">csf_strext_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S1</span>), <span class="id" type="var">f</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">f</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csbf_wd_unfolded">csbf_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">x'</span> : <span class="id" type="var">S1</span>) (<span class="id" type="var">y</span> <span class="id" type="var">y'</span> : <span class="id" type="var">S2</span>),<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">y'</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">x'</span> <span class="id" type="var">y'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_functions">CSetoid_functions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_fun_is_wd_fun_lft">bin_fun_is_wd_fun_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S2</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S1</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">c</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_fun_is_wd_fun_rht">bin_fun_is_wd_fun_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S1</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S2</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_fun_is_strext_fun_lft">bin_fun_is_strext_fun_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S2</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S1</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">c</span>).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_fun_is_strext_fun_rht">bin_fun_is_strext_fun_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span> (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S1</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S2</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_fun2fun_rht">bin_fun2fun_rht</a></span> (<span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>:CSetoid) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S1</span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S2</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_is_strext_fun_rht">bin_fun_is_strext_fun_rht</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_fun2fun_lft">bin_fun2fun_lft</a></span> (<span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>:CSetoid) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S3</span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S2</span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S3</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S1</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">c</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_is_strext_fun_lft">bin_fun_is_strext_fun_lft</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab90"></a><h2 class="section">The unary and binary (inner) operations on a csetoid</h2>
+
+An operation is a function with domain(s) and co-domain equal.
+
+<br/><br/>
+
+The word ``unary operation'' is abbreviated to <span class="inlinecode"><span class="id" type="var">un_op</span></span>;
+``binary operation'' is abbreviated to <span class="inlinecode"><span class="id" type="var">bin_op</span></span>.
+
+
+<br/><br/>
+
+Let <span class="inlinecode"><span class="id" type="var">S</span></span> be a setoid.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="csetoid_inner_ops">csetoid_inner_ops</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="csetoid_inner_ops.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Properties of binary operations 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="commutes">commutes</a></span> (<span class="id" type="var">f</span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span>) : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="associative">associative</a></span> (<span class="id" type="var">f</span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span> -&gt; <span class="id" type="var">S</span>) : <span class="id" type="keyword">Prop</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">S</span>,<br/>
+&nbsp;<span class="id" type="var">f</span> <span class="id" type="var">x</span> (<span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>) [=] <span class="id" type="var">f</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">z</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Well-defined unary operations on a setoid.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="un_op_wd">un_op_wd</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span> (<span class="id" type="var">S1</span>:=S) (<span class="id" type="var">S2</span>:=S).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="un_op_strext">un_op_strext</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> (<span class="id" type="var">S1</span>:=S) (<span class="id" type="var">S2</span>:=S).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CSetoid_un_op">CSetoid_un_op</a></span> : <span class="id" type="keyword">Type</span> := <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_strext">id_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="id_pres_eq">id_pres_eq</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_wd">un_op_wd</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="id_un_op">id_un_op</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">x</span>) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#id_strext">id_strext</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_un_op_strext">cs_un_op_strext</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#csf_strext">csf_strext</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="un_op_wd_unfolded">un_op_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">op</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">op</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="un_op_strext_unfolded">un_op_strext_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="var">op</span> <span class="id" type="var">x</span> [#] <span class="id" type="var">op</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Well-defined binary operations on a setoid.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_op_wd">bin_op_wd</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_op_strext">bin_op_strext</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CSetoid_bin_op">CSetoid_bin_op</a></span> : <span class="id" type="keyword">Type</span> := <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_bin_op_wd">cs_bin_op_wd</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_wd">csbf_wd</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cs_bin_op_strext">cs_bin_op_strext</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_strext">csbf_strext</a></span> <span class="id" type="var">S</span> <span class="id" type="var">S</span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_wd_unfolded">bin_op_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="var">x1</span> [=] <span class="id" type="var">x2</span> -&gt; <span class="id" type="var">y1</span> [=] <span class="id" type="var">y2</span> -&gt; <span class="id" type="var">op</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> [=] <span class="id" type="var">op</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_strext_unfolded">bin_op_strext_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="var">op</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">op</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span> -&gt; <span class="id" type="var">x1</span> [#] <span class="id" type="var">x2</span> <span class="id" type="var">or</span> <span class="id" type="var">y1</span> [#] <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_is_wd_un_op_lft">bin_op_is_wd_un_op_lft</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_wd">un_op_wd</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">op</span> <span class="id" type="var">x</span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_is_wd_un_op_rht">bin_op_is_wd_un_op_rht</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_wd">un_op_wd</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">op</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_is_strext_un_op_lft">bin_op_is_strext_un_op_lft</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">op</span> <span class="id" type="var">x</span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bin_op_is_strext_un_op_rht">bin_op_is_strext_un_op_rht</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span> =&gt; <span class="id" type="var">op</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_op2un_op_rht">bin_op2un_op_rht</a></span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun2fun_rht">bin_fun2fun_rht</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">op</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_op2un_op_lft">bin_op2un_op_lft</a></span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span>) (<span class="id" type="var">c</span> : <span class="id" type="var">S</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun2fun_lft">bin_fun2fun_lft</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">op</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#csetoid_inner_ops">csetoid_inner_ops</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab91"></a><h2 class="section">The binary outer operations on a csetoid</h2>
+
+
+Let <span class="inlinecode"><span class="id" type="var">S1</span></span> and <span class="inlinecode"><span class="id" type="var">S2</span></span> be setoids.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="csetoid_outer_ops">csetoid_outer_ops</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="csetoid_outer_ops.S1">S1</a></span> <span class="id" type="variable"><a name="csetoid_outer_ops.S2">S2</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Well-defined outer operations on a setoid.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="outer_op_well_def">outer_op_well_def</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="outer_op_strext">outer_op_strext</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CSetoid_outer_op">CSetoid_outer_op</a></span> : <span class="id" type="keyword">Type</span> := <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_CSetoid_outer_op">Build_CSetoid_outer_op</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="csoo_wd">csoo_wd</a></span> := <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_wd">csbf_wd</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="csoo_strext">csoo_strext</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_strext">csbf_strext</a></span> <span class="id" type="var">S1</span> <span class="id" type="var">S2</span> <span class="id" type="var">S2</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="csoo_wd_unfolded">csoo_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">op</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_outer_op">CSetoid_outer_op</a></span>) <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span>,<br/>
+&nbsp;<span class="id" type="var">x1</span> [=] <span class="id" type="var">x2</span> -&gt; <span class="id" type="var">y1</span> [=] <span class="id" type="var">y2</span> -&gt; <span class="id" type="var">op</span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span> [=] <span class="id" type="var">op</span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#csetoid_outer_ops">csetoid_outer_ops</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab92"></a><h2 class="section">Subsetoids</h2>
+
+
+Let <span class="inlinecode"><span class="id" type="var">S</span></span> be a setoid, and <span class="inlinecode"><span class="id" type="var">P</span></span> a predicate on the carrier of <span class="inlinecode"><span class="id" type="var">S</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SubCSetoids">SubCSetoids</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.S">S</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.P">P</a></span> : <span class="id" type="var">S</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="subcsetoid_crr">subcsetoid_crr</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="scs_elem">scs_elem</a></span> :&gt; <span class="id" type="var">S</span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="scs_prf">scs_prf</a></span>  :  <span class="id" type="var">P</span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CSetoids.html#scs_elem">scs_elem</a></span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Though <span class="inlinecode"><span class="id" type="var">scs_elem</span></span> is declared as a coercion, it does not satisfy the
+uniform inheritance condition and will not be inserted.  However it will
+also not be printed, which is handy.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="restrict_relation">restrict_relation</a></span> (<span class="id" type="var">R</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="var">S</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> =&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">a</span>, <span class="id" type="var">b</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">x</span> <span class="id" type="var">_</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">y</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crestrict_relation">Crestrict_relation</a></span> (<span class="id" type="var">R</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="var">S</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> =&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">a</span>, <span class="id" type="var">b</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">x</span> <span class="id" type="var">_</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">y</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="subcsetoid_eq">subcsetoid_eq</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Relation">Relation</a></span> <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restrict_relation">restrict_relation</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="var">s</span>:=S)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="subcsetoid_ap">subcsetoid_ap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span> <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crestrict_relation">Crestrict_relation</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_ap">cs_ap</a></span> (<span class="id" type="var">c</span>:=S)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Remark</span> <span class="id" type="lemma"><a name="subcsetoid_equiv">subcsetoid_equiv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Tequiv">Tequiv</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_eq">subcsetoid_eq</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="subcsetoid_is_CSetoid">subcsetoid_is_CSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_eq">subcsetoid_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_ap">subcsetoid_ap</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_SubCSetoid">Build_SubCSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span><br/>
+&nbsp;<span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_eq">subcsetoid_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_ap">subcsetoid_ap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_is_CSetoid">subcsetoid_is_CSetoid</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab93"></a><h3 class="section">Subsetoid unary operations</h3>
+
+
+Let <span class="inlinecode"><span class="id" type="var">f</span></span> be a unary setoid operation on <span class="inlinecode"><span class="id" type="var">S</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SubCSetoids.SubCSetoid_unary_operations">SubCSetoid_unary_operations</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.SubCSetoid_unary_operations.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="var">S</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="un_op_pres_pred">un_op_pres_pred</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+Assume <span class="inlinecode"><span class="id" type="var">pr</span>:un_op_pres_pred</span>.
+ 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.SubCSetoid_unary_operations.pr">pr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_pres_pred">un_op_pres_pred</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="restr_un_op">restr_un_op</a></span> (<span class="id" type="var">a</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">a</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">x</span> <span class="id" type="var">p</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="var">pr</span> <span class="id" type="var">x</span> <span class="id" type="var">p</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="restr_un_op_wd">restr_un_op_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_wd">un_op_wd</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_un_op">restr_un_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="restr_un_op_strext">restr_un_op_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_un_op">restr_un_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_SubCSetoid_un_op">Build_SubCSetoid_un_op</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_un_op">restr_un_op</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_un_op_strext">restr_un_op_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#SubCSetoids.SubCSetoid_unary_operations">SubCSetoid_unary_operations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab94"></a><h3 class="section">Subsetoid binary operations</h3>
+
+
+Let <span class="inlinecode"><span class="id" type="var">f</span></span> be a binary setoid operation on <span class="inlinecode"><span class="id" type="var">S</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SubCSetoids.SubCSetoid_binary_operations">SubCSetoid_binary_operations</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.SubCSetoid_binary_operations.f">f</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="var">S</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bin_op_pres_pred">bin_op_pres_pred</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">S</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+Assume <span class="inlinecode"><span class="id" type="var">bin_op_pres_pred</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SubCSetoids.SubCSetoid_binary_operations.pr">pr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_pres_pred">bin_op_pres_pred</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="restr_bin_op">restr_bin_op</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">a</span>, <span class="id" type="var">b</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">x</span> <span class="id" type="var">p</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="var">y</span> <span class="id" type="var">q</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="var">pr</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="restr_bin_op_well_def">restr_bin_op_well_def</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_wd">bin_op_wd</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_bin_op">restr_bin_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="restr_bin_op_strext">restr_bin_op_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_strext">bin_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_bin_op">restr_bin_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_SubCSetoid_bin_op">Build_SubCSetoid_bin_op</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_bin_op">restr_bin_op</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#restr_bin_op_strext">restr_bin_op_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="restr_f_assoc">restr_f_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid_bin_op">Build_SubCSetoid_bin_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#SubCSetoids.SubCSetoid_binary_operations">SubCSetoid_binary_operations</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CSetoids.html#SubCSetoids">SubCSetoids</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Tactic Notation</span> "Step_final" <span class="id" type="var">constr</span>(<span class="id" type="var">c</span>) :=  <span class="id" type="var">Step_final</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab95"></a><h2 class="section">Miscellaneous</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_caseZ_diff_CS">proper_caseZ_diff_CS</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">S</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">f</span> : <b>N</b> -&gt; <b>N</b> -&gt; <span class="id" type="var">S</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <b>N</b>, <span class="id" type="var">m</span> + <span class="id" type="var">q</span> = <span class="id" type="var">n</span> + <span class="id" type="var">p</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#caseZ_diff">caseZ_diff</a></span> (<span class="id" type="var">m</span> - <span class="id" type="var">n</span>) <span class="id" type="var">f</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, we characterize functions defined on the natural numbers also as setoid functions, similarly to what we already did for predicates.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_less_n_fun">nat_less_n_fun</a></span> (<span class="id" type="var">S</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">S</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span> : <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span>) (<span class="id" type="var">H'</span> : <span class="id" type="var">j</span> &lt; <span class="id" type="var">n</span>), <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_less_n_fun'">nat_less_n_fun'</a></span> (<span class="id" type="var">S</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">f</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="var">S</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span> : <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span>) (<span class="id" type="var">H'</span> : <span class="id" type="var">j</span> &lt;= <span class="id" type="var">n</span>), <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> [=] <span class="id" type="var">f</span> <span class="id" type="var">j</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Relation</span> <span class="id" type="var">c</span> : (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_crr">cs_crr</a></span> <span class="id" type="var">c</span>) (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#eq_reflexive">eq_reflexive</a></span> <span class="id" type="var">c</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">symmetry</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#eq_symmetric">eq_symmetric</a></span> <span class="id" type="var">c</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">transitivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoids.html#eq_transitive">eq_transitive</a></span> <span class="id" type="var">c</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">as</span> <span class="id" type="var">CSetoid_eq_Setoid</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span> <span class="id" type="var">c3</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) <span class="id" type="var">f</span>: (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#csbf_fun">csbf_fun</a></span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span> <span class="id" type="var">c3</span> <span class="id" type="var">f</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c1</span>) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c2</span>) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c3</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">csbf_fun_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) <span class="id" type="var">f</span>: (@<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#csf_fun">csf_fun</a></span> <span class="id" type="var">c1</span> <span class="id" type="var">c2</span> <span class="id" type="var">f</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c1</span>) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c2</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">csf_fun_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

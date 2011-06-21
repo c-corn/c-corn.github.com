@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.logic.Classic</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab3"></a><h1 class="section">Classical Logic</h1>
+
+This section introduces the classical logic connectives, "classical or"
+and "classical exists" through their double negation translation.
+Induction principles are given that allow you to destruct these formulas
+as you would their constructive counter parts, so long as the conclusion
+is double negataion stable. 
+
+<br/><br/>
+No classical axioms are assumed.
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab4"></a><h2 class="section">Classical or</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ClassicOr">ClassicOr</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="orC">orC</a></span> (<span class="id" type="var">P</span> <span class="id" type="var">Q</span>:Prop) := ~((~P)/\(~Q)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="orWeaken">orWeaken</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>, ({<span class="id" type="var">P</span>}+{Q}) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="orC_ind">orC_ind</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">G</span>:Prop),<br/>
+&nbsp;(~~G -&gt; <span class="id" type="var">G</span>) -&gt; (<span class="id" type="var">P</span> -&gt; <span class="id" type="var">G</span>) -&gt; (<span class="id" type="var">Q</span> -&gt; <span class="id" type="var">G</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) -&gt; <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="orC_stable">orC_stable</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>, ~~(orC <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#orC">orC</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.Classic.html#ClassicOr">ClassicOr</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab5"></a><h2 class="section">Classical Existential</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ClassicExists">ClassicExists</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ClassicExists.A">A</a></span> : <span class="id" type="keyword">Type</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ClassicExists.P">P</a></span> : <span class="id" type="var">A</span>-&gt;Prop.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="existsC">existsC</a></span> : <span class="id" type="keyword">Prop</span> :=<br/>
+&nbsp;~forall <span class="id" type="var">x</span>:A, ~P <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="existsWeaken">existsWeaken</a></span> : (<span class="id" type="var">exists</span> <span class="id" type="var">x</span>:A, <span class="id" type="var">P</span> <span class="id" type="var">x</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="existsC_ind">existsC_ind</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">Q</span>:Prop),<br/>
+&nbsp;(~~Q -&gt; <span class="id" type="var">Q</span>) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:A, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">Q</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> -&gt; <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="existsC_stable">existsC_stable</a></span> : ~~existsC -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.Classic.html#ClassicExists">ClassicExists</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab6"></a><h2 class="section">Pidgeon Hole Principle</h2>
+
+Here we show the classical result of the pigenon hole principle using the
+classical quantifiers.
+
+<br/><br/>
+Given a finite list of elements and a relation P(n,x) saying when items from
+the list are selected, there classically exists an item that is selected a
+classically infinite number of times.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="infinitePidgeonHolePrinicple">infinitePidgeonHolePrinicple</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span>:Type) (<span class="id" type="var">l</span>:list <span class="id" type="var">X</span>) (<span class="id" type="var">P</span>:nat -&gt; <span class="id" type="var">X</span> -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; ~~In <span class="id" type="var">x</span> <span class="id" type="var">l</span> /\ <span class="id" type="var">P</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> /\ <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <b>N</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">m</span> =&gt; (<span class="id" type="var">n</span> &lt;= <span class="id" type="var">m</span>)%nat /\ (<span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">x</span>))).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This weaker version of the pidgen hole principle uses a function to select
+elements from a list instead of a releation.  It may be more convienent to
+use at times.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="infinitePidgeonHolePrinicpleB">infinitePidgeonHolePrinicpleB</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span>:Type) (<span class="id" type="var">l</span>:list <span class="id" type="var">X</span>) (<span class="id" type="var">f</span>:nat -&gt; <span class="id" type="var">X</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) <span class="id" type="var">l</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <span class="id" type="var">X</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> /\ <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.Classic.html#existsC">existsC</a></span> <b>N</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">m</span> =&gt; (<span class="id" type="var">n</span> &lt;= <span class="id" type="var">m</span>)%nat /\ (<span class="id" type="var">f</span> <span class="id" type="var">m</span>)=x)).<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.ProductMetric</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab623"></a><h2 class="section">Product Metric</h2>
+
+The product of two metric spaces forms a metric space 
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ProductSetoid">ProductSetoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ProductSetoid.X">X</a></span> <span class="id" type="variable"><a name="ProductSetoid.Y">Y</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="prod_st_eq">prod_st_eq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X*Y) :=<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">b</span>) /\ <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prodST">prodST</a></span> : <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Setoids.Setoid.html#Setoid_Theory">Setoid_Theory</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_st_eq">prod_st_eq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="prodS">prodS</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.RSetoid.html#Build_Setoid">Build_Setoid</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.ProductMetric.html#prodST">prodST</a></span>.<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductSetoid">ProductSetoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ProductMetric">ProductMetric</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ProductMetric.X">X</a></span> <span class="id" type="variable"><a name="ProductMetric.Y">Y</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:X*Y) :=<br/>
+<span class="id" type="var">ball</span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">b</span>) /\ <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_ball_refl">prod_ball_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_ball_sym">prod_ball_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">b</span> <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_ball_triangle">prod_ball_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> (<span class="id" type="var">e1</span> + <span class="id" type="var">e2</span>) <span class="id" type="var">a</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_ball_closed">prod_ball_closed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> (<span class="id" type="var">e</span> + <span class="id" type="var">d</span>) <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_ball_eq">prod_ball_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_st_eq">prod_st_eq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="prod_is_MetricSpace">prod_is_MetricSpace</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#is_MetricSpace">is_MetricSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prodS">prodS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#prod_ball">prod_ball</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ProductMS">ProductMS</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Product metrics preserve properties of metric spaces such as
+being a prelenght space, being stable, being located, and being deciable
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_prelength">ProductMS_prelength</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">Y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_stable">ProductMS_stable</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">Y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Furthermore, if a product space is stable, then the components are
+stable (assuming the components are non-zero). 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_stableX">ProductMS_stableX</a></span> : <span class="id" type="var">Y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_stableY">ProductMS_stableY</a></span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_located">ProductMS_located</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="var">Y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ProductMS_decidable">ProductMS_decidable</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#decidableMetric">decidableMetric</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#decidableMetric">decidableMetric</a></span> <span class="id" type="var">Y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#decidableMetric">decidableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This defines a pairing function with types of a metric space 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="PairMS">PairMS</a></span> (<span class="id" type="var">x</span>:X) (<span class="id" type="var">y</span>:Y) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> := (<span class="id" type="var">x</span>,y).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMetric">ProductMetric</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">together</span></span> forms the tensor of two functions operating between
+metric spaces 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="together_uc">together_uc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> <span class="id" type="var">D</span> (<span class="id" type="var">f</span>:A --&gt; <span class="id" type="var">C</span>) (<span class="id" type="var">g</span>:B --&gt; <span class="id" type="var">D</span>), <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">p</span>:ProductMS <span class="id" type="var">A</span> <span class="id" type="var">B</span>) =&gt; (<span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">p</span>), <span class="id" type="var">g</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">p</span>)):ProductMS <span class="id" type="var">C</span> <span class="id" type="var">D</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.QposInf.html#QposInf_min">QposInf_min</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#mu">mu</a></span> <span class="id" type="var">g</span> <span class="id" type="var">x</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="together">together</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> <span class="id" type="var">D</span> (<span class="id" type="var">f</span>:A --&gt; <span class="id" type="var">C</span>) (<span class="id" type="var">g</span>:B --&gt; <span class="id" type="var">D</span>) : (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">C</span> <span class="id" type="var">D</span>) :=<br/>
+&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.UniformContinuity.html#Build_UniformlyContinuousFunction">Build_UniformlyContinuousFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.ProductMetric.html#together_uc">together_uc</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

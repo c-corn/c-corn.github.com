@@ -1,0 +1,744 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.MoreFunSeries</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Definitions">Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab503"></a><h1 class="section">More on Sequences and Series</h1>
+
+
+<br/><br/>
+We will now extend our convergence definitions and results for
+sequences and series of functions defined in compact intervals to
+arbitrary intervals.
+
+<br/><br/>
+ Throughout this file, <span class="inlinecode"><span class="id" type="var">J</span></span> will be an interval,
+<span class="inlinecode"><span class="id" type="var">f</span>, <span class="id" type="var">g</span></span> will be sequences of continuous (in <span class="inlinecode"><span class="id" type="var">J</span></span>) functions and <span class="inlinecode"><span class="id" type="var">F</span>,G</span>
+will be continuous (in <span class="inlinecode"><span class="id" type="var">J</span></span>) functions.
+
+
+<br/><br/>
+<a name="lab504"></a><h2 class="section">Sequences</h2>
+
+
+<br/><br/>
+First we will consider the case of sequences.
+
+<br/><br/>
+<a name="lab505"></a><h3 class="section">Definitions</h3>
+
+
+<br/><br/>
+Some of the definitions do not make sense in this more general setting
+(for instance, because the norm of a function is no longer defined),
+but the ones which do we simply adapt in the usual way.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Definitions.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Definitions.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Definitions.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Definitions.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Definitions.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> :=  <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#Cauchy_fun_seq">Cauchy_fun_seq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#included_imp_Continuous">included_imp_Continuous</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">contf</span> <span class="id" type="var">n</span>) <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hinc</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="conv_fun_seq_IR">conv_fun_seq_IR</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq">conv_fun_seq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">f</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#included_imp_Continuous">included_imp_Continuous</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">contf</span> <span class="id" type="var">n</span>) <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hinc</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#conv_fun_seq'">conv_fun_seq'</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">f</span> <span class="id" type="var">F</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#included_imp_Continuous">included_imp_Continuous</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">contf</span> <span class="id" type="var">n</span>) <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hinc</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#included_imp_Continuous">included_imp_Continuous</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contF</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hinc</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cauchy_fun_seq2_IR">Cauchy_fun_seq2_IR</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#Cauchy_fun_seq2">Cauchy_fun_seq2</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#included_imp_Continuous">included_imp_Continuous</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">contf</span> <span class="id" type="var">n</span>) <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hinc</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The equivalences between these definitions still hold.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_Cauchy_fun_seq'_IR">conv_Cauchy_fun_seq'_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_seq_seq2_IR">Cauchy_fun_seq_seq2_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq2_IR">Cauchy_fun_seq2_IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_seq2_seq_IR">Cauchy_fun_seq2_seq_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq2_IR">Cauchy_fun_seq2_IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_real_IR">Cauchy_fun_real_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Part">Part</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#Continuous_imp_inc">Continuous_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">contf</span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Definitions">Definitions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Definitions">More_Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Limit is defined and works in the same way as before.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Definitions.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Definitions.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Definitions.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Definitions.conv">conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> <span class="id" type="var">contf</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_seq_Lim_char">Cauchy_fun_seq_Lim_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&asymp; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span><br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSequence.html#Cauchy_fun_seq_Lim">Cauchy_fun_seq_Lim</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">conv</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">Hinc</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#More_Definitions">More_Definitions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Irrelevance_of_Proofs">Irrelevance_of_Proofs</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab506"></a><h3 class="section">Basic Properties</h3>
+
+
+<br/><br/>
+Proofs are irrelevant as before---they just have to be present.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.contf">contf</a></span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.contf0">contf0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.contF">contF</a></span> <span class="id" type="variable"><a name="Irrelevance_of_Proofs.contF0">contF0</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq'_wd_IR">conv_fun_seq'_wd_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf0</span> <span class="id" type="var">contF0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_seq2_wd_IR">Cauchy_fun_seq2_wd_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq2_IR">Cauchy_fun_seq2_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq2_IR">Cauchy_fun_seq2_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq_wd_IR">conv_fun_seq_wd_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq_IR">conv_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq_IR">conv_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Irrelevance_of_Proofs">Irrelevance_of_Proofs</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Properties">More_Properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Properties.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_Properties.f">f</a></span> <span class="id" type="variable"><a name="More_Properties.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="More_Properties.contf">contf</a></span> <span class="id" type="variable"><a name="More_Properties.contf0">contf0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="More_Properties.contg">contg</a></span> <span class="id" type="variable"><a name="More_Properties.contg0">contg0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_conv_fun_seq'_IR">Cauchy_conv_fun_seq'_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">contf'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">H</span>) <span class="id" type="var">contf</span> <span class="id" type="var">contf'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_Properties.F">F</a></span> <span class="id" type="variable"><a name="More_Properties.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="More_Properties.contF">contF</a></span> <span class="id" type="variable"><a name="More_Properties.contF0">contF0</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypotheses</span> <span class="id" type="variable"><a name="More_Properties.contG">contG</a></span> <span class="id" type="variable"><a name="More_Properties.contG0">contG0</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq'_wdl_IR">conv_fun_seq'_wdl_IR</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">g</span> <span class="id" type="var">n</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span> <span class="id" type="var">contF0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq'_wdr_IR">conv_fun_seq'_wdr_IR</a></span> : &asymp; <span class="id" type="var">J</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf0</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq'_wdl'_IR">conv_fun_seq'_wdl'_IR</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">g</span> <span class="id" type="var">n</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span> <span class="id" type="var">contF</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_seq'_wdr'_IR">conv_fun_seq'_wdr'_IR</a></span> : &asymp; <span class="id" type="var">J</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_cont_Lim_IR">Cauchy_cont_Lim_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_conv_fun_seq_IR">Cauchy_conv_fun_seq_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq_IR">conv_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_Cauchy_fun_seq_IR">conv_Cauchy_fun_seq_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq_IR">conv_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#More_Properties">More_Properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Algebraic_Properties">Algebraic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab507"></a><h3 class="section">Algebraic Properties</h3>
+
+
+<br/><br/>
+Algebraic operations still work well.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Algebraic_Properties.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Algebraic_Properties.f">f</a></span> <span class="id" type="variable"><a name="Algebraic_Properties.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.contg">contg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FLim_unique_IR">FLim_unique_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> <span class="id" type="var">HF</span> <span class="id" type="var">HG</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> <span class="id" type="var">F</span> <span class="id" type="var">contf</span> <span class="id" type="var">HF</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> <span class="id" type="var">G</span> <span class="id" type="var">contf</span> <span class="id" type="var">HG</span> -&gt; &asymp; <span class="id" type="var">J</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_fun_seq_wd_IR">Cauchy_fun_seq_wd_IR</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">g</span> <span class="id" type="var">n</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_const_IR">fun_Lim_seq_const_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">contH</span> <span class="id" type="var">contH'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">H</span>) <span class="id" type="var">H</span> <span class="id" type="var">contH</span> <span class="id" type="var">contH'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Cauchy_prop_const_IR">fun_Cauchy_prop_const_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> (<span class="id" type="var">contH</span>:Continuous <span class="id" type="var">J</span> <span class="id" type="var">H</span>), <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">H</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">contH</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Algebraic_Properties.F">F</a></span> <span class="id" type="variable"><a name="Algebraic_Properties.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.convF">convF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Algebraic_Properties.convG">convG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_plus'_IR">fun_Lim_seq_plus'_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{+}g <span class="id" type="var">n</span>) (<span class="id" type="var">F</span>{+}G) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_minus'_IR">fun_Lim_seq_minus'_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{-}g <span class="id" type="var">n</span>) (<span class="id" type="var">F</span>{-}G) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_mult'_IR">fun_Lim_seq_mult'_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{*}g <span class="id" type="var">n</span>) (<span class="id" type="var">F</span>{*}G) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Algebraic_Properties">Algebraic_Properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Algebraic_Properties">More_Algebraic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If we work with the limit function things fit in just as well.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.f">f</a></span> <span class="id" type="variable"><a name="More_Algebraic_Properties.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.contf">contf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.contg">contg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">g</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contf</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Algebraic_Properties.Hg">Hg</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">contg</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_plus_IR">fun_Lim_seq_plus_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{+}g <span class="id" type="var">n</span>)<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>{+}Cauchy_fun_seq_Lim_IR <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hg</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Cauchy_prop_plus">fun_Cauchy_prop_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{+}g <span class="id" type="var">n</span>) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_inv_IR">fun_Lim_seq_inv_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; {--} (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)) {--} (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Cauchy_prop_inv">fun_Cauchy_prop_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; {--} (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_minus_IR">fun_Lim_seq_minus_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{-}g <span class="id" type="var">n</span>)<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>{-}Cauchy_fun_seq_Lim_IR <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hg</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Cauchy_prop_minus">fun_Cauchy_prop_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{-}g <span class="id" type="var">n</span>) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Lim_seq_mult_IR">fun_Lim_seq_mult_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> <span class="id" type="var">H'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{*}g <span class="id" type="var">n</span>)<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_Lim_IR">Cauchy_fun_seq_Lim_IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span>{*}Cauchy_fun_seq_Lim_IR <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hg</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_Cauchy_prop_mult">fun_Cauchy_prop_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Cauchy_fun_seq_IR">Cauchy_fun_seq_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{*}g <span class="id" type="var">n</span>) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#More_Algebraic_Properties">More_Algebraic_Properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Other">Other</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab508"></a><h3 class="section">Miscellaneous</h3>
+
+
+<br/><br/>
+Finally, we define a mapping between sequences of real numbers and sequences of (constant) functions and prove that convergence is preserved.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="seq_to_funseq">seq_to_funseq</a></span> (<span class="id" type="var">x</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) <span class="id" type="var">n</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span> := [-C-] (<span class="id" type="var">x</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="funseq_conv">funseq_conv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">J</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#nonvoid">nonvoid</a></span> <span class="id" type="var">J</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span><br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#seq_to_funseq">seq_to_funseq</a></span> <span class="id" type="var">x</span>) [-C-]<span class="id" type="var">y</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#Continuous_const">Continuous_const</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#Continuous_const">Continuous_const</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.CauchySeq.html#Cauchy_Lim_prop2">Cauchy_Lim_prop2</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Another interesting fact: if a sequence of constant functions converges then it must converge to a constant function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_const_Lim">fun_const_Lim</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> <span class="id" type="var">F</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">J</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> <span class="id" type="var">F</span> <span class="id" type="var">contf</span> <span class="id" type="var">contF</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) [-C-]<span class="id" type="var">c</span>}) -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | &asymp; <span class="id" type="var">J</span> <span class="id" type="var">F</span> [-C-]<span class="id" type="var">c</span>}.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Other">Other</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Series_Definitions">Series_Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab509"></a><h2 class="section">Series</h2>
+
+
+<br/><br/>
+We now consider series of functions defined in arbitrary intervals.
+
+<br/><br/>
+Convergence is defined as expected---through convergence in every compact interval.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Series_Definitions.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Series_Definitions.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fun_series_convergent_IR">fun_series_convergent_IR</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSeries.html#fun_series_convergent">fun_series_convergent</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_series_conv_imp_conv_IR">fun_series_conv_imp_conv_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">J</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#convergent">convergent</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> : <b>N</b> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> (<span class="id" type="var">Hx</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Series_Definitions.H">H</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_series_inc_IR">fun_series_inc_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">J</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Assume <span class="inlinecode"><span class="id" type="var">h</span>(<span class="id" type="var">x</span>)</span> is the pointwise series of <span class="inlinecode"><span class="id" type="var">f</span>(<span class="id" type="var">x</span>)</span> 
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_strext_IR">FSeries_Sum_strext_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">h</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] <span class="id" type="var">h</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> &sum;'<sub>&infin;</sub> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_char">FSeries_Sum_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">Hinc</span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">J</span>),<br/>
+&nbsp;&asymp; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) &sum;'<sub>&infin;</sub> (&sum;<sub>0</sub><sup>&infin;</sup> (<span class="id" type="var">H</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">Hinc</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Series_Definitions">Series_Definitions</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Series_Definitions">More_Series_Definitions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Series_Definitions.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Series_Definitions.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Absolute convergence still exists.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#More_Series_Definitions">More_Series_Definitions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Convergence_Results">Convergence_Results</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As before, any series converges to its sum.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Convergence_Results.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Convergence_Results.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_conv">FSeries_conv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">convF</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#conv_fun_seq'_IR">conv_fun_seq'_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; &sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">f</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>) <span class="id" type="var">H</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="convergent_imp_inc">convergent_imp_inc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &sube; <span class="id" type="var">J</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="convergent_imp_Continuous">convergent_imp_Continuous</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_FSeries_Sum">Continuous_FSeries_Sum</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> (<span class="id" type="var">J</span>:=J) (<span class="id" type="var">f</span>:=f) <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Convergence_Results">Convergence_Results</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Operations">Operations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab510"></a><h2 class="section">Algebraic Operations</h2>
+
+
+<br/><br/>
+Convergence is well defined and preserved by operations.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Operations.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_fun_const_series_IR">conv_fun_const_series_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#convergent">convergent</a></span> <span class="id" type="var">x</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; [-C-] (<span class="id" type="var">x</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_const_series_Sum_IR">fun_const_series_Sum_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> <span class="id" type="var">H</span><br/>
+&nbsp;(<span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; [-C-] (<span class="id" type="var">y</span> <span class="id" type="var">n</span>))) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, &sum;'<sub>&infin;</sub> <span class="id" type="var">H'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum;<sub>0</sub><sup>&infin;</sup> <span class="id" type="var">y</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="conv_zero_fun_series_IR">conv_zero_fun_series_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; [-C-]0).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_zero_IR">FSeries_Sum_zero_IR</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; [-C-]0)) <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, &sum;'<sub>&infin;</sub> <span class="id" type="var">H</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Operations.f">f</a></span> <span class="id" type="variable"><a name="Operations.g">g</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_series_convergent_wd_IR">fun_series_convergent_wd_IR</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">g</span> <span class="id" type="var">n</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Operations.convF">convF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Operations.convG">convG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">g</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_wd'">FSeries_Sum_wd'</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>) (<span class="id" type="var">g</span> <span class="id" type="var">n</span>)) -&gt; &asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">convG</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_plus_conv">FSeries_Sum_plus_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{+}g <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_plus">FSeries_Sum_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{+}g <span class="id" type="var">n</span>),<br/>
+&nbsp;&asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">H</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>{+}FSeries_Sum <span class="id" type="var">convG</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_inv_conv">FSeries_Sum_inv_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; {--} (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_inv">FSeries_Sum_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; {--} (<span class="id" type="var">f</span> <span class="id" type="var">n</span>)),<br/>
+&nbsp;&asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">H</span>) {--} (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_minus_conv">FSeries_Sum_minus_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{-}g <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_minus">FSeries_Sum_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">n</span>{-}g <span class="id" type="var">n</span>),<br/>
+&nbsp;&asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">H</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>{-}FSeries_Sum <span class="id" type="var">convG</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">c</span>:IR</span> and <span class="inlinecode"><span class="id" type="var">H</span>:PartIR</span> be continuous in <span class="inlinecode"><span class="id" type="var">J</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Operations.c">c</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Operations.H">H</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Operations.contH">contH</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_scal_conv">FSeries_Sum_scal_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">H</span>{*}f <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FSeries_Sum_scal">FSeries_Sum_scal</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H'</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="var">H</span>{*}f <span class="id" type="var">n</span>),<br/>
+&nbsp;&asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">H'</span>) (<span class="id" type="var">H</span>{*}FSeries_Sum <span class="id" type="var">convF</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Operations">Operations</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Convergence_Criteria">Convergence_Criteria</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab511"></a><h3 class="section">Convergence Criteria</h3>
+
+
+<br/><br/>
+The most important tests for convergence of series still apply: the
+comparison test (in both versions) and the ratio test.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Convergence_Criteria.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Convergence_Criteria.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Convergence_Criteria.contF">contF</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_str_comparison_IR">fun_str_comparison_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">g</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">k</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">k</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">J</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">g</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>} -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_comparison_IR">fun_comparison_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">g</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>, <span class="id" type="var">J</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">g</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="abs_imp_conv_IR">abs_imp_conv_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_abs_convergent_IR">fun_series_abs_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_ratio_test_conv_IR">fun_ratio_test_conv_IR</a></span> : {<span class="id" type="var">N</span> : <b>N</b> | {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">c</span> [&lt;] 1 | 0 [&lt;=] <span class="id" type="var">c</span> /\ (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">J</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>) [&lt;=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>))}} -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Convergence_Criteria">Convergence_Criteria</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Power_Series">Power_Series</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+***Power Series
+
+<br/><br/>
+The geometric series converges on the open interval (-1, 1)
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_power_series_conv_IR">fun_power_series_conv_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> ((&sdot;,&sdot;) ([--]1) 1) (<span class="id" type="keyword">fun</span> (<span class="id" type="var">i</span>:nat) =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Fid">Fid</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>{^}i).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Power_Series">Power_Series</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Insert_Series">Insert_Series</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab512"></a><h3 class="section">Translation</h3>
+
+
+<br/><br/>
+When working in particular with power series and Taylor series, it is 
+sometimes useful to ``shift'' all the terms in the series one position 
+forward, that is, replacing each f<sub>i+1</sub> with
+f<sub>i</sub> and inserting the null function in the first 
+position.  This does not affect convergence or the sum of the series.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Insert_Series.J">J</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Insert_Series.f">f</a></span> : <b>N</b> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Insert_Series.convF">convF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="insert_series">insert_series</a></span> <span class="id" type="var">n</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; [-C-]0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">p</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="insert_series_cont">insert_series_cont</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">J</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#insert_series">insert_series</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="insert_series_sum_char">insert_series_sum_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>,<br/>
+&nbsp;&sum;<sup>n</sup> <span class="id" type="var">f</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] &sum;<sup>n</sup> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#insert_series">insert_series</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="insert_series_conv">insert_series_conv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="var">J</span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#insert_series">insert_series</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="insert_series_sum">insert_series_sum</a></span> : &asymp; <span class="id" type="var">J</span> (&sum;'<sub>&infin;</sub> <span class="id" type="var">convF</span>) (&sum;'<sub>&infin;</sub> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#insert_series_conv">insert_series_conv</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#Insert_Series">Insert_Series</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

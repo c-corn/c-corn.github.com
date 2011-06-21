@@ -1,0 +1,613 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.Max_AbsIR</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Maximum">Maximum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Maximum.Max_function">Max_function</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab383"></a><h2 class="section">Maximum, Minimum and Absolute Value</h2>
+
+
+<br/><br/>
+
+Let <span class="inlinecode"><span class="id" type="var">x</span></span> and <span class="inlinecode"><span class="id" type="var">y</span></span> be reals
+(we will define the maximum of <span class="inlinecode"><span class="id" type="var">x</span></span> and <span class="inlinecode"><span class="id" type="var">y</span></span>).
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Maximum.Max_function.x">x</a></span> <span class="id" type="variable"><a name="Maximum.Max_function.y">y</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Max_seq">Max_seq</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_seq_char">Max_seq_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">x</span>[-]<span class="id" type="var">y</span> <span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max_seq">Max_seq</a></span> <span class="id" type="var">n</span> [=] <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span>[-]<span class="id" type="var">y</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span> <span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max_seq">Max_seq</a></span> <span class="id" type="var">n</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_Max_seq">Cauchy_Max_seq</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max_seq">Max_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Max_CauchySeq">Max_CauchySeq</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.CauchySeq.html#CauchySeqR">CauchySeqR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MAX">MAX</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Constructively, the elementary properties of the maximum function are:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">x</span> &le; <span class="id" type="var">Max</span> (<span class="id" type="var">x</span>,y)</span>,
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">x</span> &le; <span class="id" type="var">Max</span> (<span class="id" type="var">y</span>,x)</span>,
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">z</span> &lt; <span class="id" type="var">Max</span>(<span class="id" type="var">x</span>,y) -&gt; <span class="id" type="var">z</span> &lt; <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span> &lt; <span class="id" type="var">y</span></span>.
+
+</li>
+</ul>
+
+<br/><br/>
+(This can be more concisely expressed as
+<span class="inlinecode"><span class="id" type="var">z</span> &lt; <span class="id" type="var">Max</span>(<span class="id" type="var">x</span>,y) &hArr; <span class="id" type="var">z</span> &lt; <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span> &lt; <span class="id" type="var">y</span></span>).
+From these elementary properties we can prove all other properties, including
+strong extensionality.
+With strong extensionality, we can make the binary operation <span class="inlinecode"><span class="id" type="var">Max</span></span>.
+(So <span class="inlinecode"><span class="id" type="var">Max</span></span> is <span class="inlinecode"><span class="id" type="var">MAX</span></span> coupled with some proofs.)
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lft_leEq_MAX">lft_leEq_MAX</a></span> : <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rht_leEq_MAX">rht_leEq_MAX</a></span> : <span class="id" type="var">y</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="less_MAX_imp">less_MAX_imp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">z</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span> -&gt; <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Maximum.Max_function">Max_function</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MAX_strext">MAX_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_strext">bin_op_strext</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MAX_wd">MAX_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_wd">bin_op_wd</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Maximum.properties_of_Max">properties_of_Max</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab384"></a><h3 class="section">Maximum</h3>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Max">Max</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX">MAX</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MAX_strext">MAX_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_wd_unfolded">Max_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">x'</span> <span class="id" type="var">y'</span>,<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">y'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x'</span> <span class="id" type="var">y'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lft_leEq_Max">lft_leEq_Max</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rht_leEq_Max">rht_leEq_Max</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">y</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="less_Max_imp">less_Max_imp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">z</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_leEq">Max_leEq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_less">Max_less</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">z</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="equiv_imp_eq_max">equiv_imp_eq_max</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> <span class="id" type="var">m</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x'</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">m</span> [&lt;=] <span class="id" type="var">y</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">m</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">m</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x'</span> [&lt;=] <span class="id" type="var">y</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> [=] <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_id">Max_id</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_comm">Max_comm</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_imp_Max_is_rht">leEq_imp_Max_is_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_is_rht_imp_leEq">Max_is_rht_imp_leEq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_minus_eps_leEq">Max_minus_eps_leEq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[-]<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">x</span>} + {<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[-]<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">y</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="max_one_ap_zero">max_one_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> 1 [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="pos_max_one">pos_max_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="x_div_Max_leEq_x">x_div_Max_leEq_x</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="var">x</span> -&gt; (<span class="id" type="var">x</span>[/] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">y</span> 1[//]<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#max_one_ap_zero">max_one_ap_zero</a></span> <span class="id" type="var">_</span>) [&lt;=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="max_plus">max_plus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>),<br/>
+<span class="id" type="var">Max</span> (<span class="id" type="var">a</span>[+]<span class="id" type="var">c</span>) (<span class="id" type="var">b</span>[+]<span class="id" type="var">c</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> [+] <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="max_mult">max_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>), 0 [&lt;=] <span class="id" type="var">c</span> -&gt; <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="var">c</span>[*]<span class="id" type="var">a</span>) (<span class="id" type="var">c</span>[*]<span class="id" type="var">b</span>)) [=] <span class="id" type="var">c</span>[*](<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Maximum.properties_of_Max">properties_of_Max</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Maximum">Maximum</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Minimum">Minimum</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab385"></a><h3 class="section">Mininum</h3>
+
+
+<br/><br/>
+The minimum is defined by the formula 
+<span class="inlinecode"><span class="id" type="var">Min</span>(<span class="id" type="var">x</span>,y) = &minus;<span class="id" type="var">Max</span>( &minus;<span class="id" type="var">x</span>,[--]<span class="id" type="var">y</span>)</span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MIN">MIN</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := [--] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> [--]<span class="id" type="var">x</span> [--]<span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MIN_wd">MIN_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_wd">bin_op_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MIN">MIN</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MIN_strext">MIN_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_strext">bin_op_strext</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MIN">MIN</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Min">Min</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MIN">MIN</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#MIN_strext">MIN_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_wd_unfolded">Min_wd_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>,<br/>
+&nbsp;<span class="id" type="var">x</span> [=] <span class="id" type="var">a</span> /\ <span class="id" type="var">y</span> [=] <span class="id" type="var">b</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) [=] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_strext_unfolded">Min_strext_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) [#] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">a</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> [#] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_leEq_lft">Min_leEq_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_leEq_rht">Min_leEq_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_less_imp">Min_less_imp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">z</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_Min">leEq_Min</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">z</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">z</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="less_Min">less_Min</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">z</span> [&lt;] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">z</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="equiv_imp_eq_min">equiv_imp_eq_min</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> <span class="id" type="var">m</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">m</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">m</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">x</span>) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">m</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">x'</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> [=] <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_id">Min_id</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_comm">Min_comm</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_imp_Min_is_lft">leEq_imp_Min_is_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_is_lft_imp_leEq">Min_is_lft_imp_leEq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> [=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_Min_plus_eps">leEq_Min_plus_eps</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[+]<span class="id" type="var">e</span>} + {<span class="id" type="var">y</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[+]<span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Minimum.a">a</a></span> <span class="id" type="variable"><a name="Minimum.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_leEq_Max">Min_leEq_Max</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_leEq_Max'">Min_leEq_Max'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">z</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">b</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min3_leEq_Max3">Min3_leEq_Max3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">c</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_less_Max">Min_less_Max</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">c</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">b</span> <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_imp_Min_less_Max">ap_imp_Min_less_Max</a></span> : <span class="id" type="var">a</span> [#] <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_less_Max_imp_ap">Min_less_Max_imp_ap</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="var">a</span> [#] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Max_monotone">Max_monotone</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>), <br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:IR) <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)[&lt;=]<span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[&lt;=]<span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span>[&lt;=](<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)[&lt;=](<span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>)) -&gt;<br/>
+<span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span> <span class="id" type="var">Hc</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>) (<span class="id" type="var">f</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>)) [=] <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">Hc</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Min_monotone">Min_monotone</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>), <br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:IR) <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)[&lt;=]<span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[&lt;=]<span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span>[&lt;=](<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)[&lt;=](<span class="id" type="var">f</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>)) -&gt;<br/>
+<span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span> <span class="id" type="var">Hc</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>) (<span class="id" type="var">f</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>)) [=] <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">Hc</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Minimum">Minimum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Absolute">Absolute</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab386"></a><h3 class="section">Absolute value</h3>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ABSIR">ABSIR</a></span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">x</span> [--]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ABSIR_strext">ABSIR_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#ABSIR">ABSIR</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ABSIR_wd">ABSIR_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_wd">un_op_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#ABSIR">ABSIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="AbsIR">AbsIR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#ABSIR">ABSIR</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#ABSIR_strext">ABSIR_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_wd">AbsIR_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_wdl">AbsIR_wdl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span> [&lt;] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_wdr">AbsIR_wdr</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">e</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">e</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIRz_isz">AbsIRz_isz</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> 0 [=] 0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_nonneg">AbsIR_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_pos">AbsIR_pos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [#] 0 -&gt; 0 [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_cancel_ap_zero">AbsIR_cancel_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [#] 0 -&gt; <span class="id" type="var">x</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_resp_ap_zero">AbsIR_resp_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [#] 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_AbsIR">leEq_AbsIR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_leEq_AbsIR">inv_leEq_AbsIR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, [--]<span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_e">AbsSmall_e</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> -&gt; 0 [&lt;=] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_imp_AbsIR">AbsSmall_imp_AbsIR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_eq_AbsSmall">AbsIR_eq_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, [--]<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_imp_AbsSmall">AbsIR_imp_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_transitive">AbsSmall_transitive</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_less_AbsIR_plus_one">zero_less_AbsIR_plus_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">q</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">q</span>[+]1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_inv">AbsIR_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> [--]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_minus">AbsIR_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">y</span>[-]<span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_mult">AbsIR_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">c</span>: <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">H</span> : 0 [&lt;=]<span class="id" type="var">c</span>),<br/>
+<span class="id" type="var">c</span>[*] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">c</span>[*]<span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_eq_x">AbsIR_eq_x</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_eq_inv_x">AbsIR_eq_inv_x</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [&lt;=] 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [=] [--]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="less_AbsIR">less_AbsIR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, 0 [&lt;] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [&lt;] <span class="id" type="var">y</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> [&lt;] [--]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_distr_AbsIR">leEq_distr_AbsIR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">y</span> -&gt; {<span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span>} + {<span class="id" type="var">y</span> [&lt;=] [--]<span class="id" type="var">x</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_approach_zero">AbsIR_approach_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">e</span>) -&gt; <span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_approach">AbsSmall_approach</a></span> :<br/>
+<span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>),<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>), 0[&lt;]<span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">a</span>[+]<span class="id" type="var">e</span>) <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_eq_zero">AbsIR_eq_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">x</span> [=] 0 -&gt; <span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Abs_Max">Abs_Max</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span>[-]<span class="id" type="var">b</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_str_bnd">AbsIR_str_bnd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span>[-]<span class="id" type="var">b</span>) [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="var">b</span> [&lt;] <span class="id" type="var">a</span>[+]<span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_bnd">AbsIR_bnd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">a</span>[-]<span class="id" type="var">b</span>) [&lt;=] <span class="id" type="var">e</span> -&gt; <span class="id" type="var">b</span> [&lt;=] <span class="id" type="var">a</span>[+]<span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_less">AbsIR_less</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span> -&gt; [--]<span class="id" type="var">b</span>[&lt;]<span class="id" type="var">a</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_Qabs">AbsIR_Qabs</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q), <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)[=]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qabs.html#Qabs">Qabs</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Absolute">Absolute</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SeqMax">SeqMax</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab387"></a><h3 class="section">Bound of sequence</h3>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SeqMax.seq">seq</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="SeqBound0">SeqBound0</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; 0<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">seq</span> <span class="id" type="var">m</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#SeqBound0">SeqBound0</a></span> <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SeqBound0_greater">SeqBound0_greater</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>), <br/>
+<span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">seq</span> <span class="id" type="var">m</span>) [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#SeqBound0">SeqBound0</a></span> <span class="id" type="var">n</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#SeqMax">SeqMax</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Part_Function_Max">Part_Function_Max</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab388"></a><h3 class="section">Functional Operators</h3>
+
+
+<br/><br/>
+The existence of these operators allows us to lift them to functions.  We will define the maximum, minimum and absolute value of two partial functions.
+
+<br/><br/>
+
+Let <span class="inlinecode"><span class="id" type="var">F</span>,G:PartIR</span> and denote by <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">Q</span></span> their respective domains.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Part_Function_Max.F">F</a></span> <span class="id" type="variable"><a name="Part_Function_Max.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_function_Max_strext">part_function_Max_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Conj">Conj</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">x</span>) (<span class="id" type="var">Hy</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Conj">Conj</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">y</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hx</span>)) (<span class="id" type="var">G</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hx</span>)) [#] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">y</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hy</span>)) (<span class="id" type="var">G</span> <span class="id" type="var">y</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hy</span>)) -&gt; <br/>
+&nbsp;<span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FMax">FMax</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Build_PartFunct">Build_PartFunct</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoidFun.html#conj_wd">conj_wd</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoidFun.html#dom_wd">dom_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoidFun.html#dom_wd">dom_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>))<br/>
+&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hx</span>)) (<span class="id" type="var">G</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hx</span>))) <span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#part_function_Max_strext">part_function_Max_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Part_Function_Max">Part_Function_Max</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Part_Function_Abs">Part_Function_Abs</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Part_Function_Abs.F">F</a></span> <span class="id" type="variable"><a name="Part_Function_Abs.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FMin">FMin</a></span> := {--} (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMax">FMax</a></span> {--}F {--}G).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="FAbs">FAbs</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMax">FMax</a></span> <span class="id" type="var">F</span> {--}F.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FMin_char">FMin_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span> <span class="id" type="var">Hx''</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMin">FMin</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min">Min</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>) (<span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx''</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FAbs_char">FAbs_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Part_Function_Abs">Part_Function_Abs</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FAbs_char'">FAbs_char'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#ProjIR1">ProjIR1</a></span> <span class="id" type="var">Hx</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FAbs_nonneg">FAbs_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, 0 [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Inclusion">Inclusion</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Inclusion.F">F</a></span> <span class="id" type="variable"><a name="Inclusion.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">R</span>:IR-&gt;CProp</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Inclusion.R">R</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMax">included_FMax</a></span> : &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span> -&gt; &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMax">FMax</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMax'">included_FMax'</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMax">FMax</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMax''">included_FMax''</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMax">FMax</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMin">included_FMin</a></span> : &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span> -&gt; &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMin">FMin</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMin'">included_FMin'</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMin">FMin</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMin''">included_FMin''</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FMin">FMin</a></span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>)) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FAbs">included_FAbs</a></span> : &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> <span class="id" type="var">F</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FAbs'">included_FAbs'</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#FAbs">FAbs</a></span> <span class="id" type="var">F</span>)) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Inclusion">Inclusion</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

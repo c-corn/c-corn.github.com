@@ -1,0 +1,452 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.Integral</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> &int;<sub>I</sub>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab535"></a><h1 class="section">Integral</h1>
+
+
+<br/><br/>
+Having proved the main properties of partitions and refinements, we
+will define the integral of a continuous function <span class="inlinecode"><span class="id" type="var">F</span></span> in the interval
+<span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> as the limit of the sequence of Sums of  for even
+partitions of increasing number of points.
+
+<br/><br/>
+ All throughout, <span class="inlinecode"><span class="id" type="var">a</span>,b</span> will be real numbers, the
+interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> will be denoted by <span class="inlinecode"><span class="id" type="var">I</span></span> and <span class="inlinecode"><span class="id" type="var">F</span>,G</span> will be
+continuous functions in <span class="inlinecode"><span class="id" type="var">I</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Integral.a">a</a></span> <span class="id" type="variable"><a name="Integral.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Integral.Darboux_Sum">Darboux_Sum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="integral_seq">integral_seq</a></span> : <b>N</b> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cauchy_Darboux_Seq">Cauchy_Darboux_Seq</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Cauchy_prop">Cauchy_prop</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#integral_seq">integral_seq</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> &int;<sub>I</sub> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.CReals.html#Lim">Lim</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.COrdCauchy.html#Build_CauchySeq">Build_CauchySeq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Integral.html#Cauchy_Darboux_Seq">Cauchy_Darboux_Seq</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Integral.Darboux_Sum">Darboux_Sum</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Integral.Integral_Thm">Integral_Thm</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following shows that in fact the integral of <span class="inlinecode"><span class="id" type="var">F</span></span> is the limit of
+any sequence of partitions of mesh converging to 0.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">e</span></span> be a positive real number and <span class="inlinecode"><span class="id" type="var">P</span></span> be a
+partition of <span class="inlinecode"><span class="id" type="var">I</span></span> with <span class="inlinecode"><span class="id" type="var">n</span></span> points and mesh smaller than the
+modulus of continuity of <span class="inlinecode"><span class="id" type="var">F</span></span> for <span class="inlinecode"><span class="id" type="var">e</span></span>.  Let <span class="inlinecode"><span class="id" type="var">fP</span></span> be a choice of points
+respecting <span class="inlinecode"><span class="id" type="var">P</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.n">n</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.e">e</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.He">He</a></span> : 0 [&lt;] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.HmeshP">HmeshP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span> [&lt;] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Integral.Integral_Thm.incF">incF</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="partition_Sum_conv_integral">partition_Sum_conv_integral</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&sum;<sub>P</sub> <span class="id" type="var">HfP</span> <span class="id" type="var">incF</span>[-]&int;<sub>I</sub>) [&lt;=] <span class="id" type="var">e</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Integral.Integral_Thm">Integral_Thm</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> &int;<sub>I</sub>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties">Basic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The usual extensionality and strong extensionality results hold.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.a">a</a></span> <span class="id" type="variable"><a name="Basic_Properties.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> &int;<sub>I</sub> := (&int;<sub>I</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Well_Definedness">Well_Definedness</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.Well_Definedness.F">F</a></span> <span class="id" type="variable"><a name="Basic_Properties.Well_Definedness.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Well_Definedness.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Well_Definedness.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_strext">integral_strext</a></span> : &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [#] &int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">I</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] <span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>}.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_strext'">integral_strext'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">HF1</span> <span class="id" type="var">HF2</span>,<br/>
+&nbsp;&int;<sub>I</sub> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> <span class="id" type="var">HF1</span> [#] &int;<sub>I</sub> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">Hcd</span> <span class="id" type="var">F</span> <span class="id" type="var">HF2</span> -&gt; <span class="id" type="var">a</span> [#] <span class="id" type="var">c</span> <span class="id" type="var">or</span> <span class="id" type="var">b</span> [#] <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_wd">integral_wd</a></span> : &asymp; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span>) <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [=] &int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_wd'">integral_wd'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">contF'</span>,<br/>
+&nbsp;<span class="id" type="var">a</span> [=] <span class="id" type="var">a'</span> -&gt; <span class="id" type="var">b</span> [=] <span class="id" type="var">b'</span> -&gt; &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [=] &int;<sub>I</sub> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">contF'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Well_Definedness">Well_Definedness</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Linearity_and_Monotonicity">Linearity_and_Monotonicity</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The integral is a linear and monotonous function; in order to prove these facts we also need the important equalities &int;<sub>a</sub><sup>b</sup>dx=b-a and &int;<sub>a</sub><sup>a</sup>=0.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_one">integral_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, &int;<sub>I</sub> ( [-C-] 1) <span class="id" type="var">H</span> [=] <span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity.F">F</a></span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_comm_scal">integral_comm_scal</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) <span class="id" type="var">Hf'</span>, &int;<sub>I</sub> (<span class="id" type="var">c</span>{**}F) <span class="id" type="var">Hf'</span> [=] <span class="id" type="var">c</span>[*]&int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_plus">integral_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">Hfg</span>, &int;<sub>I</sub> (<span class="id" type="var">F</span>{+}G) <span class="id" type="var">Hfg</span> [=] &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>[+]&int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_empty">integral_empty</a></span> : <span class="id" type="var">a</span> [=] <span class="id" type="var">b</span> -&gt; &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Linearity_and_Monotonicity">Linearity_and_Monotonicity</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Linearity_and_Monotonicity'">Linearity_and_Monotonicity'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity'.F">F</a></span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity'.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity'.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity'.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode">&alpha;, &beta; : <span class="id" type="var">IR</span></span> and assume that
+<span class="inlinecode"><span class="id" type="var">h</span> := &alpha;{**}F{+}beta{**}G</span> is continuous.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> &alpha; &beta; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Linearity_and_Monotonicity'.contH">contH</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">h</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="linear_integral">linear_integral</a></span> : &int;<sub>I</sub> <span class="id" type="var">h</span> <span class="id" type="var">contH</span> [=] &alpha;[*]&int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>[+]&beta;[*]&int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="monotonous_integral">monotonous_integral</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;=] <span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>) -&gt;<br/>
+&nbsp;&int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [&lt;=] &int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Linearity_and_Monotonicity'">Linearity_and_Monotonicity'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.Corollaries.F">F</a></span> <span class="id" type="variable"><a name="Basic_Properties.Corollaries.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Corollaries.contF">contF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Corollaries.contG">contG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As corollaries we can calculate integrals of group operations applied to functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_const">integral_const</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">H</span>, &int;<sub>I</sub> ( [-C-]<span class="id" type="var">c</span>)<span class="id" type="var">H</span> [=] <span class="id" type="var">c</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_minus">integral_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, &int;<sub>I</sub> (<span class="id" type="var">F</span>{-}G) <span class="id" type="var">H</span> [=] &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>[-]&int;<sub>I</sub> <span class="id" type="var">G</span> <span class="id" type="var">contG</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_inv">integral_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, &int;<sub>I</sub> ( {--}F) <span class="id" type="var">H</span> [=] [--] (&int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>).<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can also bound integrals by bounding the integrated functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lb_integral">lb_integral</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) -&gt; <span class="id" type="var">c</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>) [&lt;=] &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ub_integral">ub_integral</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [&lt;=] <span class="id" type="var">c</span>) -&gt; &int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span> [&lt;=] <span class="id" type="var">c</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_leEq_norm">integral_leEq_norm</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&int;<sub>I</sub> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>) [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Norm_Funct">Norm_Funct</a></span> <span class="id" type="var">contF</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Integral_Sum">Integral_Sum</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now relate the sum of integrals in adjoining intervals to the
+integral over the union of those intervals.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">c</span></span> be a real number such that
+c&isin;[a,b].
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.c">c</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Hac">Hac</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">c</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Hcb">Hcb</a></span> : <span class="id" type="var">c</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Hab'">Hab'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Hac'">Hac'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hac</span> <span class="id" type="var">F</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Hcb'">Hcb'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Continuous_I">Continuous_I</a></span> <span class="id" type="var">Hcb</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties.Integral_Sum.Partition_Join">Partition_Join</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We first prove that every pair of partitions, one of <span class="inlinecode">[<span class="id" type="var">a</span>,c]</span>
+and another of <span class="inlinecode">[<span class="id" type="var">c</span>,b]</span> defines a partition of <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> the mesh
+of which is less or equal to the maximum of the mesh of the original
+partitions (actually it is equal, but we don't need the other
+inequality).
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">P</span>,Q</span> be partitions respectively of
+<span class="inlinecode">[<span class="id" type="var">a</span>,c]</span> and <span class="inlinecode">[<span class="id" type="var">c</span>,b]</span> with <span class="inlinecode"><span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">m</span></span> points.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.n">n</a></span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.m">m</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.P">P</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hac</span> <span class="id" type="var">n</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.Q">Q</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.ftc.Partitions.html#Partition">Partition</a></span> <span class="id" type="var">Hcb</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="partition_join_fun">partition_join_fun</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="var">n</span> + <span class="id" type="var">m</span>) -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ <span class="inlinecode"><span class="id" type="var">fP</span>, <span class="id" type="var">fQ</span></span> are choices of points respecting <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">Q</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.fP">fP</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.HfP">HfP</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">P</span> <span class="id" type="var">fP</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.HfP'">HfP'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fP</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.fQ">fQ</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.HfQ">HfQ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="var">Q</span> <span class="id" type="var">fQ</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Basic_Properties.Integral_Sum.Partition_Join.HfQ'">HfQ'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#nat_less_n_fun">nat_less_n_fun</a></span> <span class="id" type="var">fQ</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="partition_join_pts">partition_join_pts</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="var">n</span> + <span class="id" type="var">m</span>) -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="partition_join_Pts_in_partition">partition_join_Pts_in_partition</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Points_in_Partition">Points_in_Partition</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#partition_join">partition_join</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#partition_join_pts">partition_join_pts</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="partition_join_Pts_wd">partition_join_Pts_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+&nbsp;<span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hi</span> <span class="id" type="var">Hj</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#partition_join_pts">partition_join_pts</a></span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#partition_join_pts">partition_join_pts</a></span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="partition_join_Sum_lemma">partition_join_Sum_lemma</a></span> :<br/>
+&nbsp;&sum;<sub>P</sub> <span class="id" type="var">HfP</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Continuity.html#contin_imp_inc">contin_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hac'</span>) [+] &sum;<sub>P</sub> <span class="id" type="var">HfQ</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Continuity.html#contin_imp_inc">contin_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcb'</span>) [=] <br/>
+&nbsp;&sum;<sub>P</sub> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Integral.html#partition_join_Pts_in_partition">partition_join_Pts_in_partition</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Continuity.html#contin_imp_inc">contin_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="partition_join_mesh">partition_join_mesh</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Integral.html#partition_join">partition_join</a></span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Max">Max</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">P</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Partitions.html#Mesh">Mesh</a></span> <span class="id" type="var">Q</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Integral_Sum.Partition_Join">Partition_Join</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+With these results in mind, the following is a trivial consequence:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_plus_integral">integral_plus_integral</a></span> : &int;<sub>I</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hac</span> <span class="id" type="var">_</span> <span class="id" type="var">Hac'</span>[+]&int;<sub>I</sub> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcb</span> <span class="id" type="var">_</span> <span class="id" type="var">Hcb'</span> [=] &int;<sub>I</sub> <span class="id" type="var">_</span> <span class="id" type="var">Hab'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties.Integral_Sum">Integral_Sum</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Integral.html#Basic_Properties">Basic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following are simple consequences of this result and of previous ones.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_less_norm">integral_less_norm</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">contF</span>,<br/>
+&nbsp;<span class="id" type="keyword">let</span> <span class="id" type="var">N</span> := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Norm_Funct">Norm_Funct</a></span> <span class="id" type="var">contF</span> <span class="id" type="keyword">in</span> <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;] <span class="id" type="var">N</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (&int;<sub>I</sub> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>) [&lt;] <span class="id" type="var">N</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="integral_gt_zero">integral_gt_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> (<span class="id" type="var">F</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) <span class="id" type="var">contF</span>, <span class="id" type="keyword">let</span> <span class="id" type="var">N</span> := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Continuity.html#Norm_Funct">Norm_Funct</a></span> <span class="id" type="var">contF</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, 0 [&lt;] <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, 0 [&lt;=] <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) -&gt; 0 [&lt;] &int;<sub>I</sub> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> <span class="id" type="var">contF</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

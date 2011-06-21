@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.structures.Qpossec</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab309"></a><h1 class="section"><span class="inlinecode">Q<SUP>+</SUP></span></h1>
+
+We define <span class="inlinecode">Q<SUP>+</SUP></span> as a pair of positives (n,d) which represents the
+fraction n/d.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> Q<SUP>+</SUP> : <span class="id" type="keyword">Set</span> := <span class="id" type="constructor"><a name="QposMake">QposMake</a></span> <br/>
+{<span class="id" type="projection"><a name="QposNumerator">QposNumerator</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span><br/>
+;<span class="id" type="projection"><a name="QposDenominator">QposDenominator</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span><br/>
+}.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "a # b" := (<span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposMake">QposMake</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 55, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">Qpos_scope</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There is an injection from <span class="inlinecode">Q<SUP>+</SUP></span> to <span class="inlinecode"><span class="id" type="var">Q</span></span> that we make into a
+coersion. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QposAsQ">QposAsQ</a></span> (<span class="id" type="var">a</span>:Qpos) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> :=<br/>
+(<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposNumerator">QposNumerator</a></span> <span class="id" type="var">a</span>))#(QposDenominator <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Coercion</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposAsQ">QposAsQ</a></span> : Q<SUP>+</SUP> &gt;-&gt; <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Basic properties about <span class="inlinecode">Q<SUP>+</SUP></span> 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_prf">Qpos_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>:Qpos, 0 &lt; <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_nonzero">Qpos_nonzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:Qpos, (<span class="id" type="var">x</span>:Q)[#]0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_nonneg">Qpos_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>:Qpos, 0 &lt;= <span class="id" type="var">a</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Any positive rational number can be transformed into a <span class="inlinecode">Q<SUP>+</SUP></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="mkQpos">mkQpos</a></span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">p</span>:0 &lt; <span class="id" type="var">a</span>) : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposAsmkQpos">QposAsmkQpos</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">p</span>:0&lt;a), (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposAsQ">QposAsQ</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#mkQpos">mkQpos</a></span> <span class="id" type="var">p</span>))=a.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposAsQposMake">QposAsQposMake</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposAsQ">QposAsQ</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposMake">QposMake</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)) = (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">a</span>)#b.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab310"></a><h3 class="section">Equality</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QposEq">QposEq</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Qpos) := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qeq">Qeq</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Relation</span> Q<SUP>+</SUP> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span><br/>
+&nbsp;<span class="id" type="tactic">reflexivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">x</span>:Qpos) =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.Qsec.html#refl_Qeq">refl_Qeq</a></span> <span class="id" type="var">x</span>)<br/>
+&nbsp;<span class="id" type="tactic">symmetry</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:Qpos) =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.Qsec.html#sym_Qeq">sym_Qeq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>)<br/>
+&nbsp;<span class="id" type="tactic">transitivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>:Qpos) =&gt; <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.Qsec.html#trans_Qeq">trans_Qeq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">QposSetoid</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QposAp">QposAp</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Qpos) := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qsec.html#Qap">Qap</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab311"></a><h3 class="section">Addition</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpos_plus">Qpos_plus</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:Qpos) : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "+" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_plus">Qpos_plus</a></span> : <span class="id" type="var">Qpos_scope</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_Qpos_plus">Q_Qpos_plus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:Qpos), ((<span class="id" type="var">x</span> + <span class="id" type="var">y</span>)%Qpos:Q)=(x:Q)+(y:Q).<br/>
+</div>
+
+<div class="doc">
+<a name="lab312"></a><h3 class="section">Multiplicaiton</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpos_mult">Qpos_mult</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:Qpos) : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "*" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_mult">Qpos_mult</a></span> : <span class="id" type="var">Qpos_scope</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_Qpos_mult">Q_Qpos_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:Qpos), ((<span class="id" type="var">x</span> * <span class="id" type="var">y</span>)%Qpos:Q)=(x:Q)*(y:Q).<br/>
+</div>
+
+<div class="doc">
+<a name="lab313"></a><h3 class="section">Inverse</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpos_inv">Qpos_inv</a></span> (<span class="id" type="var">x</span>:Qpos) : Q<SUP>+</SUP> :=<br/>
+((<span class="id" type="projection"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposDenominator">QposDenominator</a></span> <span class="id" type="var">x</span>)#(QposNumerator <span class="id" type="var">x</span>))%Qpos.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_Qpos_inv">Q_Qpos_inv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:Qpos), <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_inv">Qpos_inv</a></span> <span class="id" type="var">x</span> = / <span class="id" type="var">x</span> :&gt; <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "a / b" := (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_mult">Qpos_mult</a></span> <span class="id" type="var">a</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_inv">Qpos_inv</a></span> <span class="id" type="var">b</span>)) : <span class="id" type="var">Qpos_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab314"></a><h3 class="section">Tactics</h3>
+
+These tactics solve Ring and Field equations over <span class="inlinecode">Q<SUP>+</SUP></span> by converting
+them to problems over <span class="inlinecode"><span class="id" type="var">Q</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This is a standard way of decomposing a rational b that is greater than
+a into a plus a positive value c. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_lt_plus">Qpos_lt_plus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Q), <br/>
+&nbsp;<span class="id" type="var">a</span>&lt; <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">c</span>:Qpos | <span class="id" type="var">b</span>==(a+c)}.<br/>
+</div>
+
+<div class="doc">
+<a name="lab315"></a><h3 class="section">Power</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpos_power_pos">Qpos_power_pos</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:Qpos) <span class="id" type="var">z</span>, 0 &lt; <span class="id" type="var">x</span>^z.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpos_power">Qpos_power</a></span> (<span class="id" type="var">x</span>:Qpos) (<span class="id" type="var">z</span>:Z) : Q<SUP>+</SUP>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "^" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_power">Qpos_power</a></span> : <span class="id" type="var">Qpos_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The default relation on Z is <span class="inlinecode"><span class="id" type="var">eqm</span></span> otherwise. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Instance</span> <span class="id" type="instance"><a name="Z_default">Z_default</a></span> : @<span class="id" type="class"><a class="idref" href="http://coq.inria.fr/library/Coq.Classes.SetoidTactics.html#DefaultRelation">DefaultRelation</a></span> <b>Z</b> (@<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> <b>Z</b>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_Qpos_power">Q_Qpos_power</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:Qpos) <span class="id" type="var">z</span>, ((<span class="id" type="var">x</span>^z)%Qpos:Q)==(x:Q)^z.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab316"></a><h3 class="section">Summing lists</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QposSum">QposSum</a></span> (<span class="id" type="var">l</span>:list Q<SUP>+</SUP>) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#fold_right">fold_right</a></span><br/>
+(<span class="id" type="keyword">fun</span> (<span class="id" type="var">x</span>:Qpos) (<span class="id" type="var">y</span>:Q) =&gt; <span class="id" type="var">x</span>+y) (0:Q) <span class="id" type="var">l</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposSumNonNeg">QposSumNonNeg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">l</span>, 0 &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposSum">QposSum</a></span> <span class="id" type="var">l</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A version of <span class="inlinecode"><span class="id" type="var">Qred</span></span> for <span class="inlinecode">Q<SUP>+</SUP></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposRed_prf">QposRed_prf</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q), (0 &lt; <span class="id" type="var">a</span>) -&gt; (0 &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qreduction.html#Qred">Qred</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="QposRed">QposRed</a></span> (<span class="id" type="var">a</span>:Qpos) : Q<SUP>+</SUP> := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#mkQpos">mkQpos</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposRed_prf">QposRed_prf</a></span> <span class="id" type="var">a</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.Qpossec.html#Qpos_prf">Qpos_prf</a></span> <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposRed_complete">QposRed_complete</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : Q<SUP>+</SUP>, <span class="id" type="var">p</span> == <span class="id" type="var">q</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposRed">QposRed</a></span> <span class="id" type="var">p</span> = <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposRed">QposRed</a></span> <span class="id" type="var">q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QposRed_correct">QposRed_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposRed">QposRed</a></span> <span class="id" type="var">p</span> == <span class="id" type="var">p</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

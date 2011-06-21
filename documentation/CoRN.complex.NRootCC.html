@@ -1,0 +1,758 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.complex.NRootCC</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab423"></a><h1 class="section">Roots of Complex Numbers</h1>
+
+
+<br/><br/>
+Properties of non-zero complex numbers
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CC_ap_zero">CC_ap_zero</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_ap_zero">cc_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>C</b> -&gt; <span class="id" type="keyword">Prop</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [#] 0 -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>)) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">b</span> [#] 0 -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, <span class="id" type="var">c</span> [#] 0 -&gt; <span class="id" type="var">P</span> <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="C_cc_ap_zero">C_cc_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>C</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">a</span> [#] 0 -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>)) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">b</span> [#] 0 -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, <span class="id" type="var">c</span> [#] 0 -&gt; <span class="id" type="var">P</span> <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#CC_ap_zero">CC_ap_zero</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Weird lemma. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Imag_to_Real">Imag_to_Real</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="imag_to_real">imag_to_real</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">a'</span> <span class="id" type="var">b'</span>, <span class="id" type="var">a'</span>[+I*]<span class="id" type="var">b'</span> [=] (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>) [*]i -&gt; <span class="id" type="var">a</span> [#] 0 -&gt; <span class="id" type="var">b'</span> [#] 0.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#Imag_to_Real">Imag_to_Real</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab424"></a><h2 class="section">Roots of the imaginary unit</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootI">NRootI</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sqrt_Half">sqrt_Half</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> &frac12; (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields2.html#pos_half">pos_half</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>)).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sqrt_I">sqrt_I</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#sqrt_Half">sqrt_Half</a></span>[+I*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#sqrt_Half">sqrt_Half</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sqrt_I_nexp">sqrt_I_nexp</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#sqrt_I">sqrt_I</a></span>[^]2 [=] i.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nroot_I_nexp_aux">nroot_I_nexp_aux</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">m</span> : <b>N</b> | <span class="id" type="var">n</span> * <span class="id" type="var">n</span> = 4 * <span class="id" type="var">m</span> + 1}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nroot_I">nroot_I</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">n_</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>) : <b>C</b> := i[^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nroot_I_nexp">nroot_I_nexp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">n_</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nroot_I">nroot_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">n_</span>[^]<span class="id" type="var">n</span> [=] i.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nroot_minus_I">nroot_minus_I</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">n_</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>) : <b>C</b> := [--] (<span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nroot_I">nroot_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">n_</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nroot_minus_I_nexp">nroot_minus_I_nexp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">n_</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nroot_minus_I">nroot_minus_I</a></span> <span class="id" type="var">n</span> <span class="id" type="var">n_</span>[^]<span class="id" type="var">n</span> [=] [--]i.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootI">NRootI</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab425"></a><h2 class="section">Roots of complex numbers</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_1">NRootCC_1</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We define the nth root of a complex number with a non zero imaginary part.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_1.NRootCC_1_ap_real">NRootCC_1_ap_real</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">b_</span> : (<span class="id" type="var">b</span> [#] 0)</span>.
+Define <span class="inlinecode"><span class="id" type="var">c2</span> := <span class="id" type="var">a</span>^2+<span class="id" type="var">b</span>^2</span>, <span class="inlinecode"><span class="id" type="var">c</span> := <span class="id" type="var">sqrt</span> <span class="id" type="var">c2</span></span>, <span class="inlinecode"><span class="id" type="var">a'2</span> := (<span class="id" type="var">c</span>+<span class="id" type="var">a</span>) &times;&frac12;</span>,
+<span class="inlinecode"><span class="id" type="var">a'</span> := <span class="id" type="var">sqrt</span> <span class="id" type="var">a'2</span></span>, <span class="inlinecode"><span class="id" type="var">b'2</span> := (<span class="id" type="var">c</span>&minus;<span class="id" type="var">a</span>) &times;&frac12;</span> and <span class="inlinecode"><span class="id" type="var">b'</span> := <span class="id" type="var">sqrt</span> <span class="id" type="var">b'2</span></span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_real.a">a</a></span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_real.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_real.b_">b_</a></span> : <span class="id" type="var">b</span> [#] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_c2pos">nrCC1_c2pos</a></span> : 0 [&lt;] <span class="id" type="var">c2</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a'2pos">nrCC1_a'2pos</a></span> : 0 [&lt;] <span class="id" type="var">a'2</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_b'2pos">nrCC1_b'2pos</a></span> : 0 [&lt;] <span class="id" type="var">b'2</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a3">nrCC1_a3</a></span> : <span class="id" type="var">a'</span>[^]2[-]<span class="id" type="var">b'</span>[^]2 [=] <span class="id" type="var">a</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a4">nrCC1_a4</a></span> : (<span class="id" type="var">c</span>[+]<span class="id" type="var">a</span>) [*] (<span class="id" type="var">c</span>[-]<span class="id" type="var">a</span>) [=] <span class="id" type="var">b</span>[^]2.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a5">nrCC1_a5</a></span> : <span class="id" type="var">a'2</span>[*]<span class="id" type="var">b'2</span> [=] (<span class="id" type="var">b</span>[*]&frac12;) [^]2.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a6">nrCC1_a6</a></span> : 0 [&lt;] <span class="id" type="var">a'2</span>[*]<span class="id" type="var">b'2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a6'">nrCC1_a6'</a></span> : 0 [&lt;] (<span class="id" type="var">b</span>[*]&frac12;) [^]2.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a7_upper">nrCC1_a7_upper</a></span> : 0 [&lt;] <span class="id" type="var">b</span> -&gt; <span class="id" type="var">a'</span>[*]<span class="id" type="var">b'</span> [=] <span class="id" type="var">b</span>[*]&frac12;.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC1_a7_lower">nrCC1_a7_lower</a></span> : <span class="id" type="var">b</span> [&lt;] 0 -&gt; <span class="id" type="var">a'</span>[*][--]<span class="id" type="var">b'</span> [=] <span class="id" type="var">b</span>[*]&frac12;.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_1_upper">nrootCC_1_upper</a></span> : 0 [&lt;] <span class="id" type="var">b</span> -&gt; (<span class="id" type="var">a'</span>[+I*]<span class="id" type="var">b'</span>) [^]2 [=] <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_1_lower">nrootCC_1_lower</a></span> : <span class="id" type="var">b</span> [&lt;] 0 -&gt; (<span class="id" type="var">a'</span>[+I*][--]<span class="id" type="var">b'</span>) [^]2 [=] <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_1_ap_real">nrootCC_1_ap_real</a></span> : {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]2 [=] <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>}.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_1.NRootCC_1_ap_real">NRootCC_1_ap_real</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now define the nth root of a complex number with a non zero real part.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_1.NRootCC_1_ap_imag">NRootCC_1_ap_imag</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">a_</span> : (<span class="id" type="var">a</span> [#] 0)</span> and define
+<span class="inlinecode"><span class="id" type="var">c'</span> := (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>) [*][--]i := <span class="id" type="var">a'</span>[+I*]<span class="id" type="var">b'</span></span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_imag.a">a</a></span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_imag.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_1.NRootCC_1_ap_imag.a_">a_</a></span> : <span class="id" type="var">a</span> [#] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_1_ap_imag">nrootCC_1_ap_imag</a></span> : {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]2 [=] <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_1.NRootCC_1_ap_imag">NRootCC_1_ap_imag</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now define the roots of arbitrary non zero complex numbers. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_1">nrootCC_1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <b>C</b>, <span class="id" type="var">c</span> [#] 0 -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]2 [=] <span class="id" type="var">c</span>}.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_1">NRootCC_1</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_2">NRootCC_2</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">n</span> : <b>N</b></span> and <span class="inlinecode"><span class="id" type="var">c</span>,z : <b>C</b></span> and <span class="inlinecode"><span class="id" type="var">c_</span>:(c [#] 0)</span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_2.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_2.c">c</a></span> <span class="id" type="variable"><a name="NRootCC_2.z">z</a></span> : <b>C</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_2.c_">c_</a></span> : <span class="id" type="var">c</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_2'">nrootCC_2'</a></span> : (<span class="id" type="var">z</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span> -&gt;<br/>
+&nbsp;<span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="var">c</span> [=] 0 -&gt; (<span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>) [^]2 [=] <span class="id" type="var">c</span>[^]2.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_2">nrootCC_2</a></span> : (<span class="id" type="var">z</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span> -&gt;<br/>
+&nbsp;<span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="var">c</span> [=] 0 -&gt; <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] [--]<span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_2">NRootCC_2</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_3">NRootCC_3</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Im_poly">Im_poly</a></span> (<span class="id" type="var">p</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly">cpoly</a></span> <b>C</b>) : <span class="id" type="inductive"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly">cpoly</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">p</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span>        =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">c</span> <span class="id" type="var">p1</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (&image; <span class="id" type="var">c</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#Im_poly">Im_poly</a></span> <span class="id" type="var">p1</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a1">nrCC3_a1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">r</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#Im_poly">Im_poly</a></span> <span class="id" type="var">p</span>) ! <span class="id" type="var">r</span> [=] &image; <span class="id" type="var">p</span> ! (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">r</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a2">nrCC3_a2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#Im_poly">Im_poly</a></span> <span class="id" type="var">p</span>) [=] &image; (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b : <span class="id" type="var">IR</span></span>, <span class="inlinecode"><span class="id" type="var">b_</span> : (<span class="id" type="var">b</span> [#] 0)</span> and <span class="inlinecode"><span class="id" type="var">n</span> : <b>N</b></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_3.a">a</a></span> <span class="id" type="variable"><a name="NRootCC_3.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_3.b_">b_</a></span> : <span class="id" type="var">b</span> [#] 0.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_3.n">n</a></span> : <b>N</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrCC3_poly''">nrCC3_poly''</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> i) [^]<span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a3">nrCC3_a3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly''">nrCC3_poly''</a></span> ! (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">r</span>) [=] (<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a4">nrCC3_a4</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> 1 (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> i).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a5">nrCC3_a5</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly''">nrCC3_poly''</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a6">nrCC3_a6</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly''">nrCC3_poly''</a></span> [=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrCC3_poly'">nrCC3_poly'</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly''">nrCC3_poly''</a></span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> (<span class="id" type="var">a</span>[+I*][--]<span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a7">nrCC3_a7</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly'">nrCC3_poly'</a></span> ! (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">r</span>) [=] (<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>[*] (<span class="id" type="var">a</span>[+I*][--]<span class="id" type="var">b</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a8">nrCC3_a8</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree_le">degree_le</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly'">nrCC3_poly'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC3_a9">nrCC3_a9</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly'">nrCC3_poly'</a></span> [=] <span class="id" type="var">a</span>[+I*][--]<span class="id" type="var">b</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrootCC_3_poly">nrootCC_3_poly</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#Im_poly">Im_poly</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC3_poly'">nrCC3_poly'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_3_">nrootCC_3_</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_3_poly">nrootCC_3_poly</a></span> ! <span class="id" type="var">r</span> [=] &image; ((<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>[*] (<span class="id" type="var">a</span>[+I*][--]<span class="id" type="var">b</span>)).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_3">nrootCC_3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_3_poly">nrootCC_3_poly</a></span> ! <span class="id" type="var">r</span>[*] (2[*]i) [=] (<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>[*] (<span class="id" type="var">a</span>[+I*][--]<span class="id" type="var">b</span>) [-] (<span class="id" type="var">r</span>[+I*][--]1) [^]<span class="id" type="var">n</span>[*] (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_3_degree">nrootCC_3_degree</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_3_poly">nrootCC_3_poly</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_3">NRootCC_3</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_3'">NRootCC_3'</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">c</span>:IR</span>, <span class="inlinecode"><span class="id" type="var">n</span>:nat</span> and <span class="inlinecode"><span class="id" type="var">n_</span>:(lt (0) <span class="id" type="var">n</span>)</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_3'.c">c</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_3'.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_3'.n_">n_</a></span> : 0 &lt; <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrootCC_3'_poly">nrootCC_3'_poly</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[^]<span class="id" type="var">n</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_3'">nrootCC_3'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_3'_poly">nrootCC_3'_poly</a></span> ! <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>[-]<span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_3'_degree">nrootCC_3'_degree</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_Degree.html#degree">degree</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_3'_poly">nrootCC_3'_poly</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_3'">NRootCC_3'</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_4">NRootCC_4</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_4.NRootCC_4_ap_real">NRootCC_4_ap_real</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b : <span class="id" type="var">IR</span></span>, <span class="inlinecode"><span class="id" type="var">b_</span> : (<span class="id" type="var">b</span> [#] 0)</span>, <span class="inlinecode"><span class="id" type="var">n</span> : <b>N</b></span> and
+<span class="inlinecode"><span class="id" type="var">n_</span>:(odd <span class="id" type="var">n</span>)</span>; define <span class="inlinecode"><span class="id" type="var">c</span> := <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.a">a</a></span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.b_">b_</a></span> : <span class="id" type="var">b</span> [#] 0.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.n_">n_</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_solutions">NRootCC_4_solutions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a1">nrCC4_a1</a></span> : {<span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | (<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[-] (<span class="id" type="var">r</span>[+I*][--]1) [^]<span class="id" type="var">n</span>[*]<span class="id" type="var">c</span> [=] 0}.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">r2'</span>,c2 : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">r2'_</span> : (<span class="id" type="var">r2'</span> [#] 0)</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_solutions.r2'">r2'</a></span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_solutions.c2">c2</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_solutions.r2'_">r2'_</a></span> : <span class="id" type="var">r2'</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a1'">nrCC4_a1'</a></span> : {<span class="id" type="var">y2</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | (<span class="id" type="var">y2</span>[*]<span class="id" type="var">r2'</span>) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c2</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_4.NRootCC_4_ap_real.NRootCC_4_solutions">NRootCC_4_solutions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations">NRootCC_4_equations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">r</span>,y2 : <span class="id" type="var">IR</span></span> be such that
+<span class="inlinecode">(<span class="id" type="var">r</span>[+I*]1) ^<span class="id" type="var">n</span>&times; (<span class="id" type="var">CC_conj</span> <span class="id" type="var">c</span>) &minus; (<span class="id" type="var">r</span>[+I*][--]1) ^<span class="id" type="var">n</span>&times;<span class="id" type="var">c</span> = 0</span>
+and <span class="inlinecode">(<span class="id" type="var">y2</span>&times; (<span class="id" type="var">r</span>^ (2) +1)) ^<span class="id" type="var">n</span> = <span class="id" type="var">a</span>^ (2) +<span class="id" type="var">b</span>^ (2)</span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations.r">r</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations.r_property">r_property</a></span> : (<span class="id" type="var">r</span>[+I*]1) [^]<span class="id" type="var">n</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[-] (<span class="id" type="var">r</span>[+I*][--]1) [^]<span class="id" type="var">n</span>[*]<span class="id" type="var">c</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations.y2">y2</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations.y2_property">y2_property</a></span> : (<span class="id" type="var">y2</span>[*] (<span class="id" type="var">r</span>[^]2[+]1)) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">a</span>[^]2[+]<span class="id" type="var">b</span>[^]2.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a2">nrCC4_a2</a></span> : 0 [&lt;] <span class="id" type="var">a</span>[^]2[+]<span class="id" type="var">b</span>[^]2.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a3">nrCC4_a3</a></span> : 0 [&lt;] <span class="id" type="var">r</span>[^]2[+]1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a4">nrCC4_a4</a></span> : 0 [&lt;] <span class="id" type="var">y2</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrCC4_y">nrCC4_y</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> <span class="id" type="var">y2</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#less_leEq">less_leEq</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC4_a4">nrCC4_a4</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="y">y</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC4_y">nrCC4_y</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrCC4_x">nrCC4_x</a></span> := <span class="id" type="var">y</span>[*]<span class="id" type="var">r</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="x">x</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC4_x">nrCC4_x</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a5">nrCC4_a5</a></span> : <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>[*]<span class="id" type="var">r</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a6">nrCC4_a6</a></span> : (<span class="id" type="var">x</span>[^]2[+]<span class="id" type="var">y</span>[^]2) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">a</span>[^]2[+]<span class="id" type="var">b</span>[^]2.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nrCC4_z">nrCC4_z</a></span> := <span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="z">z</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.NRootCC.html#nrCC4_z">nrCC4_z</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a7">nrCC4_a7</a></span> : <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span>[*]<span class="id" type="var">c</span> [=] 0.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a8">nrCC4_a8</a></span> : (<span class="id" type="var">z</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">z</span>) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a9">nrCC4_a9</a></span> : <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] [--]<span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_4.NRootCC_4_ap_real.NRootCC_4_equations">NRootCC_4_equations</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC4_a10">nrCC4_a10</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span> <span class="id" type="var">or</span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] [--]<span class="id" type="var">c</span>} -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_4_ap_real">nrootCC_4_ap_real</a></span> : {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>}.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_4.NRootCC_4_ap_real">NRootCC_4_ap_real</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_4.NRootCC_4_ap_imag">NRootCC_4_ap_imag</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b : <span class="id" type="var">IR</span></span> and <span class="inlinecode"><span class="id" type="var">n</span> : <b>N</b></span> with <span class="inlinecode"><span class="id" type="var">a</span> [#] 0</span>
+and <span class="inlinecode">(<span class="id" type="var">odd</span> <span class="id" type="var">n</span>)</span>; define <span class="inlinecode"><span class="id" type="var">c'</span> := (<span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>) &times;i := <span class="id" type="var">a'</span>[+I*]<span class="id" type="var">b'</span></span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_imag.a">a</a></span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_imag.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_imag.a_">a_</a></span> : <span class="id" type="var">a</span> [#] 0.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_imag.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_4.NRootCC_4_ap_imag.n_">n_</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_4_ap_real'">nrootCC_4_ap_real'</a></span> : {<span class="id" type="var">z'</span> : <b>C</b> | <span class="id" type="var">z'</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">a'</span>[+I*]<span class="id" type="var">b'</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_4_ap_imag">nrootCC_4_ap_imag</a></span> : {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">a</span>[+I*]<span class="id" type="var">b</span>}.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_4.NRootCC_4_ap_imag">NRootCC_4_ap_imag</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_4">nrootCC_4</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, <span class="id" type="var">c</span> [#] 0 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_4">NRootCC_4</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, the general definition of nth root. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NRootCC_5">NRootCC_5</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC_5a2">nrCC_5a2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Div2.html#double">double</a></span> <span class="id" type="var">n</span> = 2 * <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC_5a3">nrCC_5a3</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">z</span> : <b>C</b>), (<span class="id" type="var">z</span>[^]2) [^]<span class="id" type="var">n</span> [=] <span class="id" type="var">z</span>[^]<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Div2.html#double">double</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">c</span> : <b>C</b></span> with <span class="inlinecode"><span class="id" type="var">c</span> [#] 0</span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NRootCC_5.c">c</a></span> : <b>C</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="NRootCC_5.c_">c_</a></span> : <span class="id" type="var">c</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrCC_5a4">nrCC_5a4</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>} -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Div2.html#double">double</a></span> <span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nrootCC_5">nrootCC_5</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, 0 &lt; <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.NRootCC.html#NRootCC_5">NRootCC_5</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Final definition 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CnrootCC">CnrootCC</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>, <span class="id" type="var">c</span> [#] 0 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">z</span> : <b>C</b> | <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="var">c</span>} := <span class="id" type="lemma"><a class="idref" href="CoRN.complex.NRootCC.html#nrootCC_5">nrootCC_5</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

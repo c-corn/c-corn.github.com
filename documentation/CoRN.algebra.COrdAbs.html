@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.COrdAbs</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab299"></a><h2 class="section">Properties of <span class="inlinecode"><span class="id" type="var">AbsSmall</span></span></h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="AbsSmall">AbsSmall</a></span> (<span class="id" type="var">R</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">e</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>) : <span class="id" type="keyword">Prop</span> := [--]<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">x</span> /\ <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="AbsSmall_properties">AbsSmall_properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="AbsSmall_properties.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_wdr">AbsSmall_wdr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_wdr">rel_wdr</a></span> <span class="id" type="var">R</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">R</span>:=R)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_wdr_unfolded">AbsSmall_wdr_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_wdl">AbsSmall_wdl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#rel_wdl">rel_wdl</a></span> <span class="id" type="var">R</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">R</span>:=R)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_wdl_unfolded">AbsSmall_wdl_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">z</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_leEq_trans">AbsSmall_leEq_trans</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">d</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="var">e1</span> [&lt;=] <span class="id" type="var">e2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_AbsSmall">zero_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_reflexive">AbsSmall_reflexive</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> : <span class="id" type="var">R</span>), 0 [&lt;=] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_trans">AbsSmall_trans</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">d</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="var">e1</span> [&lt;] <span class="id" type="var">e2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">d</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="leEq_imp_AbsSmall">leEq_imp_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">d</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">e</span> -&gt; <span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">d</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">d</span> <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_resp_AbsSmall">inv_resp_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">x</span> [--]<span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_resp_AbsSmall">mult_resp_AbsSmall</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">R</span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">H</span>: 0[&lt;=]<span class="id" type="var">y</span>),<br/>
+<span class="id" type="var">AbsSmall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">y</span>[*]<span class="id" type="var">e</span>) (<span class="id" type="var">y</span>[*]<span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="div_resp_AbsSmall">div_resp_AbsSmall</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">R</span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">e</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">H</span>: 0[&lt;]<span class="id" type="var">y</span>),<br/>
+<span class="id" type="var">AbsSmall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span>[/]<span class="id" type="var">y</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#pos_ap_zero">pos_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>) (<span class="id" type="var">x</span>[/]<span class="id" type="var">y</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#pos_ap_zero">pos_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sum_resp_AbsSmall">sum_resp_AbsSmall</a></span> : <span class="id" type="keyword">forall</span><br/>
+(<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>N</b> -&gt; <span class="id" type="var">R</span>) (<span class="id" type="var">n</span> <span class="id" type="var">m</span>: <b>N</b>)<br/>
+(<span class="id" type="var">H1</span> : <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span>) (<span class="id" type="var">H2</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt;  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">y</span> <span class="id" type="var">i</span>) (<span class="id" type="var">x</span> <span class="id" type="var">i</span>)),<br/>
+<span class="id" type="var">AbsSmall</span> (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">y</span>) (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_minus">AbsSmall_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x1</span>[-]<span class="id" type="var">x2</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x2</span>[-]<span class="id" type="var">x1</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_plus">AbsSmall_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e1</span>[+]<span class="id" type="var">e2</span>) (<span class="id" type="var">x1</span>[+]<span class="id" type="var">x2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_eps_div_two">AbsSmall_eps_div_two</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span> [/]2) <span class="id" type="var">x1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span> [/]2) <span class="id" type="var">x2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x1</span>[+]<span class="id" type="var">x2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_x_plus_delta">AbsSmall_x_plus_delta</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> &epsilon; &delta; : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;=] &epsilon; -&gt; 0 [&lt;=] &delta; -&gt; &delta; [&lt;=] &epsilon; -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">x</span>[-] (<span class="id" type="var">x</span>[+]&delta;)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_x_minus_delta">AbsSmall_x_minus_delta</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> &epsilon; &delta; : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;=] &epsilon; -&gt; 0 [&lt;=] &delta; -&gt; &delta; [&lt;=] &epsilon; -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">x</span>[-] (<span class="id" type="var">x</span>[-]&delta;)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_x_plus_eps_div2">AbsSmall_x_plus_eps_div2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> &epsilon; : <span class="id" type="var">R</span>, 0 [&lt;=] &epsilon; -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">x</span>[-] (<span class="id" type="var">x</span>[+]&epsilon; [/]2)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_x_minus_eps_div2">AbsSmall_x_minus_eps_div2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> &epsilon; : <span class="id" type="var">R</span>, 0 [&lt;=] &epsilon; -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">x</span>[-] (<span class="id" type="var">x</span>[-]&epsilon; [/]2)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_intermediate">AbsSmall_intermediate</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> &epsilon; : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">z</span>[-]<span class="id" type="var">x</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (<span class="id" type="var">z</span>[-]<span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_eps_div2">AbsSmall_eps_div2</a></span> : <span class="id" type="keyword">forall</span> &epsilon; : <span class="id" type="var">R</span>, 0 [&lt;=] &epsilon; -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> &epsilon; (&epsilon; [/]2).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_nonneg">AbsSmall_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> -&gt; 0 [&lt;=] <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_mult">AbsSmall_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (3[*] (<span class="id" type="var">e1</span>[*]<span class="id" type="var">e2</span>)) (<span class="id" type="var">x1</span>[*]<span class="id" type="var">x2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_cancel_mult">AbsSmall_cancel_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span>[*]<span class="id" type="var">z</span>) (<span class="id" type="var">x</span>[*]<span class="id" type="var">z</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsSmall_approach_zero">AbsSmall_approach_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>) -&gt; <span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_AbsSmall'_rht">mult_AbsSmall'_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">C</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">C</span> -&gt;<br/>
+&nbsp;[--]<span class="id" type="var">C</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">C</span> -&gt; [--]<span class="id" type="var">C</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">C</span> -&gt; <span class="id" type="var">x</span>[*]<span class="id" type="var">y</span> [&lt;=] 3[*]<span class="id" type="var">C</span>[^]2.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_AbsSmall_rht">mult_AbsSmall_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">X</span> -&gt;<br/>
+&nbsp;0 [&lt;=] <span class="id" type="var">Y</span> -&gt; [--]<span class="id" type="var">X</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">X</span> -&gt; [--]<span class="id" type="var">Y</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">Y</span> -&gt; <span class="id" type="var">x</span>[*]<span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">X</span>[*]<span class="id" type="var">Y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_AbsSmall_lft">mult_AbsSmall_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="var">R</span>, 0 [&lt;=] <span class="id" type="var">X</span> -&gt; 0 [&lt;=] <span class="id" type="var">Y</span> -&gt;<br/>
+&nbsp;[--]<span class="id" type="var">X</span> [&lt;=] <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span> [&lt;=] <span class="id" type="var">X</span> -&gt; [--]<span class="id" type="var">Y</span> [&lt;=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [&lt;=] <span class="id" type="var">Y</span> -&gt; [--](<span class="id" type="var">X</span>[*]<span class="id" type="var">Y</span>) [&lt;=] <span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_AbsSmall">mult_AbsSmall</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> : <span class="id" type="var">R</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">X</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">X</span>[*]<span class="id" type="var">Y</span>) (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall_properties">AbsSmall_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab300"></a><h2 class="section">Properties of <span class="inlinecode"><span class="id" type="var">AbsBig</span></span></h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="absBig">absBig</a></span> (<span class="id" type="var">R</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">e</span> <span class="id" type="var">x</span> : <span class="id" type="var">R</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;0 [&lt;] <span class="id" type="var">e</span> <span class="id" type="var">and</span> (<span class="id" type="var">e</span> [&lt;=] <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span> [&lt;=] [--]<span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> <span class="id" type="abbreviation"><a name="AbsBig">AbsBig</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#absBig">absBig</a></span> <span class="id" type="var">_</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsBigSmall_minus">AbsBigSmall_minus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">R</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>) (<span class="id" type="var">e1</span> <span class="id" type="var">e2</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">R</span>),<br/>
+&nbsp;<span class="id" type="var">e2</span> [&lt;] <span class="id" type="var">e1</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> <span class="id" type="var">e1</span> <span class="id" type="var">x1</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e2</span> <span class="id" type="var">x2</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> (<span class="id" type="var">e1</span>[-]<span class="id" type="var">e2</span>) (<span class="id" type="var">x1</span>[-]<span class="id" type="var">x2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="absBig_wd_properties">absBig_wd_properties</a></span>.<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be an ordered field.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="absBig_wd_properties.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.COrdFields.html#COrdField">COrdField</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsBig_wdr">AbsBig_wdr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdr">Crel_wdr</a></span> <span class="id" type="var">R</span> <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsBig_wdl">AbsBig_wdl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Crel_wdl">Crel_wdl</a></span> <span class="id" type="var">R</span> <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsBig_wdr_unfolded">AbsBig_wdr_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">R</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsBig_wdl_unfolded">AbsBig_wdl_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">R</span>, <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsBig">AbsBig</a></span> <span class="id" type="var">z</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.COrdAbs.html#absBig_wd_properties">absBig_wd_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">c</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">c</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.COrdFields.html#cof_crr">cof_crr</a></span> <span class="id" type="var">c</span>)) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c</span>) ==&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#iff">iff</a></span> <span class="id" type="keyword">as</span> <span class="id" type="var">AbsSmall_morph_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

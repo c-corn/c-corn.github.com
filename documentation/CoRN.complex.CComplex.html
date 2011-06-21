@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.complex.CComplex</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab416"></a><h1 class="section">Complex Numbers</h1>
+
+<a name="lab417"></a><h2 class="section">Algebraic structure</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Complex_Numbers">Complex_Numbers</a></span>.<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CC_set">CC_set</a></span> : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;{&real; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;&image; : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_ap">cc_ap</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := &real; <span class="id" type="var">x</span> [#] &real; <span class="id" type="var">y</span> <span class="id" type="var">or</span> &image; <span class="id" type="var">x</span> [#] &image; <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_eq">cc_eq</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span>) : <span class="id" type="keyword">Prop</span> := &real; <span class="id" type="var">x</span> [=] &real; <span class="id" type="var">y</span> /\ &image; <span class="id" type="var">x</span> [=] &image; <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_is_CSetoid">cc_is_CSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#is_CSetoid">is_CSetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_eq">cc_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_ap">cc_ap</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_csetoid">cc_csetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_eq">cc_eq</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_ap">cc_ap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_is_CSetoid">cc_is_CSetoid</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_plus">cc_plus</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> (&real; <span class="id" type="var">x</span>[+]&real; <span class="id" type="var">y</span>) (&image; <span class="id" type="var">x</span>[+]&image; <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_mult">cc_mult</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> (&real; <span class="id" type="var">x</span>[*]&real; <span class="id" type="var">y</span>[-]&image; <span class="id" type="var">x</span>[*]&image; <span class="id" type="var">y</span>) (&real; <span class="id" type="var">x</span>[*]&image; <span class="id" type="var">y</span>[+]&image; <span class="id" type="var">x</span>[*]&real; <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_zero">cc_zero</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> 0 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_one">cc_one</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> 1 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_i">cc_i</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> 0 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_inv">cc_inv</a></span> (<span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> [--] (&real; <span class="id" type="var">x</span>) [--] (&image; <span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_inv_strext">cc_inv_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_csetoid">cc_csetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv">cc_inv</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_plus_strext">cc_plus_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_strext">bin_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_csetoid">cc_csetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_plus">cc_plus</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_mult_strext">cc_mult_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_strext">bin_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_csetoid">cc_csetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult">cc_mult</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_inv_op">cc_inv_op</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_un_op">Build_CSetoid_un_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv_strext">cc_inv_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_plus_op">cc_plus_op</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_plus_strext">cc_plus_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_mult_op">cc_mult_op</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult_strext">cc_mult_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_csg_associative">cc_csg_associative</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_plus_op">cc_plus_op</a></span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cr_mult_associative">cc_cr_mult_associative</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult_op">cc_mult_op</a></span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_csemi_grp">cc_csemi_grp</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_csetoid">cc_csetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_csg_associative">cc_csg_associative</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cm_proof">cc_cm_proof</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#is_CMonoid">is_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_csemi_grp">cc_csemi_grp</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_zero">cc_zero</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_cmonoid">cc_cmonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_cm_proof">cc_cm_proof</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cg_proof">cc_cg_proof</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cmonoid">cc_cmonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv_op">cc_inv_op</a></span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cr_dist">cc_cr_dist</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#distributive">distributive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult_op">cc_mult_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_plus_op">cc_plus_op</a></span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cr_non_triv">cc_cr_non_triv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_ap">cc_ap</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_one">cc_one</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_zero">cc_zero</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_cgroup">cc_cgroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cmonoid">cc_cmonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv_op">cc_inv_op</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_cg_proof">cc_cg_proof</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_cabgroup">cc_cabgroup</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbGroups.html#CAbGroup">CAbGroup</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cr_mult_mon">cc_cr_mult_mon</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#is_CMonoid">is_CMonoid</a></span><br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_crr">csg_crr</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cgroup">cc_cgroup</a></span>) <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_cr_mult_associative">cc_cr_mult_associative</a></span>) <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_one">cc_one</a></span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_mult_commutes">cc_mult_commutes</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult_op">cc_mult_op</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_isCRing">cc_isCRing</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#is_CRing">is_CRing</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cabgroup">cc_cabgroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_one">cc_one</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_mult_op">cc_mult_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_cring">cc_cring</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CRings.html#Build_CRing">Build_CRing</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_isCRing">cc_isCRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_ap_zero">cc_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cring">cc_cring</a></span>, <span class="id" type="var">z</span> [#] 0 -&gt; &real; <span class="id" type="var">z</span> [#] 0 <span class="id" type="var">or</span> &image; <span class="id" type="var">z</span> [#] 0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_inv_aid">cc_inv_aid</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [#] 0 <span class="id" type="var">or</span> <span class="id" type="var">y</span> [#] 0 -&gt; <span class="id" type="var">x</span>[^]2[+]<span class="id" type="var">y</span>[^]2 [#] 0.<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If <span class="inlinecode"><span class="id" type="var">x</span> &ne; 0</span> or <span class="inlinecode"><span class="id" type="var">y</span> &ne; 0</span>, then  <span class="inlinecode"><span class="id" type="var">x</span> / <span class="id" type="var">x</span>^2 + <span class="id" type="var">y</span>^2 &ne; 0</span> or
+<span class="inlinecode">&minus;<span class="id" type="var">y</span>/<span class="id" type="var">x</span>^2+<span class="id" type="var">y</span>^2 &ne; 0</span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_inv_aid2">cc_inv_aid2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">H</span> : <span class="id" type="var">x</span> [#] 0 <span class="id" type="var">or</span> <span class="id" type="var">y</span> [#] 0),<br/>
+&nbsp;(<span class="id" type="var">x</span>[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv_aid">cc_inv_aid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>) [#] 0 <span class="id" type="var">or</span> ( [--]<span class="id" type="var">y</span>[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_inv_aid">cc_inv_aid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>) [#] 0.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_recip">cc_recip</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cring">cc_cring</a></span>, <span class="id" type="var">z</span> [#] 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cring">cc_cring</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_cfield_proof">cc_cfield_proof</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CFields.html#is_CField">is_CField</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cring">cc_cring</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_recip">cc_recip</a></span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_Recip_proof">cc_Recip_proof</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_recip">cc_recip</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x_</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_recip">cc_recip</a></span> <span class="id" type="var">y</span> <span class="id" type="var">y_</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_cfield">cc_cfield</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CFields.html#Build_CField">Build_CField</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_cfield_proof">cc_cfield_proof</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.complex.CComplex.html#cc_Recip_proof">cc_Recip_proof</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <b>C</b> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_cfield">cc_cfield</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Maps from reals to complex and vice-versa are defined, as well as conjugate,
+absolute value and the imaginary unit <span class="inlinecode"><span class="id" type="var">I</span></span> 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_set_CC">cc_set_CC</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <b>C</b> := <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <b>C</b> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_set_CC">cc_set_CC</a></span> <span class="id" type="var">x</span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CC_conj">CC_conj</a></span> : <b>C</b> -&gt; <b>C</b> := <span class="id" type="keyword">fun</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="CoRN.complex.CComplex.html#CC_set">CC_set</a></span> =&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">z</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> <span class="id" type="var">Re0</span> <span class="id" type="var">Im0</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.complex.CComplex.html#Build_CC_set">Build_CC_set</a></span> <span class="id" type="var">Re0</span> [--]<span class="id" type="var">Im0</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="AbsCC">AbsCC</a></span> (<span class="id" type="var">z</span> : <b>C</b>) : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.NRootIR.html#sqrt">sqrt</a></span> (&real; <span class="id" type="var">z</span>[^]2[+]&image; <span class="id" type="var">z</span>[^]2) (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields2.html#cc_abs_aid">cc_abs_aid</a></span> <span class="id" type="var">_</span> (&real; <span class="id" type="var">z</span>) (&image; <span class="id" type="var">z</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="TwoCC_ap_zero">TwoCC_ap_zero</a></span> : (2:CC) [#] 0.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.CComplex.html#Complex_Numbers">Complex_Numbers</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> i : <b>C</b> := <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_i">cc_i</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "[+I*]" := <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_set_CC">cc_set_CC</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 48, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab418"></a><h2 class="section">Properties of <span class="inlinecode">i</span></h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="I_properties">I_properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="I_square">I_square</a></span> : i[*]i [=] [--]1.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="I_square'">I_square'</a></span> : i[^]2 [=] [--]1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="I_recip_lft">I_recip_lft</a></span> : [--]i[*]i [=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="I_recip_rht">I_recip_rht</a></span> : i[*][--]i [=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_I">mult_I</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [*]i [=] [--]<span class="id" type="var">y</span>[+I*]<span class="id" type="var">x</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="I_wd">I_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> <span class="id" type="var">y</span> <span class="id" type="var">y'</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">y'</span> -&gt; <span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span> [=] <span class="id" type="var">x'</span>[+I*]<span class="id" type="var">y'</span>.<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab419"></a><h2 class="section">Properties of <span class="inlinecode">&real;</span> and <span class="inlinecode">&image;</span></h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="calculate_norm">calculate_norm</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span>[^]2[+]<span class="id" type="var">y</span>[^]2).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="calculate_Re">calculate_Re</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (&real; <span class="id" type="var">c</span>) [*]2 [=] <span class="id" type="var">c</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="calculate_Im">calculate_Im</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (&image; <span class="id" type="var">c</span>) [*] (2[*]i) [=] <span class="id" type="var">c</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Re_wd">Re_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">c'</span> : <b>C</b>, <span class="id" type="var">c</span> [=] <span class="id" type="var">c'</span> -&gt; &real; <span class="id" type="var">c</span> [=] &real; <span class="id" type="var">c'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Im_wd">Im_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">c'</span> : <b>C</b>, <span class="id" type="var">c</span> [=] <span class="id" type="var">c'</span> -&gt; &image; <span class="id" type="var">c</span> [=] &image; <span class="id" type="var">c'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Re_resp_plus">Re_resp_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>C</b>, &real; (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] &real; <span class="id" type="var">x</span>[+]&real; <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Re_resp_inv">Re_resp_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>C</b>, &real; (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>) [=] &real; <span class="id" type="var">x</span>[-]&real; <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Im_resp_plus">Im_resp_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>C</b>, &image; (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] &image; <span class="id" type="var">x</span>[+]&image; <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Im_resp_inv">Im_resp_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>C</b>, &image; (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>) [=] &image; <span class="id" type="var">x</span>[-]&image; <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_calculate_square">cc_calculate_square</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [^]2 [=] (<span class="id" type="var">x</span>[^]2[-]<span class="id" type="var">y</span>[^]2) [+I*]<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>[*]2.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.CComplex.html#I_properties">I_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab420"></a><h2 class="section">Properties of conjugation</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Conj_properties">Conj_properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_plus">CC_conj_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">c'</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> (<span class="id" type="var">c</span>[+]<span class="id" type="var">c'</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_mult">CC_conj_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">c'</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> (<span class="id" type="var">c</span>[*]<span class="id" type="var">c'</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c'</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_strext">CC_conj_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">c'</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c'</span> -&gt; <span class="id" type="var">c</span> [#] <span class="id" type="var">c'</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_conj">CC_conj_conj</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>) [=] <span class="id" type="var">c</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_zero">CC_conj_zero</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> 0 [=] 0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_one">CC_conj_one</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> 1 [=] 1.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CC_conj_nexp">CC_conj_nexp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span> : <b>C</b>) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> (<span class="id" type="var">c</span>[^]<span class="id" type="var">n</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#CC_conj">CC_conj</a></span> <span class="id" type="var">c</span>[^]<span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.CComplex.html#Conj_properties">Conj_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab421"></a><h2 class="section">Properties of the real axis</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="cc_IR_properties">cc_IR_properties</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Re_cc_IR">Re_cc_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, &real; (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="var">x</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Im_cc_IR">Im_cc_IR</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, &image; (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>) [=] 0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_wd">cc_IR_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_resp_ap">cc_IR_resp_ap</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_mult">cc_IR_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_mult_lft">cc_IR_mult_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>, (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">z</span> [=] <span class="id" type="var">x</span>[*]<span class="id" type="var">z</span>[+I*]<span class="id" type="var">y</span>[*]<span class="id" type="var">z</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_mult_rht">cc_IR_mult_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">z</span>[*] (<span class="id" type="var">x</span>[+I*]<span class="id" type="var">y</span>) [=] <span class="id" type="var">z</span>[*]<span class="id" type="var">x</span>[+I*]<span class="id" type="var">z</span>[*]<span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_plus">cc_IR_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_minus">cc_IR_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">y</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_zero">cc_IR_zero</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> 0 [=] 0.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_one">cc_IR_one</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> 1 [=] 1.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_nring">cc_IR_nring</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cc_IR_nexp">cc_IR_nexp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">n</span> : <b>N</b>), <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="var">x</span>[^]<span class="id" type="var">n</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR_properties">cc_IR_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab422"></a><h2 class="section"><span class="inlinecode"><b>C</b></span> has characteristic zero</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="char0_CC">char0_CC</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#Char0">Char0</a></span> <b>C</b>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="poly_apzero_CC">poly_apzero_CC</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>C</b>[X], <span class="id" type="var">f</span> [#] 0 -&gt; {<span class="id" type="var">c</span> : <b>C</b> | <span class="id" type="var">f</span> ! <span class="id" type="var">c</span> [#] 0}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="poly_CC_extensional">poly_CC_extensional</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <b>C</b>[X], (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">p</span> ! <span class="id" type="var">x</span> [=] <span class="id" type="var">q</span> ! <span class="id" type="var">x</span>) -&gt; <span class="id" type="var">p</span> [=] <span class="id" type="var">q</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

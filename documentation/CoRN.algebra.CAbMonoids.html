@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CAbMonoids</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Abelian_Monoids">Abelian_Monoids</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab180"></a><h1 class="section">Abelian Monoids</h1>
+
+Now we introduce commutativity and add some results.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="is_CAbMonoid">is_CAbMonoid</a></span> (<span class="id" type="var">G</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span>) := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=G)).<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CAbMonoid">CAbMonoid</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="cam_crr">cam_crr</a></span>   :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="cam_proof">cam_proof</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CAbMonoids.html#is_CAbMonoid">is_CAbMonoid</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CAbMonoids.html#cam_crr">cam_crr</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Abelian_Monoids.AbMonoid_Axioms">AbMonoid_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Abelian_Monoids.AbMonoid_Axioms.M">M</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbMonoids.html#CAbMonoid">CAbMonoid</a></span>.<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">M</span></span> be an abelian monoid.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CAbMonoid_is_CAbMonoid">CAbMonoid_is_CAbMonoid</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CAbMonoids.html#is_CAbMonoid">is_CAbMonoid</a></span> <span class="id" type="var">M</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cam_commutes">cam_commutes</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=M)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cam_commutes_unfolded">cam_commutes_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">M</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [=] <span class="id" type="var">y</span>[+]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CAbMonoids.html#Abelian_Monoids.AbMonoid_Axioms">AbMonoid_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Abelian_Monoids.SubCAbMonoids">SubCAbMonoids</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab181"></a><h2 class="section">Subgroups of an Abelian Monoid</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Abelian_Monoids.SubCAbMonoids.M">M</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbMonoids.html#CAbMonoid">CAbMonoid</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Abelian_Monoids.SubCAbMonoids.P">P</a></span> : <span class="id" type="var">M</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Abelian_Monoids.SubCAbMonoids.Punit">Punit</a></span> : <span class="id" type="var">P</span> 0.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Abelian_Monoids.SubCAbMonoids.op_pres_P">op_pres_P</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_pres_pred">bin_op_pres_pred</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+Let <span class="inlinecode"><span class="id" type="var">M</span></span> be an Abelian Monoid and <span class="inlinecode"><span class="id" type="var">P</span></span> be a (<span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued) predicate on <span class="inlinecode"><span class="id" type="var">M</span></span>
+that contains <span class="inlinecode">0</span> and is closed under <span class="inlinecode">+</span> and <span class="inlinecode">[--]</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="subcrr">subcrr</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_SubCMonoid">Build_SubCMonoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Punit</span> <span class="id" type="var">op_pres_P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="isabgrp_scrr">isabgrp_scrr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CAbMonoids.html#is_CAbMonoid">is_CAbMonoid</a></span> <span class="id" type="var">subcrr</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_SubCAbMonoid">Build_SubCAbMonoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbMonoids.html#CAbMonoid">CAbMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CAbMonoids.html#Build_CAbMonoid">Build_CAbMonoid</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CAbMonoids.html#isabgrp_scrr">isabgrp_scrr</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CAbMonoids.html#Abelian_Monoids.SubCAbMonoids">SubCAbMonoids</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CAbMonoids.html#Abelian_Monoids">Abelian_Monoids</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

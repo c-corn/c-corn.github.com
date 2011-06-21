@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRseries</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab679"></a><h2 class="section">Operations on Sequences</h2>
+
+These are common operations on sequences that we will be using.
+<a name="lab680"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">everyOther</span></span></h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">everyOther</span></span> drops ever other term. 
+</div>
+<div class="code">
+<span class="id" type="keyword">CoFixpoint</span> <span class="id" type="definition"><a name="everyOther">everyOther</a></span> (<span class="id" type="var">A</span>:Type) (<span class="id" type="var">s</span>:Stream <span class="id" type="var">A</span>) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="var">A</span> :=<br/>
+<span class="id" type="var">Cons</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">s</span>))).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It preserves <span class="inlinecode"><span class="id" type="var">DecreasingNonNegative</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="everyOther_dnn">everyOther_dnn</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">a</span>) -&gt;  <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It preserves limits. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="everyOther_nbz">everyOther_nbz</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">x</span> <span class="id" type="var">a</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="everyOther_zl">everyOther_zl</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>), (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">a</span> 0) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> <span class="id" type="var">a</span>) 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Its characterization. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_tl_everyOther">Str_nth_tl_everyOther</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span>:Stream <span class="id" type="var">A</span>), <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth_tl">Str_nth_tl</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> <span class="id" type="var">a</span>) = <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth_tl">Str_nth_tl</a></span> (2*n) <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_everyOther">Str_nth_everyOther</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">A</span> (<span class="id" type="var">a</span>:Stream <span class="id" type="var">A</span>), <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> <span class="id" type="var">a</span>) = (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> (2*n) <span class="id" type="var">a</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab681"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">mult_Streams</span></span></h3>
+
+The point wise product of two streams.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="mult_Streams">mult_Streams</a></span> := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#zipWith">zipWith</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qmult">Qmult</a></span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It preserves convergeing to 0. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_Streams_nbz">mult_Streams_nbz</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">x</span> <span class="id" type="var">a</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">y</span> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 (<span class="id" type="var">x</span>*y) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ForAll_True">ForAll_True</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> (<span class="id" type="var">S</span>:Stream <span class="id" type="var">X</span>), <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span>) <span class="id" type="var">S</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_Streams_zl">mult_Streams_zl</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>), (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">a</span> 0) -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:Qpos), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">x</span> <span class="id" type="var">b</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It preserves <span class="inlinecode"><span class="id" type="var">DecreasingNonNegative</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_Streams_dnn">mult_Streams_dnn</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">a</span>) -&gt;  <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">b</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+<a name="lab682"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">StreamBounds</span></span></h3>
+
+<span class="inlinecode"><span class="id" type="var">StreamBounds</span></span> says that one stream pointwise bounds the absolute value
+of the other. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StreamBounds">StreamBounds</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">x</span>:Stream (<span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>*Q)) =&gt; <span class="id" type="keyword">let</span> (<span class="id" type="var">a</span>,b):=(hd <span class="id" type="var">x</span>) <span class="id" type="keyword">in</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#zipWith">zipWith</a></span> (@<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#pair">pair</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) <span class="id" type="var">a</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If the bounding stream goes to 0, so does the bounded stream. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Stream_Bound_nbz">Stream_Bound_nbz</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">e</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#StreamBounds">StreamBounds</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">e</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 <span class="id" type="var">e</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Stream_Bound_zl">Stream_Bound_zl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#StreamBounds">StreamBounds</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">a</span> 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">b</span> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If one stream is <span class="inlinecode"><span class="id" type="var">DecreasingNonNegative</span></span> and the other is
+a <span class="inlinecode"><span class="id" type="var">GeometricSeries</span></span>, then the result is a <span class="inlinecode"><span class="id" type="var">GeometricSeries</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_Streams_Gs">mult_Streams_Gs</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>  : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">x</span>) -&gt;  <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGeometricSum.html#GeometricSeries">GeometricSeries</a></span> <span class="id" type="var">a</span> <span class="id" type="var">y</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGeometricSum.html#GeometricSeries">GeometricSeries</a></span> <span class="id" type="var">a</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Powers">Powers</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Powers.a">a</a></span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab683"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">powers</span></span></h3>
+
+The stream of powers of a.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">CoFixpoint</span> <span class="id" type="definition"><a name="powers_help">powers_help</a></span> (<span class="id" type="var">c</span>:Q) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> :=<br/>
+<span class="id" type="var">Cons</span> <span class="id" type="var">c</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> (<span class="id" type="var">c</span>*a)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="powers">powers</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_powers_help">Str_nth_powers_help</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> <span class="id" type="var">x</span>) == <span class="id" type="var">x</span>*a^n.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_powers">Str_nth_powers</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers">powers</a></span> == <span class="id" type="var">a</span>^n.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">powers</span></span> is a <span class="inlinecode"><span class="id" type="var">GeometricSeries</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_help_Gs">powers_help_Gs</a></span> : (0 &lt;= <span class="id" type="var">a</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGeometricSum.html#GeometricSeries">GeometricSeries</a></span> <span class="id" type="var">a</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_Gs">powers_Gs</a></span> : (0 &lt;= <span class="id" type="var">a</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGeometricSum.html#GeometricSeries">GeometricSeries</a></span> <span class="id" type="var">a</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers">powers</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Powers.Ha">Ha</a></span> : 0 &lt;= <span class="id" type="var">a</span> &lt;= 1.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+It is decreasing an nonnegative when a is between 0 and 1. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_help_dnn">powers_help_dnn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (0 &lt;= <span class="id" type="var">x</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_dnn">powers_dnn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers">powers</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_help_nbz">powers_help_nbz</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, 0 &lt;= <span class="id" type="var">x</span> &lt;= 1 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 (1#1)%Qpos (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="powers_nbz">powers_nbz</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 (1#1)%Qpos <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers">powers</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRseries.html#Powers">Powers</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab684"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">positives</span></span></h3>
+
+The stream of postive numbers.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">CoFixpoint</span> <span class="id" type="definition"><a name="positives_help">positives_help</a></span> (<span class="id" type="var">n</span>:positive) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span> :=<br/>
+<span class="id" type="var">Cons</span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives_help">positives_help</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psucc">Psucc</a></span> <span class="id" type="var">n</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="positives">positives</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives_help">positives_help</a></span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_positives">Str_nth_positives</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives">positives</a></span> = <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#P_of_succ_nat">P_of_succ_nat</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab685"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">recip_positives</span></span></h3>
+
+The stream of 1/n.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="recip_positives">recip_positives</a></span> := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; 1#x) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives">positives</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_recip_positives">Str_nth_recip_positives</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_positives">recip_positives</a></span> = 1#(P_of_succ_nat <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The limit of <span class="inlinecode"><span class="id" type="var">recip_positives</span></span> is 0. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_positives_help_nbz">recip_positives_help_nbz</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> <span class="id" type="var">d</span> <span class="id" type="var">q</span>:positive), (<span class="id" type="var">d</span> &lt;= <span class="id" type="var">q</span>)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#NearBy">NearBy</a></span> 0 (<span class="id" type="var">n</span>#d)%Qpos (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; 1#x) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives_help">positives_help</a></span> <span class="id" type="var">q</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_positives_help_Exists">recip_positives_help_Exists</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>, <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (1#x)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives_help">positives_help</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pplus_LazyNat">Pplus_LazyNat</a></span> <span class="id" type="var">p</span> <span class="id" type="var">n</span>))) -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (1#x)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#positives_help">positives_help</a></span> <span class="id" type="var">p</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_positives_zl">recip_positives_zl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_positives">recip_positives</a></span> 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">recip_positives</span></span> is <span class="inlinecode"><span class="id" type="var">DecreasingNonNegative</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_positives_dnn">recip_positives_dnn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_positives">recip_positives</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab686"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">factorials</span></span></h3>
+
+The stream of factorials.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">CoFixpoint</span> <span class="id" type="definition"><a name="factorials_help">factorials_help</a></span> (<span class="id" type="var">n</span> <span class="id" type="var">c</span>:positive) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Stream">Stream</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span> :=<br/>
+<span class="id" type="var">Cons</span> <span class="id" type="var">c</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#factorials_help">factorials_help</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psucc">Psucc</a></span> <span class="id" type="var">n</span>) (<span class="id" type="var">n</span>*c)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="factorials">factorials</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#factorials_help">factorials_help</a></span> 1 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_factorials">Str_nth_factorials</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#factorials">factorials</a></span>) = <span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#fac">fac</a></span> <span class="id" type="var">n</span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab687"></a><h3 class="section"><span class="inlinecode"><span class="id" type="var">recip_factorials</span></span></h3>
+
+The stream of 1/n!.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="recip_factorials">recip_factorials</a></span> := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; 1#x) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#factorials">factorials</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_recip_factorials">Str_nth_recip_factorials</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span>) = 1#(P_of_succ_nat (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#fac">fac</a></span> <span class="id" type="var">n</span>))).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">recip_factorials</span></span> is <span class="inlinecode"><span class="id" type="var">DecreasingNonNegative</span></span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_factorials_dnn">recip_factorials_dnn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The limit of <span class="inlinecode"><span class="id" type="var">recip_factorial</span></span> is 0. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_factorial_bounded">recip_factorial_bounded</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#StreamBounds">StreamBounds</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_positives">recip_positives</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="recip_factorials_zl">recip_factorials_zl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span> 0.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

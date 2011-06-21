@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.StepFunction</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="StepFunction">StepFunction</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="StepFunction.X">X</a></span>:Type.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab705"></a><h1 class="section">Step Functions</h1>
+
+We represent step functions from <span class="inlinecode">[0,1]</span> to <span class="inlinecode"><span class="id" type="var">X</span></span> inductively as a tree
+structure.  In the base case a costant function is a step function.
+Given two step functions f and g, then they can be scaled and glued
+together at a point o yeilding the step function which is f(x/o) for
+x in <span class="inlinecode">[0,o]</span>, and g((x-o)/(1-o)) for x in <span class="inlinecode">[<span class="id" type="var">o</span>,1]</span>.
+
+<br/><br/>
+Step functions are not functions.  They could be interpreted as
+functions; however, we don't give any particular interpretation to how
+the step functions ought to behave at the glue points in between step.
+Because our primary purpose for introducing step functions is to
+implement integration, this ambiguity is not a problem.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="StepF">StepF</a></span> :Type:=<br/>
+|constStepF:X-&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span><br/>
+|glue:OpenUnit-&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="StepFfold">StepFfold</a></span> (<span class="id" type="var">Y</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">f</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>) (<span class="id" type="var">g</span> : <span class="id" type="record"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnit">OpenUnit</a></span> -&gt; <span class="id" type="var">Y</span> -&gt; <span class="id" type="var">Y</span> -&gt; <span class="id" type="var">Y</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">s</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">s</span>} : <span class="id" type="var">Y</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">s</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">x</span> =&gt; <span class="id" type="var">f</span> <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">t1</span> <span class="id" type="var">t2</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">b</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepFfold">StepFfold</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">t1</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepFfold">StepFfold</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">t2</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If f is a step function, so is f(1-x).  This symmetry operation
+is useful reasoning about step functions because of the symetric nature
+of the glue constructor. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Mirror">Mirror</a></span> :StepF -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> :=<br/>
+<span class="id" type="var">StepFfold</span> <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> <span class="id" type="var">l</span> <span class="id" type="var">r</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDual">OpenUnitDual</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">r</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">Split</span></span> decomposes (and scales) a step function at a point o.
+It is essentially an inverse operation of glue 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Split">Split</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnit">OpenUnit</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>*StepF.<br/>
+
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitL">SplitL</a></span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">o</span>:OpenUnit) : <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> :=<br/>
+<span class="id" type="var">fst</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> <span class="id" type="var">s</span> <span class="id" type="var">o</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitR">SplitR</a></span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">o</span>:OpenUnit) : <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> :=<br/>
+<span class="id" type="var">snd</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> <span class="id" type="var">s</span> <span class="id" type="var">o</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Induction principles for reasoning about <span class="inlinecode"><span class="id" type="var">Split</span></span>, <span class="inlinecode"><span class="id" type="var">SplitR</span></span>,
+and <span class="inlinecode"><span class="id" type="var">SplitL</span></span> 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Split_ind">Split_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span> <span class="id" type="var">a</span> (<span class="id" type="var">P</span>:StepF*StepF -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>,SplitR <span class="id" type="var">s</span> <span class="id" type="var">a</span>)) -&gt; <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLR_glue_ind">SplitLR_glue_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit) (<span class="id" type="var">P</span>:StepF -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:a &lt; <span class="id" type="var">b</span>), <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>)) (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>)) <span class="id" type="var">s2</span>)) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:b &lt; <span class="id" type="var">a</span>), <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> <span class="id" type="var">H</span>) <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s2</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>))) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s2</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>))) -&gt;<br/>
+&nbsp;(<span class="id" type="var">a</span> == <span class="id" type="var">b</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span>) -&gt;<br/>
+&nbsp;<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span>) <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span>) <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitL_glue_ind">SplitL_glue_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit) (<span class="id" type="var">P</span>:StepF -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:a &lt; <span class="id" type="var">b</span>), <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>))) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:b &lt; <span class="id" type="var">a</span>), <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> <span class="id" type="var">H</span>) <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s2</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>)))) -&gt;<br/>
+&nbsp;(<span class="id" type="var">a</span> == <span class="id" type="var">b</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">s1</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span>) <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitR_glue_ind">SplitR_glue_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit) (<span class="id" type="var">P</span>:StepF -&gt; <span class="id" type="keyword">Prop</span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:a &lt; <span class="id" type="var">b</span>), <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> <span class="id" type="var">H</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDiv">OpenUnitDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>)) <span class="id" type="var">s2</span>)) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span>:b &lt; <span class="id" type="var">a</span>), <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s2</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualDiv">OpenUnitDualDiv</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">H</span>))) -&gt;<br/>
+&nbsp;(<span class="id" type="var">a</span> == <span class="id" type="var">b</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">s2</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">s1</span> <span class="id" type="var">s2</span>) <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitGlue">SplitGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:StepF, <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span>,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">o</span>)=(x,  <span class="id" type="var">y</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLGlue">SplitLGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:StepF, <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span>,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">o</span>)=x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitRGlue">SplitRGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:StepF, <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span>,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) <span class="id" type="var">o</span>)=y.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As stepping point to a proper setoid equality on step functions,
+<span class="inlinecode"><span class="id" type="var">StepF_Qeq</span></span> specifies equality of step function upto <span class="inlinecode"><span class="id" type="var">Qeq</span></span> on
+rational glue points 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="var">s1</span> <span class="id" type="var">s2</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">s1</span>, <span class="id" type="var">s2</span> <span class="id" type="keyword">with</span><br/>
+|constStepF <span class="id" type="var">x</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">y</span> =&gt; <span class="id" type="var">x</span> = <span class="id" type="var">y</span><br/>
+|glue <span class="id" type="var">a</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">b</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> =&gt; <span class="id" type="var">a</span> == <span class="id" type="var">b</span> /\ (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">x1</span> <span class="id" type="var">y1</span>) /\ (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">x2</span> <span class="id" type="var">y2</span>)<br/>
+|_, <span class="id" type="var">_</span> =&gt; &perp;<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepF_Qeq_refl">StepF_Qeq_refl</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepF_Qeq_sym">StepF_Qeq_sym</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> <span class="id" type="var">t</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">t</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">t</span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepF_Qeq_trans">StepF_Qeq_trans</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> <span class="id" type="var">t</span> <span class="id" type="var">u</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">t</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">t</span> <span class="id" type="var">u</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">u</span>.<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">Mirror</span></span> behaves well with respect to this equality 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Mirror_resp_Qeq">Mirror_resp_Qeq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> <span class="id" type="var">t</span>:StepF), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">t</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">t</span>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorMirror">MirrorMirror</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF), (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>)) <span class="id" type="var">s</span>).<br/>
+</div>
+
+<div class="doc">
+Splits interacts with Mirror in the way you expect 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitR_resp_Qeq">SplitR_resp_Qeq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> <span class="id" type="var">t</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit), <span class="id" type="var">a</span> == <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">t</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">t</span> <span class="id" type="var">b</span>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorSplitL_Qeq">MirrorSplitL_Qeq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit), <span class="id" type="var">b</span> == (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDual">OpenUnitDual</a></span> <span class="id" type="var">a</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>) <span class="id" type="var">b</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorSplitR_Qeq">MirrorSplitR_Qeq</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit), <span class="id" type="var">b</span> == (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDual">OpenUnitDual</a></span> <span class="id" type="var">a</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>) <span class="id" type="var">b</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitL_resp_Qeq">SplitL_resp_Qeq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> <span class="id" type="var">t</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit), <span class="id" type="var">a</span> == <span class="id" type="var">b</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">s</span> <span class="id" type="var">t</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">t</span> <span class="id" type="var">b</span>).<br/>
+</div>
+
+<div class="doc">
+The following three lemmas are the key lemmas about Splits.  They
+characterise how Splits distribute across each other. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLSplitL">SplitLSplitL</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>:OpenUnit), (<span class="id" type="var">a</span>*b==c) -&gt; <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>) <span class="id" type="var">b</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitRSplitR">SplitRSplitR</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>:OpenUnit), (<span class="id" type="var">a</span>+b-a*b==c) -&gt; <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>) <span class="id" type="var">b</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLSplitR">SplitLSplitR</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span>:StepF) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span>:OpenUnit), (<span class="id" type="var">a</span>+b-a*b==c) -&gt; (<span class="id" type="var">d</span>*c==a) -&gt; <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">a</span>) <span class="id" type="var">b</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">c</span>) <span class="id" type="var">d</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.StepFunction.html#StepFunction">StepFunction</a></span>.<br/>
+</div>
+
+<div class="doc">
+Step functions are a functor 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Map">Map</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type):(X-&gt;Y)-&gt;(StepF <span class="id" type="var">X</span>)-&gt;(StepF <span class="id" type="var">Y</span>).<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "f ^@&gt; x" := (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 15, <span class="id" type="var">left</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">sfscope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Step functions are an applicative functor 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Ap">Ap</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type) (<span class="id" type="var">f</span>:StepF (<span class="id" type="var">X</span>-&gt;Y)) (<span class="id" type="var">a</span>:StepF <span class="id" type="var">X</span>) : <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> <span class="id" type="var">Y</span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">f</span> <span class="id" type="keyword">with</span><br/>
+|constStepF <span class="id" type="var">f0</span> =&gt; <span class="id" type="var">f0</span> ^@&gt; <span class="id" type="var">a</span><br/>
+|glue <span class="id" type="var">o</span> <span class="id" type="var">f0</span> <span class="id" type="var">f1</span> =&gt; <span class="id" type="keyword">let</span> (<span class="id" type="var">l</span>,r):=Split <span class="id" type="var">a</span> <span class="id" type="var">o</span> <span class="id" type="keyword">in</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Ap">Ap</a></span> <span class="id" type="var">f0</span> <span class="id" type="var">l</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Ap">Ap</a></span> <span class="id" type="var">f1</span> <span class="id" type="var">r</span>))<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "f &lt;@&gt; x" := (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Ap">Ap</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 15, <span class="id" type="var">left</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">sfscope</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Map2">Map2</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Type) (<span class="id" type="var">f</span>:(X-&gt;Y-&gt;Z)) <span class="id" type="var">a</span> <span class="id" type="var">b</span> :=<br/>
+&nbsp;<span class="id" type="var">f</span> ^@&gt; <span class="id" type="var">a</span> &lt;@&gt; <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <span class="id" type="var">f</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <span class="id" type="var">f</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">X</span>) ==&gt; (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">Y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">Map_resp_Qeq</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These lemmas show how ap distributes over glue 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ApGlue">ApGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">fl</span> <span class="id" type="var">fr</span>:StepF (<span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>)) <span class="id" type="var">o</span> <span class="id" type="var">b</span>, (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">fl</span> <span class="id" type="var">fr</span>) &lt;@&gt; <span class="id" type="var">b</span> = <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> (<span class="id" type="var">fl</span> &lt;@&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">b</span> <span class="id" type="var">o</span>)) (<span class="id" type="var">fr</span> &lt;@&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">b</span> <span class="id" type="var">o</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ApGlueGlue">ApGlueGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">fl</span> <span class="id" type="var">fr</span>:StepF (<span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>)) <span class="id" type="var">o</span> <span class="id" type="var">l</span> <span class="id" type="var">r</span>, (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">fl</span> <span class="id" type="var">fr</span>) &lt;@&gt; (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">l</span> <span class="id" type="var">r</span>) = <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#glue">glue</a></span> <span class="id" type="var">o</span> (<span class="id" type="var">fl</span> &lt;@&gt; <span class="id" type="var">l</span>) (<span class="id" type="var">fr</span> &lt;@&gt; <span class="id" type="var">r</span>).<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Ap">Ap</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="var">X</span>-&gt;Y)) ==&gt; (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">X</span>) ==&gt; (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> <span class="id" type="var">Y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">Ap_resp_Qeq</span>.<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Ap">Ap</a></span>.<br/>
+</div>
+
+<div class="doc">
+Splits commute with maps 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitMap">SplitMap</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type):forall <span class="id" type="var">x</span>:(StepF <span class="id" type="var">X</span>), <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>, <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:X-&gt;Y, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) <span class="id" type="var">a</span>) = <span class="id" type="keyword">let</span> (<span class="id" type="var">l</span>,r) := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Split">Split</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span> <span class="id" type="keyword">in</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">l</span>,Map <span class="id" type="var">f</span> <span class="id" type="var">r</span>).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLMap">SplitLMap</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type): <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:(StepF <span class="id" type="var">X</span>), <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>, <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:X-&gt;Y, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) <span class="id" type="var">a</span> = <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitRMap">SplitRMap</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type): <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:(StepF <span class="id" type="var">X</span>), <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>, <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:X-&gt;Y, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">x</span>) <span class="id" type="var">a</span> = <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">x</span> <span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These lemmas show how ap distributes over split and uses mirror
+properties to get the symetric cases 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLAp_Qeq">SplitLAp_Qeq</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> (<span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>)) <span class="id" type="var">s</span> <span class="id" type="var">o</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> (<span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="var">s</span>) <span class="id" type="var">o</span>) ((<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">f</span> <span class="id" type="var">o</span>) &lt;@&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitL">SplitL</a></span> <span class="id" type="var">s</span> <span class="id" type="var">o</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorMap">MirrorMap</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>) <span class="id" type="var">s</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">s</span>)) = (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Map">Map</a></span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorAp_Qeq">MirrorAp_Qeq</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>: <span class="id" type="keyword">Type</span>) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> (<span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>)) <span class="id" type="var">s</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> (<span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="var">s</span>)) ((<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">f</span>) &lt;@&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#Mirror">Mirror</a></span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitRAp_Qeq">SplitRAp_Qeq</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Type) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">f</span>: <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF">StepF</a></span> (<span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span>)) <span class="id" type="var">s</span> <span class="id" type="var">o</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> (<span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="var">s</span>) <span class="id" type="var">o</span>) ((<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">f</span> <span class="id" type="var">o</span>) &lt;@&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#SplitR">SplitR</a></span> <span class="id" type="var">s</span> <span class="id" type="var">o</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.StepFunction.html#Ap">Ap</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ApplicativeFunctor">ApplicativeFunctor</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These are the laws of an applicative functor 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ap_identity">Ap_identity</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> (<span class="id" type="var">a</span>:StepF <span class="id" type="var">X</span>), <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="var">x</span>) &lt;@&gt; <span class="id" type="var">a</span> = <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Map_identity">Map_identity</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> (<span class="id" type="var">a</span>:StepF <span class="id" type="var">X</span>), (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="var">x</span>) ^@&gt; <span class="id" type="var">a</span> = <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="compose">compose</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="var">x</span> : <span class="id" type="var">Y</span> -&gt;Z) (<span class="id" type="var">y</span>:X -&gt; <span class="id" type="var">Y</span>) <span class="id" type="var">z</span> := <span class="id" type="var">x</span> (<span class="id" type="var">y</span> <span class="id" type="var">z</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ap_composition_Qeq">Ap_composition_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="var">a</span>:StepF (<span class="id" type="var">Y</span>-&gt;Z)) (<span class="id" type="var">b</span>:StepF (<span class="id" type="var">X</span>-&gt;Y)) (<span class="id" type="var">c</span>:StepF <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (@<span class="id" type="var">compose</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>) &lt;@&gt; <span class="id" type="var">a</span> &lt;@&gt; <span class="id" type="var">b</span> &lt;@&gt; <span class="id" type="var">c</span>) (<span class="id" type="var">a</span> &lt;@&gt; (<span class="id" type="var">b</span> &lt;@&gt; <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Map_composition_Qeq">Map_composition_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="var">a</span>:StepF (<span class="id" type="var">Y</span>-&gt;Z)) (<span class="id" type="var">b</span>:StepF (<span class="id" type="var">X</span>-&gt;Y)) (<span class="id" type="var">c</span>:StepF <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunction.html#StepF_Qeq">StepF_Qeq</a></span> ((<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> =&gt; <span class="id" type="var">x</span> (<span class="id" type="var">y</span> <span class="id" type="var">z</span>)) ^@&gt; <span class="id" type="var">a</span> &lt;@&gt; <span class="id" type="var">b</span> &lt;@&gt; <span class="id" type="var">c</span>) (<span class="id" type="var">a</span> &lt;@&gt; (<span class="id" type="var">b</span> &lt;@&gt; <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ap_homomorphism">Ap_homomorphism</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">f</span>:X-&gt;Y) (<span class="id" type="var">a</span>:X),<br/>
+&nbsp;(<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">a</span>) = (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Map_homomorphism">Map_homomorphism</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">f</span>:X-&gt;Y) (<span class="id" type="var">a</span>:X),<br/>
+&nbsp;(<span class="id" type="var">f</span> ^@&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">a</span>) = (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ap_interchange">Ap_interchange</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">f</span>:StepF (<span class="id" type="var">X</span>-&gt;Y)) (<span class="id" type="var">a</span>:X),<br/>
+&nbsp;(<span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">a</span>) = (<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">g</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">a</span>)) &lt;@&gt; <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Map_interchange">Map_interchange</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">f</span>:StepF (<span class="id" type="var">X</span>-&gt;Y)) (<span class="id" type="var">a</span>:X),<br/>
+&nbsp;(<span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.StepFunction.html#constStepF">constStepF</a></span> <span class="id" type="var">a</span>) = (<span class="id" type="keyword">fun</span> <span class="id" type="var">g</span> =&gt; <span class="id" type="var">g</span> <span class="id" type="var">a</span>) ^@&gt; <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Map_compose_Map">Map_compose_Map</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="var">f</span>:Y-&gt;Z) (<span class="id" type="var">g</span>:X -&gt; <span class="id" type="var">Y</span>) <span class="id" type="var">a</span>,<br/>
+<span class="id" type="var">StepF_Qeq</span> ((<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="var">f</span> (<span class="id" type="var">g</span> <span class="id" type="var">a</span>)) ^@&gt; <span class="id" type="var">a</span>) (<span class="id" type="var">f</span> ^@&gt; (<span class="id" type="var">g</span> ^@&gt; <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.StepFunction.html#ApplicativeFunctor">ApplicativeFunctor</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

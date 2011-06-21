@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CQuotient_Rings</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab229"></a><h1 class="section">Quotient Rings</h1>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring and <span class="inlinecode"><span class="id" type="var">C</span></span> a coideal of <span class="inlinecode"><span class="id" type="var">R</span></span>.
+We will prove that  A / ~C is a ring, called QuotRing.
+<a name="lab230"></a><h2 class="section">QuotRing is a setoid</h2>
+
+To achieve this we define a new apartness on the elements of <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="QuotRing">QuotRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="QuotRing.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="QuotRing.C">C</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CIdeals.html#coideal">coideal</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_quotring">ap_quotring</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:R) := <span class="id" type="var">C</span>(<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotring_irreflexive">ap_quotring_irreflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#ap_quotring">ap_quotring</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotring_symmetric">ap_quotring_symmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#ap_quotring">ap_quotring</a></span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotring_cotransitive">ap_quotring_cotransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#ap_quotring">ap_quotring</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We take `not apart' as the new equality.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="eq_quotring">eq_quotring</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:R) := ~ (<span class="id" type="var">C</span>(<span class="id" type="var">x</span>[-]<span class="id" type="var">y</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_quotring_wd">eq_quotring_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:R), <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#eq_quotring">eq_quotring</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_quotring_tight">ap_quotring_tight</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#eq_quotring">eq_quotring</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#ap_quotring">ap_quotring</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_quotring_is_apartness">ap_quotring_is_apartness</a></span> :=<br/>
+<span class="id" type="var">Build_is_CSetoid</span> <span class="id" type="var">R</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#eq_quotring">eq_quotring</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#ap_quotring">ap_quotring</a></span> <br/>
+<span class="id" type="var">ap_quotring_irreflexive</span><br/>
+<span class="id" type="var">ap_quotring_symmetric</span><br/>
+<span class="id" type="var">ap_quotring_cotransitive</span><br/>
+<span class="id" type="var">ap_quotring_tight</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CSetoid">quotring_as_CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <br/>
+<span class="id" type="var">ap_quotring_is_apartness</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab231"></a><h2 class="section">QuotRing is a semigroup</h2>
+
+We use <span class="inlinecode">+</span> as the operation for this.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drplus_is_ext">drplus_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span> <br/>
+<span class="id" type="var">quotring_as_CSetoid</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=R)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="drplus_is_bin_fun">drplus_is_bin_fun</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_bin_fun</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span><br/>
+<span class="id" type="var">quotring_as_CSetoid</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> (<span class="id" type="var">c</span>:=R)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_ext">drplus_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drplus_is_assoc">drplus_is_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_bin_fun">drplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CSemiGroup">quotring_as_CSemiGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span><br/>
+<span class="id" type="var">drplus_is_bin_fun</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_assoc">drplus_is_assoc</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab232"></a><h2 class="section">QuotRing is a monoid</h2>
+
+<span class="inlinecode">0:R</span> will work as unit.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_as_rht_unit">zero_as_rht_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_rht_unit">is_rht_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_bin_fun">drplus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_as_lft_unit">zero_as_lft_unit</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_bin_fun">drplus_is_bin_fun</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_is_CMonoid">quotring_is_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_is_CMonoid">Build_is_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSemiGroup">quotring_as_CSemiGroup</a></span><br/>
+0 <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#zero_as_rht_unit">zero_as_rht_unit</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#zero_as_lft_unit">zero_as_lft_unit</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CMonoid">quotring_as_CMonoid</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_CMonoid">Build_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSemiGroup">quotring_as_CSemiGroup</a></span><br/>
+0 <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_is_CMonoid">quotring_is_CMonoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab233"></a><h2 class="section">QuotRing is a group</h2>
+
+The same function still works as inverse (i.e. minus).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drinv_is_ext">drinv_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_strext">un_op_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span> (<span class="id" type="var">c</span>:=R)).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="drinv_is_un_op">drinv_is_un_op</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_un_op</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CSetoid">quotring_as_CSetoid</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span> (<span class="id" type="var">c</span>:=R)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drinv_is_ext">drinv_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drinv_is_inv">drinv_is_inv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CMonoid">quotring_as_CMonoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drinv_is_un_op">drinv_is_un_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CGroup">quotring_as_CGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CMonoid">quotring_as_CMonoid</a></span><br/>
+<span class="id" type="var">drinv_is_un_op</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drinv_is_inv">drinv_is_inv</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab234"></a><h2 class="section">QuotRing is an Abelian group</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drplus_is_commutative">drplus_is_commutative</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_bin_fun">drplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CAbGroup">quotring_as_CAbGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CAbGroups.html#Build_CAbGroup">Build_CAbGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CGroup">quotring_as_CGroup</a></span><br/>
+<span class="id" type="var">drplus_is_commutative</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab235"></a><h2 class="section">QuotRing is a ring</h2>
+
+Multiplication from <span class="inlinecode"><span class="id" type="var">R</span></span> still works as a multiplicative function, making
+quotring a ring.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drmult_is_ext">drmult_is_ext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span> <br/>
+<span class="id" type="var">quotring_as_CAbGroup</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CRings.html#cr_mult">cr_mult</a></span> (<span class="id" type="var">c</span>:=R)).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="drmult_is_bin_op">drmult_is_bin_op</a></span> := <br/>
+<span class="id" type="var">Build_CSetoid_bin_op</span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CRings.html#cr_mult">cr_mult</a></span> (<span class="id" type="var">c</span>:=R)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_ext">drmult_is_ext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drmult_associative">drmult_associative</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_bin_op">drmult_is_bin_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drmult_monoid">drmult_monoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#is_CMonoid">is_CMonoid</a></span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span><br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_bin_op">drmult_is_bin_op</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_associative">drmult_associative</a></span>) 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="drmult_commutes">drmult_commutes</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_bin_op">drmult_is_bin_op</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="quotring_distr">quotring_distr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#distributive">distributive</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_bin_op">drmult_is_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drplus_is_bin_fun">drplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="quotring_nontriv">quotring_nontriv</a></span> : (1:quotring_as_CAbGroup) [#] (0:quotring_as_CAbGroup).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_is_CRing">quotring_is_CRing</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CRings.html#Build_is_CRing">Build_is_CRing</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span> 1<br/>
+<span class="id" type="var">drmult_is_bin_op</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_associative">drmult_associative</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_monoid">drmult_monoid</a></span> <br/>
+<span class="id" type="var">drmult_commutes</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_distr">quotring_distr</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_nontriv">quotring_nontriv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="quotring_as_CRing">quotring_as_CRing</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CRings.html#Build_CRing">Build_CRing</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_as_CAbGroup">quotring_as_CAbGroup</a></span><br/>
+1 <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#drmult_is_bin_op">drmult_is_bin_op</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#quotring_is_CRing">quotring_is_CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CQuotient_Rings.html#QuotRing">QuotRing</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

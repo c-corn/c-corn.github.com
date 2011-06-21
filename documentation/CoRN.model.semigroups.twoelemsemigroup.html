@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.semigroups.twoelemsemigroup</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="p68E1b1">p68E1b1</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab151"></a><h2 class="section">Example of a semigroup: semigroups with two elements</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M1_is_CSemiGroup">M1_is_CSemiGroup</a></span>:(is_CSemiGroup <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_mult_as_bin_fun">M1_mult_as_bin_fun</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="e1_is_lft_unit">e1_is_lft_unit</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_mult_as_bin_fun">M1_mult_as_bin_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="e1_is_rht_unit">e1_is_rht_unit</a></span>:(is_rht_unit <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_mult_as_bin_fun">M1_mult_as_bin_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M1_as_CSemiGroup">M1_as_CSemiGroup</a></span>:CSemiGroup:=<br/>
+(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_mult_as_bin_fun">M1_mult_as_bin_fun</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.semigroups.twoelemsemigroup.html#M1_is_CSemiGroup">M1_is_CSemiGroup</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="M2_is_CSemiGroup">M2_is_CSemiGroup</a></span>:(is_CSemiGroup <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_mult_as_bin_fun">M2_mult_as_bin_fun</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="M2_as_CSemiGroup">M2_as_CSemiGroup</a></span>:=<br/>
+(<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSemiGroups.html#Build_CSemiGroup">Build_CSemiGroup</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M1_as_CSetoid">M1_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_mult_as_bin_fun">M2_mult_as_bin_fun</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.semigroups.twoelemsemigroup.html#M2_is_CSemiGroup">M2_is_CSemiGroup</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="e1_is_lft_unit_M2">e1_is_lft_unit_M2</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_lft_unit">is_lft_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_mult_as_bin_fun">M2_mult_as_bin_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="e1_is_rht_unit_M2">e1_is_rht_unit_M2</a></span>: (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSemiGroups.html#is_rht_unit">is_rht_unit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#M2_mult_as_bin_fun">M2_mult_as_bin_fun</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.setoids.twoelemsetoid.html#e1">e1</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span>  <span class="id" type="section"><a class="idref" href="CoRN.model.semigroups.twoelemsemigroup.html#p68E1b1">p68E1b1</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

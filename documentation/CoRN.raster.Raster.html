@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.raster.Raster</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab726"></a><h1 class="section">Rasters</h1>
+
+A n by m raster is a vector of vector of booleans.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">m</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A series of notation allows rasters to be rendered (and to a certain
+extent parsed) in Coq 
+</div>
+<div class="code">
+<span class="id" type="keyword">Notation</span> "'⎥' a b" := (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="var">_</span>) <span class="id" type="var">a</span> <span class="id" type="var">_</span> <span class="id" type="var">b</span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">format</span> "'[v' '⎥' a '/' b ']'", <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">a</span>, <span class="id" type="var">b</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0) : <span class="id" type="var">raster</span>.<br/>
+<span class="id" type="keyword">Notation</span> "'⎥' a" := (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="var">_</span>) <span class="id" type="var">a</span> <span class="id" type="var">_</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vnil">Vnil</a></span> <span class="id" type="var">_</span>)) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">format</span> "'⎥' a", <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">a</span>, <span class="id" type="var">b</span> <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0) : <span class="id" type="var">raster</span>.<br/>
+<span class="id" type="keyword">Notation</span> "█ a" := (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#true">true</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">raster</span>.<br/>
+<span class="id" type="keyword">Notation</span> "⎢" := (@<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vnil">Vnil</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">raster</span>.<br/>
+<span class="id" type="keyword">Notation</span> "' ' a" := (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">raster</span>.<br/>
+<span class="id" type="keyword">Notation</span> "░ a" := (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 0, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>, <span class="id" type="var">only</span> <span class="id" type="var">parsing</span>) : <span class="id" type="var">raster_parsing</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Standard rasters. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="emptyRaster">emptyRaster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> : <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> :=<br/>
+<span class="id" type="var">Vconst</span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vconst">Vconst</a></span> <span class="id" type="var">_</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span> <span class="id" type="var">_</span>) <span class="id" type="var">_</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="fullRaster">fullRaster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> : <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> :=<br/>
+<span class="id" type="var">Vconst</span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vconst">Vconst</a></span> <span class="id" type="var">_</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span> <span class="id" type="var">_</span>) <span class="id" type="var">_</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="vectorAsList">vectorAsList</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:vector <span class="id" type="var">A</span> <span class="id" type="var">n</span>) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span> :=<br/>
+<span class="id" type="var">vector_rect</span> <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">n0</span> : <b>N</b>) (<span class="id" type="var">_</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>) =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span>) <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span><br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">n0</span> : <b>N</b>) (<span class="id" type="var">_</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>) (<span class="id" type="var">IHv</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span>) =&gt; <span class="id" type="var">a</span> :: <span class="id" type="var">IHv</span>) <span class="id" type="var">n</span> <span class="id" type="var">v</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Coercion</span> <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#vectorAsList">vectorAsList</a></span> : <span class="id" type="var">vector</span>&gt;-&gt;list.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="length_vectorAsList">length_vectorAsList</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:vector <span class="id" type="var">A</span> <span class="id" type="var">n</span>), (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#length">length</a></span> <span class="id" type="var">v</span>) = <span class="id" type="var">n</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Indexing into a raster 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="RasterIndex">RasterIndex</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">r</span>:raster <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">i</span> <span class="id" type="var">j</span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nth">nth</a></span> <span class="id" type="var">j</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nth">nth</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#vectorAsList">vectorAsList</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) <span class="id" type="var">r</span>) <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span>) <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Indexing into an empty raster is alway empty 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="emptyRasterEmpty">emptyRasterEmpty</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+<span class="id" type="var">RasterIndex</span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#emptyRaster">emptyRaster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">i</span> <span class="id" type="var">j</span> = <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">setRaster</span></span> transforms a raster by setting (or reseting) the (i,j)th 
+pixel. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="updateVector">updateVector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:vector <span class="id" type="var">A</span> <span class="id" type="var">n</span>) (<span class="id" type="var">f</span>:A-&gt;A) : <b>N</b> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> :=<br/>
+<span class="id" type="var">vector_rect</span> <span class="id" type="var">A</span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">n0</span> : <b>N</b>) (<span class="id" type="var">_</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>) =&gt; <b>N</b> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> (<span class="id" type="var">_</span> : <b>N</b>) =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vnil">Vnil</a></span> <span class="id" type="var">A</span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> (<span class="id" type="var">a</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">n0</span> : <b>N</b>) (<span class="id" type="var">v0</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>) (<span class="id" type="var">IHv</span> : <b>N</b> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#vector">vector</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n0</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">i</span> : <b>N</b>) =&gt;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">i</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;| 0 =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> <span class="id" type="var">A</span> (<span class="id" type="var">f</span> <span class="id" type="var">a</span>) <span class="id" type="var">n0</span> <span class="id" type="var">v0</span><br/>
+&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i0</span> =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bvector.html#Vcons">Vcons</a></span> <span class="id" type="var">A</span> <span class="id" type="var">a</span> <span class="id" type="var">n0</span> (<span class="id" type="var">IHv</span> <span class="id" type="var">i0</span>)<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span>) <span class="id" type="var">n</span> <span class="id" type="var">v</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="setRaster">setRaster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">r</span>:raster <span class="id" type="var">n</span> <span class="id" type="var">m</span>) (<span class="id" type="var">x</span>:bool) (<span class="id" type="var">i</span> <span class="id" type="var">j</span>:nat) :=<br/>
+<span class="id" type="var">updateVector</span> <span class="id" type="var">r</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">row</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#updateVector">updateVector</a></span> <span class="id" type="var">row</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">x</span>) <span class="id" type="var">j</span>) <span class="id" type="var">i</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="updateVector_correct1">updateVector_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:vector <span class="id" type="var">A</span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>,<br/>
+<span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nth">nth</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#updateVector">updateVector</a></span> <span class="id" type="var">v</span> <span class="id" type="var">f</span> <span class="id" type="var">i</span>) <span class="id" type="var">d1</span> = <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nth">nth</a></span> <span class="id" type="var">i</span> <span class="id" type="var">v</span> <span class="id" type="var">d2</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="updateVector_correct2">updateVector_correct2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:vector <span class="id" type="var">A</span> <span class="id" type="var">n</span>) <span class="id" type="var">f</span> <span class="id" type="var">d1</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+<span class="id" type="var">i</span> &lt;&gt; <span class="id" type="var">j</span> -&gt;<br/>
+<span class="id" type="var">nth</span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#updateVector">updateVector</a></span> <span class="id" type="var">v</span> <span class="id" type="var">f</span> <span class="id" type="var">j</span>) <span class="id" type="var">d1</span> = <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nth">nth</a></span> <span class="id" type="var">i</span> <span class="id" type="var">v</span> <span class="id" type="var">d1</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="setRaster_correct1">setRaster_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">r</span>:raster <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">x</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+&nbsp;(<span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span>) -&gt; (<span class="id" type="var">j</span> &lt; <span class="id" type="var">n</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#RasterIndex">RasterIndex</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#setRaster">setRaster</a></span> <span class="id" type="var">r</span> <span class="id" type="var">x</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>) <span class="id" type="var">i</span> <span class="id" type="var">j</span> = <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="setRaster_overflow">setRaster_overflow</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">r</span>:raster <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">x</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+&nbsp;(<span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span>) \/ (<span class="id" type="var">n</span> &lt;= <span class="id" type="var">j</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#setRaster">setRaster</a></span> <span class="id" type="var">r</span> <span class="id" type="var">x</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>) = <span class="id" type="var">r</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="setRaster_correct2">setRaster_correct2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">r</span>:raster <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">x</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">i0</span> <span class="id" type="var">j0</span>,<br/>
+&nbsp;(<span class="id" type="var">i</span> &lt;&gt; <span class="id" type="var">i0</span>) \/ (<span class="id" type="var">j</span> &lt;&gt; <span class="id" type="var">j0</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#RasterIndex">RasterIndex</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#setRaster">setRaster</a></span> <span class="id" type="var">r</span> <span class="id" type="var">x</span> <span class="id" type="var">i0</span> <span class="id" type="var">j0</span>) <span class="id" type="var">i</span> <span class="id" type="var">j</span> = <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#RasterIndex">RasterIndex</a></span> <span class="id" type="var">r</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

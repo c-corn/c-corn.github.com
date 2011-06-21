@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRAlternatingSum</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab676"></a><h2 class="section">Computing Alternating Series.</h2>
+
+Alternating series are particularly nice to sum because each term is also
+a bound on the error of the partial sum.
+<a name="lab677"></a><h3 class="section">Decreasing and Nonnegative</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+We characterize a decreasing nonnegative stream of rational numbers
+by saying at every point in the stream s, then every
+further point in the stream is in <span class="inlinecode">[0,s]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="DecreasingNonNegative">DecreasingNonNegative</a></span> := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">s</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">t</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) =&gt; 0 &lt;= (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">t</span>) &lt;= (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>)) <span class="id" type="var">s</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An alternative charactherization is that at every point in the stream
+the second element is in between 0 and the head element. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="DecreasingNonNegative_alt">DecreasingNonNegative_alt</a></span> := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#ForAll">ForAll</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">s</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) =&gt; 0 &lt;= (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">s</span>)) &lt;= (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+These two characterizations are equivalent. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_alt_dnn">dnn_alt_dnn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative_alt">DecreasingNonNegative_alt</a></span> <span class="id" type="var">s</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_dnn_alt">dnn_dnn_alt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">s</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative_alt">DecreasingNonNegative_alt</a></span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_alt_iff_dnn">dnn_alt_iff_dnn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative_alt">DecreasingNonNegative_alt</a></span> <span class="id" type="var">s</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">s</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Every tail of a decreasing nonnegative stream is also decreasing and
+nonnegative. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_tl">dnn_tl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">s</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="var">s</span>).<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_Str_nth_tl">dnn_Str_nth_tl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">s</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="var">s</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth_tl">Str_nth_tl</a></span> <span class="id" type="var">n</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="InfiniteAlternatingSum">InfiniteAlternatingSum</a></span>.<br/>
+</div>
+
+<div class="doc">
+Given a stream, we can compute its alternating partial sum up to
+an point satifying a predicate, so long as that predicate eventually
+exists. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="PartialAlternatingSumUntil">PartialAlternatingSumUntil</a></span> (<span class="id" type="var">P</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>)(<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>)(<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">seq</span>) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> :=<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#takeUntil">takeUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex</span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qreduction.html#Qminus'">Qminus'</a></span> 0).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The value of the partial sum is between 0 and the head of the
+sequence if the sequence is decreasing and nonnegative. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="PartialAlternatingSumUntil_small">PartialAlternatingSumUntil_small</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span>)(<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>)(<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>)(<span class="id" type="var">ex</span>:LazyExists <span class="id" type="var">P</span> <span class="id" type="var">seq</span>), 0 &lt;= (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#PartialAlternatingSumUntil">PartialAlternatingSumUntil</a></span> <span class="id" type="var">P</span> <span class="id" type="var">ex</span>) &lt;= (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">seq</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A boolean version of Qball. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qball_ex_bool">Qball_ex_bool</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> :=<br/>
+&nbsp;<span class="id" type="keyword">if</span> <span class="id" type="lemma"><a class="idref" href="CoRN.metric2.UniformContinuity.html#ball_ex_dec">ball_ex_dec</a></span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qmetric_dec">Qmetric_dec</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="keyword">then</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#true">true</a></span> <span class="id" type="keyword">else</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sumbool_eq_true">sumbool_eq_true</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> (<span class="id" type="var">dec</span>:{P}+{~P}), (<span class="id" type="keyword">if</span> <span class="id" type="var">dec</span> <span class="id" type="keyword">then</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#true">true</a></span> <span class="id" type="keyword">else</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span>) = <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#true">true</a></span> &lt;-&gt; <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If a sequence has a limit of l, then there is a point that gets
+arbitrarily close to l. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Limit_near">Limit_near</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">l</span>:Q), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, <span class="id" type="inductive"><a class="idref" href="CoRN.metric2.Limit.html#LazyExists">LazyExists</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">s</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#Qball_ex_bool">Qball_ex_bool</a></span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">s</span>) <span class="id" type="var">l</span>) <span class="id" type="var">seq</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The infinte sum of an alternating series is the limit of the
+partial sums. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="InfiniteAlternatingSum_raw">InfiniteAlternatingSum_raw</a></span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>)(<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0)(<span class="id" type="var">e</span>:QposInf) :=<br/>
+<span class="id" type="var">PartialAlternatingSumUntil</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#Limit_near">Limit_near</a></span> <span class="id" type="var">zl</span> <span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_prf">InfiniteAlternatingSum_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) (<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0), <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Complete.html#is_RegularFunction">is_RegularFunction</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum_raw">InfiniteAlternatingSum_raw</a></span> <span class="id" type="var">zl</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>)(<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>)(<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="var">Build_RegularFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum_prf">InfiniteAlternatingSum_prf</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_step">InfiniteAlternatingSum_step</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) (<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span> ==<br/>
+&nbsp;&nbsp;('(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">seq</span>))-(InfiniteAlternatingSum (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#dnn_tl">dnn_tl</a></span> <span class="id" type="var">dnn</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.metric2.Limit.html#Limit_tl">Limit_tl</a></span> <span class="id" type="var">zl</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The infinite alternating series is always nonnegative. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_nonneg">InfiniteAlternatingSum_nonneg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) (<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#inject_Q">inject_Q</a></span> 0%Q &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span>)%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The infinite alternating series is always bounded by the first term
+in the series. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_bound">InfiniteAlternatingSum_bound</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) (<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span> &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#inject_Q">inject_Q</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#hd">hd</a></span> <span class="id" type="var">seq</span>))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">InfiniteAlternatingSum</span></span> is correct. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="dnn_zl_convergent">dnn_zl_convergent</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>),<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) (<span class="id" type="var">zl</span>:Limit <span class="id" type="var">seq</span> 0),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#convergent">convergent</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> ((-(1))^n*Str_nth <span class="id" type="var">n</span> <span class="id" type="var">seq</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_correct">InfiniteAlternatingSum_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">x</span>:nat -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>),<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>:nat, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (((-(1))^n)*Str_nth <span class="id" type="var">n</span> <span class="id" type="var">seq</span>)%Q[=]<span class="id" type="var">x</span> <span class="id" type="var">n</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) <span class="id" type="var">zl</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span>==IRasCR (&sum;<sub>0</sub><sup>&infin;</sup> <span class="id" type="var">x</span> <span class="id" type="var">H</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InfiniteAlternatingSum_correct'">InfiniteAlternatingSum_correct'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">seq</span>:Stream <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>),<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">dnn</span>:DecreasingNonNegative <span class="id" type="var">seq</span>) <span class="id" type="var">zl</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span>==IRasCR (&sum;<sub>0</sub><sup>&infin;</sup> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#dnn_zl_convergent">dnn_zl_convergent</a></span> <span class="id" type="var">dnn</span> <span class="id" type="var">zl</span>)))%CR.<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

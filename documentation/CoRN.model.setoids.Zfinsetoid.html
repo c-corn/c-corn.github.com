@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.setoids.Zfinsetoid</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab129"></a><h2 class="section">Setoids of the integers between 0 and <span class="inlinecode"><span class="id" type="var">z</span></span></h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="ZF">ZF</a></span> (<span class="id" type="var">n</span>:Z):Set:=<br/>
+{<span class="id" type="projection"><a name="ZF_crr">ZF_crr</a></span>:&gt; <b>Z</b> ;<br/>
+<span class="id" type="var">ZF_prf0</span>: (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zlt">Zlt</a></span>  <span class="id" type="method"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF_crr">ZF_crr</a></span> <span class="id" type="var">n</span>);<br/>
+<span class="id" type="var">ZF_prf1</span>: (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zle">Zle</a></span> 0 <span class="id" type="method"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF_crr">ZF_crr</a></span>)<br/>
+}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ZFeq">ZFeq</a></span> (<span class="id" type="var">n</span> : <b>Z</b>) : <span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ZFap">ZFap</a></span> (<span class="id" type="var">n</span> : <b>Z</b>) : <span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZFap_irreflexive">ZFap_irreflexive</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZFap_symmetric">ZFap_symmetric</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZFap_cotransitive">ZFap_cotransitive</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZFap_tight">ZFap_tight</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFeq">ZFeq</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zless">Zless</a></span> (<span class="id" type="var">n</span> : <b>Z</b>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_is_CSetoid">Build_is_CSetoid</a></span> (<span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFeq">ZFeq</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap_irreflexive">ZFap_irreflexive</a></span> <span class="id" type="var">n</span>)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap_symmetric">ZFap_symmetric</a></span> <span class="id" type="var">n</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap_cotransitive">ZFap_cotransitive</a></span> <span class="id" type="var">n</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap_tight">ZFap_tight</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ZCSetoid_of_less">ZCSetoid_of_less</a></span> (<span class="id" type="var">n</span> : <b>Z</b>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> (<span class="id" type="record"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZF">ZF</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFeq">ZFeq</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#ZFap">ZFap</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zfinsetoid.html#Zless">Zless</a></span> <span class="id" type="var">n</span>).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

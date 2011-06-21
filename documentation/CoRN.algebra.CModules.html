@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CModules</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab236"></a><h1 class="section">Modules</h1>
+
+<a name="lab237"></a><h2 class="section">Definition of the notion of an R-Module</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module_Definition">Module_Definition</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module_Definition.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_RModule">is_RModule</a></span> (<span class="id" type="var">A</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbGroups.html#CAbGroup">CAbGroup</a></span>) (<span class="id" type="var">mu</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">R</span> <span class="id" type="var">A</span> <span class="id" type="var">A</span>) : <span class="id" type="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="rm_pl1">rm_pl1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:R)(x <span class="id" type="var">y</span>:A), (<span class="id" type="var">mu</span> <span class="id" type="var">a</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>))[=]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="var">mu</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span>)[+](<span class="id" type="var">mu</span> <span class="id" type="var">a</span> <span class="id" type="var">y</span>));<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="rm_pl2">rm_pl2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:R)(x:A), (<span class="id" type="var">mu</span> (<span class="id" type="var">a</span>[+]<span class="id" type="var">b</span>) <span class="id" type="var">x</span>)[=]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="var">mu</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span>)[+](<span class="id" type="var">mu</span> <span class="id" type="var">b</span> <span class="id" type="var">x</span>));<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="rm_mult">rm_mult</a></span>: <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:R)(x:A), (<span class="id" type="var">mu</span> (<span class="id" type="var">a</span>[*]<span class="id" type="var">b</span>) <span class="id" type="var">x</span>)[=]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="var">mu</span> <span class="id" type="var">a</span> (<span class="id" type="var">mu</span> <span class="id" type="var">b</span> <span class="id" type="var">x</span>));<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="rm_one">rm_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:A, (<span class="id" type="var">mu</span> 1 <span class="id" type="var">x</span>)[=]<span class="id" type="var">x</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="RModule">RModule</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="rm_crr">rm_crr</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CAbGroups.html#CAbGroup">CAbGroup</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="rm_mu">rm_mu</a></span>  : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_fun">CSetoid_bin_fun</a></span> <span class="id" type="var">R</span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#rm_crr">rm_crr</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#rm_crr">rm_crr</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="rm_proof">rm_proof</a></span>: <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_RModule">is_RModule</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#rm_crr">rm_crr</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#rm_mu">rm_mu</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module_Definition">Module_Definition</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "a . x" := (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CModules.html#rm_mu">rm_mu</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 20, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring, let <span class="inlinecode"><span class="id" type="var">A</span></span> be an <span class="inlinecode"><span class="id" type="var">R</span></span>-Module.
+<a name="lab238"></a><h2 class="section">Lemmas on Modules</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="keyword">Module</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab239"></a><h3 class="section">Axioms on Modules</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module.Module_Axioms">Module_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.Module_Axioms.A">A</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="RModule_is_RModule">RModule_is_RModule</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_RModule">is_RModule</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CModules.html#rm_crr">rm_crr</a></span> <span class="id" type="var">A</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CModules.html#rm_mu">rm_mu</a></span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_plus1">mu_plus1</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>), <span class="id" type="var">a</span>['](<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] <span class="id" type="var">a</span>[']<span class="id" type="var">x</span> [+] <span class="id" type="var">a</span>[']<span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_plus2">mu_plus2</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>), (<span class="id" type="var">a</span>[+]<span class="id" type="var">b</span>) ['] <span class="id" type="var">x</span> [=] <span class="id" type="var">a</span>[']<span class="id" type="var">x</span> [+] <span class="id" type="var">b</span>[']<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_mult">mu_mult</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">x</span> : <span class="id" type="var">A</span>), (<span class="id" type="var">a</span>[*]<span class="id" type="var">b</span>)['] <span class="id" type="var">x</span> [=] <span class="id" type="var">a</span>[']<span class="id" type="var">b</span>[']<span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_one">mu_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, 1[']<span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module.Module_Axioms">Module_Axioms</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab240"></a><h3 class="section">Facts on Modules</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module.Module_Basics">Module_Basics</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.Module_Basics.A">A</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_zerox">mu_zerox</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, 0[']<span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_minusonex">mu_minusonex</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:A, [--]1[']<span class="id" type="var">x</span> [=] [--]<span class="id" type="var">x</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_azero">mu_azero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>:R, <span class="id" type="var">a</span>['](0:A) [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_aminusx">mu_aminusx</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:R)(x:A), <span class="id" type="var">a</span>['][--]<span class="id" type="var">x</span> [=] [--] (<span class="id" type="var">a</span>[']<span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_minusax">mu_minusax</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:R)(x:A), [--]<span class="id" type="var">a</span>[']<span class="id" type="var">x</span> [=] [--] (<span class="id" type="var">a</span>[']<span class="id" type="var">x</span>).<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_axap0_aap0">mu_axap0_aap0</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:R)(x:A), <span class="id" type="var">a</span>[']<span class="id" type="var">x</span> [#] (0:A) -&gt; <span class="id" type="var">a</span> [#] (0:R).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mu_axap0_xap0">mu_axap0_xap0</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:R)(x:A), <span class="id" type="var">a</span>[']<span class="id" type="var">x</span> [#] (0:A) -&gt; <span class="id" type="var">x</span> [#] (0:A).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module.Module_Basics">Module_Basics</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab241"></a><h2 class="section">Rings are Modules</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module.Rings">Rings</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="R_is_RModule">R_is_RModule</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_RModule">is_RModule</a></span> <span class="id" type="var">R</span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CRings.html#cr_mult">cr_mult</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="R_as_RModule">R_as_RModule</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CModules.html#Build_RModule">Build_RModule</a></span> <span class="id" type="var">R</span> <span class="id" type="var">R</span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CRings.html#cr_mult">cr_mult</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CModules.html#R_is_RModule">R_is_RModule</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module.Rings">Rings</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<a name="lab242"></a><h2 class="section">Definition of sub- and comodules</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module.CoSubModules">CoSubModules</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.CoSubModules.A">A</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_submod">is_submod</a></span> (<span class="id" type="var">subP</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">A</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="smzero">smzero</a></span> : <span class="id" type="var">subP</span> 0;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="smplus">smplus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:A, <span class="id" type="var">subP</span> <span class="id" type="var">x</span> <span class="id" type="var">and</span> <span class="id" type="var">subP</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">subP</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>);<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="smmult">smmult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:A)(a:R), <span class="id" type="var">subP</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">subP</span>(<span class="id" type="var">a</span>[']<span class="id" type="var">x</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="submod">submod</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="smpred">smpred</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">A</span>; <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="smproof">smproof</a></span>:  <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_submod">is_submod</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#smpred">smpred</a></span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_comod">is_comod</a></span> (<span class="id" type="var">coP</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">A</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="cmapzero">cmapzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:A, <span class="id" type="var">coP</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[#]0;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cmplus">cmplus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:A, <span class="id" type="var">coP</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">coP</span> <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">coP</span> <span class="id" type="var">y</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cmmult">cmmult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:A)(a:R), <span class="id" type="var">coP</span> (<span class="id" type="var">a</span>[']<span class="id" type="var">x</span>) -&gt; <span class="id" type="var">coP</span> <span class="id" type="var">x</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="comod">comod</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="cmpred">cmpred</a></span> :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#wd_pred">wd_pred</a></span> <span class="id" type="var">A</span>; <br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cmproof">cmproof</a></span>:  <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_comod">is_comod</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CModules.html#cmpred">cmpred</a></span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module.CoSubModules">CoSubModules</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab243"></a><h2 class="section">Axioms on sub- and comodules</h2>
+
+Let <span class="inlinecode"><span class="id" type="var">sm</span></span> be a submodule, let <span class="inlinecode"><span class="id" type="var">cm</span></span> be a comodule.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Module.CoSubModule_Axioms">CoSubModule_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.CoSubModule_Axioms.A">A</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#RModule">RModule</a></span> <span class="id" type="var">R</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.CoSubModule_Axioms.sm">sm</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#submod">submod</a></span> <span class="id" type="var">A</span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Module.CoSubModule_Axioms.cm">cm</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#comod">comod</a></span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="submod_is_submod">submod_is_submod</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_submod">is_submod</a></span> <span class="id" type="var">sm</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_is_comod">comod_is_comod</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CModules.html#is_comod">is_comod</a></span> <span class="id" type="var">cm</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_apzero">comod_apzero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>:A, <span class="id" type="var">cm</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">x</span>[#]0.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_nonzero">comod_nonzero</a></span> : ~ (<span class="id" type="var">cm</span> 0).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_plus">comod_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:A, <span class="id" type="var">cm</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) -&gt; <span class="id" type="var">cm</span> <span class="id" type="var">x</span> <span class="id" type="var">or</span> <span class="id" type="var">cm</span> <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_mult">comod_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:A)(a:R), <span class="id" type="var">cm</span> (<span class="id" type="var">a</span>[']<span class="id" type="var">x</span>) -&gt; <span class="id" type="var">cm</span> <span class="id" type="var">x</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="comod_wd">comod_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>:A, <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span> -&gt; <span class="id" type="var">cm</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">cm</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CModules.html#Module.CoSubModule_Axioms">CoSubModule_Axioms</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="keyword">Module</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

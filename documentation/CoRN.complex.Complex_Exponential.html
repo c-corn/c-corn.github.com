@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.complex.Complex_Exponential</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab562"></a><h2 class="section">The Complex Exponential</h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ExpCC">ExpCC</a></span> (<span class="id" type="var">z</span> : <b>C</b>) := <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (&real; <span class="id" type="var">z</span>)) [*] (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> (&image; <span class="id" type="var">z</span>) [+I*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (&image; <span class="id" type="var">z</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_wd">ExpCC_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z1</span> <span class="id" type="var">z2</span> : <b>C</b>, <span class="id" type="var">z1</span> [=] <span class="id" type="var">z2</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z1</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z2</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_plus">ExpCC_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z1</span> <span class="id" type="var">z2</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> (<span class="id" type="var">z1</span>[+]<span class="id" type="var">z2</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z1</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z2</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_Zero">ExpCC_Zero</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> 0 [=] 1.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_inv_aid">ExpCC_inv_aid</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> [--]<span class="id" type="var">z</span> [=] 1.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_ap_zero">ExpCC_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_inv">ExpCC_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> <span class="id" type="var">z_</span>, (1[/] (<span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span>) [//]<span class="id" type="var">z_</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> [--]<span class="id" type="var">z</span>.<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_pow">ExpCC_pow</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span>[^]<span class="id" type="var">n</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>[*]<span class="id" type="var">z</span>).<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsCC_ExpCC">AbsCC_ExpCC</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>C</b>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#AbsCC">AbsCC</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (&real; <span class="id" type="var">z</span>).<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_Periodic">ExpCC_Periodic</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> (<span class="id" type="var">z</span>[+]i[*]2[*]<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> &pi;) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> <span class="id" type="var">z</span>.<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ExpCC_Exp">ExpCC_Exp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> <span class="id" type="var">x</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> <span class="id" type="var">x</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Euler">Euler</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.complex.Complex_Exponential.html#ExpCC">ExpCC</a></span> (i[*] (<span class="id" type="definition"><a class="idref" href="CoRN.complex.CComplex.html#cc_IR">cc_IR</a></span> &pi;))) [+]1 [=] 0.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRpi_slow</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> &pi;.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab696"></a><h2 class="section">Pi (alternate)</h2>
+
+(Please import CRpi instead)
+
+<br/><br/>
+This version is slower to compute than CRpi_fast; however it is faster to
+compile.
+
+<br/><br/>
+Pi is defined as
+
+<br/><br/>
+68*arctan(1/23) + 32*arctan(1/182) + 40*arctan(1/5118) + 20*arctan(1/6072).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_per_23">small_per_23</a></span> : (0 &lt;= (1#(23%positive)) &lt;= 1)%Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_per_182">small_per_182</a></span> : (0 &lt;= (1#(182%positive)) &lt;= 1)%Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_per_5118">small_per_5118</a></span> : (0 &lt;= (1#(5118%positive)) &lt;= 1)%Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="small_per_6072">small_per_6072</a></span> : (0 &lt;= (1#(6072%positive)) &lt;= 1)%Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="r_pi">r_pi</a></span> (<span class="id" type="var">r</span>:Q) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <br/>
+((<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> (68%Z*r) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRarctan_small.html#rational_arctan_small_pos">rational_arctan_small_pos</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#small_per_23">small_per_23</a></span>) +<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> (32%Z*r) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRarctan_small.html#rational_arctan_small_pos">rational_arctan_small_pos</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#small_per_182">small_per_182</a></span>)) + <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> (40%Z*r) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRarctan_small.html#rational_arctan_small_pos">rational_arctan_small_pos</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#small_per_5118">small_per_5118</a></span>) +<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> (20%Z*r) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRarctan_small.html#rational_arctan_small_pos">rational_arctan_small_pos</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#small_per_6072">small_per_6072</a></span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+To prove that pi is is correct we repeatedly use the arctan sum law.
+The problem is that the arctan sum law only works for input between -1
+and 1.  We use reflect to show that our use of arctan sum law always
+satifies this restriction. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="f">f</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Q) : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span> := <br/>
+&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">x</span>,y) := <span class="id" type="var">a</span> <span class="id" type="keyword">in</span> <br/>
+&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">z</span>,w) := <span class="id" type="var">b</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qreduction.html#Qred">Qred</a></span> ((<span class="id" type="var">x</span>*w + <span class="id" type="var">y</span>*z)%Z/(y*w-x*z)%Z).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="f_char">f_char</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">f</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> == (<span class="id" type="var">a</span>+b)/(1-a*b).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArcTan_plus_ArcTan_Q">ArcTan_plus_ArcTan_Q</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, -(1) &lt;= <span class="id" type="var">x</span> &lt;= 1 -&gt; -(1) &lt;= <span class="id" type="var">y</span> &lt;= 1 -&gt; ~1-x*y==0 -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>)[+]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">y</span>)[=]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ArcTan_multiple">ArcTan_multiple</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, -(1) &lt;= <span class="id" type="var">x</span> &lt;= 1 -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, {<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span>} + {(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>)[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>)[=]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Wf_nat.html#iter_nat">iter_nat</a></span> <span class="id" type="var">n</span> <span class="id" type="var">_</span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>) 0))}.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="reflect_right">reflect_right</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> (<span class="id" type="var">x</span>:{A}+{B}), (<span class="id" type="keyword">if</span> <span class="id" type="var">x</span> <span class="id" type="keyword">then</span> &perp; <span class="id" type="keyword">else</span> <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span>) -&gt; <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Pi_Formula">Pi_Formula</a></span> : <br/>
+(((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> 17)[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1 /  23%Z))[+]<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span>  8)[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1 / 182%Z))[+]<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> 10)[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1 / 5118%Z))[+]<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> 5)[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.InvTrigonom.html#ArcTan">ArcTan</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1 / 6072%Z)))[=]<br/>
+&nbsp;&pi;[/]4).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="r_pi_correct">r_pi_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">r</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#r_pi">r_pi</a></span> <span class="id" type="var">r</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> ((<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">r</span>)[*]&pi;))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRpi">CRpi</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#r_pi">r_pi</a></span> 1).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpi_correct">CRpi_correct</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> &pi; == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpi_slow.html#CRpi">CRpi</a></span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> &pi;.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

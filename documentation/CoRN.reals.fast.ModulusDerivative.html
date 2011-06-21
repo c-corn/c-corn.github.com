@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.ModulusDerivative</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Modulus">Modulus</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab689"></a><h2 class="section">Modulus of continity and derivatives.</h2>
+
+If two functions, one defined on IR and the other defined on CR, agree
+on rational valued inside a closed non-trival interval, and the
+function on IR is differentiable on that interval, then the function on
+CR is uniformly continuous with modulus <span class="inlinecode"><span class="id" type="keyword">fun</span> <span class="id" type="var">e</span> =&gt; <span class="id" type="var">e</span>/M</span> where M is
+some upper bound on the absolute value of the derivative.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Modulus.l">l</a></span> <span class="id" type="variable"><a name="Modulus.r">r</a></span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#option">option</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Modulus.Hlr">Hlr</a></span> : <br/>
+&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span>,r <span class="id" type="keyword">with</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span>, <span class="id" type="var">_</span> =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span><br/>
+&nbsp;| <span class="id" type="var">_</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span> =&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#True">True</a></span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">l'</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">r'</span> =&gt; (<span class="id" type="var">l'</span>&lt;r')%Q<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="I">I</a></span> := <br/>
+&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span>,r <span class="id" type="keyword">with</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span> =&gt; (-&infin;,+&infin;)<br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">l'</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span> =&gt; [&sdot;,+&infin;) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">l'</span>)<br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">r'</span> =&gt; (-&infin;,&sdot;] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">r'</span>)<br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">l'</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">r'</span> =&gt; [&sdot;,&sdot;] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">l'</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">r'</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="properI">properI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="clamp">clamp</a></span> (<span class="id" type="var">q</span>:Q) := <br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">l</span>,r <span class="id" type="keyword">with</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span> =&gt; <span class="id" type="var">q</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">l'</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundBelow_uc">QboundBelow_uc</a></span> <span class="id" type="var">l'</span> <span class="id" type="var">q</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#None">None</a></span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">r'</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundAbove_uc">QboundAbove_uc</a></span> <span class="id" type="var">r'</span> <span class="id" type="var">q</span><br/>
+&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">l'</span>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Some">Some</a></span> <span class="id" type="var">r'</span> =&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundBelow_uc">QboundBelow_uc</a></span> <span class="id" type="var">l'</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRGroupOps.html#QboundAbove_uc">QboundAbove_uc</a></span> <span class="id" type="var">r'</span>) <span class="id" type="var">q</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ball_clamp">ball_clamp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">clamp</span> <span class="id" type="var">a</span>) (<span class="id" type="var">clamp</span> <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Modulus.f">f</a></span> <span class="id" type="variable"><a name="Modulus.f'">f'</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoidFun.html#PartFunct">PartFunct</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Modulus.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">properI</span> <span class="id" type="var">f</span> <span class="id" type="var">f'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Modulus.GeneralCase">GeneralCase</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Modulus.GeneralCase.g">g</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Modulus.GeneralCase.Hg">Hg</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">q</span>:Q) <span class="id" type="var">Hq</span>, <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">q</span>) -&gt; (<span class="id" type="var">g</span> <span class="id" type="var">q</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> <span class="id" type="var">q</span>) <span class="id" type="var">Hq</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Modulus.GeneralCase.c">c</a></span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Modulus.GeneralCase.Hc">Hc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)[&lt;=](<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">c</span>:Q))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="is_UniformlyContinuousD">is_UniformlyContinuousD</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="var">g</span> (<span class="id" type="var">clamp</span> <span class="id" type="var">x</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_modulus">Qscale_modulus</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.ModulusDerivative.html#Modulus.GeneralCase">GeneralCase</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="is_UniformlyContinuousD_Q">is_UniformlyContinuousD_Q</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <span class="id" type="keyword">forall</span> <span class="id" type="var">g</span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> -&gt; <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">q</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">Hq</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>)),<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="var">g</span> <span class="id" type="var">q</span>) [=] (<span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) <span class="id" type="var">Hq</span>))) -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">f'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">x</span>)), <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">x</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">f'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">x</span>) <span class="id" type="var">Hx</span>)[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="var">c</span>:Q)) -&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> =&gt; <span class="id" type="var">g</span> (<span class="id" type="var">clamp</span> <span class="id" type="var">x</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_modulus">Qscale_modulus</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.ModulusDerivative.html#Modulus">Modulus</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

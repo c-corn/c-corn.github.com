@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRpower</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab690"></a><h2 class="section">Positive Integer Powers</h2>
+
+Positive integer powers is faster than repeated multiplication.
+
+<br/><br/>
+It is uniformly continuous on an interval <span class="inlinecode">[-c,c]</span>.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CRpower_positive">CRpower_positive</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CRpower_positive.p">p</a></span>: <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpower_positive_modulus">Qpower_positive_modulus</a></span> (<span class="id" type="var">c</span>:Qpos) (<span class="id" type="var">e</span>:Qpos) : Q<SUP>+</SUP><SUB>&infin;</SUB> :=<br/>
+<span class="id" type="var">Qpos2QposInf</span> (<span class="id" type="var">e</span>/((p#1)*c^(Zpred <span class="id" type="var">p</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpower_positive_correct">Qpower_positive_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qpower_positive">Qpower_positive</a></span> <span class="id" type="var">q</span> <span class="id" type="var">p</span>)[=]((<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{^}(nat_of_P <span class="id" type="var">p</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) <span class="id" type="constructor"><a class="idref" href="CoRN.logic.CLogic.html#CI">CI</a></span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="IRpower_p">IRpower_p</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoidFun.html#PartFunct">PartFunct</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> := <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{^}(nat_of_P <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qpower_positive_uc_prf">Qpower_positive_uc_prf</a></span> (<span class="id" type="var">c</span>:Qpos) :  <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qpower_positive">Qpower_positive</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> <span class="id" type="var">c</span> <span class="id" type="var">x</span>) <span class="id" type="var">p</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#Qpower_positive_modulus">Qpower_positive_modulus</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qpower_positive_uc">Qpower_positive_uc</a></span> (<span class="id" type="var">c</span>:Qpos) :  <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRpower.html#Qpower_positive_uc_prf">Qpower_positive_uc_prf</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+CRpower_positive_bounded works on <span class="inlinecode">[-c,c]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRpower_positive_bounded">CRpower_positive_bounded</a></span> (<span class="id" type="var">c</span>:Qpos) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="var">Cmap</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#Qpower_positive_uc">Qpower_positive_uc</a></span> <span class="id" type="var">c</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpower_positive_bounded_correct">CRpower_positive_bounded_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Qpos) <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">c</span>:Q)) <span class="id" type="var">x</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">x</span>[^](<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">p</span>))==CRpower_positive_bounded <span class="id" type="var">c</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpower_positive_bounded_weaken">CRpower_positive_bounded_weaken</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c1</span> <span class="id" type="var">c2</span>:Qpos) <span class="id" type="var">x</span>,<br/>
+((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> ('<span class="id" type="var">c1</span>) <span class="id" type="var">x</span>) -&gt; (<span class="id" type="var">c1</span> &lt;= <span class="id" type="var">c2</span>)%Q -&gt;<br/>
+<span class="id" type="var">CRpower_positive_bounded</span> <span class="id" type="var">c1</span> <span class="id" type="var">x</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive_bounded">CRpower_positive_bounded</a></span> <span class="id" type="var">c2</span> <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">CRpower_positive_bounded</span></span> is should be used when a known bound
+on the absolute value of x is available. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRpower_positive">CRpower_positive</a></span> (<span class="id" type="var">x</span>:CR) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="projection"><a class="idref" href="CoRN.metric2.UniformContinuity.html#ucFun">ucFun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive_bounded">CRpower_positive_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CR_b">CR_b</a></span> (1#1) <span class="id" type="var">x</span>)) <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpositive_power_bounded_positive_power">CRpositive_power_bounded_positive_power</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">c</span>:Qpos) (<span class="id" type="var">x</span>:CR),<br/>
+((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> ('<span class="id" type="var">c</span>) <span class="id" type="var">x</span>) -&gt;<br/>
+<span class="id" type="var">CRpower_positive_bounded</span> <span class="id" type="var">c</span> <span class="id" type="var">x</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive">CRpower_positive</a></span> <span class="id" type="var">x</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpower_positive_correct">CRpower_positive_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">x</span>[^](<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">p</span>))==CRpower_positive (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive">CRpower_positive</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRpower_positive_correct'">CRpower_positive_correct'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">x</span>, <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">x</span>[^]<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)==CRpower_positive (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#P_of_succ_nat">P_of_succ_nat</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

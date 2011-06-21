@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRsin</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab699"></a><h2 class="section">Sine</h2>
+
+Sine is defined in terms of its alternating Taylor's series.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SinSeries">SinSeries</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SinSeries.a">a</a></span>:Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sinSequence">sinSequence</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#everyOther">everyOther</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#tl">tl</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers_help">powers_help</a></span> (<span class="id" type="var">a</span>^2) <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_sinSequence">Str_nth_sinSequence</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sinSequence">sinSequence</a></span> == (1#P_of_succ_nat (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#fac">fac</a></span> (1+2*n))))*a^(1+2*n)%nat)%Q.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sine is first defined on <span class="inlinecode">[0,1]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="SinSeries.Ha">Ha</a></span>: 0 &lt;= <span class="id" type="var">a</span> &lt;= 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="square_zero_one">square_zero_one</a></span> : 0 &lt;= <span class="id" type="var">a</span>^2 &lt;= 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sinSequence_dnn">sinSequence_dnn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sinSequence">sinSequence</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sinSequence_zl">sinSequence_zl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sinSequence">sinSequence</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRsin.html#SinSeries">SinSeries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sin_small_pos">rational_sin_small_pos</a></span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">p</span>: 0 &lt;= <span class="id" type="var">a</span> &lt;= 1) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRsin.html#sinSequence_dnn">sinSequence_dnn</a></span> <span class="id" type="var">p</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRsin.html#sinSequence_zl">sinSequence_zl</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sin_small_pos_correct">rational_sin_small_pos_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_small_pos">rational_sin_small_pos</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sine's range can then be extended to <span class="inlinecode">[0,3^n]</span> by <span class="inlinecode"><span class="id" type="var">n</span></span> applications
+of the identity <span class="inlinecode"><span class="id" type="var">sin</span>(<span class="id" type="var">x</span>) = 3*sin(x/3) - 4*(sin(x/3))^3</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Sin_Poly">Sin_Poly</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_poly_fun">sin_poly_fun</a></span> (<span class="id" type="var">x</span>:Q) :Q := <span class="id" type="var">x</span>*(3 - 4*x*x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_poly_fun_correct">sin_poly_fun_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">q</span>:Q),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly_fun">sin_poly_fun</a></span> <span class="id" type="var">q</span>)[=]3[*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>[-]4[*](<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>[^]3).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_poly_modulus">sin_poly_modulus</a></span> (<span class="id" type="var">e</span>:Qpos) := <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span> ((1#9)*e).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="X">X</a></span>:((-(1))&lt;1)%Q.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="D">D</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> ([&sdot;,&sdot;] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (-(1))) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1:Q))) (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q_less">inj_Q_less</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">X</span>) ((3:IR){**}FId{-}(Four:IR){**}FId{^}3)<br/>
+&nbsp;((3:IR){**}[-C-](1:IR){-}(Four:IR){**}((nring 3){**}([-C-]1{*}FId{^}2))).<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_poly_prf">sin_poly_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly_fun">sin_poly_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#QboundAbs">QboundAbs</a></span> (1#1) <span class="id" type="var">x</span>)) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly_modulus">sin_poly_modulus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_poly_uc">sin_poly_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> := <br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly_prf">sin_poly_prf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_poly">sin_poly</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#uc_compose">uc_compose</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Compress.html#compress">compress</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cmap">Cmap</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly_uc">sin_poly_uc</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_poly_correct">sin_poly_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (1)) <span class="id" type="var">x</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (3[*]<span class="id" type="var">x</span>[-]4[*]<span class="id" type="var">x</span>[^]3)==sin_poly (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_triple_angle">Sin_triple_angle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span>(3[*]<span class="id" type="var">x</span>)[=]3[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[-]4[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[^]3).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="shrink_by_three">shrink_by_three</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span>, 0 &lt;= <span class="id" type="var">a</span> &lt;= (3^(S <span class="id" type="var">n</span>))%Z -&gt; 0 &lt;= <span class="id" type="var">a</span>/3 &lt;= (3^n)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="rational_sin_pos_bounded">rational_sin_pos_bounded</a></span> (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">a</span>:Q) : 0 &lt;= <span class="id" type="var">a</span> &lt;= (3^n)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">return</span> 0 &lt;= <span class="id" type="var">a</span> &lt;= (3^n)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> <span class="id" type="keyword">with</span> <br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; @<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_small_pos">rational_sin_small_pos</a></span> <span class="id" type="var">a</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n'</span> =&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qlt_le_dec_fast">Qlt_le_dec_fast</a></span> 1 <span class="id" type="var">a</span>) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#left">left</a></span> <span class="id" type="var">_</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_poly">sin_poly</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_pos_bounded">rational_sin_pos_bounded</a></span> <span class="id" type="var">n'</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRsin.html#shrink_by_three">shrink_by_three</a></span> <span class="id" type="var">n'</span> <span class="id" type="var">H</span>))<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#right">right</a></span> <span class="id" type="var">H'</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_small_pos">rational_sin_small_pos</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#conj">conj</a></span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#proj1">proj1</a></span> <span class="id" type="var">H</span>) <span class="id" type="var">H'</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sin_pos_bounded_correct">rational_sin_pos_bounded_correct</a></span> :  <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_pos_bounded">rational_sin_pos_bounded</a></span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRsin.html#Sin_Poly">Sin_Poly</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Therefore sin works on all nonnegative numbers. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sin_pos">rational_sin_pos</a></span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">Ha</span>:0 &lt;= <span class="id" type="var">a</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+&nbsp;@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_pos_bounded">rational_sin_pos_bounded</a></span> <span class="id" type="var">_</span> <span class="id" type="var">a</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#conj">conj</a></span> <span class="id" type="var">Ha</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.PowerBound.html#power3bound">power3bound</a></span> <span class="id" type="var">a</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sin_pos_correct">rational_sin_pos_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_pos">rational_sin_pos</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+By symmetry sin is extented to its entire range. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_sin">rational_sin</a></span> (<span class="id" type="var">a</span>:Q) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="keyword">match</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qle_total">Qle_total</a></span> 0 <span class="id" type="var">a</span>) <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#left">left</a></span> <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin_pos">rational_sin_pos</a></span> <span class="id" type="var">H</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#right">right</a></span> <span class="id" type="var">H</span> =&gt; (-rational_sin_pos (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qopp_le_compat">Qopp_le_compat</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">H</span>))%CR<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_sin_correct">rational_sin_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q),<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin">rational_sin</a></span> <span class="id" type="var">a</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sine is uniformly continuous everywhere. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_uc_prf">sin_uc_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#rational_sin">rational_sin</a></span> <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_uc">sin_uc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_uc_prf">sin_uc_prf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin_slow">sin_slow</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_uc">sin_uc</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_slow_correct">sin_slow_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_slow">sin_slow</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="sin">sin</a></span> (<span class="id" type="var">x</span>:CR) := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin_slow">sin_slow</a></span> (<span class="id" type="var">x</span> - (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Compress.html#compress">compress</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> (2*Qceiling (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> (<span class="id" type="var">x</span>*(CRinv_pos (6#1) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#scale">scale</a></span> 2 <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpi_fast.html#CRpi">CRpi</a></span>))) (1#2)%Qpos -(1#2))) <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpi_fast.html#CRpi">CRpi</a></span>)))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="sin_correct">sin_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRsin.html#sin">sin</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

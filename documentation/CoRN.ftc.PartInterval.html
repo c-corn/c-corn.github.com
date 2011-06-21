@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.PartInterval</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Conversion">Conversion</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab461"></a><h1 class="section">Correspondence</h1>
+
+
+<br/><br/>
+In this file we prove that there are mappings going in both ways
+between the set of partial functions whose domain contains
+<span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> and the set of real-valued functions with domain on
+that interval.  These mappings form an adjunction, and thus they have
+all the good properties for preservation results.
+
+<br/><br/>
+<a name="lab462"></a><h2 class="section">Mappings</h2>
+
+
+<br/><br/>
+We begin by defining the map from partial functions to setoid
+functions as simply being the restriction of the partial function to
+the interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">F</span></span> be a partial function and <span class="inlinecode"><span class="id" type="var">a</span>,b:IR</span> such
+that <span class="inlinecode"><span class="id" type="var">I</span> = [<span class="id" type="var">a</span>,b]</span> is included in the domain of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Conversion.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Conversion.a">a</a></span> <span class="id" type="variable"><a name="Conversion.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Conversion.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Conversion.Hf">Hf</a></span> : &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="IntPartIR_strext">IntPartIR_strext</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span><br/>
+&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> <span class="id" type="var">I</span> =&gt; <span class="id" type="var">F</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#scs_elem">scs_elem</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>) (<span class="id" type="var">Hf</span> <span class="id" type="var">_</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoids.html#scs_prf">scs_prf</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="IntPartIR">IntPartIR</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> <span class="id" type="var">I</span>) <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartInterval.html#Conversion">Conversion</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="AntiConversion">AntiConversion</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+To go the other way around, we simply take a setoid function <span class="inlinecode"><span class="id" type="var">f</span></span> with
+domain <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span> and build the corresponding partial function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="AntiConversion.a">a</a></span> <span class="id" type="variable"><a name="AntiConversion.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="AntiConversion.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="AntiConversion.f">f</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> <span class="id" type="var">I</span>) <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="PartInt_strext">PartInt_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>,<br/>
+&nbsp;<span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [#] <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_subcsetoid_crr">Build_subcsetoid_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">_</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="PartInt">PartInt</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartInterval.html#AntiConversion">AntiConversion</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Inverses">Inverses</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+In one direction these operators are inverses.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="int_part_int">int_part_int</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span> <span class="id" type="var">F</span> (<span class="id" type="var">Hf</span> : &sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>)),<br/>
+&nbsp;&asymp; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#IntPartIR">IntPartIR</a></span> <span class="id" type="var">Hf</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartInterval.html#Inverses">Inverses</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Equivalences">Equivalences</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab463"></a><h2 class="section">Mappings Preserve Operations</h2>
+
+
+<br/><br/>
+We now prove that all the operations we have defined on both sets are
+preserved by <span class="inlinecode"><span class="id" type="var">PartInt</span></span>.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">F</span>,G</span> be partial functions and <span class="inlinecode"><span class="id" type="var">a</span>,b:IR</span> and
+denote by <span class="inlinecode"><span class="id" type="var">I</span></span> the interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>.  Let <span class="inlinecode"><span class="id" type="var">f</span>,g</span> be setoid functions of
+type <span class="inlinecode"><span class="id" type="var">I</span>-&gt;IR</span> equal respectively to <span class="inlinecode"><span class="id" type="var">F</span></span> and <span class="inlinecode"><span class="id" type="var">G</span></span> in <span class="inlinecode"><span class="id" type="var">I</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Equivalences.F">F</a></span> <span class="id" type="variable"><a name="Equivalences.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Equivalences.a">a</a></span> <span class="id" type="variable"><a name="Equivalences.b">b</a></span> <span class="id" type="variable"><a name="Equivalences.c">c</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Equivalences.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Equivalences.f">f</a></span> <span class="id" type="variable"><a name="Equivalences.g">g</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>)) <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Equivalences.Ff">Ff</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> <span class="id" type="var">f</span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Equivalences.Gg">Gg</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_const">part_int_const</a></span> : &asymp; <span class="id" type="var">I</span> [-C-]<span class="id" type="var">c</span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IConst">IConst</a></span> (<span class="id" type="var">Hab</span>:=Hab) <span class="id" type="var">c</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_id">part_int_id</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IId">IId</a></span> (<span class="id" type="var">Hab</span>:=Hab))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_plus">part_int_plus</a></span> : &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{+}G) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IPlus">IPlus</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_inv">part_int_inv</a></span> : &asymp; <span class="id" type="var">I</span> {--}F (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IInv">IInv</a></span> <span class="id" type="var">f</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_minus">part_int_minus</a></span> : &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{-}G) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IMinus">IMinus</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_mult">part_int_mult</a></span> : &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{*}G) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IMult">IMult</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_nth">part_int_nth</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{^}n) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#INth">INth</a></span> <span class="id" type="var">f</span> <span class="id" type="var">n</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Equivalences.HG">HG</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">I</span> <span class="id" type="var">G</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Equivalences.Hg">Hg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#subset">subset</a></span> <span class="id" type="var">I</span>, <span class="id" type="var">g</span> <span class="id" type="var">x</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_recip">part_int_recip</a></span> : &asymp; <span class="id" type="var">I</span> {1/}G (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IRecip">IRecip</a></span> <span class="id" type="var">g</span> <span class="id" type="var">Hg</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_int_div">part_int_div</a></span> : &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{/}G) (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.IntervalFunct.html#IDiv">IDiv</a></span> <span class="id" type="var">f</span> <span class="id" type="var">g</span> <span class="id" type="var">Hg</span>)).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartInterval.html#Equivalences">Equivalences</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

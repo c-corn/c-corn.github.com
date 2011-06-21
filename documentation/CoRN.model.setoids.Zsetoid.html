@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.setoids.Zsetoid</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab115"></a><h2 class="section">Example of a setoid: <span class="inlinecode"><b>Z</b></span></h2>
+
+<a name="lab116"></a><h3 class="section"><span class="inlinecode"><b>Z</b></span></h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_irreflexive">ap_Z_irreflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#irreflexive">irreflexive</a></span> (<span class="id" type="var">A</span>:=Z) <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_symmetric">ap_Z_symmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_cotransitive">ap_Z_cotransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#cotransitive">cotransitive</a></span> (<span class="id" type="var">A</span>:=Z) <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_tight">ap_Z_tight</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#tight_apart">tight_apart</a></span> (<span class="id" type="var">A</span>:=Z) (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> (<span class="id" type="var">A</span>:=Z)) <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_Z_is_apartness">ap_Z_is_apartness</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_is_CSetoid">Build_is_CSetoid</a></span> <b>Z</b> (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> (<span class="id" type="var">A</span>:=Z)) <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span><br/>
+&nbsp;<span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#ap_Z_irreflexive">ap_Z_irreflexive</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#ap_Z_symmetric">ap_Z_symmetric</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#ap_Z_cotransitive">ap_Z_cotransitive</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#ap_Z_tight">ap_Z_tight</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Z_as_CSetoid">Z_as_CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid">Build_CSetoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#ap_Z_is_apartness">ap_Z_is_apartness</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The term <span class="inlinecode"><span class="id" type="var">Z_as_CSetoid</span></span> is of type <span class="inlinecode"><span class="id" type="var">CSetoid</span></span>. Hence we have proven that <span class="inlinecode"><b>Z</b></span> is a constructive setoid.
+<a name="lab117"></a><h3 class="section">Addition</h3>
+
+We will prove now that the addition on the integers is a setoid function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_wd">Zplus_wd</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zplus">Zplus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_strext">Zplus_strext</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zplus">Zplus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zplus_is_bin_fun">Zplus_is_bin_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zplus">Zplus</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zplus_strext">Zplus_strext</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zplus_is_bin_fun">Zplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+What's more: the addition is also associative and commutative.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_is_assoc">Zplus_is_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zplus_is_bin_fun">Zplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_is_commut">Zplus_is_commut</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zplus_is_bin_fun">Zplus_is_bin_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab118"></a><h3 class="section">Opposite</h3>
+
+Taking the opposite of an integer is a setoid function.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zopp_wd">Zopp_wd</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_wd">fun_wd</a></span> (<span class="id" type="var">S1</span>:=Z_as_CSetoid) (<span class="id" type="var">S2</span>:=Z_as_CSetoid) <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zopp">Zopp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zopp_strext">Zopp_strext</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> (<span class="id" type="var">S1</span>:=Z_as_CSetoid) (<span class="id" type="var">S2</span>:=Z_as_CSetoid) <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zopp">Zopp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zopp_is_fun">Zopp_is_fun</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zopp">Zopp</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zopp_strext">Zopp_strext</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zopp_is_fun">Zopp_is_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab119"></a><h3 class="section">Multiplication</h3>
+
+Finally the multiplication is a setoid function and is associative and commutative.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_wd">Zmult_wd</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_wd">bin_fun_wd</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zmult">Zmult</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_strext">Zmult_strext</a></span> :<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_fun_strext">bin_fun_strext</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zmult">Zmult</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zmult_is_bin_fun">Zmult_is_bin_fun</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_fun">Build_CSetoid_bin_fun</a></span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zmult">Zmult</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zmult_strext">Zmult_strext</a></span>.<br/>
+<span class="id" type="var">Canonical</span> <span class="id" type="keyword">Structure</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zmult_is_bin_fun">Zmult_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_is_assoc">Zmult_is_assoc</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#associative">associative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zmult_is_bin_fun">Zmult_is_bin_fun</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_is_commut">Zmult_is_commut</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#commutes">commutes</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Zmult_is_bin_fun">Zmult_is_bin_fun</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab120"></a><h3 class="section">Zero</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="is_nullary_operation_Z_0">is_nullary_operation_Z_0</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoidFun.html#is_nullary_operation">is_nullary_operation</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Zsetoid.html#Z_as_CSetoid">Z_as_CSetoid</a></span> 0%Z).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

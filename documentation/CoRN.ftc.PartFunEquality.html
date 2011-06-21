@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.PartFunEquality</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Definitions">Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab449"></a><h1 class="section">Equality of Partial Functions</h1>
+
+
+<br/><br/>
+<a name="lab450"></a><h2 class="section">Definitions</h2>
+
+
+<br/><br/>
+In some contexts (namely when quantifying over partial functions) we
+need to refer explicitly to the subsetoid of elements satisfying a
+given predicate rather than to the predicate itself.  The following
+definition makes this possible.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="subset">subset</a></span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The core of our work will revolve around the following fundamental
+notion: two functions are equal in a given domain (predicate) iff they
+coincide on every point of that domain. Notice that,
+according to our definition of partial function, it is equivalent to
+prove the equality for every proof or for a specific proof.  Typically
+it is easier to consider a generic case.  This file is concerned
+with proving the main properties of this equality relation.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> &asymp; <span class="id" type="var">P</span> (<span class="id" type="var">F</span> <span class="id" type="var">G</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>) := &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) <span class="id" type="var">and</span> &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) <span class="id" type="var">and</span><br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Notice that, because the quantification over the proofs is universal,
+we must require explicitly that the predicate be included in the
+domain of each function; otherwise the basic properties of equality
+(like, for example, transitivity) would fail to hold. To
+see this it is enough to realize that the empty function would be
+equal to every other function in every domain. The way to
+circumvent this would be to quantify existentially over the proofs;
+this, however, would have two major disadvantages: first, proofs of
+equality would become very cumbersome and clumsy; secondly (and most
+important), we often need to prove the inclusions from an equality
+hypothesis, and this definition allows us to do it in a very easy way.
+Also, the pointwise equality is much nicer to use from this definition
+than in an existentially quantified one.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Definitions">Definitions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Equality_Results">Equality_Results</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab451"></a><h2 class="section">Properties of Inclusion</h2>
+
+
+<br/><br/>
+We will now prove the main properties of the equality relation.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">I</span>,R:IR-&gt;CProp</span> and <span class="inlinecode"><span class="id" type="var">F</span>,G:PartIR</span>, and denote
+by <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">Q</span></span>, respectively, the domains of <span class="inlinecode"><span class="id" type="var">F</span></span> and <span class="inlinecode"><span class="id" type="var">G</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Equality_Results.I">I</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Equality_Results.F">F</a></span> <span class="id" type="variable"><a name="Equality_Results.G">G</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Equality_Results.R">R</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We start with two lemmas which make it much easier to prove and use
+this definition:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="eq_imp_Feq">eq_imp_Feq</a></span> : &sube; <span class="id" type="var">I</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">I</span> <span class="id" type="var">Q</span> -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>) -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_imp_eq">Feq_imp_eq</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="var">G</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_IR">included_IR</a></span> : &sube; <span class="id" type="var">I</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Equality_Results">Equality_Results</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Some_More">Some_More</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If two function coincide on a given subset then they coincide in any smaller subset.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_Feq">included_Feq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>, &sube; <span class="id" type="var">P</span> <span class="id" type="var">Q</span> -&gt; &asymp; <span class="id" type="var">Q</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; &asymp; <span class="id" type="var">P</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Some_More">Some_More</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Away_from_Zero">Away_from_Zero</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Away_from_Zero.Definitions">Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab452"></a><h2 class="section">Away from Zero</h2>
+
+
+<br/><br/>
+Before we prove our main results about the equality we have to do some
+work on division.  A function is said to be bounded away from zero in
+a set if there exists a positive lower bound for the set of absolute
+values of its image of that set.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">I</span> : <span class="id" type="var">IR</span>-&gt;CProp</span>, <span class="inlinecode"><span class="id" type="var">F</span> : <span class="id" type="var">PartIR</span></span> and denote by <span class="inlinecode"><span class="id" type="var">P</span></span>
+the domain of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Away_from_Zero.Definitions.I">I</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Away_from_Zero.Definitions.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bnd_away_zero">bnd_away_zero</a></span> := &sube; <span class="id" type="var">I</span> <span class="id" type="var">P</span> <span class="id" type="var">and</span> {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0 [&lt;] <span class="id" type="var">c</span> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>, (<span class="id" type="var">I</span> <span class="id" type="var">y</span>) -&gt; <span class="id" type="var">c</span> [&lt;=] <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>)}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If <span class="inlinecode"><span class="id" type="var">F</span></span> is bounded away from zero in <span class="inlinecode"><span class="id" type="var">I</span></span> then <span class="inlinecode"><span class="id" type="var">F</span></span> is necessarily apart from zero in <span class="inlinecode"><span class="id" type="var">I</span></span>; also this means that <span class="inlinecode"><span class="id" type="var">I</span></span> is included in the domain of <span class="inlinecode">{1/}F</span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Away_from_Zero.Definitions.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bnd_imp_ap_zero">bnd_imp_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, (<span class="id" type="var">I</span> <span class="id" type="var">x</span>) -&gt; <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bnd_imp_inc_recip">bnd_imp_inc_recip</a></span> : &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> {1/}F).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bnd_imp_inc_div">bnd_imp_inc_div</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">G</span>, &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) -&gt; &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">G</span>{/}F)).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Away_from_Zero.Definitions">Definitions</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Boundedness away from zero is preserved through restriction of the set.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">F</span></span> be a partial function and <span class="inlinecode"><span class="id" type="var">P</span>, <span class="id" type="var">Q</span></span> be predicates.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Away_from_Zero.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Away_from_Zero.P">P</a></span> <span class="id" type="variable"><a name="Away_from_Zero.Q">Q</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_imp_bnd">included_imp_bnd</a></span> : &sube; <span class="id" type="var">Q</span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">P</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">Q</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FRestr_bnd">FRestr_bnd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">HP</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span>) (<span class="id" type="var">H</span> : &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>)),<br/>
+&nbsp;&sube; <span class="id" type="var">Q</span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">Q</span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">Q</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#Frestr">Frestr</a></span> <span class="id" type="var">HP</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A function is said to be bounded away from zero everywhere if it is bounded away from zero in every compact subinterval of its domain; a similar definition is made for arbitrary sets, which will be necessary for future work.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bnd_away_zero_everywhere">bnd_away_zero_everywhere</a></span> <span class="id" type="var">G</span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">G</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">G</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bnd_away_zero_in_P">bnd_away_zero_in_P</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>,<br/>
+&nbsp;&nbsp;&sube; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#compact">compact</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">Hab</span>) <span class="id" type="var">F</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+An immediate consequence:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="bnd_in_P_imp_ap_zero">bnd_in_P_imp_ap_zero</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero_in_P">bnd_away_zero_in_P</a></span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FRestr_bnd'">FRestr_bnd'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">HP</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span>) (<span class="id" type="var">H</span> : &sube; <span class="id" type="var">P</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>)),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero_everywhere">bnd_away_zero_everywhere</a></span> <span class="id" type="var">F</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero_everywhere">bnd_away_zero_everywhere</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#Frestr">Frestr</a></span> <span class="id" type="var">HP</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Away_from_Zero">Away_from_Zero</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab453"></a><h2 class="section">The <span class="inlinecode"><span class="id" type="var">FEQ</span></span> tactic</h2>
+
+This tactic splits a goal of the form <span class="inlinecode">&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span></span> into the three subgoals
+<span class="inlinecode">&sube; <span class="id" type="var">I</span> (<span class="id" type="var">Dom</span> <span class="id" type="var">F</span>)</span>, <span class="inlinecode">&sube; <span class="id" type="var">I</span> (<span class="id" type="var">Dom</span> <span class="id" type="var">G</span>)</span> and <span class="inlinecode"><span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">F</span> <span class="id" type="var">x</span> = <span class="id" type="var">G</span> <span class="id" type="var">x</span></span>
+and applies <span class="inlinecode"><span class="id" type="var">Included</span></span> to the first two and <span class="inlinecode"><span class="id" type="var">rational</span></span> to the third.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_on_Equality">More_on_Equality</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab454"></a><h2 class="section">Properties of Equality</h2>
+
+
+<br/><br/>
+We are now finally able to prove the main properties of the equality relation.  We begin by showing it to be an equivalence relation.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">I</span></span> be a predicate and <span class="inlinecode"><span class="id" type="var">F</span>, <span class="id" type="var">F'</span>, <span class="id" type="var">G</span>, <span class="id" type="var">G'</span>, <span class="id" type="var">H</span></span> be
+partial functions.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_on_Equality.I">I</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_on_Equality.Feq_Equivalence">Feq_Equivalence</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_on_Equality.Feq_Equivalence.F">F</a></span> <span class="id" type="variable"><a name="More_on_Equality.Feq_Equivalence.G">G</a></span> <span class="id" type="variable"><a name="More_on_Equality.Feq_Equivalence.H">H</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_reflexive">Feq_reflexive</a></span> : &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>) -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_symmetric">Feq_symmetric</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_transitive">Feq_transitive</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">H</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#More_on_Equality.Feq_Equivalence">Feq_Equivalence</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_on_Equality.Operations">Operations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Also it is preserved through application of functional constructors and restriction.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_on_Equality.Operations.F">F</a></span> <span class="id" type="variable"><a name="More_on_Equality.Operations.F'">F'</a></span> <span class="id" type="variable"><a name="More_on_Equality.Operations.G">G</a></span> <span class="id" type="variable"><a name="More_on_Equality.Operations.G'">G'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_plus">Feq_plus</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{+}G) (<span class="id" type="var">F'</span>{+}G').<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_inv">Feq_inv</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> {--}F {--}F'.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_minus">Feq_minus</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{-}G) (<span class="id" type="var">F'</span>{-}G').<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_mult">Feq_mult</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{*}G) (<span class="id" type="var">F'</span>{*}G').<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_nth">Feq_nth</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{^}n) (<span class="id" type="var">F'</span>{^}n).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_recip">Feq_recip</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> {1/}F {1/}F'.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_recip'">Feq_recip'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">I</span> <span class="id" type="var">F</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F'</span> <span class="id" type="var">F</span> -&gt; &asymp; <span class="id" type="var">I</span> {1/}F' {1/}F.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_div">Feq_div</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">I</span> <span class="id" type="var">G</span> -&gt;<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{/}G) (<span class="id" type="var">F'</span>{/}G').<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_div'">Feq_div'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartFunEquality.html#bnd_away_zero">bnd_away_zero</a></span> <span class="id" type="var">I</span> <span class="id" type="var">G</span> -&gt;<br/>
+&nbsp;&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F'</span> <span class="id" type="var">F</span> -&gt; &asymp; <span class="id" type="var">I</span> <span class="id" type="var">G'</span> <span class="id" type="var">G</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F'</span>{/}G') (<span class="id" type="var">F</span>{/}G).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Feq_comp">Feq_comp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">J</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">J</span> (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">J</span> (<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) -&gt;<br/>
+&asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span> -&gt; &asymp; <span class="id" type="var">J</span> <span class="id" type="var">G</span> <span class="id" type="var">G'</span> -&gt; &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">G</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F</span>) (<span class="id" type="var">G'</span>[<span class="id" type="var">o</span>]<span class="id" type="var">F'</span>).<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Notice that in the case of division we only need to require boundedness away from zero for one of the functions (as they are equal); thus the two last lemmas are stated in two different ways, as according to the context one or the other condition may be easier to prove.
+
+<br/><br/>
+The restriction of a function is well defined.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FRestr_wd">FRestr_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">Iwd</span> <span class="id" type="var">Hinc</span>, &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#Frestr">Frestr</a></span> (<span class="id" type="var">F</span>:=F) (<span class="id" type="var">P</span>:=I) <span class="id" type="var">Iwd</span> <span class="id" type="var">Hinc</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The image of a set is extensional.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="fun_image_wd">fun_image_wd</a></span> : &asymp; <span class="id" type="var">I</span> <span class="id" type="var">F</span> <span class="id" type="var">G</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#fun_image">fun_image</a></span> <span class="id" type="var">F</span> <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#fun_image">fun_image</a></span> <span class="id" type="var">G</span> <span class="id" type="var">I</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#More_on_Equality.Operations">Operations</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#More_on_Equality">More_on_Equality</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Nth_Power">Nth_Power</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab455"></a><h2 class="section">Nth Power</h2>
+
+
+<br/><br/>
+We finish this group of lemmas with characterization results for the
+power function (similar to those already proved for arbitrary rings).
+The characterization is done at first pointwise and later using the
+equality relation.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">F</span></span> be a partial function with domain <span class="inlinecode"><span class="id" type="var">P</span></span> and
+<span class="inlinecode"><span class="id" type="var">Q</span></span> be a predicate on the real numbers assumed to be included in <span class="inlinecode"><span class="id" type="var">P</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Nth_Power.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Nth_Power.Q">Q</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nth_Power.H">H</a></span> : &sube; <span class="id" type="var">Q</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> =&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span>).<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nth_Power.Hf">Hf</a></span> : &sube; <span class="id" type="var">Q</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FNth_zero">FNth_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">Q</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, [-C-]1 <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] (<span class="id" type="var">F</span>{^}0) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Nth_Power.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Nth_Power.H'">H'</a></span> : &sube; <span class="id" type="var">Q</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> (<span class="id" type="var">F</span>{*}F{^}n)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FNth_mult">FNth_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="var">Q</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, (<span class="id" type="var">F</span>{*}F{^}n) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] (<span class="id" type="var">F</span>{^}S <span class="id" type="var">n</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Nth_Power">Nth_Power</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Strong_Nth_Power">Strong_Nth_Power</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">a</span>,b</span> be real numbers such that <span class="inlinecode"><span class="id" type="var">I</span> := [<span class="id" type="var">a</span>,b]</span>
+is included in the domain of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Strong_Nth_Power.a">a</a></span> <span class="id" type="variable"><a name="Strong_Nth_Power.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Strong_Nth_Power.Hab">Hab</a></span> : <span class="id" type="var">a</span> [&lt;=] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Strong_Nth_Power.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Strong_Nth_Power.incF">incF</a></span> : &sube; <span class="id" type="var">I</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FNth_zero'">FNth_zero'</a></span> : &asymp; <span class="id" type="var">I</span> [-C-]1 (<span class="id" type="var">F</span>{^}0).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FNth_mult'">FNth_mult'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, &asymp; <span class="id" type="var">I</span> (<span class="id" type="var">F</span>{*}F{^}n) (<span class="id" type="var">F</span>{^}S <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.PartFunEquality.html#Strong_Nth_Power">Strong_Nth_Power</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

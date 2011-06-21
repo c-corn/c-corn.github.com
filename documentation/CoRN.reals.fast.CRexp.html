@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.CRexp</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab692"></a><h2 class="section">Exponential</h2>
+
+<span class="inlinecode"><span class="id" type="var">exp</span></span> is implement by its alternating Taylor's series.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ExpSeries">ExpSeries</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ExpSeries.a">a</a></span>:Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="expSequence">expSequence</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#mult_Streams">mult_Streams</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#recip_factorials">recip_factorials</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRseries.html#powers">powers</a></span> <span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Str_nth_expSequence">Str_nth_expSequence</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.Streams.html#Str_nth">Str_nth</a></span> <span class="id" type="var">n</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence">expSequence</a></span> == (1#P_of_succ_nat (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.Basics.html#fac">fac</a></span> <span class="id" type="var">n</span>)))*a^n)%Q.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The exponential is first defined on <span class="inlinecode">[-1,0]</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="ExpSeries.Ha">Ha</a></span>: 0 &lt;= <span class="id" type="var">a</span> &lt;= 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="expSequence_dnn">expSequence_dnn</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#DecreasingNonNegative">DecreasingNonNegative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence">expSequence</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="expSequence_zl">expSequence_zl</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Limit.html#Limit">Limit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence">expSequence</a></span> 0.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.CRexp.html#ExpSeries">ExpSeries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_ps_correct">exp_ps_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> (<span class="id" type="var">n</span>:nat) <span class="id" type="var">H</span>, <br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> ((((-(1))^n)*Str_nth <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence">expSequence</a></span> (-a)))%Q)[=]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp_ps">Exp_ps</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>) <span class="id" type="var">H</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qle_ZO_flip">Qle_ZO_flip</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span>, -(1) &lt;= <span class="id" type="var">a</span> &lt;= 0 -&gt; 0 &lt;= (-a) &lt;= 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_exp_small_neg">rational_exp_small_neg</a></span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">p</span>:-(1) &lt;= <span class="id" type="var">a</span> &lt;= 0) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> <br/>
+:= <span class="id" type="keyword">let</span> <span class="id" type="var">p'</span>:= (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRexp.html#Qle_ZO_flip">Qle_ZO_flip</a></span> <span class="id" type="var">p</span>) <span class="id" type="keyword">in</span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRAlternatingSum.html#InfiniteAlternatingSum">InfiniteAlternatingSum</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence_dnn">expSequence_dnn</a></span> <span class="id" type="var">p'</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRexp.html#expSequence_zl">expSequence_zl</a></span> <span class="id" type="var">p'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_small_neg_correct">rational_exp_small_neg_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_small_neg">rational_exp_small_neg</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+exp is extended to work on <span class="inlinecode">[-2^n, 0]</span> for all n. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="shrink_by_two">shrink_by_two</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">a</span>, (-(2^(S <span class="id" type="var">n</span>)))%Z &lt;= <span class="id" type="var">a</span> &lt;= 0 -&gt; (-(2^n))%Z &lt;= (<span class="id" type="var">a</span>/2) &lt;= 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="rational_exp_neg_bounded">rational_exp_neg_bounded</a></span> (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">a</span>:Q) : (-(2^n))%Z &lt;= <span class="id" type="var">a</span> &lt;= 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">return</span> (-(2^n))%Z &lt;= <span class="id" type="var">a</span> &lt;= 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; @<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_small_neg">rational_exp_small_neg</a></span> <span class="id" type="var">a</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n'</span> =&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qlt_le_dec_fast">Qlt_le_dec_fast</a></span> <span class="id" type="var">a</span> (-(1))) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#left">left</a></span> <span class="id" type="var">_</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRpower.html#CRpower_positive_bounded">CRpower_positive_bounded</a></span> 2 (1#1) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Compress.html#compress">compress</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg_bounded">rational_exp_neg_bounded</a></span> <span class="id" type="var">n'</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRexp.html#shrink_by_two">shrink_by_two</a></span> <span class="id" type="var">n'</span> <span class="id" type="var">H</span>)))<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#right">right</a></span> <span class="id" type="var">H'</span> =&gt; <span class="id" type="keyword">fun</span> <span class="id" type="var">H</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_small_neg">rational_exp_small_neg</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#conj">conj</a></span> <span class="id" type="var">H'</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#proj2">proj2</a></span> <span class="id" type="var">H</span>))<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span><br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">exp</span></span> works on all nonpositive numbers. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_neg_bounded_correct">rational_exp_neg_bounded_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg_bounded">rational_exp_neg_bounded</a></span> <span class="id" type="var">n</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_bound_power_2">rational_exp_bound_power_2</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q), <span class="id" type="var">a</span> &lt;= 0 -&gt; (-2^(Z_of_nat <span class="id" type="keyword">match</span> (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qnum">Qnum</a></span> <span class="id" type="var">a</span>) <span class="id" type="keyword">with</span> |Z0 =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> | <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psize">Psize</a></span> <span class="id" type="var">x</span> | <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zneg">Zneg</a></span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psize">Psize</a></span> <span class="id" type="var">x</span> <span class="id" type="keyword">end</span>))%Z &lt;= <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_exp_neg">rational_exp_neg</a></span> (<span class="id" type="var">a</span>:Q) : <span class="id" type="var">a</span> &lt;= 0 -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_neg_correct">rational_exp_neg_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg">rational_exp_neg</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+</div>
+
+<div class="doc">
+exp(x) is bounded below by (3^x) for x nonpositive, and hence
+exp(x) is positive. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minus_one_works_for_rational_exp_small_neg">minus_one_works_for_rational_exp_small_neg</a></span> : -(1) &lt;= -(1) &lt;= 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_small_neg_posH">rational_exp_small_neg_posH</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) (<span class="id" type="var">p</span>:-(1) &lt;= <span class="id" type="var">a</span> &lt;= 0),<br/>
+&nbsp;('(1#3) &lt;= <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_small_neg">rational_exp_small_neg</a></span> <span class="id" type="var">p</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_neg_posH">rational_exp_neg_posH</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>, (-n &lt;= <span class="id" type="var">a</span>) -&gt;<br/>
+&nbsp;('((1#3)^n) &lt;= @<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg">rational_exp_neg</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_neg_posH'">rational_exp_neg_posH'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;('((3#1)^(Zdiv (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qnum">Qnum</a></span> <span class="id" type="var">a</span>) (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qden">Qden</a></span> <span class="id" type="var">a</span>)))%Qpos &lt;= @<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg">rational_exp_neg</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>)%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_neg_pos">rational_exp_neg_pos</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q) <span class="id" type="var">Ha</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#CRpos">CRpos</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp_neg">rational_exp_neg</a></span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+exp is extended to all numbers by saying exp(x) = 1/exp(-x) when x
+is positive. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="rational_exp">rational_exp</a></span> (<span class="id" type="var">a</span>:Q) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="rational_exp_correct">rational_exp_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:Q),<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp">rational_exp</a></span> <span class="id" type="var">a</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">a</span>)))%CR.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab693"></a><h3 class="section">e</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CRe">CRe</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp">rational_exp</a></span> 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CRe_correct">CRe_correct</a></span> : (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#CRe">CRe</a></span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.Series.html#E">E</a></span>)%CR.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">exp</span></span> is uniformly continuous below any given integer. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="exp_bound">exp_bound</a></span> (<span class="id" type="var">z</span>:Z) : Q<SUP>+</SUP> :=<br/>
+(<span class="id" type="keyword">match</span> <span class="id" type="var">z</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;|Z0 =&gt; 1#1<br/>
+&nbsp;|Zpos <span class="id" type="var">p</span> =&gt; (3#1)^p<br/>
+&nbsp;|Zneg <span class="id" type="var">p</span> =&gt; (1#2)^p<br/>
+&nbsp;<span class="id" type="keyword">end</span>)%Qpos.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_bound_bound">exp_bound_bound</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">z</span>:Z) <span class="id" type="var">x</span>, (-&infin;,&sdot;] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="var">z</span>:Q)) <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> <span class="id" type="var">x</span>)[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bound">exp_bound</a></span> <span class="id" type="var">z</span>:Q).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_bound_uc_prf">exp_bound_uc_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span>:Z, <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">a</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp">rational_exp</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.totalorder.QMinMax.html#Qmin">Qmin</a></span> <span class="id" type="var">z</span> <span class="id" type="var">a</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRFieldOps.html#Qscale_modulus">Qscale_modulus</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bound">exp_bound</a></span> <span class="id" type="var">z</span>)).<br/>
+&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="exp_bound_uc">exp_bound_uc</a></span> (<span class="id" type="var">z</span>:Z) :  <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> :=<br/>
+<span class="id" type="var">Build_UniformlyContinuousFunction</span> (@<span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bound_uc_prf">exp_bound_uc_prf</a></span> <span class="id" type="var">z</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<span class="inlinecode"><span class="id" type="var">exp</span></span> for any real number upto a given integer. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="exp_bounded">exp_bounded</a></span> (<span class="id" type="var">z</span>:Z) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#Cbind">Cbind</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QPrelengthSpace">QPrelengthSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bound_uc">exp_bound_uc</a></span> <span class="id" type="var">z</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_bounded_correct">exp_bounded_correct</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">z</span>:Z) <span class="id" type="var">x</span>, (-&infin;,&sdot;] (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">z</span>:Q)) <span class="id" type="var">x</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> <span class="id" type="var">x</span>)==exp_bounded <span class="id" type="var">z</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+exp on all real numbers.  <span class="inlinecode"><span class="id" type="var">exp_bounded</span></span> should be used instead when <span class="inlinecode"><span class="id" type="var">x</span></span>
+is known to be bounded by some intenger. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="exp">exp</a></span> (<span class="id" type="var">x</span>:CR) : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bounded">exp_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qround.html#Qceiling">Qceiling</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> ((1#1)%Qpos) + (1#1))) <span class="id" type="var">x</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_bound_lemma">exp_bound_lemma</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>, (<span class="id" type="var">x</span> &lt;= ' (<span class="id" type="projection"><a class="idref" href="CoRN.metric2.Complete.html#approximate">approximate</a></span> <span class="id" type="var">x</span> (1 # 1)%Qpos + 1))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_correct">exp_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Exp">Exp</a></span> <span class="id" type="var">x</span>)==exp (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_bound_exp">exp_bound_exp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">z</span>:Z) (<span class="id" type="var">x</span>:CR),<br/>
+&nbsp;(<span class="id" type="var">x</span> &lt;= '<span class="id" type="var">z</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp_bounded">exp_bounded</a></span> <span class="id" type="var">z</span> <span class="id" type="var">x</span> == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp">exp</a></span> <span class="id" type="var">x</span>)%CR.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="exp_Qexp">exp_Qexp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#exp">exp</a></span> (' <span class="id" type="var">x</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRexp.html#rational_exp">rational_exp</a></span> <span class="id" type="var">x</span>)%CR.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

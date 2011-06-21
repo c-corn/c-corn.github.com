@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.RasterQ</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab727"></a><h2 class="section">Rasters on Planes</h2>
+
+By attaching coordinates to the top-left and bottom-right corners of
+a raster, it can be interpreted as a finite set in <span class="inlinecode"><span class="id" type="var">Q</span></span>^2. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Q2">Q2</a></span> := (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="stableQ2">stableQ2</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.RasterQ.html#Q2">Q2</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For <span class="inlinecode"><span class="id" type="var">Q2</span></span>, classical membership in a finite enumeration is the
+same as a constructive membership. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InStrengthen">InStrengthen</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> (<span class="id" type="var">l</span>:FinEnum <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.RasterQ.html#stableQ2">stableQ2</a></span>),<br/>
+<span class="id" type="var">InFinEnumC</span> <span class="id" type="var">x</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="var">exists</span> <span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.ProductMetric.html#ProductMS">ProductMS</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> /\ <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="InterpRow">InterpRow</a></span> (<span class="id" type="var">up</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) <span class="id" type="var">n</span> (<span class="id" type="var">v</span>:Bvector <span class="id" type="var">n</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#stableQ">stableQ</a></span>:=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> (@<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> ) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#filter">filter</a></span> (@<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#combine">combine</a></span> <span class="id" type="var">up</span> <span class="id" type="var">v</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="InterpRaster">InterpRaster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">bitmap</span> : <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>) (<span class="id" type="var">tl</span> <span class="id" type="var">br</span>:(ProductMS <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>)) : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.FinEnum.html#FinEnum">FinEnum</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.reals.fast.RasterQ.html#stableQ2">stableQ2</a></span> :=<br/>
+&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">l</span>,t) := <span class="id" type="var">tl</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="keyword">let</span> (<span class="id" type="var">r</span>,b) := <span class="id" type="var">br</span> <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="keyword">let</span> <span class="id" type="var">up</span> := (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#UniformPartition">UniformPartition</a></span> <span class="id" type="var">l</span> <span class="id" type="var">r</span> <span class="id" type="var">n</span>) <span class="id" type="keyword">in</span><br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#flat_map">flat_map</a></span> (<span class="id" type="keyword">fun</span> (<span class="id" type="var">p</span>:Q*Bvector <span class="id" type="var">_</span>) =&gt; <span class="id" type="keyword">let</span> (<span class="id" type="var">y</span>,r):=p <span class="id" type="keyword">in</span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> =&gt; (<span class="id" type="var">x</span>,y)) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.RasterQ.html#InterpRow">InterpRow</a></span> <span class="id" type="var">up</span> <span class="id" type="var">r</span>)) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#combine">combine</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.Interval.html#UniformPartition">UniformPartition</a></span> <span class="id" type="var">t</span> <span class="id" type="var">b</span> <span class="id" type="var">m</span>) <span class="id" type="var">bitmap</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Notation for the interpretation of a raster. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Notation</span> "a ⇱ b ⇲ c" := (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.RasterQ.html#InterpRaster">InterpRaster</a></span> <span class="id" type="var">b</span> <span class="id" type="var">a</span> <span class="id" type="var">c</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 1,<br/>
+&nbsp;<span class="id" type="var">format</span> "a ⇱ '[v' '/' b ']' '[v' '/' ⇲ c ']'") : <span class="id" type="var">raster</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Correctness properties of our interpretation. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="InterpRasterCorrect">InterpRasterCorrect</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="f">f</a></span> := <span class="id" type="keyword">fun</span> <span class="id" type="var">l</span> <span class="id" type="var">r</span> (<span class="id" type="var">n</span>:nat) (<span class="id" type="var">i</span>:Z) =&gt; <span class="id" type="var">l</span> + (<span class="id" type="var">r</span> - <span class="id" type="var">l</span>) * (2 * <span class="id" type="var">i</span> + 1 # 1) / (2 * <span class="id" type="var">n</span> # 1).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InterpRaster_correct1">InterpRaster_correct1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">t</span> <span class="id" type="var">l</span> <span class="id" type="var">b</span> <span class="id" type="var">r</span>:Q) (<span class="id" type="var">bitmap</span>: <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>) <span class="id" type="var">i</span> <span class="id" type="var">j</span>,<br/>
+<span class="id" type="var">Is_true</span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#RasterIndex">RasterIndex</a></span> <span class="id" type="var">bitmap</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>) -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#In">In</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">l</span> <span class="id" type="var">r</span> <span class="id" type="var">n</span> <span class="id" type="var">j</span>,f <span class="id" type="var">t</span> <span class="id" type="var">b</span> <span class="id" type="var">m</span> <span class="id" type="var">i</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.RasterQ.html#InterpRaster">InterpRaster</a></span> <span class="id" type="var">bitmap</span> (<span class="id" type="var">l</span>,t) (<span class="id" type="var">r</span>,b)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="InterpRaster_correct2">InterpRaster_correct2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> (<span class="id" type="var">t</span> <span class="id" type="var">l</span> <span class="id" type="var">b</span> <span class="id" type="var">r</span>:Q) <span class="id" type="var">x</span> <span class="id" type="var">y</span> (<span class="id" type="var">bitmap</span>: <span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#raster">raster</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>),<br/>
+<span class="id" type="var">In</span> (<span class="id" type="var">x</span>,y) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.RasterQ.html#InterpRaster">InterpRaster</a></span> <span class="id" type="var">bitmap</span> (<span class="id" type="var">l</span>,t) (<span class="id" type="var">r</span>,b)) -&gt; <br/>
+&nbsp;<span class="id" type="var">exists</span> <span class="id" type="var">p</span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Bool.Bool.html#Is_true">Is_true</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.raster.Raster.html#RasterIndex">RasterIndex</a></span> <span class="id" type="var">bitmap</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">p</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">p</span>)) /\ <span class="id" type="var">x</span>=f <span class="id" type="var">l</span> <span class="id" type="var">r</span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#snd">snd</a></span> <span class="id" type="var">p</span>) /\ <span class="id" type="var">y</span>=f <span class="id" type="var">t</span> <span class="id" type="var">b</span> <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#fst">fst</a></span> <span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.RasterQ.html#InterpRasterCorrect">InterpRasterCorrect</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

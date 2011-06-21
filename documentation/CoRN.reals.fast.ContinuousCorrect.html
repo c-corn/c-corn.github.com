@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.ContinuousCorrect</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab688"></a><h2 class="section">Correctness of continuous functions.</h2>
+
+We show that if two functions, one on IR and one on CR, agree on the
+rational values of some closed interval, and both functions are continuous,
+then the two functions agree on that entire closed interval.
+
+<br/><br/>
+This is our main method of proving the corrections of functions defined
+on CR.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_dense_in_compact">Q_dense_in_compact</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">Hab</span> : <span class="id" type="var">a</span>[&lt;=]<span class="id" type="var">b</span>) <span class="id" type="var">x</span>, <span class="id" type="var">a</span>[&lt;]<span class="id" type="var">b</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0[&lt;]<span class="id" type="var">e</span> -&gt; {<span class="id" type="var">q</span>:Q | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="ContinuousCorrect">ContinuousCorrect</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ContinuousCorrect.I">I</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="ContinuousCorrect.HI">HI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ContinuousCorrect.f">f</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoidFun.html#PartFunct">PartFunct</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="ContinuousCorrect.Hf">Hf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="var">I</span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="ContinuousCorrect.g">g</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.CRmetric.html#CR">CR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="ContinuousCorrect.Hg">Hg</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">q</span>:Q) <span class="id" type="var">Hq</span>, <span class="id" type="var">I</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) -&gt; (<span class="id" type="var">g</span> (' <span class="id" type="var">q</span>) == <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.Q_in_CReals.html#inj_Q">inj_Q</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">q</span>) <span class="id" type="var">Hq</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ContinuousCorrect">ContinuousCorrect</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:IR) <span class="id" type="var">Hx</span>, <span class="id" type="var">I</span> <span class="id" type="var">x</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) == <span class="id" type="var">g</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.CRIR.html#IRasCR">IRasCR</a></span> <span class="id" type="var">x</span>))%CR.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.fast.ContinuousCorrect.html#ContinuousCorrect">ContinuousCorrect</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.transc.SinCos</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Sum_and_so_on">Sum_and_so_on</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_plus">Sin_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">y</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cos_plus">Cos_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">y</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+As a corollary we get the rule for the tangent of the sum. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Tan_plus">Tan_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span> <span class="id" type="var">Hxy</span> <span class="id" type="var">H</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) <span class="id" type="var">Hxy</span> [=] (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>[/] 1[-]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>[//]<span class="id" type="var">H</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Sine, cosine and tangent of <span class="inlinecode">&minus;<span class="id" type="var">x</span></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cos_inv">Cos_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> [--]<span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_inv">Sin_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> [--]<span class="id" type="var">x</span> [=] [--] (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Tan_inv">Tan_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> [--]<span class="id" type="var">x</span> <span class="id" type="var">Hx'</span> [=] [--] (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The fundamental formulas of trigonometry: cos(x)<sup>2</sup>+sin(x)<sup>2</sup>=1 and, equivalently, 1+tan(x)<sup>2</sup>=1/(cos(x)<sup>2</sup>).
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="FFT">FFT</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>[^]2[+]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[^]2 [=] 1.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="FFT'">FFT'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">H</span>, 1[+]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[^]2 [=] (1[/] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>[^]2[//]<span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.transc.SinCos.html#Sum_and_so_on">Sum_and_so_on</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basic_Properties">Basic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab557"></a><h2 class="section">Basic properties</h2>
+
+
+<br/><br/>
+We now prove most of the usual trigonometric (in)equalities.
+
+<br/><br/>
+Sine, cosine and tangent are strongly extensional and well defined.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_strext">Sin_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cos_strext">Cos_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Tan_strext">Tan_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_wd">Sin_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cos_wd">Cos_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Tan_wd">Tan_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Tan_Sin_over_Cos">Tan_Sin_over_Cos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Tan">Tan</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[=](<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>[/]<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>[//]<span class="id" type="var">H</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The sine and cosine produce values in <span class="inlinecode">[-1,1]</span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_Sin_leEq_One">AbsIR_Sin_leEq_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>) [&lt;=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_Cos_leEq_One">AbsIR_Cos_leEq_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span>) [&lt;=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_leEq_One">Sin_leEq_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span> [&lt;=] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cos_leEq_One">Cos_leEq_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span> [&lt;=] 1.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If the cosine is positive then the sine is in <span class="inlinecode">(-1,1)</span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Sin_less_One">Sin_less_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span> [&lt;] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="AbsIR_Sin_less_One">AbsIR_Sin_less_One</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>, 0 [&lt;] <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Cos">Cos</a></span> <span class="id" type="var">x</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#Sin">Sin</a></span> <span class="id" type="var">x</span>) [&lt;] 1.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.transc.SinCos.html#Basic_Properties">Basic_Properties</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

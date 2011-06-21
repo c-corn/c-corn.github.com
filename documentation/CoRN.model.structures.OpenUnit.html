@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.structures.OpenUnit</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab703"></a><h1 class="section"><span class="inlinecode"><span class="id" type="var">OpenUnit</span></span></h1>
+
+Open unit represents rational number in (0,1).
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="OpenUnit">OpenUnit</a></span>:={OpenUnitasQ:&gt; <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>;<br/>
+<span class="id" type="var">OpenUnitprf</span>:0&lt;OpenUnitasQ/\OpenUnitasQ&lt;1}.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This notation allows one to easily write closed expressions for 
+<span class="inlinecode"><span class="id" type="var">OpenUnit</span></span> (e.g. <span class="inlinecode"><span class="id" type="var">ou</span> (1#2)</span>).  The typechecker verifies that the close
+term is inside (0,1) by computation. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Notation</span> "'ou' x":=(@Build_OpenUnit <span class="id" type="var">x</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#conj">conj</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#refl_equal">refl_equal</a></span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Lt">Lt</a></span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#refl_equal">refl_equal</a></span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Lt">Lt</a></span>))) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 60, <span class="id" type="var">no</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">ou_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Basic propertirs about <span class="inlinecode"><span class="id" type="var">a</span>:OpenUnit</span> and its dual value <span class="inlinecode">1-a</span>. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="OpenUnit_0_lt">OpenUnit_0_lt</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:OpenUnit), 0 &lt; <span class="id" type="var">a</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="OpenUnit_lt_1">OpenUnit_lt_1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:OpenUnit), <span class="id" type="var">a</span> &lt; 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="OpenUnit_0_lt_Dual">OpenUnit_0_lt_Dual</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:OpenUnit), 0 &lt; 1-a.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="OpenUnit_Dual_lt_1">OpenUnit_Dual_lt_1</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span>:OpenUnit), 1-a &lt; 1.<br/>
+</div>
+
+<div class="doc">
+Multiplication 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="OpenUnitMult">OpenUnitMult</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit):OpenUnit.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "x * y":=(OpenUnitMult <span class="id" type="var">x</span> <span class="id" type="var">y</span>) : <span class="id" type="var">ou_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Division 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="OpenUnitDiv">OpenUnitDiv</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit):(a&lt;b)-&gt;OpenUnit.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The dual of a is 1-a 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="OpenUnitDual">OpenUnitDual</a></span> (<span class="id" type="var">a</span>:OpenUnit):OpenUnit.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The dual of multipliation: 1 - (1-a)*(1-b) or a + b - a*b 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="OpenUnitDualMult">OpenUnitDualMult</a></span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:OpenUnit):OpenUnit.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The dual of division: 1 - (1-b)/(1-a) or (b-a)/(1-a) 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="OpenUnitDualDiv">OpenUnitDualDiv</a></span> (<span class="id" type="var">b</span> <span class="id" type="var">a</span>:OpenUnit):(a&lt;b)-&gt;OpenUnit.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab704"></a><h3 class="section">Equality</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ou_eq">ou_eq</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:OpenUnit) := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qeq">Qeq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ou_eq_refl">ou_eq_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ou_eq_sym">ou_eq_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>, <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ou_eq_trans">ou_eq_trans</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>, <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Relation</span> <span class="id" type="record"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnit">OpenUnit</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span><br/>
+&nbsp;<span class="id" type="tactic">reflexivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq_refl">ou_eq_refl</a></span><br/>
+&nbsp;<span class="id" type="tactic">symmetry</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq_sym">ou_eq_sym</a></span><br/>
+&nbsp;<span class="id" type="tactic">transitivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq_trans">ou_eq_trans</a></span><br/>
+&nbsp;<span class="id" type="keyword">as</span> <span class="id" type="var">ou_st</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+One cheif use of OpenUnit is to make strict affine combinations. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="affineCombo">affineCombo</a></span> (<span class="id" type="var">o</span>:OpenUnit) (<span class="id" type="var">a</span> <span class="id" type="var">b</span>:Q) := <span class="id" type="var">o</span>*a + (1-o)*b.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Morphism</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#ou_eq">ou_eq</a></span> ==&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qeq">Qeq</a></span> ==&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qeq">Qeq</a></span> ==&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qeq">Qeq</a></span> <span class="id" type="keyword">as</span> <span class="id" type="var">affineCombo_wd</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Properties of an affine combination. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="affineCombo_gt">affineCombo_gt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">H</span>:a &lt; <span class="id" type="var">b</span>), <span class="id" type="var">a</span> &lt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="affineCombo_lt">affineCombo_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">H</span>:a &lt; <span class="id" type="var">b</span>), <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> &lt; <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="affineAffine_l">affineAffine_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">o1</span> <span class="id" type="var">o2</span>, <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o1</span> <span class="id" type="var">a</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o2</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>)==affineCombo (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#OpenUnitDualMult">OpenUnitDualMult</a></span> <span class="id" type="var">o1</span> <span class="id" type="var">o2</span>) <span class="id" type="var">a</span> <span class="id" type="var">b</span>)%Q.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="affineAffine_r">affineAffine_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">o1</span> <span class="id" type="var">o2</span>, <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o1</span> (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.OpenUnit.html#affineCombo">affineCombo</a></span> <span class="id" type="var">o2</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">b</span>==affineCombo (<span class="id" type="var">o1</span>*o2) <span class="id" type="var">a</span> <span class="id" type="var">b</span>)%Q.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

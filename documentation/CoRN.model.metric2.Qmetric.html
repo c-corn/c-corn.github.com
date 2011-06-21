@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.metric2.Qmetric</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab626"></a><h2 class="section">Example of a Metric: &lt;Q, Qball&gt;</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qball">Qball</a></span> (<span class="id" type="var">e</span> : Q<SUP>+</SUP>) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdAbs.html#AbsSmall">AbsSmall</a></span> (<span class="id" type="var">e</span>:Q) (<span class="id" type="var">a</span> - <span class="id" type="var">b</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qball_Qabs">Qball_Qabs</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qball">Qball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> &lt;-&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.Qabs.html#Qabs">Qabs</a></span> (<span class="id" type="var">a</span> - <span class="id" type="var">b</span>) &lt;= <span class="id" type="var">e</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qle_closed">Qle_closed</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">x</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span> : Q<SUP>+</SUP>, <span class="id" type="var">x</span> &lt;= <span class="id" type="var">e</span>+d) -&gt; <span class="id" type="var">x</span> &lt;= <span class="id" type="var">e</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> <span class="id" type="abbreviation"><a name="QS">QS</a></span>  := <span class="id" type="definition"><a class="idref" href="CoRN.model.setoids.Qsetoid.html#Q_is_Setoid">Q_is_Setoid</a></span> (<span class="id" type="var">only</span> <span class="id" type="var">parsing</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_is_MetricSpace">Q_is_MetricSpace</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#is_MetricSpace">is_MetricSpace</a></span> <span class="id" type="abbreviation"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QS">QS</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qball">Qball</a></span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Q_as_MetricSpace">Q_as_MetricSpace</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span> :=<br/>
+@<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Metric.html#Build_MetricSpace">Build_MetricSpace</a></span> <span class="id" type="abbreviation"><a class="idref" href="CoRN.model.metric2.Qmetric.html#QS">QS</a></span> <span class="id" type="var">_</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Qball_wd">Qball_wd</a></span> <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_is_MetricSpace">Q_is_MetricSpace</a></span>.<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QPrelengthSpace_help">QPrelengthSpace_help</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> <span class="id" type="var">d1</span> <span class="id" type="var">d2</span>:Qpos), <span class="id" type="var">e</span> &lt; <span class="id" type="var">d1</span>+d2 -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span>:QS), <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt; (<span class="id" type="var">c</span> == (<span class="id" type="var">a</span>*d2 + <span class="id" type="var">b</span>*d1)/(d1+d2)%Qpos) -&gt; <span class="id" type="projection"><a class="idref" href="CoRN.metric2.Metric.html#ball">ball</a></span> <span class="id" type="var">d1</span> <span class="id" type="var">a</span> <span class="id" type="var">c</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Q is a prelength space 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="QPrelengthSpace">QPrelengthSpace</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Q is a decideable metric, and hence located and stable. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qmetric_dec">Qmetric_dec</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#decidableMetric">decidableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="locatedQ">locatedQ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#locatedMetric">locatedMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="stableQ">stableQ</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Classification.html#stableMetric">stableMetric</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.Qmetric.html#Q_as_MetricSpace">Q_as_MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metrics.CPMSTheory</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="lists">lists</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab607"></a><h2 class="section">Lists</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+ List and membership of lists are used in the definition of 
+ "totally bounded". Note that we use the Leibniz equality in the definition 
+of <span class="inlinecode"><span class="id" type="var">MSmember</span></span>, and not the setoid equality. So we are really talking about
+finite sets of representants, instead of finite subsetoids. This seems to make
+ the proofs a bit easier.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="MSmember">MSmember</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">x</span> : <span class="id" type="var">X</span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">l</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">y</span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> <span class="id" type="var">X</span> <span class="id" type="var">x</span> <span class="id" type="var">m</span> <span class="id" type="var">or</span> <span class="id" type="var">x</span> = <span class="id" type="var">y</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="to_IR">to_IR</a></span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="from_IR">from_IR</a></span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) (<span class="id" type="var">H</span> : <span class="id" type="var">P</span> <span class="id" type="var">x</span>) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="list_IR">list_IR</a></span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :<br/>
+&nbsp;&nbsp;<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> <span class="id" type="var">P</span>) -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="is_P">is_P</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>)<br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> <span class="id" type="var">P</span>)) <br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#list_IR">list_IR</a></span> <span class="id" type="var">P</span> <span class="id" type="var">l</span>) -&gt; <span class="id" type="var">P</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+If a real number is element of a list in the above defined sense,
+it is an element of the list in the sense of <span class="inlinecode"><span class="id" type="var">member</span></span>, 
+that uses the setoid equality.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="member1">member1</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">x0</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#subcsetoid_crr">subcsetoid_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span>)<br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> <span class="id" type="var">P</span>)),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> (<span class="id" type="var">X</span>:=SubPsMetricSpace <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> <span class="id" type="var">P</span>) <span class="id" type="var">x0</span> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.RealLists.html#member">member</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#to_IR">to_IR</a></span> <span class="id" type="var">P</span> <span class="id" type="var">x0</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#list_IR">list_IR</a></span> <span class="id" type="var">P</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The image under a certain mapping of an element of a list  <I>l</I> is member 
+of the list of images of elements of  <I>l</I>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="map_member">map_member</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="var">X</span> -&gt; <b>Z</b>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span>) (<span class="id" type="var">m</span> : <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> <span class="id" type="var">m</span> <span class="id" type="var">l</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">m</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> <span class="id" type="var">f</span> <span class="id" type="var">l</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.CPMSTheory.html#lists">lists</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="loc_and_bound">loc_and_bound</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab608"></a><h2 class="section">Pseudo Metric Space theory</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Re_co_do">Re_co_do</a></span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>) :<br/>
+&nbsp;&nbsp;<span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <b>Z</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>}).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Re_co_do_strext">Re_co_do_strext</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#fun_strext">fun_strext</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#Re_co_do">Re_co_do</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="re_co_do">re_co_do</a></span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>) :<br/>
+&nbsp;&nbsp;<span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <b>Z</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>})) :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">X</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid">Build_SubCSetoid</a></span> <b>Z</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>}))<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#Re_co_do">Re_co_do</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">f</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.metrics.CPMSTheory.html#Re_co_do_strext">Re_co_do_strext</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="re_co_do_well_def">re_co_do_well_def</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <b>Z</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>}).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Again we see that the image under a certain mapping of an element of a list 
+<I>l</I> is member of the list of images of elements of  <I>l</I>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="map_member'">map_member'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span>) (<span class="id" type="var">m</span> : <span class="id" type="var">X</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> <span class="id" type="var">m</span> <span class="id" type="var">l</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> (<span class="id" type="var">X</span>:=Build_SubCSetoid <b>Z</b> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x0</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x0</span>[=]<span class="id" type="var">y</span>}))<br/>
+&nbsp;&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#re_co_do">re_co_do</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">f</span> <span class="id" type="var">m</span>) (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#map">map</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#re_co_do">re_co_do</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">f</span>) <span class="id" type="var">l</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bounded">bounded</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;{<span class="id" type="var">n</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">X</span>, <span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;=]<span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;&nbsp;{<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">X</span> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">X</span>, {<span class="id" type="var">y</span> : <span class="id" type="var">X</span> | <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSmember">MSmember</a></span> <span class="id" type="var">y</span> <span class="id" type="var">l</span> | <span class="id" type="var">x</span>[-d]<span class="id" type="var">y</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Total boundedness is preserved under uniformly continuous mappings.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="unicon_resp_totallybounded">unicon_resp_totallybounded</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> <b>Z</b> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <b>Z</b>) (<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous''">uni_continuous''</a></span> <span class="id" type="var">f</span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> <span class="id" type="var">X</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <b>Z</b> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>})).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MStotallybounded_totallybounded">MStotallybounded_totallybounded</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">P</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">H0</span> : {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">P</span> <span class="id" type="var">x</span>}),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#pred_wd">pred_wd</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">P</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> (<span class="id" type="var">X</span>:=IR_as_CPsMetricSpace) <span class="id" type="var">P</span>) -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#totally_bounded">totally_bounded</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Every image under an uniformly continuous function of an totally bounded 
+pseudo metric space has an infimum and a supremum.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="infimum_exists">infimum_exists</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous''">uni_continuous''</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> <span class="id" type="var">X</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">X</span>,<br/>
+&nbsp;{<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#set_glb_IR">set_glb_IR</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>}) <span class="id" type="var">z</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="supremum_exists">supremum_exists</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">f</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">X</span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#uni_continuous''">uni_continuous''</a></span> <span class="id" type="var">f</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> <span class="id" type="var">X</span> -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">X</span>,<br/>
+&nbsp;{<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#set_lub_IR">set_lub_IR</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.IR_CPMSpace.html#IR_as_CPsMetricSpace">IR_as_CPsMetricSpace</a></span> =&gt; {<span class="id" type="var">x</span> : <span class="id" type="var">X</span> | <span class="id" type="var">f</span> <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span>}) <span class="id" type="var">z</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A subspace <I>P</I> of a pseudo metric space <I>X</I> is said to be located if for all 
+elements <I>x</I> of <I>X</I> there exists an infimum for the distance 
+between <I>x</I> and the elements of <I>P</I>.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="located">located</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">X</span>) (<span class="id" type="var">r</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> |<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#set_glb_IR">set_glb_IR</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">v</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> =&gt; {<span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span> | <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#dsub'_as_cs_fun">dsub'_as_cs_fun</a></span> <span class="id" type="var">P</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>[=]<span class="id" type="var">v</span>}) <span class="id" type="var">z</span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="located'">located'</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">X</span>) (<span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> |<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#set_glb_IR">set_glb_IR</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">v</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span> | <span class="id" type="var">x</span>[-d]<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#from_SubPsMetricSpace">from_SubPsMetricSpace</a></span> <span class="id" type="var">X</span> <span class="id" type="var">P</span> <span class="id" type="var">y</span>[=]<span class="id" type="var">v</span>}) <span class="id" type="var">z</span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="located_imp_located'">located_imp_located'</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located">located</a></span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located'">located'</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Every totally bounded pseudo metric space is located.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MStotally_bounded_imp_located">MStotally_bounded_imp_located</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located">located</a></span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For all <I>x</I> in a pseudo metric space <I>X</I>, for all located subspaces <I>P</I> of <I>X</I>,
+<span class="inlinecode"><span class="id" type="var">Floc</span></span> chooses for a given natural number <I>n</I> an <I>y</I> in <I>P</I> such that:
+
+d(x,y) &le; inf&#x007B;d(x,p)&#x007C; p&#x03F5;P&#x007D; + (n+1)<SUP>-1</SUP>.
+<span class="inlinecode"><span class="id" type="var">Flocfun</span></span> does (almost) the same, but has a different type. This enables 
+one to use the latter as an argument of <span class="inlinecode"><span class="id" type="var">map</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Floc">Floc</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">H0</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located'">located'</a></span> <span class="id" type="var">P</span>) (<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>) (<span class="id" type="var">n</span> : <b>N</b>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">x</span> : <span class="id" type="var">X</span>) :<br/>
+&nbsp;&nbsp;{<span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span> |<br/>
+&nbsp;&nbsp;{<span class="id" type="var">z</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> |<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Intervals.html#set_glb_IR">set_glb_IR</a></span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">v</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span> | <span class="id" type="var">x</span>[-d]<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#from_SubPsMetricSpace">from_SubPsMetricSpace</a></span> <span class="id" type="var">X</span> <span class="id" type="var">P</span> <span class="id" type="var">y</span>[=]<span class="id" type="var">v</span>}) <span class="id" type="var">z</span> |<br/>
+&nbsp;&nbsp;<span class="id" type="var">x</span>[-d]<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#from_SubPsMetricSpace">from_SubPsMetricSpace</a></span> <span class="id" type="var">X</span> <span class="id" type="var">P</span> <span class="id" type="var">y</span>[&lt;=]<span class="id" type="var">z</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}}.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Flocfun">Flocfun</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">H0</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located'">located'</a></span> <span class="id" type="var">P</span>) (<span class="id" type="var">H2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>) (<span class="id" type="var">n</span> : <b>N</b>) :<br/>
+&nbsp;&nbsp;<span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A located subset <I>P</I> of a totally bounded pseudo metric space 
+<I>X</I> is totally
+bounded.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="locatedsub_totallybounded_imp_totallyboundedsub">locatedsub_totallybounded_imp_totallyboundedsub</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span> -&gt;<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located'">located'</a></span> <span class="id" type="var">P</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Here are some definitions that could come in handy:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSCauchy_seq">MSCauchy_seq</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">i</span> -&gt; <span class="id" type="var">m</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">seq</span> <span class="id" type="var">i</span>[-d]<span class="id" type="var">seq</span> <span class="id" type="var">j</span>[&lt;=]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.COrdFields2.html#one_div_succ">one_div_succ</a></span> <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSComplete">MSComplete</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">X</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSCauchy_seq">MSCauchy_seq</a></span> <span class="id" type="var">X</span> <span class="id" type="var">seq</span> -&gt; {<span class="id" type="var">lim</span> : <span class="id" type="var">X</span> | <span class="id" type="definition"><a class="idref" href="CoRN.metrics.ContFunctions.html#MSseqLimit'">MSseqLimit'</a></span> <span class="id" type="var">seq</span> <span class="id" type="var">lim</span>}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A compact pseudo metric space is a pseudo metric space which is complete and 
+totally bounded.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MSCompact">MSCompact</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MSComplete">MSComplete</a></span> <span class="id" type="var">X</span> <span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> <span class="id" type="var">X</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A subset <I>P</I> is <I>open</I> if for all <I>x</I> in <I>P</I> there exists an open sphere 
+with centre <I>x</I> that is contained in <I>P</I>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="open">open</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">X</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; {<span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0[&lt;]<span class="id" type="var">e</span> <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="var">X</span>, <span class="id" type="var">z</span>[-d]<span class="id" type="var">x</span>[&lt;]<span class="id" type="var">e</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">z</span>)}.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The operator <span class="inlinecode"><span class="id" type="var">infima</span></span> gives the infimum for the distance between an 
+element <I>x</I> of a located pseudo metric space <I>X</I> and the elements of a 
+subspace <I>P</I> of <I>X</I>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="infima">infima</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) <br/>
+&nbsp;&nbsp;(<span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located'">located'</a></span> <span class="id" type="var">P</span>) (<span class="id" type="var">a</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>) : <span class="id" type="var">X</span> -&gt; <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A non-empty totally bounded sub-pseudo-metric-space <I>P</I> is said to be 
+ <I>well contained</I> in an open sub-pseudo-metric-space <I>Q</I> if <I>Q</I> contains 
+all points that are in some sense close to <I>P</I>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="well_contained">well_contained</a></span> (<span class="id" type="var">X</span> : <span class="id" type="record"><a class="idref" href="CoRN.metrics.CPseudoMSpaces.html#CPsMetricSpace">CPsMetricSpace</a></span>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>)<br/>
+&nbsp;&nbsp;(<span class="id" type="var">a</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#open">open</a></span> <span class="id" type="var">Q</span> -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded">MStotally_bounded</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metrics.Prod_Sub.html#SubPsMetricSpace">SubPsMetricSpace</a></span> <span class="id" type="var">P</span>),<br/>
+&nbsp;&nbsp;{<span class="id" type="var">r</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | 0[&lt;]<span class="id" type="var">r</span> |<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">q</span> : <span class="id" type="var">X</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metrics.CPMSTheory.html#infima">infima</a></span> <span class="id" type="var">P</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metrics.CPMSTheory.html#located_imp_located'">located_imp_located'</a></span> <span class="id" type="var">X</span> <span class="id" type="var">P</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.metrics.CPMSTheory.html#MStotally_bounded_imp_located">MStotally_bounded_imp_located</a></span> <span class="id" type="var">X</span> <span class="id" type="var">P</span> <span class="id" type="var">H</span>)) <span class="id" type="var">a</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="var">q</span>[&lt;=]<span class="id" type="var">r</span> -&gt; <span class="id" type="var">Q</span> <span class="id" type="var">q</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metrics.CPMSTheory.html#loc_and_bound">loc_and_bound</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

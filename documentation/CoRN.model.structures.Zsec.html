@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.structures.Zsec</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab30"></a><h1 class="section"><span class="inlinecode"><b>Z</b></span></h1>
+
+<a name="lab31"></a><h2 class="section">About <span class="inlinecode"><b>Z</b></span></h2>
+
+We consider the implementation of integers as signed binary sequences (the 
+datatype <span class="inlinecode"><b>Z</b></span> as defined in <span class="inlinecode"><span class="id" type="var">ZArith</span></span>, in the standard library).
+
+<br/><br/>
+<a name="lab32"></a><h3 class="section">Apartness</h3>
+
+We define the apartness as the negation of the Leibniz equality:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_Z">ap_Z</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>) := ~ (<span class="id" type="var">x</span> = <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "{#Z}" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#ap_Z">ap_Z</a></span> (<span class="id" type="var">no</span> <span class="id" type="var">associativity</span>, <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 90).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Some properties of apartness:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_irreflexive0">ap_Z_irreflexive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, ~ (<span class="id" type="var">x</span>{#Z}x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_symmetric0">ap_Z_symmetric0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>, (<span class="id" type="var">x</span>{#Z}y) -&gt; <span class="id" type="var">y</span>{#Z}x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_cotransitive0">ap_Z_cotransitive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">x</span>{#Z}y) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>Z</b>, (<span class="id" type="var">x</span>{#Z}z) <span class="id" type="var">or</span> (<span class="id" type="var">z</span>{#Z}y).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Z_tight0">ap_Z_tight0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>, ~ (<span class="id" type="var">x</span>{#Z}y) &lt;-&gt; <span class="id" type="var">x</span> = <span class="id" type="var">y</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ONE_neq_O">ONE_neq_O</a></span> : 1{#Z}0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab33"></a><h3 class="section">Addition</h3>
+
+Some properties of the addition. <span class="inlinecode"><span class="id" type="var">Zplus</span></span> is also defined in the standard 
+library.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_wd0">Zplus_wd0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <b>Z</b>,<br/>
+&nbsp;<span class="id" type="var">x1</span> = <span class="id" type="var">x2</span> -&gt; <span class="id" type="var">y1</span> = <span class="id" type="var">y2</span> -&gt; (<span class="id" type="var">x1</span> + <span class="id" type="var">y1</span>)%Z = (<span class="id" type="var">x2</span> + <span class="id" type="var">y2</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zplus_strext0">Zplus_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">x1</span> + <span class="id" type="var">y1</span>{#Z}x2 + <span class="id" type="var">y2</span>) -&gt; (<span class="id" type="var">x1</span>{#Z}x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>{#Z}y2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab34"></a><h3 class="section">Multiplication</h3>
+
+The multiplication is extensional:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_strext0">Zmult_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">x1</span> * <span class="id" type="var">y1</span>{#Z}x2 * <span class="id" type="var">y2</span>) -&gt; (<span class="id" type="var">x1</span>{#Z}x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>{#Z}y2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab35"></a><h3 class="section">Miscellaneous</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="posZ">posZ</a></span> (<span class="id" type="var">x</span> : <b>Z</b>) : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">x</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Z0">Z0</a></span> =&gt; 1%positive<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="var">p</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zneg">Zneg</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="var">p</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma1">a_very_specific_lemma1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">e</span> <span class="id" type="var">f</span> : <b>Z</b>, <span class="id" type="var">c</span> &lt;&gt; 0%Z -&gt;<br/>
+&nbsp;(<span class="id" type="var">a</span> * <span class="id" type="var">b</span>)%Z = (<span class="id" type="var">c</span> * <span class="id" type="var">d</span>)%Z -&gt; (<span class="id" type="var">c</span> * <span class="id" type="var">e</span>)%Z = (<span class="id" type="var">f</span> * <span class="id" type="var">b</span>)%Z -&gt; (<span class="id" type="var">a</span> * <span class="id" type="var">e</span>)%Z = (<span class="id" type="var">f</span> * <span class="id" type="var">d</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma2">a_very_specific_lemma2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> <span class="id" type="var">s</span> <span class="id" type="var">r</span> <span class="id" type="var">t</span> <span class="id" type="var">u</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">a</span> * <span class="id" type="var">r</span>)%Z = (<span class="id" type="var">b</span> * <span class="id" type="var">s</span>)%Z -&gt; (<span class="id" type="var">c</span> * <span class="id" type="var">u</span>)%Z = (<span class="id" type="var">d</span> * <span class="id" type="var">t</span>)%Z -&gt;<br/>
+&nbsp;((<span class="id" type="var">a</span> * <span class="id" type="var">t</span> + <span class="id" type="var">c</span> * <span class="id" type="var">s</span>) * (<span class="id" type="var">r</span> * <span class="id" type="var">u</span>))%Z = ((<span class="id" type="var">b</span> * <span class="id" type="var">u</span> + <span class="id" type="var">d</span> * <span class="id" type="var">r</span>) * (<span class="id" type="var">s</span> * <span class="id" type="var">t</span>))%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma3">a_very_specific_lemma3</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span> : <b>Z</b>) (<span class="id" type="var">s</span> <span class="id" type="var">r</span> <span class="id" type="var">t</span> <span class="id" type="var">u</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>),<br/>
+&nbsp;(<span class="id" type="var">a</span> * <span class="id" type="var">r</span>)%Z = (<span class="id" type="var">b</span> * <span class="id" type="var">s</span>)%Z -&gt; (<span class="id" type="var">c</span> * <span class="id" type="var">u</span>)%Z = (<span class="id" type="var">d</span> * <span class="id" type="var">t</span>)%Z -&gt;<br/>
+&nbsp;((<span class="id" type="var">a</span> * <span class="id" type="var">t</span> + <span class="id" type="var">c</span> * <span class="id" type="var">s</span>) * (<span class="id" type="var">r</span> * <span class="id" type="var">u</span>)%positive)%Z = ((<span class="id" type="var">b</span> * <span class="id" type="var">u</span> + <span class="id" type="var">d</span> * <span class="id" type="var">r</span>) * (<span class="id" type="var">s</span> * <span class="id" type="var">t</span>)%positive)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma4">a_very_specific_lemma4</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> : <b>Z</b>,<br/>
+&nbsp;((<span class="id" type="var">a</span> * (<span class="id" type="var">n</span> * <span class="id" type="var">p</span>) + (<span class="id" type="var">b</span> * <span class="id" type="var">p</span> + <span class="id" type="var">c</span> * <span class="id" type="var">n</span>) * <span class="id" type="var">m</span>) * (<span class="id" type="var">m</span> * <span class="id" type="var">n</span> * <span class="id" type="var">p</span>))%Z =<br/>
+&nbsp;(((<span class="id" type="var">a</span> * <span class="id" type="var">n</span> + <span class="id" type="var">b</span> * <span class="id" type="var">m</span>) * <span class="id" type="var">p</span> + <span class="id" type="var">c</span> * (<span class="id" type="var">m</span> * <span class="id" type="var">n</span>)) * (<span class="id" type="var">m</span> * (<span class="id" type="var">n</span> * <span class="id" type="var">p</span>)))%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma5">a_very_specific_lemma5</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>) (<span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>),<br/>
+&nbsp;((<span class="id" type="var">a</span> * (<span class="id" type="var">n</span> * <span class="id" type="var">p</span>)%positive + (<span class="id" type="var">b</span> * <span class="id" type="var">p</span> + <span class="id" type="var">c</span> * <span class="id" type="var">n</span>) * <span class="id" type="var">m</span>) * (<span class="id" type="var">m</span> * <span class="id" type="var">n</span> * <span class="id" type="var">p</span>)%positive)%Z =<br/>
+&nbsp;(((<span class="id" type="var">a</span> * <span class="id" type="var">n</span> + <span class="id" type="var">b</span> * <span class="id" type="var">m</span>) * <span class="id" type="var">p</span> + <span class="id" type="var">c</span> * (<span class="id" type="var">m</span> * <span class="id" type="var">n</span>)%positive) * (<span class="id" type="var">m</span> * (<span class="id" type="var">n</span> * <span class="id" type="var">p</span>))%positive)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="posZ_pos">posZ_pos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, (<span class="id" type="var">x</span> &gt; 0)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#posZ">posZ</a></span> <span class="id" type="var">x</span> = <span class="id" type="var">x</span> :&gt;Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="posZ_neg">posZ_neg</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, (<span class="id" type="var">x</span> &lt; 0)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#posZ">posZ</a></span> <span class="id" type="var">x</span> = (- <span class="id" type="var">x</span>)%Z :&gt;Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="posZ_Zsgn">posZ_Zsgn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="var">x</span> &lt;&gt; 0%Z -&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> * <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#posZ">posZ</a></span> <span class="id" type="var">x</span>)%Z = <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="posZ_Zsgn2">posZ_Zsgn2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="var">x</span> &lt;&gt; 0%Z -&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> * <span class="id" type="var">x</span>)%Z = <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#posZ">posZ</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="a_very_specific_lemma5'">a_very_specific_lemma5'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> : <b>Z</b>),<br/>
+&nbsp;&nbsp;(<span class="id" type="var">a</span> * <span class="id" type="var">n</span> &lt; <span class="id" type="var">b</span> * <span class="id" type="var">m</span>)%Z -&gt; (<span class="id" type="var">b</span> * <span class="id" type="var">p</span>)%Z = (<span class="id" type="var">c</span> * <span class="id" type="var">n</span>)%Z -&gt; (<span class="id" type="var">a</span> * <span class="id" type="var">p</span> &lt; <span class="id" type="var">c</span> * <span class="id" type="var">m</span>)%Z.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

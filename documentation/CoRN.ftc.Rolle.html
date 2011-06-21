@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.Rolle</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Rolle">Rolle</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab483"></a><h1 class="section">Rolle's Theorem</h1>
+
+
+<br/><br/>
+We now begin to work with partial functions.  We begin by stating and proving Rolle's theorem in various forms and some of its corollaries.
+
+<br/><br/>
+ Assume that:
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">a</span>,b:IR</span> with <span class="inlinecode"><span class="id" type="var">a</span> &lt; <span class="id" type="var">b</span></span> and denote by <span class="inlinecode"><span class="id" type="var">I</span></span> the interval <span class="inlinecode">[<span class="id" type="var">a</span>,b]</span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">F</span>,F'</span> are partial functions such that <span class="inlinecode"><span class="id" type="var">F'</span></span> is the derivative of <span class="inlinecode"><span class="id" type="var">F</span></span> in <span class="inlinecode"><span class="id" type="var">I</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">e</span></span> is a positive real number.
+
+</li>
+</ul>
+
+<br/><br/>
+
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Rolle.Fab">Fab</a></span> : <span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> [=] <span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Rolle">Rolle</a></span> : {<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">I</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Rolle.html#Rolle">Rolle</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Law_of_the_Mean">Law_of_the_Mean</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following is a simple corollary:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Law_of_the_Mean.a">a</a></span> <span class="id" type="variable"><a name="Law_of_the_Mean.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Law_of_the_Mean.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Law_of_the_Mean.F">F</a></span> <span class="id" type="variable"><a name="Law_of_the_Mean.F'">F'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Law_of_the_Mean.HF">HF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Derivative.html#Derivative_I">Derivative_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Law_of_the_Mean.HA">HA</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">a</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Law_of_the_Mean.HB">HB</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="var">F</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Law_of_the_Mean_I">Law_of_the_Mean_I</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="var">I</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">HB</span>[-]<span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">HA</span>[-]<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>)) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Rolle.html#Law_of_the_Mean">Law_of_the_Mean</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can also state these theorems without expliciting the derivative of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Corollaries.a">a</a></span> <span class="id" type="variable"><a name="Corollaries.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Corollaries.Hab'">Hab'</a></span> : <span class="id" type="var">a</span> [&lt;] <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Corollaries.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Corollaries.HF">HF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Differentiability.html#Diffble_I">Diffble_I</a></span> <span class="id" type="var">Hab'</span> <span class="id" type="var">F</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Rolle'">Rolle'</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span>, <span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> [=] <span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">HF</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Law_of_the_Mean'_I">Law_of_the_Mean'_I</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">HA</span> <span class="id" type="var">HB</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> <span class="id" type="var">Hab</span> <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">HB</span>[-]<span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">HA</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.ftc.PartInterval.html#PartInt">PartInt</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.logic.CLogic.html#ProjT1">ProjT1</a></span> <span class="id" type="var">HF</span>) <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>)) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Rolle.html#Corollaries">Corollaries</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Generalizations">Generalizations</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The mean law is more useful if we abstract <span class="inlinecode"><span class="id" type="var">a</span></span> and <span class="inlinecode"><span class="id" type="var">b</span></span> from the
+context---allowing them in particular to be equal.  In the case where
+<span class="inlinecode"><span class="id" type="var">F</span>(<span class="id" type="var">a</span>) = <span class="id" type="var">F</span>(<span class="id" type="var">b</span>)</span> we get Rolle's theorem again, so there is no need to
+state it also in this form.
+
+<br/><br/>
+ Assume <span class="inlinecode"><span class="id" type="var">I</span></span> is a proper interval, <span class="inlinecode"><span class="id" type="var">F</span>,F':PartIR</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Generalizations.I">I</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalizations.pI">pI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Generalizations.F">F</a></span> <span class="id" type="variable"><a name="Generalizations.F'">F'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Generalizations.derF">derF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Law_of_the_Mean">Law_of_the_Mean</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">I</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt;<br/>
+&nbsp;{<span class="id" type="var">x</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_leEq_Max">Min_leEq_Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">x</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span> <span class="id" type="var">Hx</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>[-]<span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>[-]<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>)) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We further generalize the mean law by writing as an explicit bound.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Law_of_the_Mean_Abs_ineq">Law_of_the_Mean_Abs_ineq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">I</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,  <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_leEq_Max">Min_leEq_Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">c</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>[-]<span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>) [&lt;=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Law_of_the_Mean_ineq">Law_of_the_Mean_ineq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <span class="id" type="var">I</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">I</span> <span class="id" type="var">b</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>,  <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_leEq_Max">Min_leEq_Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">x</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hx</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F'</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [&lt;=] <span class="id" type="var">c</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Ha</span> <span class="id" type="var">Hb</span>, <span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>[-]<span class="id" type="var">F</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span> [&lt;=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Rolle.html#Generalizations">Generalizations</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.RSetoid</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab62"></a><h1 class="section">Classic Setoids</h1>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="Setoid">Setoid</a></span>: <span class="id" type="keyword">Type</span> :=<br/>
+{ <span class="id" type="projection"><a name="st_car">st_car</a></span>:&gt;Type;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="st_eq">st_eq</a></span>:st_car-&gt; <span class="id" type="method"><a class="idref" href="CoRN.algebra.RSetoid.html#st_car">st_car</a></span> -&gt;Prop;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="st_isSetoid">st_isSetoid</a></span>: <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Setoids.Setoid.html#Setoid_Theory">Setoid_Theory</a></span> <span class="id" type="var">_</span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span><br/>
+}.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Relation</span> <span class="id" type="var">s</span> : (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_car">st_car</a></span> <span class="id" type="var">s</span>) (@<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">s</span>)<br/>
+&nbsp;<span class="id" type="tactic">reflexivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (@<span class="id" type="method"><a class="idref" href="http://coq.inria.fr/library/Coq.Classes.RelationClasses.html#Equivalence_Reflexive">Equivalence_Reflexive</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_isSetoid">st_isSetoid</a></span> <span class="id" type="var">s</span>))<br/>
+&nbsp;<span class="id" type="tactic">symmetry</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (@<span class="id" type="method"><a class="idref" href="http://coq.inria.fr/library/Coq.Classes.RelationClasses.html#Equivalence_Symmetric">Equivalence_Symmetric</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_isSetoid">st_isSetoid</a></span> <span class="id" type="var">s</span>))<br/>
+&nbsp;<span class="id" type="tactic">transitivity</span> <span class="id" type="var">proved</span> <span class="id" type="tactic">by</span> (@<span class="id" type="method"><a class="idref" href="http://coq.inria.fr/library/Coq.Classes.RelationClasses.html#Equivalence_Transitive">Equivalence_Transitive</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_isSetoid">st_isSetoid</a></span> <span class="id" type="var">s</span>))<br/>
+&nbsp;<span class="id" type="keyword">as</span> <span class="id" type="var">genericSetoid</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Propositions form a setoid under iff 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="iffSetoid">iffSetoid</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab63"></a><h2 class="section">Morhpisms between Setoids</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="Morphism">Morphism</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) :=<br/>
+{<span class="id" type="projection"><a name="evalMorphism">evalMorphism</a></span> :&gt; <span class="id" type="var">X</span> -&gt; <span class="id" type="var">Y</span><br/>
+;<span class="id" type="projection"><a name="Morphism_prf">Morphism_prf</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>, (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span>) -&gt; (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="method"><a class="idref" href="CoRN.algebra.RSetoid.html#evalMorphism">evalMorphism</a></span> <span class="id" type="var">x1</span>) (<span class="id" type="method"><a class="idref" href="CoRN.algebra.RSetoid.html#evalMorphism">evalMorphism</a></span> <span class="id" type="var">x2</span>))<br/>
+}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="extEq">extEq</a></span> (<span class="id" type="var">X</span>:Type) (<span class="id" type="var">Y</span>:Setoid) (<span class="id" type="var">f</span> <span class="id" type="var">g</span>:X -&gt; <span class="id" type="var">Y</span>) := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> (<span class="id" type="var">f</span> <span class="id" type="var">x</span>) (<span class="id" type="var">g</span> <span class="id" type="var">x</span>).<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="extSetoid">extSetoid</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <span class="id" type="record"><a class="idref" href="CoRN.algebra.RSetoid.html#Setoid">Setoid</a></span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "x --&gt; y" := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#extSetoid">extSetoid</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 55, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>) : <span class="id" type="var">setoid_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab64"></a><h2 class="section">Basic Combinators for Setoids</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="id">id</a></span> (<span class="id" type="var">X</span>:Setoid) : <span class="id" type="var">X</span>--&gt;X.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compose0">compose0</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="var">x</span> : <span class="id" type="var">Y</span> -&gt;Z) (<span class="id" type="var">y</span>:X -&gt; <span class="id" type="var">Y</span>) <span class="id" type="var">z</span> := <span class="id" type="var">x</span> (<span class="id" type="var">y</span> <span class="id" type="var">z</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compose1">compose1</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">Y</span>--&gt;Z) -&gt; (<span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>) -&gt; <span class="id" type="var">X</span> --&gt; <b>Z</b>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compose2">compose2</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">Y</span>--&gt;Z) -&gt; (<span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>) --&gt; <span class="id" type="var">X</span> --&gt; <b>Z</b>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="compose">compose</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">Y</span>--&gt;Z) --&gt; (<span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>) --&gt; <span class="id" type="var">X</span> --&gt; <b>Z</b>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="const0">const0</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <span class="id" type="var">X</span>-&gt;Y--&gt;X.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="const">const</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <span class="id" type="var">X</span>--&gt;Y--&gt;X.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="flip0">flip0</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">X</span>--&gt;Y--&gt;Z)-&gt;Y-&gt;X--&gt;Z.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="flip1">flip1</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">X</span>--&gt;Y--&gt;Z)-&gt;Y--&gt;X--&gt;Z.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="flip">flip</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">X</span>--&gt;Y--&gt;Z)--&gt;Y--&gt;X--&gt;Z.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="join0">join0</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : (<span class="id" type="var">X</span>--&gt;X--&gt;Y)-&gt;X--&gt;Y.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="join">join</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : (<span class="id" type="var">X</span>--&gt;X--&gt;Y)--&gt;X--&gt;Y.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap">ap</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span> --&gt; <b>Z</b>) --&gt; (<span class="id" type="var">X</span> --&gt; <span class="id" type="var">Y</span>) --&gt; (<span class="id" type="var">X</span> --&gt; <b>Z</b>)<br/>
+:= <span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#join">join</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>)) (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bind">bind</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>:Setoid) : (<span class="id" type="var">X</span>--&gt; <span class="id" type="var">Y</span>) --&gt; (<span class="id" type="var">Y</span> --&gt; <span class="id" type="var">X</span>--&gt; <b>Z</b>) --&gt; (<span class="id" type="var">X</span>--&gt; <b>Z</b>):=<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#join">join</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="var">X</span>--&gt;Z)))).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="bind_compose">bind_compose</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b> <span class="id" type="var">W</span>:Setoid) : <br/>
+&nbsp;(<span class="id" type="var">W</span>--&gt; <span class="id" type="var">X</span>--&gt; <span class="id" type="var">Y</span>) --&gt; (<span class="id" type="var">Y</span> --&gt; <span class="id" type="var">X</span>--&gt; <b>Z</b>) --&gt; (<span class="id" type="var">W</span>--&gt; <span class="id" type="var">X</span>--&gt; <b>Z</b>):=<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> <span class="id" type="var">W</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span>) ((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#bind">bind</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <b>Z</b>))))).<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

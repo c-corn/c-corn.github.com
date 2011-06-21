@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.metric2.StepFunctionMonad</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab710"></a><h2 class="section">Monad</h2>
+
+Here we define bind and join for the step function monad, and prove that they
+satify the monad laws.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+This version of <span class="inlinecode"><span class="id" type="var">StepF</span></span> has type <span class="inlinecode"><span class="id" type="var">Setoid</span></span> that carries its equivalence
+relation with it. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StepFS">StepFS</a></span> (<span class="id" type="var">X</span>:Setoid):Setoid.<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We redefine several functions to return a setoid type. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFReturn">StFReturn</a></span> (<span class="id" type="var">X</span>:Setoid) : <span class="id" type="var">X</span>--&gt;(StepFS <span class="id" type="var">X</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitLS0">SplitLS0</a></span>(<span class="id" type="var">X</span>:Setoid):OpenUnit-&gt;(StepFS <span class="id" type="var">X</span>)-&gt;(StepFS <span class="id" type="var">X</span>):=<br/>
+(<span class="id" type="keyword">fun</span> <span class="id" type="var">o</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitL">SplitL</a></span> <span class="id" type="var">x</span> <span class="id" type="var">o</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitLS">SplitLS</a></span>(<span class="id" type="var">X</span>:Setoid):OpenUnit-&gt;(StepFS <span class="id" type="var">X</span>)--&gt;(StepFS <span class="id" type="var">X</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitRS0">SplitRS0</a></span>(<span class="id" type="var">X</span>:Setoid):OpenUnit-&gt;(StepFS <span class="id" type="var">X</span>)-&gt;(StepFS <span class="id" type="var">X</span>):=<br/>
+(<span class="id" type="keyword">fun</span> <span class="id" type="var">o</span> <span class="id" type="var">x</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitR">SplitR</a></span> <span class="id" type="var">x</span> <span class="id" type="var">o</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="SplitRS">SplitRS</a></span>(<span class="id" type="var">X</span>:Setoid):OpenUnit-&gt;(StepFS <span class="id" type="var">X</span>)--&gt;(StepFS <span class="id" type="var">X</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MirrorS">MirrorS</a></span>(<span class="id" type="var">X</span>:Setoid):(StepFS <span class="id" type="var">X</span>)--&gt;(StepFS <span class="id" type="var">X</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Definition of bind. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFBind00">StFBind00</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) -&gt; (<span class="id" type="var">X</span> --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>)) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>).<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StFBind_wd1">StFBind_wd1</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid):forall <span class="id" type="var">m</span>, <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>,<br/>
+<span class="id" type="var">st_eq</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> -&gt;<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">m</span> <span class="id" type="var">x1</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">m</span> <span class="id" type="var">x2</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFBind1">StFBind1</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) -&gt; (<span class="id" type="var">X</span> --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>)) --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MirrorBind">MirrorBind</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid):forall (<span class="id" type="var">x</span>:StepF <span class="id" type="var">X</span>) (<span class="id" type="var">f</span>:X --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>)), <br/>
+<span class="id" type="var">Mirror</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">x</span> <span class="id" type="var">f</span>)==(StFBind00 (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#Mirror">Mirror</a></span> <span class="id" type="var">x</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#MirrorS">MirrorS</a></span> <span class="id" type="var">Y</span>) <span class="id" type="var">f</span>)).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitLBind">SplitLBind</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">y</span>:(StepF <span class="id" type="var">X</span>)) (<span class="id" type="var">o</span>:OpenUnit) (<span class="id" type="var">f</span>: (<span class="id" type="var">X</span>--&gt;(StepFS <span class="id" type="var">Y</span>))),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitL">SplitL</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">y</span> <span class="id" type="var">f</span>) <span class="id" type="var">o</span> == <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitL">SplitL</a></span> <span class="id" type="var">y</span> <span class="id" type="var">o</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose1">compose1</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#SplitLS">SplitLS</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">o</span>) <span class="id" type="var">f</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="SplitRBind">SplitRBind</a></span> (<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <span class="id" type="keyword">forall</span> (<span class="id" type="var">y</span>:(StepF <span class="id" type="var">X</span>)) (<span class="id" type="var">o</span>:OpenUnit) (<span class="id" type="var">f</span>: (<span class="id" type="var">X</span>--&gt;(StepFS <span class="id" type="var">Y</span>))),<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitR">SplitR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">y</span> <span class="id" type="var">f</span>) <span class="id" type="var">o</span> == <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#SplitR">SplitR</a></span> <span class="id" type="var">y</span> <span class="id" type="var">o</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose1">compose1</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#SplitRS">SplitRS</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">o</span>) <span class="id" type="var">f</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StFBind_wd">StFBind_wd</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid): <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>,<br/>
+<span class="id" type="var">st_eq</span>  <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> -&gt;<br/>
+<span class="id" type="var">st_eq</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind1">StFBind1</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">x1</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind1">StFBind1</a></span> <span class="id" type="var">Y</span> <span class="id" type="var">x2</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFBind">StFBind</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid) : <br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) --&gt; (<span class="id" type="var">X</span> --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>)) --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">Y</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF_eq">StepF_eq</a></span> <span class="id" type="var">X</span> ==&gt; (@<span class="id" type="projection"><a class="idref" href="CoRN.algebra.RSetoid.html#st_eq">st_eq</a></span> <span class="id" type="var">_</span>) ==&gt; @<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF_eq">StepF_eq</a></span> <span class="id" type="var">Y</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">StFBind00_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Join is defined in terms of bind. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFJoin">StFJoin</a></span> (<span class="id" type="var">X</span>:Setoid):(StepFS (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>))--&gt;(StepFS <span class="id" type="var">X</span>):=<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">X</span>) (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#id">id</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="JoinGlue">JoinGlue</a></span>(<span class="id" type="var">X</span>:Setoid): <span class="id" type="keyword">forall</span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>, <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFJoin">StFJoin</a></span> <span class="id" type="var">X</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>))==(glue <span class="id" type="var">o</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">_</span> <span class="id" type="var">a</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#SplitLS">SplitLS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">o</span>)) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">_</span> <span class="id" type="var">b</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#SplitRS">SplitRS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">o</span>))).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Monad_Laws">Monad_Laws</a></span>.<br/>
+</div>
+
+<div class="doc">
+Here we prove the monad laws. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Monad_Laws.X">X</a></span> <span class="id" type="variable"><a name="Monad_Laws.Y">Y</a></span>:Setoid.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ReturnBind">ReturnBind</a></span>(<span class="id" type="var">x</span>:X)(f:X--&gt;StepFS <span class="id" type="var">Y</span>): (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFReturn">StFReturn</a></span> <span class="id" type="var">X</span> <span class="id" type="var">x</span>) <span class="id" type="var">f</span>)==(f <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="Bind_compose">Bind_compose</a></span>(<b>Z</b>:Setoid)(f:X--&gt;StepFS <span class="id" type="var">Y</span>)(<span class="id" type="var">g</span>:Y--&gt;StepFS <b>Z</b>):=<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> ((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#flip">flip</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">Y</span> <b>Z</b>)) <span class="id" type="var">g</span>) <span class="id" type="var">f</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BindBind">BindBind</a></span>(<b>Z</b>:Setoid)(m:StepF <span class="id" type="var">X</span>)(<span class="id" type="var">f</span>:X--&gt;StepFS <span class="id" type="var">Y</span>)(<span class="id" type="var">g</span>:Y--&gt;StepFS <b>Z</b>):<br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">Y</span> <b>Z</b> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span> <span class="id" type="var">m</span> <span class="id" type="var">f</span>) <span class="id" type="var">g</span>) == (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">X</span> <b>Z</b> <span class="id" type="var">m</span> (<span class="id" type="var">Bind_compose</span> <span class="id" type="var">f</span> <span class="id" type="var">g</span>)).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="BindReturn">BindReturn</a></span>(<span class="id" type="var">m</span>:StepF <span class="id" type="var">X</span>): (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">X</span> <span class="id" type="var">X</span> <span class="id" type="var">m</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFReturn">StFReturn</a></span> <span class="id" type="var">X</span>)) == <span class="id" type="var">m</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#Monad_Laws">Monad_Laws</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Lastly, we prove that the applicative functor is the canonical one
+ for this monad. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ApBind">ApBind</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:Setoid): <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span>:(StepFS <span class="id" type="var">X</span>)) (<span class="id" type="var">f</span>:StepFS (<span class="id" type="var">X</span>--&gt;Y)) ,<br/>
+(<span class="id" type="var">f</span>&lt;@&gt;x==<br/>
+(@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">f</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind">StFBind</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">x</span>) <br/>
+(<span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#compose">compose</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFReturn">StFReturn</a></span> <span class="id" type="var">_</span>))))).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

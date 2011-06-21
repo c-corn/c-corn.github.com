@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CPoly_NthCoeff</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab344"></a><h1 class="section">Polynomials: Nth Coefficient</h1>
+
+ Let <span class="inlinecode"><span class="id" type="var">R</span></span> be a ring and write <span class="inlinecode">R[x]</span> for the ring of
+polynomials over <span class="inlinecode"><span class="id" type="var">R</span></span>.
+
+
+<br/><br/>
+<a name="lab345"></a><h2 class="section">Definitions</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NthCoeff_def">NthCoeff_def</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NthCoeff_def.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The <span class="inlinecode"><span class="id" type="var">n</span></span>-th coefficient of a polynomial. The default value is
+<span class="inlinecode">0:CR</span> e.g. if the <span class="inlinecode"><span class="id" type="var">n</span></span> is higher than the length. For the
+polynomial  a0 +a1 X +a2 X^2
++ ... + an X^n, the <span class="inlinecode">0</span>-th coefficient is a0, the first
+is a1 etcetera.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="nth_coeff">nth_coeff</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">p</span> : R[x]) {<span class="id" type="keyword">struct</span> <span class="id" type="var">p</span>} : <span class="id" type="var">R</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">p</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span>       =&gt; 0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">c</span> <span class="id" type="var">q</span> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>   =&gt; <span class="id" type="var">c</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">m</span> <span class="id" type="var">q</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">end</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_strext">nth_coeff_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">p'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> [#] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p'</span> -&gt; <span class="id" type="var">p</span> [#] <span class="id" type="var">p'</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_wd">nth_coeff_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> <span class="id" type="var">p'</span>, <span class="id" type="var">p</span> [=] <span class="id" type="var">p'</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nth_coeff_fun">nth_coeff_fun</a></span> <span class="id" type="var">n</span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_fun">Build_CSetoid_fun</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff_strext">nth_coeff_strext</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+We would like to use <span class="inlinecode"><span class="id" type="var">nth_coeff_fun</span> <span class="id" type="var">n</span></span> all the time.
+However, Coq's coercion mechanism doesn't support this properly:
+the term
+<span class="inlinecode">(<span class="id" type="var">nth_coeff_fun</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)</span> won't get parsed, and has to be written as
+<span class="inlinecode">((<span class="id" type="var">nth_coeff_fun</span> <span class="id" type="var">n</span>) <span class="id" type="var">p</span>)</span> instead.
+
+<br/><br/>
+So, in the names of lemmas, we write <span class="inlinecode">(<span class="id" type="var">nth_coeff</span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>)</span>,
+which always (e.g. in proofs) can be converted
+to <span class="inlinecode">((<span class="id" type="var">nth_coeff_fun</span> <span class="id" type="var">n</span>) <span class="id" type="var">p</span>)</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nonConst">nonConst</a></span> <span class="id" type="var">p</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := {<span class="id" type="var">n</span> : <b>N</b> | 0 &lt; <span class="id" type="var">n</span> | <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> [#] 0}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following is probably NOT needed.  These functions are
+NOT extensional, that is, they are not CSetoid functions.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="nth_coeff_ok">nth_coeff_ok</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">p</span> : R[x]) {<span class="id" type="keyword">struct</span> <span class="id" type="var">p</span>} : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#bool">bool</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span>, <span class="id" type="var">p</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>,   <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span>       =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span>,   <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">c</span> <span class="id" type="var">q</span> =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#true">true</a></span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span>       =&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#false">false</a></span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>, <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">c</span> <span class="id" type="var">q</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff_ok">nth_coeff_ok</a></span> <span class="id" type="var">m</span> <span class="id" type="var">q</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="in_coeff">in_coeff</a></span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>) (<span class="id" type="var">p</span> : R[x]) {<span class="id" type="keyword">struct</span> <span class="id" type="var">p</span>} : <span class="id" type="keyword">Prop</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">p</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_zero">cpoly_zero</a></span>       =&gt; &perp;<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_linear">cpoly_linear</a></span> <span class="id" type="var">d</span> <span class="id" type="var">q</span> =&gt; <span class="id" type="var">c</span> [=] <span class="id" type="var">d</span> \/ <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#in_coeff">in_coeff</a></span> <span class="id" type="var">c</span> <span class="id" type="var">q</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The <span class="inlinecode"><span class="id" type="var">cpoly_zero</span></span> case should be <span class="inlinecode"><span class="id" type="var">c</span> &equiv; 0</span> in order to be extensional.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_S">nth_coeff_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">p</span> <span class="id" type="var">c</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#in_coeff">in_coeff</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">m</span> <span class="id" type="var">p</span>) <span class="id" type="var">p</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#in_coeff">in_coeff</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) (<span class="id" type="var">c</span>[+X*]<span class="id" type="var">p</span>)) (<span class="id" type="var">c</span>[+X*]<span class="id" type="var">p</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#NthCoeff_def">NthCoeff_def</a></span>.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="NthCoeff_props">NthCoeff_props</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab346"></a><h2 class="section">Properties of <span class="inlinecode"><span class="id" type="var">nth_coeff</span></span></h2>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="NthCoeff_props.R">R</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CRings.html#CRing">CRing</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_zero">nth_coeff_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (0:RX) [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_O_lin">coeff_O_lin</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>), <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> 0 (<span class="id" type="var">c</span>[+X*]<span class="id" type="var">p</span>) [=] <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_Sm_lin">coeff_Sm_lin</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> (<span class="id" type="var">c</span> : <span class="id" type="var">R</span>) <span class="id" type="var">m</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) (<span class="id" type="var">c</span>[+X*]<span class="id" type="var">p</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">m</span> <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_O_c_">coeff_O_c_</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="var">R</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> 0 (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">c</span>) [=] <span class="id" type="var">c</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_O_x_mult">coeff_O_x_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> : R[x], <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> 0 (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[*]<span class="id" type="var">p</span>) [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_Sm_x_mult">coeff_Sm_x_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">m</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[*]<span class="id" type="var">p</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">m</span> <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="coeff_Sm_mult_x_">coeff_Sm_mult_x_</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">m</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) (<span class="id" type="var">p</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">m</span> <span class="id" type="var">p</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_ap_zero_imp">nth_coeff_ap_zero_imp</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span> [#] 0 -&gt; <span class="id" type="var">p</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_plus">nth_coeff_plus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : R[x]) <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">p</span>[+]<span class="id" type="var">q</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_inv">nth_coeff_inv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> [--]<span class="id" type="var">p</span> [=] [--] (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_c_mult_p">nth_coeff_c_mult_p</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">c</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">c</span>[*]<span class="id" type="var">p</span>) [=] <span class="id" type="var">c</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_p_mult_c_">nth_coeff_p_mult_c_</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">c</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">p</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">c</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>[*]<span class="id" type="var">c</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_complicated">nth_coeff_complicated</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) ((<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">a</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[+]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_C_">_C_</a></span> <span class="id" type="var">b</span>) [*]<span class="id" type="var">p</span>) [=] <span class="id" type="var">a</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> <span class="id" type="var">p</span>[+]<span class="id" type="var">b</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="all_nth_coeff_eq_imp">all_nth_coeff_eq_imp</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">p'</span> : R[x],<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span> [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p'</span>) -&gt; <span class="id" type="var">p</span> [=] <span class="id" type="var">p'</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="poly_at_zero">poly_at_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> : R[x], <span class="id" type="var">p</span> ! 0 [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> 0 <span class="id" type="var">p</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_inv'">nth_coeff_inv'</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> : R[x]) <span class="id" type="var">i</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#cpoly_inv">cpoly_inv</a></span> <span class="id" type="var">_</span> <span class="id" type="var">p</span>) [=] [--] (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_minus">nth_coeff_minus</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : R[x]) <span class="id" type="var">i</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="var">p</span>[-]<span class="id" type="var">q</span>) [=] <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span>[-]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">q</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_sum0">nth_coeff_sum0</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p_</span> : <b>N</b> -&gt; R[x]) <span class="id" type="var">k</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">k</span> (&sum;<sub>0</sub> <span class="id" type="var">n</span> <span class="id" type="var">p_</span>) [=] &sum;<sub>0</sub> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">k</span> (<span class="id" type="var">p_</span> <span class="id" type="var">i</span>)).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_sum">nth_coeff_sum</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p_</span> : <b>N</b> -&gt; R[x]) <span class="id" type="var">k</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">k</span> (&sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> <span class="id" type="var">p_</span>) [=] &sum; <span class="id" type="var">m</span> <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">k</span> (<span class="id" type="var">p_</span> <span class="id" type="var">i</span>)).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_nexp_eq">nth_coeff_nexp_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[^]<span class="id" type="var">i</span>) [=] (1:R).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_nexp_neq">nth_coeff_nexp_neq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt;&gt; <span class="id" type="var">j</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPolynomials.html#_X_">_X_</a></span>[^]<span class="id" type="var">j</span>) [=] (0:R).<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nth_coeff_mult">nth_coeff_mult</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">p</span> <span class="id" type="var">q</span> : R[x]) <span class="id" type="var">n</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">n</span> (<span class="id" type="var">p</span>[*]<span class="id" type="var">q</span>) [=] &sum; 0 <span class="id" type="var">n</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">i</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> <span class="id" type="var">i</span> <span class="id" type="var">p</span>[*]<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#nth_coeff">nth_coeff</a></span> (<span class="id" type="var">n</span> - <span class="id" type="var">i</span>) <span class="id" type="var">q</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CPoly_NthCoeff.html#NthCoeff_props">NthCoeff_props</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

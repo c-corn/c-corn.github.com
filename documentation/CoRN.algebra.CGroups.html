@@ -1,0 +1,444 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.algebra.CGroups</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab182"></a><h1 class="section">Groups</h1>
+
+<a name="lab183"></a><h2 class="section">Definition of the notion of Group</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="is_CGroup">is_CGroup</a></span> (<span class="id" type="var">G</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span>) (<span class="id" type="var">inv</span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="var">G</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#is_inverse">is_inverse</a></span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> 0 <span class="id" type="var">x</span> (<span class="id" type="var">inv</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CGroup">CGroup</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="cg_crr">cg_crr</a></span>   :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cg_inv">cg_inv</a></span>   :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CGroups.html#cg_crr">cg_crr</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cg_proof">cg_proof</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CGroups.html#cg_crr">cg_crr</a></span> <span class="id" type="method"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span>}.<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "&minus; x" := (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span> <span class="id" type="var">x</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 2, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cg_minus">cg_minus</a></span> (<span class="id" type="var">G</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>) (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>) := <span class="id" type="var">x</span>[+] [--]<span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+In the names of lemmas, we will denote <span class="inlinecode">&minus; </span> with <span class="inlinecode"><span class="id" type="var">inv</span></span>,
+and <span class="inlinecode"> &minus; </span> with <span class="inlinecode"><span class="id" type="var">minus</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Infix</span> "&minus;" := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#cg_minus">cg_minus</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 50, <span class="id" type="var">left</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab184"></a><h2 class="section">Group axioms</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be a group.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_axioms">CGroup_axioms</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_axioms.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inverse">cg_inverse</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#is_inverse">is_inverse</a></span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> 0 <span class="id" type="var">x</span> [--] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_axioms">CGroup_axioms</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab185"></a><h2 class="section">Group basics</h2>
+
+General properties of groups.
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be a group.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_basics">CGroup_basics</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_basics.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_rht_inv_unfolded">cg_rht_inv_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+] [--] <span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_lft_inv_unfolded">cg_lft_inv_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, [--] <span class="id" type="var">x</span>[+]<span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_minus_correct">cg_minus_correct</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">x</span> [=] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inverse'">cg_inverse'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#is_inverse">is_inverse</a></span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span> 0 [--] <span class="id" type="var">x</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_minus_unfolded">cg_minus_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>[+] [--] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_minus_wd">cg_minus_wd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> <span class="id" type="var">y</span> <span class="id" type="var">y'</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">x'</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">y'</span> -&gt; <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [=] <span class="id" type="var">x'</span> [-] <span class="id" type="var">y'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_minus_strext">cg_minus_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">x'</span> <span class="id" type="var">y</span> <span class="id" type="var">y'</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [#] <span class="id" type="var">x'</span> [-] <span class="id" type="var">y'</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">x'</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> [#] <span class="id" type="var">y'</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="cg_minus_is_csetoid_bin_op">cg_minus_is_csetoid_bin_op</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_bin_op">CSetoid_bin_op</a></span> <span class="id" type="var">G</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_CSetoid_bin_op">Build_CSetoid_bin_op</a></span> <span class="id" type="var">G</span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#cg_minus">cg_minus</a></span> (<span class="id" type="var">G</span>:=G)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CGroups.html#cg_minus_strext">cg_minus_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="grp_inv_assoc">grp_inv_assoc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [-] <span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_unique">cg_inv_unique</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [=] 0 -&gt; <span class="id" type="var">y</span> [=] [--] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_inv">cg_inv_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, [--] [--] <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_cancel_lft">cg_cancel_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>[+]<span class="id" type="var">z</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_cancel_rht">cg_cancel_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">y</span>[+]<span class="id" type="var">x</span> [=] <span class="id" type="var">z</span>[+]<span class="id" type="var">x</span> -&gt; <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_unique'">cg_inv_unique'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [=] 0 -&gt; <span class="id" type="var">x</span> [=] [--] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_unique_2">cg_inv_unique_2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [=] 0 -&gt; <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_zero_inv">cg_zero_inv</a></span> : [--] (0:G) [=] 0.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_zero">cg_inv_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] 0 [=] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_inv_op">cg_inv_op</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, [--] (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [=] [--] <span class="id" type="var">y</span>[+] [--] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Useful for interactive proof development.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="x_minus_x">x_minus_x</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [=] 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab186"></a><h2 class="section">Sub-groups</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">P</span></span> be a predicate on <span class="inlinecode"><span class="id" type="var">G</span></span> containing
+<span class="inlinecode">0</span> and closed under <span class="inlinecode">+</span> and <span class="inlinecode">&minus; </span>.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_basics.SubCGroups">SubCGroups</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_basics.SubCGroups.P">P</a></span> : <span class="id" type="var">G</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_basics.SubCGroups.Punit">Punit</a></span> : <span class="id" type="var">P</span> 0.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_basics.SubCGroups.op_pres_P">op_pres_P</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#bin_op_pres_pred">bin_op_pres_pred</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSemiGroups.html#csg_op">csg_op</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_basics.SubCGroups.inv_pres_P">inv_pres_P</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#un_op_pres_pred">un_op_pres_pred</a></span> <span class="id" type="var">_</span> <span class="id" type="var">P</span> <span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_inv">cg_inv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="subcrr">subcrr</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CMonoids.html#CMonoid">CMonoid</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#Build_SubCMonoid">Build_SubCMonoid</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Punit</span> <span class="id" type="var">op_pres_P</span>.<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="subinv">subinv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> <span class="id" type="var">subcrr</span> := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#Build_SubCSetoid_un_op">Build_SubCSetoid_un_op</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">inv_pres_P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="isgrp_scrr">isgrp_scrr</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> <span class="id" type="var">subcrr</span> <span class="id" type="var">subinv</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Build_SubCGroup">Build_SubCGroup</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> <span class="id" type="var">subcrr</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CGroups.html#isgrp_scrr">isgrp_scrr</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_basics.SubCGroups">SubCGroups</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_basics">CGroup_basics</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">c</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#cg_minus">cg_minus</a></span> <span class="id" type="var">c</span>) <span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CGroups.html#cg_crr">cg_crr</a></span> <span class="id" type="var">c</span>)) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c</span>) ==&gt; (@<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoids.html#cs_eq">cs_eq</a></span> <span class="id" type="var">c</span>) <span class="id" type="keyword">as</span> <span class="id" type="var">cg_minus_wd_morph</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab187"></a><h2 class="section">Associative properties of groups</h2>
+
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be a group.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Assoc_properties">Assoc_properties</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Assoc_properties.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="assoc_2">assoc_2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+] (<span class="id" type="var">y</span> [-] <span class="id" type="var">z</span>) [=] <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [-] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_minus">zero_minus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, 0 [-] <span class="id" type="var">x</span> [=] [--] <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_cancel_mixed">cg_cancel_mixed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [=] <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span>[+]<span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_resp_eq">plus_resp_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">y</span> [=] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [=] <span class="id" type="var">x</span>[+]<span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#Assoc_properties">Assoc_properties</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab188"></a><h2 class="section">Apartness in Constructive Groups</h2>
+
+Specific properties of apartness.
+ Let <span class="inlinecode"><span class="id" type="var">G</span></span> be a group.
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="cgroups_apartness">cgroups_apartness</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="cgroups_apartness.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_add_ap_zero">cg_add_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">y</span> [#] 0 -&gt; <span class="id" type="var">x</span> [#] 0 <span class="id" type="var">or</span> <span class="id" type="var">y</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="op_rht_resp_ap">op_rht_resp_ap</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span>[+]<span class="id" type="var">z</span> [#] <span class="id" type="var">y</span>[+]<span class="id" type="var">z</span>.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="cg_ap_cancel_rht">cg_ap_cancel_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">z</span> [#] <span class="id" type="var">y</span>[+]<span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_cancel_ap_rht">plus_cancel_ap_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span>[+]<span class="id" type="var">z</span> [#] <span class="id" type="var">y</span>[+]<span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minus_ap_zero">minus_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="zero_minus_apart">zero_minus_apart</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">y</span> [#] 0 -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_resp_ap_zero">inv_resp_ap_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] 0 -&gt; [--] <span class="id" type="var">x</span> [#] 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="inv_resp_ap">inv_resp_ap</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; [--] <span class="id" type="var">x</span> [#] [--] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minus_resp_ap_rht">minus_resp_ap_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">x</span> [-] <span class="id" type="var">z</span> [#] <span class="id" type="var">y</span> [-] <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minus_resp_ap_lft">minus_resp_ap_lft</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span> -&gt; <span class="id" type="var">z</span> [-] <span class="id" type="var">x</span> [#] <span class="id" type="var">z</span> [-] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="minus_cancel_ap_rht">minus_cancel_ap_rht</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">G</span>, <span class="id" type="var">x</span> [-] <span class="id" type="var">z</span> [#] <span class="id" type="var">y</span> [-] <span class="id" type="var">z</span> -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#cgroups_apartness">cgroups_apartness</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_Ops">CGroup_Ops</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab189"></a><h2 class="section">The Group of bijective Setoid functions</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="PS_Inv">PS_Inv</a></span> (<span class="id" type="var">A</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#PS_as_CMonoid">PS_as_CMonoid</a></span> <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#PS_as_CMonoid">PS_as_CMonoid</a></span> <span class="id" type="var">A</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Inv_as_un_op">Inv_as_un_op</a></span> (<span class="id" type="var">A</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_un_op">CSetoid_un_op</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#PS_as_CMonoid">PS_as_CMonoid</a></span> <span class="id" type="var">A</span>).<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="PS_is_CGroup">PS_is_CGroup</a></span> :<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>, <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#is_CGroup">is_CGroup</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#PS_as_CMonoid">PS_as_CMonoid</a></span> <span class="id" type="var">A</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Inv_as_un_op">Inv_as_un_op</a></span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="PS_as_CGroup">PS_as_CGroup</a></span> (<span class="id" type="var">A</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid">CSetoid</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CGroups.html#Build_CGroup">Build_CGroup</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CMonoids.html#PS_as_CMonoid">PS_as_CMonoid</a></span> <span class="id" type="var">A</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Inv_as_un_op">Inv_as_un_op</a></span> <span class="id" type="var">A</span>) (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CGroups.html#PS_is_CGroup">PS_is_CGroup</a></span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab190"></a><h2 class="section">Functional operations</h2>
+
+
+<br/><br/>
+As before, we lift our group operations to the function space of the group.
+
+<br/><br/>
+
+Let <span class="inlinecode"><span class="id" type="var">G</span></span> be a group and <span class="inlinecode"><span class="id" type="var">F</span>,F':(PartFunct <span class="id" type="var">G</span>)</span> with domains given respectively
+by <span class="inlinecode"><span class="id" type="var">P</span></span> and <span class="inlinecode"><span class="id" type="var">Q</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_Ops.G">G</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup">CGroup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="CGroup_Ops.F">F</a></span> <span class="id" type="variable"><a name="CGroup_Ops.F'">F'</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoidFun.html#PartFunct">PartFunct</a></span> <span class="id" type="var">G</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_Ops.Part_Function_Inv">Part_Function_Inv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_function_inv_strext">part_function_inv_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> (<span class="id" type="var">Hx</span> : <span class="id" type="var">P</span> <span class="id" type="var">x</span>) (<span class="id" type="var">Hy</span> : <span class="id" type="var">P</span> <span class="id" type="var">y</span>),<br/>
+&nbsp;[--] (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>) [#] [--] (<span class="id" type="var">F</span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Finv">Finv</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Build_PartFunct">Build_PartFunct</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span><br/>
+&nbsp;(<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoidFun.html#dom_wd">dom_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">F</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> =&gt; [--] (<span class="id" type="var">F</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CGroups.html#part_function_inv_strext">part_function_inv_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_Ops.Part_Function_Inv">Part_Function_Inv</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CGroup_Ops.Part_Function_Minus">Part_Function_Minus</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="part_function_minus_strext">part_function_minus_strext</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> (<span class="id" type="var">Hx</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Conj">Conj</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">x</span>) (<span class="id" type="var">Hy</span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Conj">Conj</a></span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">y</span>),<br/>
+&nbsp;<span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hx</span>) [-] <span class="id" type="var">F'</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hx</span>) [#] <span class="id" type="var">F</span> <span class="id" type="var">y</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hy</span>) [-] <span class="id" type="var">F'</span> <span class="id" type="var">y</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hy</span>) -&gt; <span class="id" type="var">x</span> [#] <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Fminus">Fminus</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Build_PartFunct">Build_PartFunct</a></span> <span class="id" type="var">G</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CSetoidFun.html#conj_wd">conj_wd</a></span> (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoidFun.html#dom_wd">dom_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">F</span>) (<span class="id" type="projection"><a class="idref" href="CoRN.algebra.CSetoidFun.html#dom_wd">dom_wd</a></span> <span class="id" type="var">_</span> <span class="id" type="var">F'</span>))<br/>
+&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> =&gt; <span class="id" type="var">F</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj1">Prj1</a></span> <span class="id" type="var">Hx</span>) [-] <span class="id" type="var">F'</span> <span class="id" type="var">x</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Prj2">Prj2</a></span> <span class="id" type="var">Hx</span>)) <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.CGroups.html#part_function_minus_strext">part_function_minus_strext</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_Ops.Part_Function_Minus">Part_Function_Minus</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">R</span>:G-&gt;CProp</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CGroup_Ops.R">R</a></span>:G -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FInv">included_FInv</a></span> : &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Finv">Finv</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FInv'">included_FInv'</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Finv">Finv</a></span>) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMinus">included_FMinus</a></span> : &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span> -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span> -&gt; &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Fminus">Fminus</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMinus'">included_FMinus'</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Fminus">Fminus</a></span>) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="included_FMinus''">included_FMinus''</a></span> : &sube; <span class="id" type="var">R</span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Fminus">Fminus</a></span>) -&gt; &sube; <span class="id" type="var">R</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.algebra.CGroups.html#CGroup_Ops">CGroup_Ops</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> "{--} x" := (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Finv">Finv</a></span> <span class="id" type="var">x</span>) (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 2, <span class="id" type="var">right</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "{-}" := <span class="id" type="definition"><a class="idref" href="CoRN.algebra.CGroups.html#Fminus">Fminus</a></span> (<span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 50, <span class="id" type="var">left</span> <span class="id" type="var">associativity</span>).<br/>
+
+<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

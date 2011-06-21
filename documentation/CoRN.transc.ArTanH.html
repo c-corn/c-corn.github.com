@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.transc.ArTanH</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab573"></a><h1 class="section">Inverse Hyperbolic Tangent Function</h1>
+
+The definition of the inverse hyperbolic tangent function.
+
+<br/><br/>
+area tangens hyperbolicus 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ArTangH">ArTangH</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span> := &frac12;{**}(Logarithm[<span class="id" type="var">o</span>](([-C-]1{+}FId){/}([-C-]1{-}FId))).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="DomArTanH">DomArTanH</a></span> := (&sdot;,&sdot;) ([--]1) 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="proper_DomArTanH">proper_DomArTanH</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="DomArTanH_Dom_ArTanH">DomArTanH_Dom_ArTanH</a></span> : &sube; <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTangH">ArTangH</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Dom_ArTanH_DomArTanH">Dom_ArTanH_DomArTanH</a></span> : &sube; (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTangH">ArTangH</a></span>) <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ArTanH">ArTanH</a></span> (<span class="id" type="var">x</span>:IR) (<span class="id" type="var">Hx</span>:DomArTanH <span class="id" type="var">x</span>) := <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTangH">ArTangH</a></span> <span class="id" type="var">x</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH_Dom_ArTanH">DomArTanH_Dom_ArTanH</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_wd">ArTanH_wd</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) <span class="id" type="var">Hx</span> <span class="id" type="var">Hy</span>, <span class="id" type="var">x</span>[=]<span class="id" type="var">y</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[=]<span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> <span class="id" type="var">y</span> <span class="id" type="var">Hy</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_maps_compact_lemma">ArTanH_maps_compact_lemma</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Composition.html#maps_compacts_into">maps_compacts_into</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> ((&sdot;,+&infin;) 0)<br/>
+&nbsp;&nbsp;(([-C-]1{+}FId){/}([-C-]1{-}FId)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Derivative_ArTanH">Derivative_ArTanH</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative">Derivative</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> <span class="id" type="var">H</span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTangH">ArTangH</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CFields.html#Frecip">Frecip</a></span> ([-C-]1{-}FId{^}2)).<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Continuous_ArTanH">Continuous_ArTanH</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Continuous">Continuous</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTangH">ArTangH</a></span>.<br/>
+</div>
+
+<div class="doc">
+Properties ofthe Inverse Hyperbolic Tangent Function. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_inv">ArTanH_inv</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span> <span class="id" type="var">Hx'</span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> [--]<span class="id" type="var">x</span> <span class="id" type="var">Hx</span>[=][--](<span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx'</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_zero">ArTanH_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span>, <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> 0 <span class="id" type="var">H</span>[=]0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+PowerSeries for the Inverse Hyperbolic Tangent Function. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_series_coef_lemma">ArTanH_series_coef_lemma</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">R</span>:COrdField) <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> (<span class="id" type="var">R</span>:=R) <span class="id" type="var">n</span>)[#]0.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ArTanH_series_coef">ArTanH_series_coef</a></span> (<span class="id" type="var">n</span>:nat) :=<br/>
+<span class="id" type="keyword">match</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even_odd_dec">even_odd_dec</a></span> <span class="id" type="var">n</span>) <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#left">left</a></span> <span class="id" type="var">_</span> =&gt; 0<br/>
+| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#right">right</a></span> <span class="id" type="var">H</span> =&gt; 1[/](<span class="id" type="definition"><a class="idref" href="CoRN.algebra.CRings.html#nring">nring</a></span> <span class="id" type="var">n</span>)[//](<span class="id" type="lemma"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH_series_coef_lemma">ArTanH_series_coef_lemma</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> <span class="id" type="var">n</span> <span class="id" type="var">H</span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ArTanH_ps">ArTanH_ps</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.transc.PowerSeries.html#FPowerSeries">FPowerSeries</a></span> 0 <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH_series_coef">ArTanH_series_coef</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_series_lemma">ArTanH_series_lemma</a></span> :<br/>
+<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&asymp; <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span><br/>
+&nbsp;&nbsp;(&frac12; (<span class="id" type="var">R</span>:=IR){**}<br/>
+&nbsp;&nbsp;&nbsp;((<span class="id" type="definition"><a class="idref" href="CoRN.transc.Exponential.html#Log_ps">Log_ps</a></span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>][-C-]1{+}FId){-}(Log_ps <span class="id" type="var">n</span>[<span class="id" type="var">o</span>][-C-]1{-}FId)))<br/>
+&nbsp;&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH_ps">ArTanH_ps</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_series_lemma2">ArTanH_series_lemma2</a></span> :<br/>
+<span class="id" type="var">fun_series_convergent_IR</span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span><br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">fun</span> <span class="id" type="var">n</span> : <b>N</b> =&gt;<br/>
+&nbsp;&nbsp;&nbsp;&frac12; (<span class="id" type="var">R</span>:=IR){**}<br/>
+&nbsp;&nbsp;&nbsp;((<span class="id" type="definition"><a class="idref" href="CoRN.transc.Exponential.html#Log_ps">Log_ps</a></span> <span class="id" type="var">n</span>[<span class="id" type="var">o</span>][-C-]1{+}FId){-}(Log_ps <span class="id" type="var">n</span>[<span class="id" type="var">o</span>][-C-]1{-}FId))).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_series_convergent_IR">ArTanH_series_convergent_IR</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunSeries.html#fun_series_convergent_IR">fun_series_convergent_IR</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH_ps">ArTanH_ps</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ArTanH_series">ArTanH_series</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">Hs</span>:fun_series_convergent_IR <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#DomArTanH">DomArTanH</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH_ps">ArTanH_ps</a></span>) <span class="id" type="var">Hc0</span> <span class="id" type="var">Hc1</span>,<br/>
+&nbsp;&sum;'<sub>&infin;</sub> <span class="id" type="var">Hs</span> <span class="id" type="var">c</span> <span class="id" type="var">Hc0</span>[=]<span class="id" type="definition"><a class="idref" href="CoRN.transc.ArTanH.html#ArTanH">ArTanH</a></span> <span class="id" type="var">c</span> <span class="id" type="var">Hc1</span>.<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

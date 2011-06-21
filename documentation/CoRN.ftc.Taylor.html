@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.ftc.Taylor</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="More_Taylor_Defs">More_Taylor_Defs</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab486"></a><h2 class="section">General case</h2>
+
+
+<br/><br/>
+The generalization to arbitrary intervals just needs a few more definitions.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">I</span></span> be a proper interval, <span class="inlinecode"><span class="id" type="var">F</span>:PartIR</span> and
+<span class="inlinecode"><span class="id" type="var">a</span>,b:IR</span> be points of <span class="inlinecode"><span class="id" type="var">I</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Taylor_Defs.I">I</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Taylor_Defs.pI">pI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="More_Taylor_Defs.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="deriv_Sn">deriv_Sn</a></span> <span class="id" type="var">b</span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> :=<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunctions.html#N_Deriv">N_Deriv</a></span> <span class="id" type="var">_</span> <span class="id" type="var">pI</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">F</span> <span class="id" type="var">Hf</span>{*} [-C-] (1[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nring_fac_ap_zero">nring_fac_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span>) {*} ( [-C-]<span class="id" type="var">b</span>{-}FId) {^}n.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="More_Taylor_Defs.a">a</a></span> <span class="id" type="variable"><a name="More_Taylor_Defs.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Taylor_Defs.Ha">Ha</a></span> : <span class="id" type="var">I</span> <span class="id" type="var">a</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="More_Taylor_Defs.Hb">Hb</a></span> : <span class="id" type="var">I</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="fi">fi</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreFunctions.html#N_Deriv">N_Deriv</a></span> <span class="id" type="var">_</span> <span class="id" type="var">pI</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#le_imp_Diffble_n">le_imp_Diffble_n</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="lemma"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Lt.html#lt_n_Sm_le">lt_n_Sm_le</a></span> <span class="id" type="var">i</span> <span class="id" type="var">n</span> <span class="id" type="var">Hi</span>) <span class="id" type="var">F</span> <span class="id" type="var">Hf</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="funct_i">funct_i</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> :=<br/>
+&nbsp;&nbsp;[-C-] (<span class="id" type="var">fi</span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nring_fac_ap_zero">nring_fac_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">i</span>) {*} (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{-} [-C-]<span class="id" type="var">a</span>) {^}i.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Taylor_Seq'">Taylor_Seq'</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">_</span> (<span class="id" type="var">funct_i</span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Taylor_Rem">Taylor_Rem</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> := <span class="id" type="var">F</span> <span class="id" type="var">b</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#Diffble_n_imp_inc">Diffble_n_imp_inc</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">Hf</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb</span>) [-]<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Taylor.html#Taylor_Seq'">Taylor_Seq'</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">b</span> (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Taylor.html#TaylorB">TaylorB</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span>).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Taylor'">Taylor'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">Hf'</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_leEq_Max">Min_leEq_Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">c</span> |<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Hc</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.ftc.Taylor.html#Taylor_Rem">Taylor_Rem</a></span> <span class="id" type="var">n</span> <span class="id" type="var">Hf'</span>[-]<span class="id" type="var">deriv_Sn</span> <span class="id" type="var">b</span> <span class="id" type="var">n</span> <span class="id" type="var">Hf</span> <span class="id" type="var">c</span> <span class="id" type="var">Hc</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>)) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<span class="id" type="keyword">Include</span><span class="id" type="var">d</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Taylor.html#More_Taylor_Defs">More_Taylor_Defs</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Taylor_Theorem">Taylor_Theorem</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And finally the ``nice'' version, when we know the expression of the
+derivatives of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">f</span></span> be the sequence of derivatives of <span class="inlinecode"><span class="id" type="var">F</span></span> of
+order up to <span class="inlinecode"><span class="id" type="var">n</span></span> and <span class="inlinecode"><span class="id" type="var">F'</span></span> be the nth-derivative of <span class="inlinecode"><span class="id" type="var">F</span></span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Taylor_Theorem.I">I</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.ftc.MoreIntervals.html#interval">interval</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.pI">pI</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#proper">proper</a></span> <span class="id" type="var">I</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Taylor_Theorem.F">F</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Taylor_Theorem.n">n</a></span> : <b>N</b>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Taylor_Theorem.f">f</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.goodF">goodF</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq">ext_fun_seq</a></span> <span class="id" type="var">f</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.goodF'">goodF'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#ext_fun_seq'">ext_fun_seq'</a></span> <span class="id" type="var">f</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.derF">derF</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>, <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative_n">Derivative_n</a></span> <span class="id" type="var">i</span> <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Taylor_Theorem.F'">F'</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CauchySeq.html#PartIR">PartIR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.derF'">derF'</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.ftc.MoreIntervals.html#Derivative_n">Derivative_n</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">I</span> <span class="id" type="var">pI</span> <span class="id" type="var">F</span> <span class="id" type="var">F'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variables</span> <span class="id" type="variable"><a name="Taylor_Theorem.a">a</a></span> <span class="id" type="variable"><a name="Taylor_Theorem.b">b</a></span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.Ha">Ha</a></span> : <span class="id" type="var">I</span> <span class="id" type="var">a</span>.<br/>
+<span class="id" type="keyword">Hypothesis</span> <span class="id" type="variable"><a name="Taylor_Theorem.Hb">Hb</a></span> : <span class="id" type="var">I</span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="funct_i">funct_i</a></span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> := <span class="id" type="keyword">let</span> <span class="id" type="var">HX</span> := (<span class="id" type="lemma"><a class="idref" href="CoRN.ftc.MoreFunctions.html#Derivative_n_imp_inc'">Derivative_n_imp_inc'</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> (<span class="id" type="var">derF</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span>) <span class="id" type="var">a</span> <span class="id" type="var">Ha</span>) <span class="id" type="keyword">in</span><br/>
+[-C-] (<span class="id" type="var">f</span> <span class="id" type="var">i</span> <span class="id" type="var">Hi</span> <span class="id" type="var">a</span> <span class="id" type="var">HX</span> [/] <span class="id" type="var">_</span>[//] <span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nring_fac_ap_zero">nring_fac_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">i</span>) {*} (<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#FId">FId</a></span>{-} [-C-]<span class="id" type="var">a</span>) {^}i.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Taylor_Seq">Taylor_Seq</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.ftc.FunctSums.html#FSumx">FSumx</a></span> <span class="id" type="var">_</span> <span class="id" type="var">funct_i</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Let</span> <span class="id" type="definition"><a name="deriv_Sn">deriv_Sn</a></span> := <span class="id" type="var">F'</span>{*} [-C-] (1[/] <span class="id" type="var">_</span>[//]<span class="id" type="lemma"><a class="idref" href="CoRN.algebra.COrdFields.html#nring_fac_ap_zero">nring_fac_ap_zero</a></span> <span class="id" type="var">_</span> <span class="id" type="var">n</span>) {*} ( [-C-]<span class="id" type="var">b</span>{-}FId) {^}n.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Taylor_aux">Taylor_aux</a></span> : <span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Dom">Dom</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.ftc.Taylor.html#Taylor_Seq">Taylor_Seq</a></span> <span class="id" type="var">b</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Taylor">Taylor</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span>, 0 [&lt;] <span class="id" type="var">e</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">Hb'</span>, {<span class="id" type="var">c</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span> | <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.Intervals.html#Compact">Compact</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.reals.Max_AbsIR.html#Min_leEq_Max">Min_leEq_Max</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span>) <span class="id" type="var">c</span> |<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">Hc</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.Max_AbsIR.html#AbsIR">AbsIR</a></span> (<span class="id" type="var">F</span> <span class="id" type="var">b</span> <span class="id" type="var">Hb'</span>[-]<span class="id" type="abbreviation"><a class="idref" href="CoRN.algebra.CSetoidFun.html#Part">Part</a></span> <span class="id" type="var">_</span> <span class="id" type="var">_</span> <span class="id" type="lemma"><a class="idref" href="CoRN.ftc.Taylor.html#Taylor_aux">Taylor_aux</a></span>[-]<span class="id" type="var">deriv_Sn</span> <span class="id" type="var">c</span> <span class="id" type="var">Hc</span>[*] (<span class="id" type="var">b</span>[-]<span class="id" type="var">a</span>)) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.ftc.Taylor.html#Taylor_Theorem">Taylor_Theorem</a></span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

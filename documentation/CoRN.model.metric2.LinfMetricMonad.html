@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.metric2.LinfMetricMonad</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab715"></a><h2 class="section">Linf metric for Step Functions</h2>
+
+The Linf metric for <span class="inlinecode"><span class="id" type="var">StepF</span> <span class="id" type="var">X</span></span> is obtained by lifting the ball predicate on X 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="StepFSupBall">StepFSupBall</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="StepFSupBall.X">X</a></span>:MetricSpace.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A setoid verion of the ball predicate 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ballS0">ballS0</a></span> (<span class="id" type="var">m</span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>): Q<SUP>+</SUP> -&gt;  <span class="id" type="var">m</span>  -&gt; <span class="id" type="var">m</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#iffSetoid">iffSetoid</a></span>.<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ballS">ballS</a></span> (<span class="id" type="var">m</span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>): Q<SUP>+</SUP> -&gt;  <span class="id" type="var">m</span> --&gt; <span class="id" type="var">m</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.algebra.RSetoid.html#iffSetoid">iffSetoid</a></span>.<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The definition of the usp metric 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StepFSupBall">StepFSupBall</a></span>(<span class="id" type="var">e</span>:Qpos)(f:StepF <span class="id" type="var">X</span>)(<span class="id" type="var">g</span>:StepF <span class="id" type="var">X</span>):=<br/>
+<span class="id" type="var">StepFfoldProp</span> ((@<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#ballS">ballS</a></span> <span class="id" type="var">X</span> <span class="id" type="var">e</span>)^@&gt; <span class="id" type="var">f</span> &lt;@&gt; <span class="id" type="var">g</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBallGlueGlue">StepFSupBallGlueGlue</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">o</span> <span class="id" type="var">fl</span> <span class="id" type="var">fr</span> <span class="id" type="var">gl</span> <span class="id" type="var">gr</span>, <br/>
+<span class="id" type="var">StepFSupBall</span> <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">fl</span> <span class="id" type="var">fr</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#glue">glue</a></span> <span class="id" type="var">o</span> <span class="id" type="var">gl</span> <span class="id" type="var">gr</span>) &lt;-&gt;<br/>
+<span class="id" type="var">StepFSupBall</span> <span class="id" type="var">e</span> <span class="id" type="var">fl</span> <span class="id" type="var">gl</span> /\ <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">fr</span> <span class="id" type="var">gr</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Add</span> <span class="id" type="var">Parametric</span> <span class="id" type="var">Morphism</span> <span class="id" type="var">X</span> : (@<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">X</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">with</span> <span class="id" type="var">signature</span> <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qpossec.html#QposEq">QposEq</a></span> ==&gt; (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF_eq">StepF_eq</a></span> <span class="id" type="var">_</span>) ==&gt; (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF_eq">StepF_eq</a></span> <span class="id" type="var">_</span>) ==&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#iff">iff</a></span><br/>
+&nbsp;<span class="id" type="keyword">as</span> <span class="id" type="var">StepFSupBall_wd</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="SupMetric">SupMetric</a></span>.<br/>
+</div>
+
+<div class="doc">
+The StepFSupBall satifies the requirements of a metric. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="SupMetric.X">X</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_refl">StepFSupBall_refl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span>:StepF <span class="id" type="var">X</span>), (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_sym">StepFSupBall_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:StepF <span class="id" type="var">X</span>), (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_triangle">StepFSupBall_triangle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> <span class="id" type="var">d</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>:StepF <span class="id" type="var">X</span>), <br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">d</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">x</span> <span class="id" type="var">z</span>).<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_closed">StepFSupBall_closed</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span>:StepF <span class="id" type="var">X</span>), (<span class="id" type="keyword">forall</span> <span class="id" type="var">d</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> (<span class="id" type="var">e</span>+d) <span class="id" type="var">x</span> <span class="id" type="var">y</span>)) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_eq">StepFSupBall_eq</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF">StepF</a></span> <span class="id" type="var">X</span>),<br/>
+(<span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : Q<SUP>+</SUP>, <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>) -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF_eq">StepF_eq</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab716"></a><h3 class="section">Example of a Metric Space &lt;Step, StepFSupBall&gt;</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBall_is_MetricSpace">StepFSupBall_is_MetricSpace</a></span> : <br/>
+&nbsp;(<span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#is_MetricSpace">is_MetricSpace</a></span> (@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) (@<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">X</span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StepFSup">StepFSup</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span> :=<br/>
+@<span class="id" type="constructor"><a class="idref" href="CoRN.metric2.Metric.html#Build_MetricSpace">Build_MetricSpace</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>) <span class="id" type="var">_</span> (@<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall_wd">StepFSupBall_wd</a></span> <span class="id" type="var">X</span>) <span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall_is_MetricSpace">StepFSupBall_is_MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The StepFSup is is a prelength space. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupPrelengthSpace">StepFSupPrelengthSpace</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.metric2.Prelength.html#PrelengthSpace">PrelengthSpace</a></span> <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#SupMetric">SupMetric</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="StepFSupBallBind">StepFSupBallBind</a></span>(<span class="id" type="var">X</span>:MetricSpace): ((<span class="id" type="keyword">forall</span> (<span class="id" type="var">e</span> : Q<SUP>+</SUP>) (<span class="id" type="var">a</span> <span class="id" type="var">b</span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#StepF">StepF</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StepFS">StepFS</a></span> <span class="id" type="var">X</span>)) ,<br/>
+<span class="id" type="keyword">forall</span> <span class="id" type="var">f</span>:(StepFS <span class="id" type="var">X</span>) --&gt;(StepFS <span class="id" type="var">X</span>), <br/>
+(<span class="id" type="keyword">forall</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> <span class="id" type="var">c</span> <span class="id" type="var">d</span>) -&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSupBall">StepFSupBall</a></span> <span class="id" type="var">e</span> (<span class="id" type="var">f</span> <span class="id" type="var">c</span>) (<span class="id" type="var">f</span> <span class="id" type="var">d</span>)))-&gt;<br/>
+<span class="id" type="var">StepFSupBall</span> (<span class="id" type="var">X</span>:=StepFSup <span class="id" type="var">X</span>) <span class="id" type="var">e</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> -&gt;<br/>
+<span class="id" type="var">StepFSupBall</span> (<span class="id" type="var">X</span>:=X) <span class="id" type="var">e</span> (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">a</span> <span class="id" type="var">f</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionMonad.html#StFBind00">StFBind00</a></span> <span class="id" type="var">b</span> <span class="id" type="var">f</span>))).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="UniformlyContinuousFunctions">UniformlyContinuousFunctions</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="UniformlyContinuousFunctions.X">X</a></span> <span class="id" type="variable"><a name="UniformlyContinuousFunctions.Y">Y</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.metric2.Metric.html#MetricSpace">MetricSpace</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Various functions with step functions are uniformly continuous with this metric. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFJoinSup">StFJoinSup</a></span> :(StepFSup (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>)) --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>).<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="StFReturn_uc">StFReturn_uc</a></span> : <span class="id" type="var">X</span> --&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>).<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="uc_stdFun">uc_stdFun</a></span>(<span class="id" type="var">X</span> <span class="id" type="var">Y</span>:MetricSpace):<br/>
+(<span class="id" type="record"><a class="idref" href="CoRN.metric2.UniformContinuity.html#UniformlyContinuousFunction">UniformlyContinuousFunction</a></span> <span class="id" type="var">X</span> <span class="id" type="var">Y</span>) -&gt;(extSetoid <span class="id" type="var">X</span> <span class="id" type="var">Y</span>).<br/>
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Map_uc">Map_uc</a></span> (<span class="id" type="var">f</span>:X--&gt;Y):(StepFSup <span class="id" type="var">X</span>)--&gt;(StepFSup <span class="id" type="var">Y</span>).<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="glue_uc0">glue_uc0</a></span> (<span class="id" type="var">o</span>:OpenUnit): <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="glue_uc">glue_uc</a></span> (<span class="id" type="var">o</span>:OpenUnit): <br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>.<br/>
+<span class="id" type="keyword">Defined</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There is an injection from X to StepFSup X. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="constStepF_uc_prf">constStepF_uc_prf</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.metric2.UniformContinuity.html#is_UniformlyContinuousFunction">is_UniformlyContinuousFunction</a></span><br/>
+&nbsp;(@<span class="id" type="definition"><a class="idref" href="CoRN.metric2.StepFunctionSetoid.html#constStepF">constStepF</a></span> <span class="id" type="var">X</span>:X -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span>) <span class="id" type="constructor"><a class="idref" href="CoRN.model.structures.QposInf.html#Qpos2QposInf">Qpos2QposInf</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="constStepF_uc">constStepF_uc</a></span> : <span class="id" type="var">X</span> --&gt; <span class="id" type="definition"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#StepFSup">StepFSup</a></span> <span class="id" type="var">X</span><br/>
+:= <span class="id" type="constructor"><a class="idref" href="CoRN.metric2.UniformContinuity.html#Build_UniformlyContinuousFunction">Build_UniformlyContinuousFunction</a></span> (<span class="id" type="lemma"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#constStepF_uc_prf">constStepF_uc_prf</a></span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.metric2.LinfMetricMonad.html#UniformlyContinuousFunctions">UniformlyContinuousFunctions</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

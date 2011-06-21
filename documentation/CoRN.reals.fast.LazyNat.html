@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.fast.LazyNat</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab25"></a><h1 class="section">Lazy Nat</h1>
+
+This s a lazified version of the natural number that allow one to delay
+computation until demanded.  This is useful for large natural numbers 
+(often upper bounds) where only a small number of terms are actually need
+for compuation.
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="LazyNat">LazyNat</a></span> : <span class="id" type="keyword">Set</span> :=<br/>
+| <span class="id" type="constructor"><a name="LazyO">LazyO</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span><br/>
+| <span class="id" type="constructor"><a name="LazyS">LazyS</a></span> : (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#unit">unit</a></span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span>) -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab26"></a><h2 class="section">Successor</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="lazyS">lazyS</a></span> (<span class="id" type="var">n</span>:LazyNat) : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span> := <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Convert a nat to a lazy nat 
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="LazifyNat">LazifyNat</a></span> (<span class="id" type="var">n</span> : <b>N</b>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#O">O</a></span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> <span class="id" type="var">p</span>))<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab27"></a><h2 class="section">Predecessor</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="LazyPred">LazyPred</a></span> (<span class="id" type="var">n</span>:LazyNat) : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> <span class="id" type="var">n'</span> =&gt; (<span class="id" type="var">n'</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#tt">tt</a></span>)<br/>
+<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="LazifyPred">LazifyPred</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>) = <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPred">LazyPred</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab28"></a><h2 class="section">Addition</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="LazyPlus">LazyPlus</a></span> (<span class="id" type="var">n</span> <span class="id" type="var">m</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span> =&gt; <span class="id" type="var">m</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> <span class="id" type="var">p</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPlus">LazyPlus</a></span> (<span class="id" type="var">p</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#tt">tt</a></span>) <span class="id" type="var">m</span>)<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="LazifyPlus">LazifyPlus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>, (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> (<span class="id" type="var">n</span> + <span class="id" type="var">m</span>) = <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPlus">LazyPlus</a></span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> <span class="id" type="var">n</span>) (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> <span class="id" type="var">m</span>))%nat.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab29"></a><h2 class="section">Multiplication</h2>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Pmult_LazyNat">Pmult_LazyNat</a></span> (<span class="id" type="var">x</span>:positive) (<span class="id" type="var">pow2</span>:LazyNat) {<span class="id" type="keyword">struct</span> <span class="id" type="var">x</span>} : <span class="id" type="inductive"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat">LazyNat</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">x</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#xI">xI</a></span> <span class="id" type="var">x'</span> =&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPlus">LazyPlus</a></span> <span class="id" type="var">pow2</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pmult_LazyNat">Pmult_LazyNat</a></span> <span class="id" type="var">x'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPlus">LazyPlus</a></span> <span class="id" type="var">pow2</span> <span class="id" type="var">pow2</span>)))%nat<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#xO">xO</a></span> <span class="id" type="var">x'</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pmult_LazyNat">Pmult_LazyNat</a></span> <span class="id" type="var">x'</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyPlus">LazyPlus</a></span> <span class="id" type="var">pow2</span> <span class="id" type="var">pow2</span>)%nat<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#xH">xH</a></span> =&gt; <span class="id" type="var">pow2</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="LazifyPmult_LazyNat">LazifyPmult_LazyNat</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">pow2</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Pmult_nat">Pmult_nat</a></span> <span class="id" type="var">x</span> <span class="id" type="var">pow2</span>) = <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pmult_LazyNat">Pmult_LazyNat</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> <span class="id" type="var">pow2</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Convert a positive to a lazy nat.  This is the most common way of
+generating lazy nats. 
+</div>
+<div class="code">
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="LazyNat_of_P">LazyNat_of_P</a></span> (<span class="id" type="var">x</span>:positive) := <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pmult_LazyNat">Pmult_LazyNat</a></span> <span class="id" type="var">x</span> (<span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> =&gt; <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span>)).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="LazifyNat_of_P">LazifyNat_of_P</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span>, <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazifyNat">LazifyNat</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">x</span>) = <span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyNat_of_P">LazyNat_of_P</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="Pplus_LazyNat">Pplus_LazyNat</a></span> (<span class="id" type="var">p</span>:positive)(n:LazyNat) {<span class="id" type="keyword">struct</span> <span class="id" type="var">n</span>} : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span> :=<br/>
+<span class="id" type="keyword">match</span> <span class="id" type="var">n</span> <span class="id" type="keyword">with</span><br/>
+| <span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyO">LazyO</a></span> =&gt; <span class="id" type="var">p</span><br/>
+| (<span class="id" type="constructor"><a class="idref" href="CoRN.reals.fast.LazyNat.html#LazyS">LazyS</a></span> <span class="id" type="var">n'</span>) =&gt; (<span class="id" type="definition"><a class="idref" href="CoRN.reals.fast.LazyNat.html#Pplus_LazyNat">Pplus_LazyNat</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#Psucc">Psucc</a></span> <span class="id" type="var">p</span>) (<span class="id" type="var">n'</span> <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#tt">tt</a></span>))<br/>
+<span class="id" type="keyword">end</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

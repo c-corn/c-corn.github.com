@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.reals.CMetricFields</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CMetric_Fields">CMetric_Fields</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab397"></a><h1 class="section">Metric Fields</h1>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="is_CMetricField">is_CMetricField</a></span> (<span class="id" type="var">F</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CFields.html#CField">CField</a></span>) (<span class="id" type="var">abs</span> : <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="var">F</span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>) : <span class="id" type="keyword">Prop</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="ax_abs_gt_zero">ax_abs_gt_zero</a></span>   : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">F</span>, 0 [&lt;=] <span class="id" type="var">abs</span> <span class="id" type="var">x</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ax_abs_resp_mult">ax_abs_resp_mult</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">F</span>, <span class="id" type="var">abs</span> (<span class="id" type="var">x</span>[*]<span class="id" type="var">y</span>) [=] <span class="id" type="var">abs</span> <span class="id" type="var">x</span>[*]<span class="id" type="var">abs</span> <span class="id" type="var">y</span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="ax_abs_triangle">ax_abs_triangle</a></span>  : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">F</span>, <span class="id" type="var">abs</span> (<span class="id" type="var">x</span>[+]<span class="id" type="var">y</span>) [&lt;=] <span class="id" type="var">abs</span> <span class="id" type="var">x</span>[+]<span class="id" type="var">abs</span> <span class="id" type="var">y</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="CMetricField">CMetricField</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="cmf_crr">cmf_crr</a></span>   :&gt; <span class="id" type="record"><a class="idref" href="CoRN.algebra.CFields.html#CField">CField</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cmf_abs">cmf_abs</a></span>   :  <span class="id" type="record"><a class="idref" href="CoRN.algebra.CSetoids.html#CSetoid_fun">CSetoid_fun</a></span> <span class="id" type="method"><a class="idref" href="CoRN.reals.CMetricFields.html#cmf_crr">cmf_crr</a></span> <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="cmf_proof">cmf_proof</a></span> :  <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#is_CMetricField">is_CMetricField</a></span> <span class="id" type="method"><a class="idref" href="CoRN.reals.CMetricFields.html#cmf_crr">cmf_crr</a></span> <span class="id" type="method"><a class="idref" href="CoRN.reals.CMetricFields.html#cmf_abs">cmf_abs</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.CMetricFields.html#CMetric_Fields">CMetric_Fields</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Notation</span> <span class="id" type="abbreviation"><a name="MAbs">MAbs</a></span> := (<span class="id" type="projection"><a class="idref" href="CoRN.reals.CMetricFields.html#cmf_abs">cmf_abs</a></span> <span class="id" type="var">_</span>).<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="basics">basics</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MAbs_one">MAbs_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#CMetricField">CMetricField</a></span>,<br/>
+&nbsp;{<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> (1:F) [=] 0} + {<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> (1:F) [=] 1}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="MAbs_one_recip_one">MAbs_one_recip_one</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">F</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#CMetricField">CMetricField</a></span>,<br/>
+&nbsp;<span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> (1:F) [=] <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> ( [--]1:F).<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.CMetricFields.html#basics">basics</a></span>.<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CMetric_Field_Cauchy">CMetric_Field_Cauchy</a></span>.<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CMetric_Field_Cauchy.F">F</a></span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#CMetricField">CMetricField</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Let <span class="inlinecode"><span class="id" type="var">F</span>:CMetricField</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MCauchy_prop">MCauchy_prop</a></span> (<span class="id" type="var">g</span> : <b>N</b> -&gt; <span class="id" type="var">F</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> (<span class="id" type="var">g</span> <span class="id" type="var">m</span>[-]<span class="id" type="var">g</span> <span class="id" type="var">N</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="MCauchySeq">MCauchySeq</a></span> : <span class="id" type="keyword">Type</span> := <br/>
+&nbsp;{<span class="id" type="projection"><a name="MCS_seq">MCS_seq</a></span>   :&gt; <b>N</b> -&gt; <span class="id" type="var">F</span>;<br/>
+&nbsp;&nbsp;<span class="id" type="projection"><a name="MCS_proof">MCS_proof</a></span> :  <span class="id" type="definition"><a class="idref" href="CoRN.reals.CMetricFields.html#MCauchy_prop">MCauchy_prop</a></span> <span class="id" type="method"><a class="idref" href="CoRN.reals.CMetricFields.html#MCS_seq">MCS_seq</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="MseqLimit">MseqLimit</a></span> (<span class="id" type="var">seq</span> : <b>N</b> -&gt; <span class="id" type="var">F</span>) (<span class="id" type="var">lim</span> : <span class="id" type="var">F</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">e</span> : <span class="id" type="axiom"><a class="idref" href="CoRN.reals.CauchySeq.html#IR">IR</a></span>,<br/>
+&nbsp;&nbsp;0 [&lt;] <span class="id" type="var">e</span> -&gt; {<span class="id" type="var">N</span> : <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span>, <span class="id" type="var">N</span> &lt;= <span class="id" type="var">m</span> -&gt; <span class="id" type="abbreviation"><a class="idref" href="CoRN.reals.CMetricFields.html#MAbs">MAbs</a></span> (<span class="id" type="var">seq</span> <span class="id" type="var">m</span>[-]<span class="id" type="var">lim</span>) [&lt;=] <span class="id" type="var">e</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="is_MCauchyCompl">is_MCauchyCompl</a></span> (<span class="id" type="var">lim</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#MCauchySeq">MCauchySeq</a></span> -&gt; <span class="id" type="var">F</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">s</span> : <span class="id" type="record"><a class="idref" href="CoRN.reals.CMetricFields.html#MCauchySeq">MCauchySeq</a></span>), <span class="id" type="definition"><a class="idref" href="CoRN.reals.CMetricFields.html#MseqLimit">MseqLimit</a></span> <span class="id" type="var">s</span> (<span class="id" type="var">lim</span> <span class="id" type="var">s</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.reals.CMetricFields.html#CMetric_Field_Cauchy">CMetric_Field_Cauchy</a></span>.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

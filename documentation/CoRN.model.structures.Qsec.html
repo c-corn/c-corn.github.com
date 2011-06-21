@@ -1,0 +1,422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.structures.Qsec</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab51"></a><h1 class="section"><span class="inlinecode"><span class="id" type="var">Q</span></span></h1>
+
+<a name="lab52"></a><h2 class="section">About <span class="inlinecode"><span class="id" type="var">Q</span></span></h2>
+
+We define the structure of rational numbers as follows. First of all,
+it consists of the set of rational numbers, defined as the set of
+pairs &lang;a,n&rang; with <span class="inlinecode"><span class="id" type="var">a</span>:Z</span> and
+<span class="inlinecode"><span class="id" type="var">n</span>:positive</span>. Intuitively, &lang;a,n&rang;
+represents the rational number <span class="inlinecode"><span class="id" type="var">a</span>[/]<span class="id" type="var">n</span></span>. Then there is the equality on
+<span class="inlinecode"><span class="id" type="var">Q</span></span>: &lang;a,m&rang;=&lang;b,n&rang; iff <span class="inlinecode"><span class="id" type="var">an</span> [=] <span class="id" type="var">bm</span></span>. We
+also define apartness, order, addition, multiplication, opposite,
+inverse an de constants 0 and 1.  
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Q">Q</a></span>.<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qap">Qap</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) := ~(Qeq <span class="id" type="var">x</span> <span class="id" type="var">y</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> 0<sub>Q</sub> := <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qmake">Qmake</a></span> 0 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> 1<sub>Q</sub> := <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qmake">Qmake</a></span> 1 1.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Qinv">Qinv</a></span> (<span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">x_</span> : ~(Qeq <span class="id" type="var">x</span> 0<sub>Q</sub>)) := <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qinv">Qinv</a></span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.model.structures.Qsec.html#Q">Q</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "/=" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qsec.html#Qap">Qap</a></span> (<span class="id" type="var">no</span> <span class="id" type="var">associativity</span>, <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 70) : <span class="id" type="var">Q_scope</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab53"></a><h3 class="section">Constants</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> 2<sub>Q</sub> := <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qmake">Qmake</a></span> 2%positive 1%positive.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> 4<sub>Q</sub> := <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qmake">Qmake</a></span> 4%positive 1%positive.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab54"></a><h3 class="section">Equality</h3>
+
+Here we prove that <span class="inlinecode">1<sub>Q</sub></span> is <i>not equal</i> to <span class="inlinecode">0<sub>Q</sub></span>: 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="ONEQ_neq_ZEROQ">ONEQ_neq_ZEROQ</a></span> : ~ (1<sub>Q</sub>==QZERO).<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="refl_Qeq">refl_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> :Q, <span class="id" type="var">x</span>==x.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="sym_Qeq">sym_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>==y) -&gt; <span class="id" type="var">y</span>==x.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="trans_Qeq">trans_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>==y) -&gt; (<span class="id" type="var">y</span>==z) -&gt; <span class="id" type="var">x</span>==z.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ The equality is decidable: 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="dec_Qeq">dec_Qeq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, {<span class="id" type="var">x</span>==y} + {~ (<span class="id" type="var">x</span>==y)}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab55"></a><h3 class="section">Apartness</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Q_non_zero">Q_non_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>/=QZERO) -&gt; <span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qnum">Qnum</a></span> <span class="id" type="var">x</span> &lt;&gt; 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Q_irreflexive0">ap_Q_irreflexive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, ~ (<span class="id" type="var">x</span>/=x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Q_symmetric0">ap_Q_symmetric0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>/=y) -&gt; <span class="id" type="var">y</span>/=x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Q_cotransitive0">ap_Q_cotransitive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>/=y) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>/=z) <span class="id" type="var">or</span> (<span class="id" type="var">z</span>/=y).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_Q_tight0">ap_Q_tight0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, ~ (<span class="id" type="var">x</span>/=y) &lt;-&gt; <span class="id" type="var">x</span>==y.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab56"></a><h3 class="section">Addition</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qplus_simpl">Qplus_simpl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;(<span class="id" type="var">n</span>==m) -&gt; (<span class="id" type="var">p</span>==q) -&gt; <span class="id" type="var">n</span>+p==m+q.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+ Addition is associative:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qplus_assoc">Qplus_assoc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+(y+z)==(x+y)+z.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ <span class="inlinecode">0<sub>Q</sub></span> as the neutral element for addition:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="QZERO_right">QZERO_right</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+QZERO==x.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ Commutativity of addition:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qplus_sym">Qplus_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+y==y+x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qplus_strext0">Qplus_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;(<span class="id" type="var">x1</span>+y1/=x2+y2) -&gt; (<span class="id" type="var">x1</span>/=x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>/=y2).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZEROQ_as_rht_unit0">ZEROQ_as_rht_unit0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+QZERO==x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZEROQ_as_lft_unit0">ZEROQ_as_lft_unit0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, 0<sub>Q</sub>+x==x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qplus_is_commut0">Qplus_is_commut0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+y==y+x.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab57"></a><h3 class="section">Opposite</h3>
+
+ <span class="inlinecode">-</span> is a well defined unary operation: 
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qopp_simpl">Qopp_simpl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>==y) -&gt; - <span class="id" type="var">x</span>==- <span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ The group equation for <span class="inlinecode">-</span>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qplus_inverse_r">Qplus_inverse_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">q</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">q</span>+-q==QZERO.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab58"></a><h3 class="section">Multiplication</h3>
+
+Next we shall prove the properties of multiplication. First we prove
+that <span class="inlinecode">*</span> is well-defined
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_simpl">Qmult_simpl</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;(<span class="id" type="var">n</span>==m) -&gt; (<span class="id" type="var">p</span>==q) -&gt; <span class="id" type="var">n</span>*p==m*q.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ and it is associative:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_assoc">Qmult_assoc</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">p</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">n</span>*(m*p)==(n*m)*p.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ <span class="inlinecode">1<sub>Q</sub></span> is the neutral element for multiplication:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_n_1">Qmult_n_1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">n</span>*QONE==n.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ The commutativity for <span class="inlinecode">*</span>:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_sym">Qmult_sym</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>*y==y*x.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_plus_distr_r">Qmult_plus_distr_r</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;<span class="id" type="var">x</span>*(y+z)==x*y+x*z.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+ And a property of multiplication which says if <span class="inlinecode"><span class="id" type="var">x</span> [~=] <span class="id" type="var">Zero</span></span> and <span class="inlinecode"><span class="id" type="var">xy</span> [=] <span class="id" type="var">Zero</span></span> then <span class="inlinecode"><span class="id" type="var">y</span> [=] <span class="id" type="var">Zero</span></span>:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Qmult_eq">Qmult_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;~ (<span class="id" type="var">x</span>==QZERO) -&gt; (<span class="id" type="var">x</span>*y==QZERO) -&gt; <span class="id" type="var">y</span>==QZERO.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qmult_strext0">Qmult_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;(<span class="id" type="var">x1</span>*y1/=x2*y2) -&gt; (<span class="id" type="var">x1</span>/=x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>/=y2).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nonZero">nonZero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, ~(x==QZERO) -&gt;<br/>
+&nbsp;&nbsp;~(Qmake (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qnum">Qnum</a></span> <span class="id" type="var">x</span>) * <span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qden">Qden</a></span> <span class="id" type="var">x</span>)%Z (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Zsec.html#posZ">posZ</a></span> (<span class="id" type="projection"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Qnum">Qnum</a></span> <span class="id" type="var">x</span>))==QZERO).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab59"></a><h3 class="section">Inverse</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qinv_strext">Qinv_strext</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) <span class="id" type="var">x_</span> <span class="id" type="var">y_</span>,<br/>
+&nbsp;~(Qinv <span class="id" type="var">x</span> <span class="id" type="var">x_</span>==Qinv <span class="id" type="var">y</span> <span class="id" type="var">y_</span>) -&gt; ~(x==y).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qinv_is_inv">Qinv_is_inv</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>) (<span class="id" type="var">Hx</span> : <span class="id" type="var">x</span>/=QZERO),<br/>
+&nbsp;(<span class="id" type="var">x</span>*Qinv <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>==QONE) /\ (<span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Qsec.html#Qinv">Qinv</a></span> <span class="id" type="var">x</span> <span class="id" type="var">Hx</span>*x==QONE).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab60"></a><h3 class="section">Less-than</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_wd_right">Qlt_wd_right</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>&lt;y) -&gt; (<span class="id" type="var">y</span>==z) -&gt; <span class="id" type="var">x</span>&lt;z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_wd_left">Qlt_wd_left</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>&lt;y) -&gt; (<span class="id" type="var">x</span>==z) -&gt; <span class="id" type="var">z</span>&lt;y.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_eq_gt_dec">Qlt_eq_gt_dec</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">q1</span> <span class="id" type="var">q2</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, ((<span class="id" type="var">q1</span>&lt;q2) <span class="id" type="var">or</span> (<span class="id" type="var">q1</span>==q2)) <span class="id" type="var">or</span> (<span class="id" type="var">q2</span>&lt;q1).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_is_transitive_unfolded">Qlt_is_transitive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>&lt;y) -&gt; (<span class="id" type="var">y</span>&lt;z) -&gt; <span class="id" type="var">x</span>&lt;z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_strext_unfolded">Qlt_strext_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;(<span class="id" type="var">x1</span>&lt;y1) -&gt; (<span class="id" type="var">x2</span>&lt;y2) <span class="id" type="var">or</span> (<span class="id" type="var">x1</span>/=x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>/=y2).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_is_irreflexive_unfolded">Qlt_is_irreflexive_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, ~ (<span class="id" type="var">x</span>&lt;x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_is_antisymmetric_unfolded">Qlt_is_antisymmetric_unfolded</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>&lt;y) -&gt; ~ (<span class="id" type="var">y</span>&lt;x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qplus_resp_Qlt">Qplus_resp_Qlt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (<span class="id" type="var">x</span>&lt;y) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span>+z&lt;y+z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qmult_resp_pos_Qlt">Qmult_resp_pos_Qlt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, (0<sub>Q</sub>&lt;x) -&gt; (0<sub>Q</sub>&lt;y) -&gt; 0<sub>Q</sub>&lt;x*y.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qlt_gives_apartness">Qlt_gives_apartness</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, &hArr; (<span class="id" type="var">x</span>/=y) ((<span class="id" type="var">x</span>&lt;y) <span class="id" type="var">or</span> (<span class="id" type="var">y</span>&lt;x)).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab61"></a><h3 class="section">Miscellaneous</h3>
+
+We consider the injection <span class="inlinecode"><span class="id" type="var">inject_Z</span></span> from <span class="inlinecode"><b>Z</b></span> to <span class="inlinecode"><span class="id" type="var">Q</span></span> as a coercion.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Coercion</span> <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#inject_Z">inject_Z</a></span> : <b>Z</b> &gt;-&gt; <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="injz_plus">injz_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#inject_Z">inject_Z</a></span> (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>):Q)==(inject_Z <span class="id" type="var">m</span>:Q)+inject_Z <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="injZ_One">injZ_One</a></span> : (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#inject_Z">inject_Z</a></span> 1:Q)==QONE.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We can always find a natural Qnumber that is bigger than a given rational
+Qnumber.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Q_is_archemaedian0">Q_is_archemaedian0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>,<br/>
+&nbsp;{<span class="id" type="var">n</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span> | <span class="id" type="var">x</span>&lt;Qmake <span class="id" type="var">n</span> 1%positive}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qle_is_not_lt">Qle_is_not_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span> &lt;= <span class="id" type="var">y</span> &lt;-&gt; ~ <span class="id" type="var">y</span> &lt; <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qge_is_not_gt">Qge_is_not_gt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span> &gt;= <span class="id" type="var">y</span> &lt;-&gt; <span class="id" type="var">y</span> &lt;= <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Qgt_is_lt">Qgt_is_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="record"><a class="idref" href="http://coq.inria.fr/library/Coq.QArith.QArith_base.html#Q">Q</a></span>, <span class="id" type="var">x</span> &gt; <span class="id" type="var">y</span> <span class="id" type="var">IFF</span>  <span class="id" type="var">y</span> &lt; <span class="id" type="var">x</span>.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

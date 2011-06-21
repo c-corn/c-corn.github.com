@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.model.structures.Nsec</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab18"></a><h1 class="section"><span class="inlinecode"><b>N</b></span></h1>
+
+<a name="lab19"></a><h2 class="section">About <span class="inlinecode"><b>N</b></span></h2>
+
+
+<br/><br/>
+We prove some basic lemmas of the natural numbers.
+
+<br/><br/>
+A variant of <span class="inlinecode">0<span class="id" type="var">_S</span></span> from the standard library
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="S_O">S_O</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> &lt;&gt; 0.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab20"></a><h3 class="section">Apartness</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="ap_nat">ap_nat</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>N</b>) := ~ (<span class="id" type="var">x</span> = <span class="id" type="var">y</span> :&gt;nat).<br/>
+
+<br/>
+<span class="id" type="keyword">Infix</span> "{#N}" := <span class="id" type="definition"><a class="idref" href="CoRN.model.structures.Nsec.html#ap_nat">ap_nat</a></span> (<span class="id" type="var">no</span> <span class="id" type="var">associativity</span>, <span class="id" type="tactic">at</span> <span class="id" type="var">level</span> 90).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_nat_irreflexive0">ap_nat_irreflexive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>N</b>, ~ (<span class="id" type="var">x</span>{#N}x).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_nat_symmetric0">ap_nat_symmetric0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>N</b>, (<span class="id" type="var">x</span>{#N}y) -&gt; <span class="id" type="var">y</span>{#N}x.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_nat_cotransitive0">ap_nat_cotransitive0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>N</b>,<br/>
+&nbsp;(<span class="id" type="var">x</span>{#N}y) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>N</b>, (<span class="id" type="var">x</span>{#N}z) <span class="id" type="var">or</span> (<span class="id" type="var">z</span>{#N}y).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ap_nat_tight0">ap_nat_tight0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>N</b>, ~ (<span class="id" type="var">x</span>{#N}y) &lt;-&gt; <span class="id" type="var">x</span> = <span class="id" type="var">y</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab21"></a><h3 class="section">Addition</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_strext0">plus_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <b>N</b>,<br/>
+&nbsp;(<span class="id" type="var">x1</span>+y1{#N}x2+y2) -&gt; (<span class="id" type="var">x1</span>{#N}x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>{#N}y2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+There is no inverse for addition, because every candidate will fail for 2
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="no_inverse0">no_inverse0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">f</span> : <b>N</b> -&gt; <b>N</b>, ~ ((2+f 2) = 0 /\ (<span class="id" type="var">f</span> 2+2) = 0).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab22"></a><h3 class="section">Multiplication</h3>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mult_strext0">mult_strext0</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x1</span> <span class="id" type="var">x2</span> <span class="id" type="var">y1</span> <span class="id" type="var">y2</span> : <b>N</b>,<br/>
+&nbsp;(<span class="id" type="var">x1</span>*y1{#N}x2*y2) -&gt; (<span class="id" type="var">x1</span>{#N}x2) <span class="id" type="var">or</span> (<span class="id" type="var">y1</span>{#N}y2).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab23"></a><h3 class="section">Decidability</h3>
+
+
+</div>
+<div class="code">
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_or">not_or</a></span>:(forall (<span class="id" type="var">p</span> <span class="id" type="var">q</span>:nat), (<span class="id" type="var">p</span>&lt;&gt;q)-&gt; <span class="id" type="var">p</span>&lt;q <span class="id" type="var">or</span> <span class="id" type="var">q</span>&lt;p):CProp.<br/>
+
+<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>

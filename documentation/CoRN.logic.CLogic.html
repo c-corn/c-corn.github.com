@@ -1,0 +1,972 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+<link href="coqdoc.css" rel="stylesheet" type="text/css"/>
+<title>CoRN.logic.CLogic</title>
+</head>
+
+<body>
+
+<div id="page">
+
+<div id="header">
+</div>
+
+<div id="main">
+
+<div class="code">
+
+<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab8"></a><h1 class="section">Extending the Coq Logic</h1>
+
+Because notions of apartness and order have computational meaning, we
+will have to define logical connectives in <span class="inlinecode"><span class="id" type="keyword">Type</span></span>.  In order to
+keep a syntactic distinction between types of terms, we define <span class="inlinecode"><span class="id" type="var">CProp</span></span>
+as an alias for <span class="inlinecode"><span class="id" type="keyword">Type</span></span>, to be used as type of (computationally meaningful)
+propositions.
+
+<br/><br/>
+Falsehood and negation will typically not be needed in <span class="inlinecode"><span class="id" type="var">CProp</span></span>, as
+they are used to refer to negative statements, which carry no
+computational meaning.  Therefore, we will simply define a negation
+operator from <span class="inlinecode"><span class="id" type="keyword">Type</span></span> to <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> .
+
+<br/><br/>
+Conjunction, disjunction and existential quantification will have to come in
+multiple varieties.  For conjunction, we will need four operators of type
+<span class="inlinecode"><span class="id" type="var">s1</span>-&gt;s2-&gt;s3</span>, where <span class="inlinecode"><span class="id" type="var">s3</span></span> is <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> if both <span class="inlinecode"><span class="id" type="var">s1</span></span> and <span class="inlinecode"><span class="id" type="var">s2</span></span>
+are <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> and <span class="inlinecode"><span class="id" type="var">CProp</span></span> otherwise.
+We here take advantage of the inclusion of <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> in <span class="inlinecode"><span class="id" type="keyword">Type</span></span>.
+
+<br/><br/>
+Disjunction is slightly different, as it will always return a value in <span class="inlinecode"><span class="id" type="var">CProp</span></span> even
+if both arguments are propositions.  This is because in general
+it may be computationally important to know which of the two branches of the
+disjunction actually holds.
+
+<br/><br/>
+Existential quantification will similarly always return a value in <span class="inlinecode"><span class="id" type="var">CProp</span></span>.
+
+<br/><br/>
+
+<ul>
+<li> <span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued conjuction will be denoted as <span class="inlinecode"><span class="id" type="var">and</span></span>;
+
+</li>
+<li> <span class="inlinecode"><span class="id" type="var">Crop</span></span>-valued conjuction will be denoted as <span class="inlinecode"><span class="id" type="var">or</span></span>;
+
+</li>
+<li> Existential quantification will be written as <span class="inlinecode">{<span class="id" type="var">x</span>:A &amp; <span class="id" type="var">B</span>}</span> or <span class="inlinecode">{<span class="id" type="var">x</span>:A | <span class="id" type="var">B</span>}</span>,
+according to whether <span class="inlinecode"><span class="id" type="var">B</span></span> is respectively of type <span class="inlinecode"><span class="id" type="var">CProp</span></span> or <span class="inlinecode"><span class="id" type="keyword">Prop</span></span>.
+
+</li>
+</ul>
+
+<br/><br/>
+In a few specific situations we do need truth, false and negation in <span class="inlinecode"><span class="id" type="var">CProp</span></span>,
+so we will also introduce them; this should be a temporary option.
+
+<br/><br/>
+Finally, for other formulae that might occur in our <span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued
+propositions, such as <span class="inlinecode">(<span class="id" type="var">le</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>)</span>, we have to introduce a <span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued
+version.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="CProp">CProp</a></span> := <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Basics">Basics</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab9"></a><h2 class="section">Basics</h2>
+
+Here we treat conversion from <span class="inlinecode"><span class="id" type="keyword">Prop</span></span> to <span class="inlinecode"><span class="id" type="var">CProp</span></span> and vice versa,
+and some basic connectives in <span class="inlinecode"><span class="id" type="var">CProp</span></span>.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> ~ (<span class="id" type="var">P</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) := <span class="id" type="var">P</span> -&gt; &perp;.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="CAnd">CAnd</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="constructor"><a name="CAnd_intro">CAnd_intro</a></span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CAnd_proj1">CAnd_proj1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>, (<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) -&gt; <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CAnd_proj2">CAnd_proj2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>, (<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>) -&gt; <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> &hArr; (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> (<span class="id" type="var">A</span> -&gt; <span class="id" type="var">B</span>) (<span class="id" type="var">B</span> -&gt; <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> &perp; : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="CTrue">CTrue</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="constructor"><a name="CI">CI</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CTrue">CTrue</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="sumT">sumT</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="keyword">Type</span>) : <span class="id" type="keyword">Type</span> :=<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="inlT">inlT</a></span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sumT">sumT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="inrT">inrT</a></span> : <span class="id" type="var">B</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sumT">sumT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proj1_sigT">proj1_sigT</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">e</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#sigT">sigT</a></span> <span class="id" type="var">P</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#existT">existT</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">a</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proj2_sigT">proj2_sigT</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">e</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#sigT">sigT</a></span> <span class="id" type="var">P</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">return</span> (<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#proj1_sigT">proj1_sigT</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">e</span>)) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#existT">existT</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> =&gt; <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="sig2T">sig2T</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="constructor"><a name="exist2T">exist2T</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, <span class="id" type="var">P</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="var">Q</span> <span class="id" type="var">x</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sig2T">sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proj1_sig2T">proj1_sig2T</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">e</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sig2T">sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.logic.CLogic.html#exist2T">exist2T</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> =&gt; <span class="id" type="var">a</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proj2a_sig2T">proj2a_sig2T</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">e</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sig2T">sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">return</span> (<span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#proj1_sig2T">proj1_sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">e</span>)) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.logic.CLogic.html#exist2T">exist2T</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> =&gt; <span class="id" type="var">b</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="proj2b_sig2T">proj2b_sig2T</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">e</span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#sig2T">sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">e</span> <span class="id" type="keyword">return</span> (<span class="id" type="var">Q</span> (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#proj1_sig2T">proj1_sig2T</a></span> <span class="id" type="var">A</span> <span class="id" type="var">P</span> <span class="id" type="var">Q</span> <span class="id" type="var">e</span>)) <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="CoRN.logic.CLogic.html#exist2T">exist2T</a></span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">c</span> =&gt; <span class="id" type="var">c</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="toCProp">toCProp</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Prop</span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="constructor"><a name="ts">ts</a></span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#toCProp">toCProp</a></span> <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="toCProp_e">toCProp_e</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> : <span class="id" type="keyword">Prop</span>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#toCProp">toCProp</a></span> <span class="id" type="var">A</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <span class="id" type="keyword">Prop</span>, (<span class="id" type="var">A</span> -&gt; <span class="id" type="var">P</span>) -&gt; <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> ~ (<span class="id" type="var">A</span> : <span class="id" type="keyword">Prop</span>): <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="var">A</span> -&gt; &perp;.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ccontrapos'">Ccontrapos'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> &phi; : <span class="id" type="keyword">Prop</span>, (<span class="id" type="var">A</span> -&gt; &phi;) -&gt; ~ &phi; -&gt; ~ <span class="id" type="var">A</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="COr">COr</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Cinleft">Cinleft</a></span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#COr">COr</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Cinright">Cinright</a></span> : <span class="id" type="var">B</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#COr">COr</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Basics">Basics</a></span>.<br/>
+
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+<br/><br/>
+Some lemmas to make it possible to use <span class="inlinecode"><span class="id" type="var">Step</span></span> 
+when reasoning with bi-implications. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_left">Iff_left</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), <br/>
+&nbsp;&nbsp;(<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>) -&gt; (<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">C</span>) -&gt; (<span class="id" type="var">C</span> <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_right">Iff_right</a></span>: <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), <br/>
+&nbsp;&nbsp;(<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>) -&gt; (<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">C</span>) -&gt; (<span class="id" type="var">B</span> <span class="id" type="var">IFF</span> <span class="id" type="var">C</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_refl">Iff_refl</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), (<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_sym">Iff_sym</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),(A <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>) -&gt; (<span class="id" type="var">B</span> <span class="id" type="var">IFF</span> <span class="id" type="var">A</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_trans">Iff_trans</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>), <br/>
+&nbsp;&nbsp;(<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> (<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>) (<span class="id" type="var">B</span> <span class="id" type="var">IFF</span> <span class="id" type="var">C</span>)) -&gt; (<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">C</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Iff_imp_imp">Iff_imp_imp</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;&nbsp;(<span class="id" type="var">A</span> <span class="id" type="var">IFF</span> <span class="id" type="var">B</span>) -&gt; (<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#CAnd">CAnd</a></span> (<span class="id" type="var">A</span>-&gt;B) (<span class="id" type="var">B</span>-&gt;A)).<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_r_cor_rect">not_r_cor_rect</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">S</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">l</span> <span class="id" type="var">r</span> : <span class="id" type="var">S</span>), <br/>
+&nbsp;&nbsp;~ <span class="id" type="var">B</span> -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="var">A</span> <span class="id" type="var">or</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#COr_rect">COr_rect</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> : <span class="id" type="var">A</span> <span class="id" type="var">or</span> <span class="id" type="var">B</span> =&gt; <span class="id" type="var">S</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span> =&gt; <span class="id" type="var">l</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">B</span> =&gt; <span class="id" type="var">r</span>) <span class="id" type="var">H</span> = <span class="id" type="var">l</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_l_cor_rect">not_l_cor_rect</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">S</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">l</span> <span class="id" type="var">r</span> : <span class="id" type="var">S</span>), <br/>
+&nbsp;&nbsp;~ <span class="id" type="var">A</span> -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="var">A</span> <span class="id" type="var">or</span> <span class="id" type="var">B</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#COr_rect">COr_rect</a></span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> : <span class="id" type="var">A</span> <span class="id" type="var">or</span> <span class="id" type="var">B</span> =&gt; <span class="id" type="var">S</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span> =&gt; <span class="id" type="var">l</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">B</span> =&gt; <span class="id" type="var">r</span>) <span class="id" type="var">H</span> = <span class="id" type="var">r</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Choice">Choice</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Choice.P">P</a></span> : <b>N</b> -&gt; <b>N</b> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="choice">choice</a></span> : <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, {<span class="id" type="var">m</span> : <b>N</b> | <span class="id" type="var">P</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>}) -&gt; <br/>
+&nbsp;&nbsp;{<span class="id" type="var">d</span> : <b>N</b> -&gt; <b>N</b> | <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> (<span class="id" type="var">d</span> <span class="id" type="var">n</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Choice">Choice</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Logical_Remarks">Logical_Remarks</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We prove a few logical results which are helpful to have as lemmas
+when <span class="inlinecode"><span class="id" type="var">A</span></span>, <span class="inlinecode"><span class="id" type="var">B</span></span> and <span class="inlinecode"><span class="id" type="var">C</span></span> are non trivial.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CNot_Not_or">CNot_Not_or</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">C</span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="var">A</span> -&gt; ~ <span class="id" type="var">C</span>) -&gt; (<span class="id" type="var">B</span> -&gt; ~ <span class="id" type="var">C</span>) -&gt; ~ ~ (<span class="id" type="var">A</span> <span class="id" type="var">or</span> <span class="id" type="var">B</span>) -&gt; ~ <span class="id" type="var">C</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CdeMorgan_ex_all">CdeMorgan_ex_all</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">P</span> : <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) (<span class="id" type="var">X</span> : <span class="id" type="keyword">Type</span>),<br/>
+&nbsp;(<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Specif.html#sigT">sigT</a></span> <span class="id" type="var">P</span> -&gt; <span class="id" type="var">X</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <span class="id" type="var">A</span>, <span class="id" type="var">P</span> <span class="id" type="var">a</span> -&gt; <span class="id" type="var">X</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Logical_Remarks">Logical_Remarks</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="CRelation_Definition">CRelation_Definition</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab10"></a><h2 class="section"><span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued Relations</h2>
+
+Similar to Relations.v in Coq's standard library.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">A</span>:Type</span> and <span class="inlinecode"><span class="id" type="var">R</span>:Crelation</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CRelation_Definition.A">A</a></span> : <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Crelation">Crelation</a></span> := <span class="id" type="var">A</span> -&gt; <span class="id" type="var">A</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="CRelation_Definition.R">R</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Crelation">Crelation</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Creflexive">Creflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Ctransitive">Ctransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Csymmetric">Csymmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Record</span> <span class="id" type="record"><a name="Cequivalence">Cequivalence</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <br/>
+&nbsp;&nbsp;{<span class="id" type="projection"><a name="Cequiv_refl">Cequiv_refl</a></span>  : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Creflexive">Creflexive</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="Cequiv_symm">Cequiv_symm</a></span>  : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Csymmetric">Csymmetric</a></span>;<br/>
+&nbsp;&nbsp;&nbsp;<span class="id" type="projection"><a name="Cequiv_trans">Cequiv_trans</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Ctransitive">Ctransitive</a></span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Cdecidable">Cdecidable</a></span> (<span class="id" type="var">P</span>:CProp):= <span class="id" type="var">P</span> <span class="id" type="var">or</span> ~ <span class="id" type="var">P</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#CRelation_Definition">CRelation_Definition</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <span class="id" type="definition"><a name="member">member</a></span> (<span class="id" type="var">A</span> : <span class="id" type="keyword">Type</span>) (<span class="id" type="var">n</span> : <span class="id" type="var">A</span>) (<span class="id" type="var">l</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">A</span>) {<span class="id" type="keyword">struct</span> <span class="id" type="var">l</span>} : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <span class="id" type="var">l</span> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#nil">nil</a></span> =&gt; &perp;<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#cons">cons</a></span> <span class="id" type="var">y</span> <span class="id" type="var">m</span> =&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#member">member</a></span> <span class="id" type="var">A</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> <span class="id" type="var">or</span> <span class="id" type="var">y</span> = <span class="id" type="var">n</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="TRelation_Definition">TRelation_Definition</a></span>.<br/>
+</div>
+
+<div class="doc">
+<a name="lab11"></a><h2 class="section"><span class="inlinecode"><span class="id" type="keyword">Prop</span></span>-valued Relations</h2>
+
+Analogous.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">A</span>:Type</span> and <span class="inlinecode"><span class="id" type="var">R</span>:Trelation</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="TRelation_Definition.A">A</a></span> : <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Trelation">Trelation</a></span> := <span class="id" type="var">A</span> -&gt; <span class="id" type="var">A</span> -&gt; <span class="id" type="keyword">Prop</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="TRelation_Definition.R">R</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Trelation">Trelation</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Treflexive">Treflexive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Ttransitive">Ttransitive</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">y</span> <span class="id" type="var">z</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Tsymmetric">Tsymmetric</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <span class="id" type="var">A</span>, <span class="id" type="var">R</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; <span class="id" type="var">R</span> <span class="id" type="var">y</span> <span class="id" type="var">x</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Tequiv">Tequiv</a></span> : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Treflexive">Treflexive</a></span> <span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Ttransitive">Ttransitive</a></span> <span class="id" type="var">and</span> <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Tsymmetric">Tsymmetric</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#TRelation_Definition">TRelation_Definition</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="le_odd">le_odd</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab12"></a><h2 class="section">The relation <span class="inlinecode"><span class="id" type="var">le</span></span>, <span class="inlinecode"><span class="id" type="var">lt</span></span>, <span class="inlinecode"><span class="id" type="var">odd</span></span> and <span class="inlinecode"><span class="id" type="var">even</span></span> in <span class="inlinecode"><span class="id" type="var">CProp</span></span></h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="Cle">Cle</a></span> (<span class="id" type="var">n</span> : <b>N</b>) : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Cle_n">Cle_n</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> <span class="id" type="var">n</span><br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Cle_S">Cle_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Cnat_double_ind">Cnat_double_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">R</span> : <b>N</b> -&gt; <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">R</span> 0 <span class="id" type="var">n</span>) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">R</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) 0) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="var">R</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">R</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="var">R</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="my_Cle_ind">my_Cle_ind</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;<span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>)) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n0</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> <span class="id" type="var">n0</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n0</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Cle_n_S">Cle_n_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">n</span> <span class="id" type="var">m</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>) (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="toCle">toCle</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cle_to">Cle_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Clt">Clt</a></span> (<span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>) : <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> := <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span>) <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="toCProp_lt">toCProp_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Clt">Clt</a></span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Clt_to">Clt_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Clt">Clt</a></span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cle_le_S_eq">Cle_le_S_eq</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> <span class="id" type="var">q</span> : <b>N</b>, <span class="id" type="var">p</span> &lt;= <span class="id" type="var">q</span> -&gt; {<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">p</span> &lt;= <span class="id" type="var">q</span>} + {<span class="id" type="var">p</span> = <span class="id" type="var">q</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cnat_total_order">Cnat_total_order</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;&gt; <span class="id" type="var">n</span> -&gt; {<span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span>} + {<span class="id" type="var">n</span> &lt; <span class="id" type="var">m</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Inductive</span> <span class="id" type="inductive"><a name="Codd">Codd</a></span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="constructor"><a name="Codd_S">Codd_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>)<br/>
+<span class="id" type="keyword">with</span> <span class="id" type="inductive"><a name="Ceven">Ceven</a></span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span> :=<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Ceven_O">Ceven_O</a></span> : <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> 0<br/>
+&nbsp;&nbsp;| <span class="id" type="constructor"><a name="Ceven_S">Ceven_S</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Codd_even_to">Codd_even_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, (<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>) /\ (<span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Codd_to">Codd_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Ceven_to">Ceven_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="to_Codd_even">to_Codd_even</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> <span class="id" type="var">n</span>) <span class="id" type="var">and</span> (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="to_Codd">to_Codd</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Codd">Codd</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="to_Ceven">to_Ceven</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Ceven">Ceven</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#le_odd">le_odd</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Misc">Misc</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab13"></a><h2 class="section">Miscellaneous</h2>
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CZ_exh">CZ_exh</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>Z</b>, {<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="var">z</span> = <span class="id" type="var">n</span>} <span class="id" type="var">or</span> {<span class="id" type="var">n</span> : <b>N</b> | <span class="id" type="var">z</span> = (- <span class="id" type="var">n</span>)%Z}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cnats_Z_ind">Cnats_Z_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>Z</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">P</span> <span class="id" type="var">n</span>) -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">P</span> (- <span class="id" type="var">n</span>)%Z) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>Z</b>, <span class="id" type="var">P</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cdiff_Z_ind">Cdiff_Z_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>Z</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">P</span> (<span class="id" type="var">m</span> - <span class="id" type="var">n</span>)%Z) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>Z</b>, <span class="id" type="var">P</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Cpred_succ_Z_ind">Cpred_succ_Z_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>Z</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;<span class="id" type="var">P</span> 0%Z -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">n</span> + 1)%Z) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>Z</b>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="var">n</span> - 1)%Z) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">z</span> : <b>Z</b>, <span class="id" type="var">P</span> <span class="id" type="var">z</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_r_sum_rec">not_r_sum_rec</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">S</span> : <span class="id" type="keyword">Set</span>) (<span class="id" type="var">l</span> <span class="id" type="var">r</span> : <span class="id" type="var">S</span>), ~ <span class="id" type="var">B</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="var">A</span> + <span class="id" type="var">B</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#sum_rec">sum_rec</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> : <span class="id" type="var">A</span> + <span class="id" type="var">B</span> =&gt; <span class="id" type="var">S</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span> =&gt; <span class="id" type="var">l</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">B</span> =&gt; <span class="id" type="var">r</span>) <span class="id" type="var">H</span> = <span class="id" type="var">l</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_l_sum_rec">not_l_sum_rec</a></span> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">A</span> <span class="id" type="var">B</span> <span class="id" type="var">S</span> : <span class="id" type="keyword">Set</span>) (<span class="id" type="var">l</span> <span class="id" type="var">r</span> : <span class="id" type="var">S</span>), ~ <span class="id" type="var">A</span> -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">H</span> : <span class="id" type="var">A</span> + <span class="id" type="var">B</span>,<br/>
+&nbsp;<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#sum_rec">sum_rec</a></span> (<span class="id" type="keyword">fun</span> <span class="id" type="var">_</span> : <span class="id" type="var">A</span> + <span class="id" type="var">B</span> =&gt; <span class="id" type="var">S</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">A</span> =&gt; <span class="id" type="var">l</span>) (<span class="id" type="keyword">fun</span> <span class="id" type="var">x</span> : <span class="id" type="var">B</span> =&gt; <span class="id" type="var">r</span>) <span class="id" type="var">H</span> = <span class="id" type="var">r</span>.<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+
+Let <span class="inlinecode"><span class="id" type="var">M</span>:Type</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Misc.M">M</a></span> : <span class="id" type="keyword">Type</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="member_app">member_app</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">x</span> : <span class="id" type="var">M</span>) (<span class="id" type="var">l</span> <span class="id" type="var">k</span> : (<span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#list">list</a></span> <span class="id" type="var">M</span>)), <br/>
+&nbsp;&nbsp;(&hArr; (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#member">member</a></span> <span class="id" type="var">x</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Lists.List.html#app">app</a></span> <span class="id" type="var">k</span> <span class="id" type="var">l</span>)) <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;((<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">k</span>) <span class="id" type="var">or</span> (<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#member">member</a></span> <span class="id" type="var">x</span> <span class="id" type="var">l</span>))).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Misc">Misc</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab14"></a><h2 class="section">Results about the natural numbers</h2>
+
+
+<br/><br/>
+We now define a class of predicates on a finite subset of natural
+numbers that will be important throughout all our work.  Essentially,
+these are simply setoid predicates, but for clarity we will never
+write them in that form but we will single out the preservation of the
+setoid equality.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_less_n_pred">nat_less_n_pred</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">P</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span> : <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span>) (<span class="id" type="var">H'</span> : <span class="id" type="var">j</span> &lt; <span class="id" type="var">n</span>), <span class="id" type="var">P</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">j</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="nat_less_n_pred'">nat_less_n_pred'</a></span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">P</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>) :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> = <span class="id" type="var">j</span> -&gt; <span class="id" type="keyword">forall</span> (<span class="id" type="var">H</span> : <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span>) (<span class="id" type="var">H'</span> : <span class="id" type="var">j</span> &lt;= <span class="id" type="var">n</span>), <span class="id" type="var">P</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">j</span> <span class="id" type="var">H'</span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Odd_and_Even">Odd_and_Even</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For our work we will many times need to distinguish cases between even or odd numbers.
+We begin by proving that this case distinction is decidable.
+Next, we prove the usual results about sums of even and odd numbers:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="even_plus_n_n">even_plus_n_n</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> (<span class="id" type="var">n</span> + <span class="id" type="var">n</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="even_or_odd_plus">even_or_odd_plus</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">k</span> : <b>N</b>, {<span class="id" type="var">j</span> : <b>N</b> &amp;  {<span class="id" type="var">k</span> = <span class="id" type="var">j</span> + <span class="id" type="var">j</span>} + {<span class="id" type="var">k</span> = <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="var">j</span> + <span class="id" type="var">j</span>)}}.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, we prove that an arbitrary natural number can be written in some canonical way.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="even_or_odd_plus_gt">even_or_odd_plus_gt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>,<br/>
+&nbsp;<span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; {<span class="id" type="var">k</span> : <b>N</b> &amp;  {<span class="id" type="var">j</span> = <span class="id" type="var">i</span> + (<span class="id" type="var">k</span> + <span class="id" type="var">k</span>)} + {<span class="id" type="var">j</span> = <span class="id" type="var">i</span> + <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="var">k</span> + <span class="id" type="var">k</span>)}}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Odd_and_Even">Odd_and_Even</a></span>.<br/>
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Natural_Numbers">Natural_Numbers</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab15"></a><h2 class="section">Algebraic Properties</h2>
+
+
+<br/><br/>
+We now present a series of trivial things proved with <span class="inlinecode"><span class="id" type="var">Omega</span></span> that are
+stated as lemmas to make proofs shorter and to aid in auxiliary
+definitions.  Giving a name to these results allows us to use them in
+definitions keeping conciseness.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Clt_le_weak">Clt_le_weak</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Clt">Clt</a></span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> -&gt; <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lt_5">lt_5</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lt_8">lt_8</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="pred_lt">pred_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="var">m</span> &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lt_10">lt_10</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;0 &lt; <span class="id" type="var">i</span> -&gt; <span class="id" type="var">i</span> &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>) -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">i</span> &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">m</span> + <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="lt_pred'">lt_pred'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, 0 &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="var">m</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">m</span> &lt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="le_1">le_1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, <span class="id" type="inductive"><a class="idref" href="CoRN.logic.CLogic.html#Cle">Cle</a></span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="le_2">le_2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">i</span> &lt;= <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_eq_one_imp_eq_zero">plus_eq_one_imp_eq_zero</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>,<br/>
+&nbsp;<span class="id" type="var">m</span> + <span class="id" type="var">n</span> &lt;= 1 -&gt; {<span class="id" type="var">m</span> = 0} + {<span class="id" type="var">n</span> = 0}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="not_not_lt">not_not_lt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, ~ ~ <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="plus_pred_pred_plus">plus_pred_pred_plus</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> <span class="id" type="var">k</span>, <br/>
+&nbsp;&nbsp;<span class="id" type="var">k</span> &lt;= <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">i</span> + <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">j</span> -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="var">k</span> &lt;= <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> (<span class="id" type="var">i</span> + <span class="id" type="var">j</span>).<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+We now prove some properties of functions on the natural numbers.
+
+<br/><br/>
+ Let <span class="inlinecode"><span class="id" type="var">H</span>:nat-&gt;nat</span>.
+
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Variable</span> <span class="id" type="variable"><a name="Natural_Numbers.h">h</a></span> : <b>N</b> -&gt; <b>N</b>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+First we characterize monotonicity by a local condition: if <span class="inlinecode"><span class="id" type="var">h</span>(<span class="id" type="var">n</span>) &lt; <span class="id" type="var">h</span>(<span class="id" type="var">n</span>+1)</span>
+for every natural number <span class="inlinecode"><span class="id" type="var">n</span></span> then <span class="inlinecode"><span class="id" type="var">h</span></span> is monotonous.  An analogous result
+holds for weak monotonicity.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_local_mon_imp_mon">nat_local_mon_imp_mon</a></span> : <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">h</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">h</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_local_mon_imp_mon_le">nat_local_mon_imp_mon_le</a></span> : <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt;= <span class="id" type="var">h</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt;= <span class="id" type="var">h</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+A strictly increasing function is injective: 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_mon_imp_inj">nat_mon_imp_inj</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">h</span> <span class="id" type="var">j</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">h</span> <span class="id" type="var">i</span> = <span class="id" type="var">h</span> <span class="id" type="var">j</span> -&gt; <span class="id" type="var">i</span> = <span class="id" type="var">j</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+And (not completely trivial) a function that preserves <span class="inlinecode"><span class="id" type="var">lt</span></span> also preserves <span class="inlinecode"><span class="id" type="var">le</span></span>. 
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_mon_imp_mon'">nat_mon_imp_mon'</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">h</span> <span class="id" type="var">j</span>) -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span> : <b>N</b>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt;= <span class="id" type="var">h</span> <span class="id" type="var">j</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The last lemmas in this section state that a monotonous function in the
+ natural numbers completely covers the natural numbers, that is, for every
+natural number <span class="inlinecode"><span class="id" type="var">n</span></span> there is an <span class="inlinecode"><span class="id" type="var">i</span></span> such that <span class="inlinecode"><span class="id" type="var">h</span>(<span class="id" type="var">i</span>) &lt;= <span class="id" type="var">n</span>&lt;(n+1) &lt;= <span class="id" type="var">h</span>(<span class="id" type="var">i</span>+1)</span>.
+These are useful for integration.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="mon_fun_covers">mon_fun_covers</a></span> : (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">j</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">h</span> <span class="id" type="var">j</span>) -&gt; <span class="id" type="var">h</span> 0 = 0 -&gt;<br/>
+&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, {<span class="id" type="var">k</span> : <b>N</b> | <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> &lt;= <span class="id" type="var">h</span> <span class="id" type="var">k</span>} -&gt; {<span class="id" type="var">i</span> : <b>N</b> | <span class="id" type="var">h</span> <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> | <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span> &lt;= <span class="id" type="var">h</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="weird_mon_covers">weird_mon_covers</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span> (<span class="id" type="var">f</span> : <b>N</b> -&gt; <b>N</b>), (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">f</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">f</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>)) -&gt;<br/>
+&nbsp;{<span class="id" type="var">m</span> : <b>N</b> | <span class="id" type="var">n</span> &lt;= <span class="id" type="var">f</span> <span class="id" type="var">m</span> | <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="var">f</span> <span class="id" type="var">i</span> &lt; <span class="id" type="var">n</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Natural_Numbers">Natural_Numbers</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Useful for the Fundamental Theorem of Algebra.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="kseq_prop">kseq_prop</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">k</span> : <b>N</b> -&gt; <b>N</b>) (<span class="id" type="var">n</span> : <b>N</b>),<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, 1 &lt;= <span class="id" type="var">k</span> <span class="id" type="var">i</span> /\ <span class="id" type="var">k</span> <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span>) -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> : <b>N</b>, <span class="id" type="var">k</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">i</span>) &lt;= <span class="id" type="var">k</span> <span class="id" type="var">i</span>) -&gt;<br/>
+&nbsp;&nbsp;{<span class="id" type="var">j</span> : <b>N</b> | <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">j</span> &lt; 2 * <span class="id" type="var">n</span> /\ <span class="id" type="var">k</span> <span class="id" type="var">j</span> = <span class="id" type="var">k</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">j</span>) /\ <span class="id" type="var">k</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">j</span>) = <span class="id" type="var">k</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">j</span>))}.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Predicates_to_CProp">Predicates_to_CProp</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab16"></a><h2 class="section">Logical Properties</h2>
+
+
+<br/><br/>
+This section contains lemmas that aid in logical reasoning with
+natural numbers.  First, we present some principles of induction, both
+for <span class="inlinecode"><span class="id" type="var">CProp</span></span>- and <span class="inlinecode"><span class="id" type="keyword">Prop</span></span>-valued predicates.  We begin by presenting the
+results for <span class="inlinecode"><span class="id" type="var">CProp</span></span>-valued predicates:
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="even_induction">even_induction</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> 0 -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))) -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="odd_induction">odd_induction</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> 1 -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))) -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="four_induction">four_induction</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> 0 -&gt; <span class="id" type="var">P</span> 1 -&gt; <span class="id" type="var">P</span> 2 -&gt; <span class="id" type="var">P</span> 3 -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))))) -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_complete_double_induction">nat_complete_double_induction</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>,<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">m'</span> <span class="id" type="var">n'</span>, <span class="id" type="var">m'</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="var">n'</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">m'</span> <span class="id" type="var">n'</span>) -&gt; <span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="odd_double_ind">odd_double_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>) -&gt;<br/>
+&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Div2.html#double">double</a></span> <span class="id" type="var">n</span>)) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, 0 &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+For subsetoid predicates in the natural numbers we can eliminate
+disjunction (and existential quantification) as follows.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="finite_or_elim">finite_or_elim</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#nat_less_n_pred'">nat_less_n_pred'</a></span> <span class="id" type="var">P</span> -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#nat_less_n_pred'">nat_less_n_pred'</a></span> <span class="id" type="var">Q</span> -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">P</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">or</span> <span class="id" type="var">Q</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>) -&gt;<br/>
+&nbsp;&nbsp;{<span class="id" type="var">m</span> : <b>N</b> | {<span class="id" type="var">Hm</span> : <span class="id" type="var">m</span> &lt;= <span class="id" type="var">n</span> | <span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">Hm</span>}} <span class="id" type="var">or</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">Q</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="str_finite_or_elim">str_finite_or_elim</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> (<span class="id" type="var">n</span> : <b>N</b>) (<span class="id" type="var">P</span> <span class="id" type="var">Q</span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">i</span>, <span class="id" type="var">i</span> &lt;= <span class="id" type="var">n</span> -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#CProp">CProp</a></span>),<br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#nat_less_n_pred'">nat_less_n_pred'</a></span> <span class="id" type="var">P</span> -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#nat_less_n_pred'">nat_less_n_pred'</a></span> <span class="id" type="var">Q</span> -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">P</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span> <span class="id" type="var">or</span> <span class="id" type="var">Q</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>) -&gt;<br/>
+&nbsp;&nbsp;{<span class="id" type="var">j</span> : <b>N</b> | {<span class="id" type="var">Hj</span> : <span class="id" type="var">j</span> &lt;= <span class="id" type="var">n</span> | <span class="id" type="var">P</span> <span class="id" type="var">j</span> <span class="id" type="var">Hj</span> <span class="id" type="var">and</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">j'</span> <span class="id" type="var">Hj'</span>, <span class="id" type="var">j'</span> &lt; <span class="id" type="var">j</span> -&gt; <span class="id" type="var">Q</span> <span class="id" type="var">j'</span> <span class="id" type="var">Hj'</span>)}}<br/>
+&nbsp;&nbsp;<span class="id" type="var">or</span> (<span class="id" type="keyword">forall</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>, <span class="id" type="var">Q</span> <span class="id" type="var">i</span> <span class="id" type="var">H</span>).<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Predicates_to_CProp">Predicates_to_CProp</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Section</span> <span class="id" type="section"><a name="Predicates_to_Prop">Predicates_to_Prop</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+Finally, analogous results for <span class="inlinecode"><span class="id" type="keyword">Prop</span></span>-valued predicates are presented for
+completeness's sake.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="even_ind">even_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="keyword">Prop</span>,<br/>
+&nbsp;<span class="id" type="var">P</span> 0 -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#even">even</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="odd_ind">odd_ind</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="keyword">Prop</span>,<br/>
+&nbsp;<span class="id" type="var">P</span> 1 -&gt; (<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Arith.Even.html#odd">odd</a></span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_complete_double_ind">nat_complete_double_ind</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <b>N</b> -&gt; <span class="id" type="keyword">Prop</span>,<br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, (<span class="id" type="keyword">forall</span> <span class="id" type="var">m'</span> <span class="id" type="var">n'</span>, <span class="id" type="var">m'</span> &lt; <span class="id" type="var">m</span> -&gt; <span class="id" type="var">n'</span> &lt; <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> <span class="id" type="var">m'</span> <span class="id" type="var">n'</span>) -&gt; <span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>) -&gt; <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="four_ind">four_ind</a></span> : <br/>
+&nbsp;&nbsp;<span class="id" type="keyword">forall</span> <span class="id" type="var">P</span> : <b>N</b> -&gt; <span class="id" type="keyword">Prop</span>,<br/>
+&nbsp;&nbsp;<span class="id" type="var">P</span> 0 -&gt; <span class="id" type="var">P</span> 1 -&gt; <span class="id" type="var">P</span> 2 -&gt; <span class="id" type="var">P</span> 3 -&gt; <br/>
+&nbsp;&nbsp;(<span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">n</span> -&gt; <span class="id" type="var">P</span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">n</span>))))) -&gt; <span class="id" type="keyword">forall</span> <span class="id" type="var">n</span>, <span class="id" type="var">P</span> <span class="id" type="var">n</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">End</span> <span class="id" type="section"><a class="idref" href="CoRN.logic.CLogic.html#Predicates_to_Prop">Predicates_to_Prop</a></span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab17"></a><h2 class="section">Integers</h2>
+
+
+<br/><br/>
+Similar results for integers.
+
+</div>
+<div class="code">
+
+<br/>
+
+<br/>
+<span class="id" type="keyword">Definition</span> <span class="id" type="definition"><a name="Zlts">Zlts</a></span> (<span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>) := <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Logic.html#eq">eq</a></span> (<span class="id" type="var">A</span>:=Datatypes.<span class="id" type="var">comparison</span>) (<span class="id" type="var">x</span> ?= <span class="id" type="var">y</span>)%Z <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#Lt">Datatypes.Lt</a></span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="toCProp_Zlt">toCProp_Zlt</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>, (<span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span>)%Z -&gt; <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Zlts">Zlts</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="CZlt_to">CZlt_to</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="CoRN.logic.CLogic.html#Zlts">Zlts</a></span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> -&gt; (<span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zsgn_1">Zsgn_1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, {<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> = 0%Z} + {<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> = 1%Z} + {<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> = (-1)%Z}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zsgn_2">Zsgn_2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> = 0%Z -&gt; <span class="id" type="var">x</span> = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zsgn_3">Zsgn_3</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="var">x</span> &lt;&gt; 0%Z -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">x</span> &lt;&gt; 0%Z.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+The following have unusual names, in line with the series of lemmata in
+fast_integers.v.
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZL4'">ZL4'</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">y</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>, {<span class="id" type="var">h</span> : <b>N</b> | <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">y</span> = <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> <span class="id" type="var">h</span>}.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="ZL9">ZL9</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">p</span> : <span class="id" type="inductive"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#positive">positive</a></span>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Z_of_nat">Z_of_nat</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.NArith.BinPos.html#nat_of_P">nat_of_P</a></span> <span class="id" type="var">p</span>) = <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zpos">Zpos</a></span> <span class="id" type="var">p</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Zsgn_4">Zsgn_4</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> : <b>Z</b>, <span class="id" type="var">a</span> = (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">a</span> * <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zabs_nat">Zabs_nat</a></span> <span class="id" type="var">a</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="Zsgn_5">Zsgn_5</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">b</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>, <span class="id" type="var">x</span> &lt;&gt; 0%Z -&gt; <span class="id" type="var">y</span> &lt;&gt; 0%Z -&gt;<br/>
+&nbsp;(<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">a</span> * <span class="id" type="var">x</span>)%Z = (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">b</span> * <span class="id" type="var">y</span>)%Z -&gt; (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">a</span> * <span class="id" type="var">y</span>)%Z = (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zsgn">Zsgn</a></span> <span class="id" type="var">b</span> * <span class="id" type="var">x</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="nat_nat_pos">nat_nat_pos</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>N</b>, ((<span class="id" type="var">m</span> + 1) * (<span class="id" type="var">n</span> + 1) &gt; 0)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <span class="id" type="lemma"><a name="S_predn">S_predn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> : <b>N</b>, <span class="id" type="var">m</span> &lt;&gt; 0 -&gt; <span class="id" type="constructor"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Datatypes.html#S">S</a></span> (<span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.Init.Peano.html#pred">pred</a></span> <span class="id" type="var">m</span>) = <span class="id" type="var">m</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="absolu_1">absolu_1</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zabs_nat">Zabs_nat</a></span> <span class="id" type="var">x</span> = 0 -&gt; <span class="id" type="var">x</span> = 0%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="absolu_2">absolu_2</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">x</span> : <b>Z</b>, <span class="id" type="var">x</span> &lt;&gt; 0%Z -&gt; <span class="id" type="definition"><a class="idref" href="http://coq.inria.fr/library/Coq.ZArith.BinInt.html#Zabs_nat">Zabs_nat</a></span> <span class="id" type="var">x</span> &lt;&gt; 0.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zgt_mult_conv_absorb_l">Zgt_mult_conv_absorb_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">a</span> &lt; 0)%Z -&gt; (<span class="id" type="var">a</span> * <span class="id" type="var">x</span> &gt; <span class="id" type="var">a</span> * <span class="id" type="var">y</span>)%Z -&gt; (<span class="id" type="var">x</span> &lt; <span class="id" type="var">y</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zgt_mult_reg_absorb_l">Zgt_mult_reg_absorb_l</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">a</span> <span class="id" type="var">x</span> <span class="id" type="var">y</span> : <b>Z</b>,<br/>
+&nbsp;(<span class="id" type="var">a</span> &gt; 0)%Z -&gt; (<span class="id" type="var">a</span> * <span class="id" type="var">x</span> &gt; <span class="id" type="var">a</span> * <span class="id" type="var">y</span>)%Z -&gt; (<span class="id" type="var">x</span> &gt; <span class="id" type="var">y</span>)%Z.<br/>
+
+<br/>
+<span class="id" type="keyword">Lemma</span> <span class="id" type="lemma"><a name="Zmult_Sm_Sn">Zmult_Sm_Sn</a></span> : <span class="id" type="keyword">forall</span> <span class="id" type="var">m</span> <span class="id" type="var">n</span> : <b>Z</b>,<br/>
+&nbsp;((<span class="id" type="var">m</span> + 1) * (<span class="id" type="var">n</span> + 1))%Z = (<span class="id" type="var">m</span> * <span class="id" type="var">n</span> + (<span class="id" type="var">m</span> + <span class="id" type="var">n</span>) + 1)%Z.<br/>
+</div>
+</div>
+
+<div id="footer">
+<hr/><a href="index.html">Index</a><hr/>This page has been generated by <a href="http://coq.inria.fr">coqdoc</a>
+</div>
+
+</div>
+
+</body>
+</html>
